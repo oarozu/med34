@@ -1,10 +1,22 @@
 <?php
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
 class AppKernel extends Kernel
 {
+    public function __construct($environment, $debug)
+    {
+        parent::__construct($environment, $debug);
+        if ($this->debug) {
+            ini_set('display_errors', 1);
+            error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
+        } else {
+            ini_set('display_errors', 0);
+        }
+    }
+
     public function registerBundles()
     {
         $bundles = array(
@@ -23,7 +35,6 @@ class AppKernel extends Kernel
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
-            $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
         }
 
         return $bundles;
@@ -40,19 +51,10 @@ class AppKernel extends Kernel
     }
     public function getCacheDir()
     {
-        return dirname(__DIR__).'/app/cache/'.$this->getEnvironment();
+        return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
     }
     public function getLogDir()
     {
-        return dirname(__DIR__).'/app/logs';
-    }
-    public function init()
-    {
-        if ($this->debug) {
-            ini_set('display_errors', 1);
-            error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
-        } else {
-            ini_set('display_errors', 0);
-        }
+        return dirname(__DIR__).'/var/logs';
     }
 }

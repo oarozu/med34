@@ -30,7 +30,7 @@ class ProgramaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        if ($this->container->get('security.context')->isGranted('ROLE_SECA')){
+        if ($this->container->get('security.authorization_checker')->isGranted('ROLE_SECA')){
         $session = $this->getRequest()->getSession();
  
         $entities = $em->getRepository('AdminUnadBundle:Programa')->getPorEscuela($session->get('escuelaid'));
@@ -38,7 +38,6 @@ class ProgramaController extends Controller
         else{
        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findBy(array('id' => $this->container->getParameter('appmed.periodo')));   
        $entities = $em->getRepository('AdminUnadBundle:ProgramaPeriodo')->findBy(array('periodo' => $periodo));     
-       // $entities = $em->getRepository('AdminUnadBundle:Programa')->ordenEscuela();
         }
         return array(
             'entities' => $entities,

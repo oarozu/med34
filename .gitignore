@@ -1,9 +1,9 @@
 /web/archivos/
 /web/bundles/
-/app/bootstrap.php.cache
-/app/cache/*
+/var/bootstrap.php.cache
+/var/cache/*
+/var/logs/*
 /app/config/parameters.yml
-/app/logs/*
 /build/
 /vendor/
 /bin/
@@ -12,14 +12,11 @@
 /nbproject/*
 /nbproject/private/
 /.vscode/
+/.idea/
 
 app/config/deploy.rb
 
-app/logs/prod.log
-
-app/logs/dev.log
-
-web/uploads/20161/formatoplang/formatoplang-160001.xlsx
+web/uploads/*
 
 nbproject/private/private.xml
 

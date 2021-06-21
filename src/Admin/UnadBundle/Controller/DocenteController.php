@@ -251,9 +251,9 @@ class DocenteController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function inicioAction() {
+    public function inicioAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $entity = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         $instrumentos = $em->getRepository('AdminMedBundle:Instrumento')->findAll();
 
