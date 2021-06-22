@@ -2,9 +2,13 @@
 
 namespace Admin\UnadBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Admin\UnadBundle\Entity\Escuela;
 
 class ProgramaType extends AbstractType
 {
@@ -15,25 +19,24 @@ class ProgramaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre', 'text',  array(
+            ->add('nombre', TextType::class,  array(
             'attr' => array('size' => '100')
             ))
-            ->add('nivel', 'choice', array(
-            'empty_value' => ' ',    
+            ->add('nivel', ChoiceType::class, array(
+            'placeholder' => ' ',
             'choices'   => array('Diplomado' => 'Diplomado', 'Especialización' => 'Especialización','Licenciatura' => 'Licenciatura', 'Maestria' => 'Maestria','Profesional' => 'Profesional','Tecnología' => 'Tecnología','Unidad'=>'Unidad'),
             'required'  => true,
-            ))    
-                
-            ->add('escuela', 'entity', array(
-                 'empty_value' => ' ', 
-                 'class' =>  'AdminUnadBundle:Escuela',
-                'property' => 'nombre',
-                 ))        
-            ->add("lider", "text", array(
+            ))
+            ->add('escuela', EntityType::class, array(
+                'placeholder' => ' ',
+                'class' =>  'AdminUnadBundle:Escuela',
+                'choice_label' => 'nombre',
+            ))
+            ->add("lider", TextType::class, array(
              "mapped" => false,
             'required'  => true,
             'attr' => array('readonly' => 'readonly')    
-                ))
+            ))
         ;
     }
     

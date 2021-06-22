@@ -93,12 +93,12 @@ class CursoController extends Controller
     */
     private function createCreateForm(Curso $entity)
     {
-        $form = $this->createForm(new CursoType(), $entity, array(
+        $form = $this->createForm(CursoType::class, $entity, array(
             'action' => $this->generateUrl('curso_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -143,7 +143,7 @@ class CursoController extends Controller
         
         
        $datos = new \Admin\MedBundle\Entity\OfertaDatos();     
-       $Form = $this->createForm(new ofertaType(), $datos, array(
+       $Form = $this->createForm(ofertaType::class, $datos, array(
             'action' => $this->generateUrl('oferta_curso', array('id' => $entity->getId())),
             'method' => 'GET',
         ));
@@ -171,7 +171,7 @@ class CursoController extends Controller
             throw $this->createNotFoundException('Unable to find Oferta entity.');
         }
        $cedula = new Cedula();     
-       $Form = $this->createForm(new CedulaType(), $cedula, array(
+       $Form = $this->createForm(CedulaType::class, $cedula, array(
             'action' => $this->generateUrl('oferta_tutor', array('id' => $entity->getId())),
             'method' => 'GET',
         ));  
@@ -194,7 +194,7 @@ class CursoController extends Controller
       $curso = $em->getRepository('AdminUnadBundle:Curso')->find($id);
       $oferta = new Oferta();
       $datos = new \Admin\MedBundle\Entity\OfertaDatos();
-      $Form = $this->createForm(new ofertaType(), $datos);
+      $Form = $this->createForm(ofertaType::class, $datos);
       $Form->bind($request);
       $numeroced = $Form->get('cedula')->getData();
       
@@ -245,7 +245,7 @@ class CursoController extends Controller
       $em = $this->getDoctrine()->getManager();
       $oferta = $em->getRepository('AdminMedBundle:Oferta')->find($id);
       $cedula = new Cedula();
-      $Form = $this->createForm(new CedulaType(), $cedula);
+      $Form = $this->createForm(CedulaType::class, $cedula);
       $Form->bind($request);
       $numeroced = $Form->get('cedula')->getData();
       $session = $this->getRequest()->getSession();
@@ -304,7 +304,7 @@ class CursoController extends Controller
         }
         
         $cedula = new Cedula();     
-       $Form = $this->createForm(new CedulaType(), $cedula, array(
+       $Form = $this->createForm(CedulaType::class, $cedula, array(
             'action' => $this->generateUrl('oferta_tutor', array('id' => $id)),
             'method' => 'GET',
         ));
@@ -356,7 +356,7 @@ class CursoController extends Controller
             throw $this->createNotFoundException('NO se encontro oferta');
         }
        $cedula = new Cedula();     
-       $Form = $this->createForm(new CedulaType(), $cedula, array(
+       $Form = $this->createForm(CedulaType::class, $cedula, array(
             'action' => $this->generateUrl('oferta_update', array('id' => $entity->getId())),
             'method' => 'GET',
         ));  
@@ -374,11 +374,11 @@ class CursoController extends Controller
     */
     private function createEditForm(Curso $entity)
     {
-        $form = $this->createForm(new CursoType(), $entity, array(
+        $form = $this->createForm(CursoType::class, $entity, array(
             'action' => $this->generateUrl('curso_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
         return $form;
     }
     
@@ -399,7 +399,7 @@ class CursoController extends Controller
             'method' => 'PUT',
              )
              );
-        $form->add('submit', 'submit', array('label' => 'Actualizar'));
+        $form->add('submit', SubmitType::class, array('label' => 'Actualizar'));
         return $form;
     
    }
@@ -415,7 +415,7 @@ class CursoController extends Controller
       $em = $this->getDoctrine()->getManager();
       $oferta = $em->getRepository('AdminMedBundle:Oferta')->find($id);
       $cedula = new Cedula();     
-      $Form = $this->createForm(new CedulaType(), $cedula, array(
+      $Form = $this->createForm(CedulaType::class, $cedula, array(
       'action' => $this->generateUrl('oferta_update', array('id' => $id)),
       'method' => 'GET',
       )); 
@@ -510,7 +510,7 @@ class CursoController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('curso_delete', array('id' => $id)))
             ->setMethod('DELETE')
-  //          ->add('submit', 'submit', array('label' => 'Delete'))
+  //          ->add('submit', SubmitType::class, array('label' => 'Delete'))
             ->getForm()
         ;
     }

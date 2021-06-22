@@ -9,7 +9,7 @@
             {%endif%}
             </div>			<!-- /modal-header -->
             <div class="modal-body">          
-   <form action="{{ path('productividad_add', { 'id' : docenteid } ) }}" method="POST"  {{ form_enctype(form) }}>
+   <form action="{{ path('productividad_add', { 'id' : docenteid } ) }}" method="POST"  {{ form_start(form) }}>
    <table class="table table-bordered table-striped hidden-mobile">
    <input type="hidden" name="_method" value="POST" />
      {{ form_errors(form) }}

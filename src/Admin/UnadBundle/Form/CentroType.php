@@ -2,34 +2,41 @@
 
 namespace Admin\UnadBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+use Admin\UnadBundle\Entity\Zona;
+use Admin\UnadBundle\Entity\Departamento;
+
 
 class CentroType extends AbstractType
 {
         /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     */
+         * @param FormBuilderInterface $builder
+         * @param array $option
+         * @var Zona $zona
+         */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('nombre')
-            ->add('tipo', 'choice', array(
-            'empty_value' => ' ',    
+            ->add('tipo', ChoiceType::class, array(
+            'placeholder' => ' ',
             'choices'   => array('CEAD' => 'CEAD', 'CCAV' => 'CCAV','UDR' => 'UDR'),
             'required'  => true,
             ))
-            ->add('zona', 'entity', array(
-                 'class' =>  'AdminUnadBundle:Zona',
-                'property' => 'nombre',
-                 ))
-            ->add('departamento', 'entity', array(
-                 'class' =>  'AdminUnadBundle:Departamento',
-                 'empty_value' => ' ',
-                 'property' => 'nombre',
-                 ))        
+            ->add('zona', EntityType::class, array(
+                'class' =>  'AdminUnadBundle:Zona',
+                'choice_label' => 'nombre',
+            ))
+            ->add('departamento', EntityType::class, array(
+                'class' =>  'AdminUnadBundle:Departamento',
+                'placeholder' => ' ',
+                'choice_label' => 'nombre',
+            ))
         ;
     }
     

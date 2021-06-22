@@ -22,7 +22,7 @@
                 <div class="content">
                 <div class="widget-body no-padding" id="bodyform">
         <div class="form_error"></div>
-        <form id="checkout-form" class="smart-form" novalidate="novalidate" method="POST" action="{{path('formatoplang_create', { 'id': entity.id })}}" {{ form_enctype(form) }}>
+        <form id="checkout-form" class="smart-form" novalidate="novalidate" method="POST" action="{{path('formatoplang_create', { 'id': entity.id })}}" {{ form_start(form) }}>
         <input type="hidden" name="_method" value="POST" />
         <div id="form_body">
     <fieldset>

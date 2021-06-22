@@ -2,7 +2,7 @@
 
 {% block body -%}
     <table class="table table-bordered table-striped" style="width: 550px">
-    <form action="{{ path('admon_user_buscarpor')}}" method="post" {{ form_enctype(buscar_form) }}>
+    <form action="{{ path('admon_user_buscarpor')}}" method="post" {{ form_start(buscar_form) }}>
         <input type="hidden" name="_method" value="PUT" /> 
         <tr>
             <td>Usuarios ({{entities|length}}) </td>    

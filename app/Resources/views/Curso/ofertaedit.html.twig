@@ -3,7 +3,7 @@
 {% block body -%}
 
  <h4>Modificar Director</h4><br>
-<form action="{{ path('oferta_update', { 'id': entity.id }) }}" method="get" {{ form_enctype(cedula_form) }}>
+<form action="{{ path('oferta_update', { 'id': entity.id }) }}" method="get" {{ form_start(cedula_form) }}>
     {{ form_label(cedula_form.cedula,  'Cédula del Tutor') }}
     {{ form_widget(cedula_form.cedula) }}    
     {{ form_errors(cedula_form.cedula) }}

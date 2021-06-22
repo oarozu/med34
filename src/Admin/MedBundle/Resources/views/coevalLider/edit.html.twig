@@ -8,7 +8,7 @@
         <td><a href="javascript:popUp('{{path('plangestion_autoeval', { 'id': entity.programa.lider.id })}}')">Ver Autoevaluación...</a></td>
     </tr>
 </table>
-     <form action="{{ path('coevallider_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+     <form action="{{ path('coevallider_update', { 'id': entity.id }) }}" method="post" {{ form_start(edit_form) }}>
   <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
      <input type="hidden" name="_method" value="PUT" />
      {{ form_errors(edit_form) }}

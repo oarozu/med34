@@ -4,7 +4,7 @@
 		            <h4 class="modal-title">Autoevaluación</h4>
 		            </div>			<!-- /modal-header -->
 		            <div class="modal-body">          
-		   <form  action="{{ path('actividadplang_borrarreg', { 'id': entity.id }) }}" method="post" {{ form_enctype(borrar_form) }}>
+		   <form  action="{{ path('actividadplang_borrarreg', { 'id': entity.id }) }}" method="post" {{ form_start(borrar_form) }}>
 		   <table class="table table-bordered table-striped hidden-mobile">
 		   <input type="hidden" name="_method" value="DELETE" />
                    <tr>

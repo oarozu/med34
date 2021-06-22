@@ -2,12 +2,12 @@
 
 namespace Admin\UnadBundle\Controller;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Admin\UnadBundle\Entity\Programa;
 use Admin\UnadBundle\Form\ProgramaType;
 
@@ -105,7 +105,7 @@ class ProgramaController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -225,12 +225,12 @@ class ProgramaController extends Controller
     */
     private function createEditForm(Programa $entity)
     {
-        $form = $this->createForm(new ProgramaType(), $entity, array(
+        $form = $this->createForm(ProgramaType::class, $entity, array(
             'action' => $this->generateUrl('programa_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
 
         return $form;
     }
@@ -311,7 +311,7 @@ class ProgramaController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('programa_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', SubmitType::class, array('label' => 'Delete'))
             ->getForm()
         ;
     }
