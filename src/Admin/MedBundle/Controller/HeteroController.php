@@ -39,13 +39,12 @@ class HeteroController extends Controller {
      * @Method("GET")
      * @Template("Hetero/promescuela.html.twig")
      */
-    public function heteroescuelasAction() {
+    public function heteroescuelasAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $datas = $em->getRepository('AdminMedBundle:Heteroeval')->getPromedioescuela();
 
-       //$session = new Session();
-       //$session->migrate();
-       $session = $this->getRequest()->getSession();
+
+       $session = $request->getSession();
        
        $miescuela = $session->get('escuelaid');
        

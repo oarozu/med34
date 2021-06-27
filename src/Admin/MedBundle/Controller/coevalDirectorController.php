@@ -26,10 +26,10 @@ class coevalDirectorController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $lider = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid')); 
         $programas = $em->getRepository('AdminUnadBundle:Programa')->findBy(array('lider' => $lider));
         $cursos = $em->getRepository('AdminUnadBundle:Curso')->findBy(array('programa' => $programas));

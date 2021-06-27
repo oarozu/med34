@@ -25,10 +25,10 @@ class PlanmejoramientoController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $entities = $em->getRepository('AdminMedBundle:Planmejoramiento')->findBy(array('autorid' => $session->get('escuelaid')));
         
         return array(
@@ -107,10 +107,10 @@ class PlanmejoramientoController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function addAction()
+    public function addAction(Request $request)
     {
        $em = $this->getDoctrine()->getManager();
-       $session = $this->getRequest()->getSession();
+       $session = $request->getSession();
        $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
        $entities = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('escuela' => $escuela));
         return array(
@@ -125,11 +125,11 @@ class PlanmejoramientoController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function agregarAction($id)
+    public function agregarAction(Request $request, $id)
     {
        $planm = new Planmejoramiento();
        $em = $this->getDoctrine()->getManager();
-       $session = $this->getRequest()->getSession();
+       $session = $request->getSession();
        $docente = $em->getRepository('AdminUnadBundle:Docente')->findOneBy(array('id' => $id));
        $planm->setDocente($docente);
        $planm->setFechaCreacion(new \DateTime());
@@ -177,8 +177,7 @@ class PlanmejoramientoController extends Controller
     public function docAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        //$session = $this->getRequest()->getSession();
-        //$docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
+
         $entity = $em->getRepository('AdminMedBundle:Planmejoramiento')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Planmejoramiento entity.');

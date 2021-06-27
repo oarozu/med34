@@ -125,9 +125,9 @@ class DocenteController extends Controller {
      * @Method("GET")
      * @Template("AdminUnadBundle:Docente:porescueladc.html.twig")
      */
-    public function indexDcescuelaAction() {
+    public function indexDcescuelaAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $id = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
         $escuela = $em->getRepository('AdminUnadBundle:Escuela')->findOneBy(array('id' => $id));
         $entities = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('escuela' => $escuela, 'vinculacion' => 'DC', 'periodo' => $this->container->getParameter('appmed.periodo')));
@@ -146,9 +146,9 @@ class DocenteController extends Controller {
      * @Method("GET")
      * @Template("AdminUnadBundle:Docente:porzonadc.html.twig")
      */
-    public function indexZonaAction() {
+    public function indexZonaAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $zona = $em->getRepository('AdminUnadBundle:Zona')->find($session->get('zonaid'));
         $centro = $em->getRepository('AdminUnadBundle:Centro')->findBy(array('zona' => $zona));
         $entities = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('centro' => $centro, 'vinculacion' => 'DC', 'periodo' => $this->container->getParameter('appmed.periodo')));
@@ -425,9 +425,9 @@ class DocenteController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function coevaltutorAction() {
+    public function coevaltutorAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $entity = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         $ofertas = $em->getRepository('AdminMedBundle:Oferta')->findBy(array('director' => $entity));
 
@@ -441,9 +441,9 @@ class DocenteController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function coevaldirectorAction() {
+    public function coevaldirectorAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $entity = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
 
         return array(

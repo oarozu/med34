@@ -72,11 +72,11 @@ class PlangestionController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function addAction()
+    public function addAction(Request $request)
     {
         $entity = new Plangestion();
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         if (!$docente) {
             throw $this->createNotFoundException('Docente no encontrado');
@@ -138,9 +138,9 @@ class PlangestionController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function confAction()
+    public function confAction(Request $request)
     {
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
         $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         $entity = $em->getRepository('AdminMedBundle:Plangestion')->findOneBy(array('docente' => $docente));
@@ -162,9 +162,9 @@ class PlangestionController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function crearAction()
+    public function crearAction(Request $request)
     {
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
         $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $this->container->getParameter('appmed.periodo')));
         $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
@@ -320,7 +320,7 @@ class PlangestionController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $entity = $em->getRepository('AdminMedBundle:Plangestion')->find($id);
         $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         if (!$entity) {
@@ -370,7 +370,7 @@ class PlangestionController extends Controller
     public function abrirRegistroAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $entity = $em->getRepository('AdminMedBundle:Plangestion')->find($id);
         $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         if (!$entity) {
@@ -493,10 +493,10 @@ class PlangestionController extends Controller
         ;
     }
 
-    public function addAvales()
+    public function addAvales(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         //agregar avalador Decano N
         $aval = new Avalplang();

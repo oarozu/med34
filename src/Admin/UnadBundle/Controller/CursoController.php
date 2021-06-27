@@ -249,7 +249,7 @@ class CursoController extends Controller
       $Form = $this->createForm(CedulaType::class, $cedula);
       $Form->bind($request);
       $numeroced = $Form->get('cedula')->getData();
-      $session = $this->getRequest()->getSession();
+      $session = $request->getSession();
       
       if($oferta->getDirector()->getId() != $session->get('docenteid') && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
       $this->get('session')->getFlashBag()->add('error', 'No permitido');          
@@ -522,13 +522,13 @@ class CursoController extends Controller
      * @Route("/tutor/{id}/del", name="tutor_delete")
      * @Method("GET")
      */
-    public function borrartutorAction($id)
+    public function borrartutorAction(Request $request, $id)
     {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('AdminMedBundle:Tutor')->find($id);
             $oferta = $entity->getOferta();
             $director = $oferta->getDirector();
-            $session = $this->getRequest()->getSession();
+            $session = $request->getSession();
             
             if($director->getId() == $session->get('docenteid') || $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
                 try{

@@ -24,9 +24,9 @@ class coevalParesController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function indexAction() {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         $terna = $em->getRepository('AdminUnadBundle:Terna')->findOneBy(array('docente' => $docente));
 
@@ -249,9 +249,9 @@ class coevalParesController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function crearAction() {
+    public function crearAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         $ternado = $em->getRepository('AdminUnadBundle:Terna')->findOneBy(array('docente' => $docente));
         $ternados = $em->getRepository('AdminUnadBundle:Terna')->findBy(array('escuela' => $ternado->getEscuela(), 'principal' => 1,'periodo' => $this->container->getParameter('appmed.periodo')));

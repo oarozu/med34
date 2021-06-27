@@ -145,10 +145,8 @@ class DofeController extends Controller {
      */
     public function cerrarAction( $id) {
         $em = $this->getDoctrine()->getManager();
-        //$session = $this->getRequest()->getSession();
         $entity = $em->getRepository('AdminMedBundle:RedDofe')->findOneBy(array('id' => $id));
-       // $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
-        
+
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Plangestion entity.');
         }

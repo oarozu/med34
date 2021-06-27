@@ -25,10 +25,10 @@ class redTutoresController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
        $em = $this->getDoctrine()->getManager();
-       $session = $this->getRequest()->getSession();
+       $session = $request->getSession();
         $entity = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         $tutorias = $em->getRepository('AdminMedBundle:Tutor')->findBy(array('docente' => $entity));
 

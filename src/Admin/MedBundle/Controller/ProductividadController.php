@@ -28,19 +28,16 @@ class ProductividadController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function newAction($tipo) {
+    public function newAction(Request $request, $tipo) {
         $entity = new Productividad();
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $docenteid = $session->get('docenteid');
         $user = $this->getUser()->getUsername();
-        //$proyectos = $em->getRepository('AdminMedBundle:Proyectoi')->findBy(array('user' => $user));
-        //$proyectos = $em->getRepository('AdminMedBundle:Proyectoi')->findByUsuario($user);
-   
+
         $plang = $em->getRepository('AdminMedBundle:Plangestion')->find($docenteid);
         $entity->setPlang($plang);
-        
-       
+
         $form = $this->createProdForm($entity, $user);
 
         return array(
@@ -70,12 +67,9 @@ class ProductividadController extends Controller {
      */
     public function newprojectAction() {
         $entity = new Proyectoi();
-       // $em = $this->getDoctrine()->getManager();
-       // $session = $this->getRequest()->getSession();
-        //docenteid = $session->get('docenteid');
+
         $user = $this->getUser();
         
-        //$plang = $em->getRepository('AdminMedBundle:Plangestion')->find($docenteid);
         $entity->setUser($user);
         
         $form = $this->createProyectForm($entity);

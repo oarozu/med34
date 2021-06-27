@@ -26,13 +26,13 @@ class ProgramaController extends Controller
      * @Method("GET")
      * @Template("Programa/index.html.twig")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
         if ($this->container->get('security.authorization_checker')->isGranted('ROLE_SECA')){
-        $session = $this->getRequest()->getSession();
- 
+        $session = $request->getSession();
+
         $entities = $em->getRepository('AdminUnadBundle:Programa')->getPorEscuela($session->get('escuelaid'));
         }
         else{
@@ -324,12 +324,10 @@ class ProgramaController extends Controller
      * @Method("GET")
      * @Template("Programa/addlider.html.twig")
      */
-    public function addliderAction()
+    public function addliderAction(Request $request)
     {
        $em = $this->getDoctrine()->getManager();
-//       $session = new Session();
-//       $session->migrate();
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
         $entities = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('escuela' => $escuela, 'periodo' => $this->container->getParameter('appmed.periodo')));
         return array(

@@ -352,11 +352,11 @@ class ActividadplangController extends Controller {
      * @Route("/{id}/delete", name="actividadplang_delete")
      * @Method("GET")
      */
-    public function deleteAction($id) {
+    public function deleteAction(Request $request, $id) {
 
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AdminMedBundle:Actividadplang')->find($id);
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         if ($docente->getPlangestion() == $entity->getPlang()) {
             $em->remove($entity);
@@ -377,7 +377,7 @@ class ActividadplangController extends Controller {
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $session = $this->getRequest()->getSession();
+            $session = $request->getSession();
             $entity = $em->getRepository('AdminMedBundle:Actividadplang')->find($id);
             $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
 

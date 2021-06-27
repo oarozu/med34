@@ -65,9 +65,9 @@ class AvalplangController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function porescuelaAction() {
+    public function porescuelaAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
 
           if (!$this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
         $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
