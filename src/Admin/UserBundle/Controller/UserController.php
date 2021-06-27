@@ -397,7 +397,7 @@ class UserController extends Controller
     public function passmedAction()
     {
         $valores = new Newpass();
-        $Form = $this->createForm(new PassType(), $valores);
+        $Form = $this->createForm(PassType::class, $valores);
         return $this->render('AdminUserBundle:Default:passmed.html.twig', array(
             'form' => $Form->createView(),
         ));
@@ -410,7 +410,7 @@ class UserController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         $valores = new Newpass();
-        $Form = $this->createForm(new PassType(), $valores);
+        $Form = $this->createForm(PassType::class, $valores);
 
         $Form->handleRequest($request);
 
@@ -452,7 +452,7 @@ class UserController extends Controller
 
                     $em->persist($user);
                     $em->flush();
-                    $Form = $this->createForm(new PassType(), $valores);
+                    $Form = $this->createForm(PassType::class, $valores);
                     $response = new JsonResponse(
                         array(
                             'message' => '<div class="alert alert-success fade in"><i class="fa-fw fa fa-check"></i><strong>Hecho !</strong> Se genero una nueva contraseña de ingreso al MED y se envio a su correo institucional con las instrucciones. <a href="../login">Continuar..</a></div>',
@@ -463,7 +463,7 @@ class UserController extends Controller
                     );
                     return $response;
                 } else {
-                    $Form = $this->createForm(new PassType(), $valores);
+                    $Form = $this->createForm(PassType::class, $valores);
                     $response = new JsonResponse(
                         array(
                             'message' => '<div class="alert alert-danger fade in"><i class="fa-fw fa fa-times"></i><strong>Error !</strong> La información suministrada no coincide con la información registrada.</div>',
@@ -475,7 +475,7 @@ class UserController extends Controller
                     return $response;
                 }
             } else {
-                $Form = $this->createForm(new PassType(), $valores);
+                $Form = $this->createForm(PassType::class, $valores);
                 $response = new JsonResponse(
                     array(
                         'message' => '<div class="alert alert-danger fade in"><i class="fa-fw fa fa-times"></i><strong>Error !</strong> La información suministrada no coincide con la información registrada.</div>',
