@@ -77,7 +77,7 @@ class InstrumentoController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -253,7 +253,7 @@ class InstrumentoController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('admin_instrumento_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Borrar'))
+            ->add('submit', SubmitType::class, array('label' => 'Borrar'))
             ->getForm()
         ;
     }

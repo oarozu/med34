@@ -190,7 +190,7 @@ class ProductividadController extends Controller {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('productividad_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Borrar', 'attr' => array('class' => 'btn btn-labeled btn-success')))
+            ->add('submit', SubmitType::class, array('label' => 'Borrar', 'attr' => array('class' => 'btn btn-labeled btn-success')))
             ->getForm()
         ;
     }

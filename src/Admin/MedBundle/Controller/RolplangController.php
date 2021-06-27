@@ -90,7 +90,7 @@ class RolplangController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -192,7 +192,7 @@ class RolplangController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
 
         return $form;
     }
@@ -267,7 +267,7 @@ class RolplangController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('rolplang_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Borrar', 'attr' => array('class' => 'btn btn-labeled btn-success')))
+            ->add('submit', SubmitType::class, array('label' => 'Borrar', 'attr' => array('class' => 'btn btn-labeled btn-success')))
             ->getForm()
         ;
     }

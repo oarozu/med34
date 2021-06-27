@@ -72,7 +72,7 @@ class AccionespmController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Agregar'));
+        $form->add('submit', SubmitType::class, array('label' => 'Agregar'));
         return $form;
     }
     
@@ -89,7 +89,7 @@ class AccionespmController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Agregar'));
+        $form->add('submit', SubmitType::class, array('label' => 'Agregar'));
         return $form;
     }
 
@@ -190,7 +190,7 @@ class AccionespmController extends Controller
         '0' => 'NO'
             ),
         'required'  => true,))      
-        ->add('submit', 'submit', array('label' => 'Actualizar'))      
+        ->add('submit', SubmitType::class, array('label' => 'Actualizar'))
         ->getForm();
          if ($request->isMethod('POST')) {
             $form->bind($request);
@@ -248,7 +248,7 @@ class AccionespmController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
 
         return $form;
     }
@@ -322,7 +322,7 @@ class AccionespmController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('accionespm_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Borrar item'))
+            ->add('submit', SubmitType::class, array('label' => 'Borrar item'))
             ->getForm()
         ;
     }
