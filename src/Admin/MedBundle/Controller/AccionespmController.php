@@ -68,7 +68,7 @@ class AccionespmController extends Controller
     */
     private function createCreateForm(Accionespm $entity)
     {
-        $form = $this->createForm(new AccionespmType(), $entity, array(
+        $form = $this->createForm(AccionespmType::class, $entity, array(
             'action' => $this->generateUrl('accionespm_create'),
             'method' => 'POST',
         ));
@@ -85,7 +85,7 @@ class AccionespmController extends Controller
     */
     private function crearDocenteForm(Accionespm $entity)
     {
-        $form = $this->createForm(new AccionespmdocType(), $entity, array(
+        $form = $this->createForm(AccionespmdocType::class, $entity, array(
             'action' => $this->generateUrl('accionespm_create'),
             'method' => 'POST',
         ));
@@ -244,7 +244,7 @@ class AccionespmController extends Controller
     */
     private function createEditForm(Accionespm $entity)
     {
-        $form = $this->createForm(new AccionespmType(), $entity, array(
+        $form = $this->createForm(AccionespmType::class, $entity, array(
             'action' => $this->generateUrl('accionespm_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

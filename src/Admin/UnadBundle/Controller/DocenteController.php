@@ -501,7 +501,7 @@ class DocenteController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AdminUnadBundle:Docente')->find($id);
 
-        $Form = $this->createForm(new ObservType());
+        $Form = $this->createForm(ObservType::class);
 
         return array(
             'docente' => $entity,
@@ -520,7 +520,7 @@ class DocenteController extends Controller {
         $entity = $em->getRepository('AdminUnadBundle:Docente')->find($id);
         $evaluacion = $em->getRepository('AdminMedBundle:evaluacion')->find($id);
 
-        $Form = $this->createForm(new ObservType());
+        $Form = $this->createForm(ObservType::class);
         $Form->bind($request);
         $evaluacion->setObservaciones($Form->get('observaciones')->getData());
         $em->persist($evaluacion);

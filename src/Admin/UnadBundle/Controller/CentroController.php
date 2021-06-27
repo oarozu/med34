@@ -71,7 +71,7 @@ class CentroController extends Controller
     */
     private function createCreateForm(Centro $entity)
     {
-        $form = $this->createForm(new CentroType(), $entity, array(
+        $form = $this->createForm(CentroType::class, $entity, array(
             'action' => $this->generateUrl('centro_create'),
             'method' => 'POST',
         ));

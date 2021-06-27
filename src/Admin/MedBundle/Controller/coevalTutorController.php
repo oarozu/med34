@@ -70,7 +70,7 @@ class coevalTutorController extends Controller
     */
     private function createCreateForm(coevalTutor $entity)
     {
-        $form = $this->createForm(new coevalTutorType(), $entity, array(
+        $form = $this->createForm(coevalTutorType::class, $entity, array(
             'action' => $this->generateUrl('coevaltutor_create'),
             'method' => 'POST',
         ));
@@ -165,7 +165,7 @@ class coevalTutorController extends Controller
     */
     private function createEditForm(coevalTutor $entity)
     {
-        $form = $this->createForm(new coevalTutorType(), $entity, array(
+        $form = $this->createForm(coevalTutorType::class, $entity, array(
             'action' => $this->generateUrl('coevaltutor_update', array('id' => $entity->getTutor()->getId())),
             'method' => 'PUT',
         ));

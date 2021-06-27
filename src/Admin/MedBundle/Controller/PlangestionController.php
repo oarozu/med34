@@ -56,7 +56,7 @@ class PlangestionController extends Controller
      */
     private function createCreateForm(Plangestion $entity)
     {
-        $form = $this->createForm(new PlangestionType(), $entity, array(
+        $form = $this->createForm(PlangestionType::class, $entity, array(
             'action' => $this->generateUrl('plangestion_create'),
             'method' => 'POST',
         ));
@@ -300,7 +300,7 @@ class PlangestionController extends Controller
      */
     private function createEditForm(Plangestion $entity)
     {
-        $form = $this->createForm(new PlangestionType(), $entity, array(
+        $form = $this->createForm(PlangestionType::class, $entity, array(
             'action' => $this->generateUrl('plangestion_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

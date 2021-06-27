@@ -188,7 +188,7 @@ class RolplangController extends Controller
     */
     private function createEditForm(Rolplang $entity)
     {
-        $form = $this->createForm(new RolplangType(), $entity, array(
+        $form = $this->createForm(RolplangType::class, $entity, array(
             'action' => $this->generateUrl('rolplang_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

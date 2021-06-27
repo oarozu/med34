@@ -100,7 +100,7 @@ class ProgramaController extends Controller
     */
     private function createCreateForm(Programa $entity)
     {
-        $form = $this->createForm(new ProgramaType(), $entity, array(
+        $form = $this->createForm(ProgramaType::class, $entity, array(
             'action' => $this->generateUrl('programa_create'),
             'method' => 'POST',
         ));

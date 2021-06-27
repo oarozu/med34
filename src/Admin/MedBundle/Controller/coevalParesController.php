@@ -69,7 +69,7 @@ class coevalParesController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(coevalPares $entity) {
-        $form = $this->createForm(new coevalParesType(), $entity, array(
+        $form = $this->createForm(coevalParesType::class, $entity, array(
             'action' => $this->generateUrl('coevalpares_create'),
             'method' => 'POST',
         ));
@@ -148,7 +148,7 @@ class coevalParesController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createEditForm(coevalPares $entity) {
-        $form = $this->createForm(new coevalParesType(), $entity, array(
+        $form = $this->createForm(coevalParesType::class, $entity, array(
             'action' => $this->generateUrl('coevalpares_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

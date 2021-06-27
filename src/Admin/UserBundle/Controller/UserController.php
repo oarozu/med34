@@ -145,7 +145,7 @@ class UserController extends Controller
     public function createAction(Request $request)
     {
         $entity = new User();
-        $form = $this->createForm(new UserType(), $entity);
+        $form = $this->createForm(UserType::class, $entity);
         $form->bind($request);
 
         if ($form->isValid()) {
@@ -172,7 +172,7 @@ class UserController extends Controller
     public function newAction()
     {
         $entity = new User();
-        $form = $this->createForm(new UserType(), $entity);
+        $form = $this->createForm(UserType::class, $entity);
 
         return $this->render('AdminUserBundle:User:new.html.twig', array(
             'entity' => $entity,
@@ -223,7 +223,7 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
-        $editForm = $this->createForm(new UserType(), $entity);
+        $editForm = $this->createForm(UserType::class, $entity);
 
         return $this->render('AdminUserBundle:User:edit.html.twig', array(
             'entity' => $entity,
@@ -244,7 +244,7 @@ class UserController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
         }
-        $editForm = $this->createForm(new UserType(), $entity);
+        $editForm = $this->createForm(UserType::class, $entity);
         //  $currentpass = $entity->getPassword();
         $pass = $request->server->get('MED_PKW');
         $editForm->bind($request);

@@ -72,7 +72,7 @@ class redTutoresController extends Controller
     */
     private function createCreateForm(redTutores $entity)
     {
-        $form = $this->createForm(new redTutoresType(), $entity, array(
+        $form = $this->createForm(redTutoresType::class, $entity, array(
             'action' => $this->generateUrl('redtutores_create'),
             'method' => 'POST',
         ));
@@ -167,7 +167,7 @@ class redTutoresController extends Controller
     */
     private function createEditForm(redTutores $entity)
     {
-        $form = $this->createForm(new redTutoresType(), $entity, array(
+        $form = $this->createForm(redTutoresType::class, $entity, array(
             'action' => $this->generateUrl('redtutores_update', array('id' => $entity->getId()->getId())),
             'method' => 'PUT',
         ));

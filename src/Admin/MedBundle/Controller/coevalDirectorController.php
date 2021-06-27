@@ -78,7 +78,7 @@ class coevalDirectorController extends Controller
     */
     private function createCreateForm(coevalDirector $entity)
     {
-        $form = $this->createForm(new coevalDirectorType(), $entity, array(
+        $form = $this->createForm(coevalDirectorType::class, $entity, array(
             'action' => $this->generateUrl('coevaldirector_create'),
             'method' => 'POST',
         ));
@@ -173,7 +173,7 @@ class coevalDirectorController extends Controller
     */
     private function createEditForm(coevalDirector $entity)
     {
-        $form = $this->createForm(new coevalDirectorType(), $entity, array(
+        $form = $this->createForm(coevalDirectorType::class, $entity, array(
             'action' => $this->generateUrl('coevaldirector_update', array('id' => $entity->getOferta()->getId())),
             'method' => 'PUT',
         ));

@@ -111,7 +111,7 @@ class ArchivoController extends Controller
     */
     private function createCreateForm(Archivo $entity)
     {
-        $form = $this->createForm(new ArchivoType(), $entity, array(
+        $form = $this->createForm(ArchivoType::class, $entity, array(
             'action' => $this->generateUrl('archivo_create'),
             'method' => 'POST',
         ));
@@ -226,7 +226,7 @@ class ArchivoController extends Controller
     */
     private function createEditForm(Archivo $entity)
     {
-        $form = $this->createForm(new ArchivoType(), $entity, array(
+        $form = $this->createForm(ArchivoType::class, $entity, array(
             'action' => $this->generateUrl('archivo_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

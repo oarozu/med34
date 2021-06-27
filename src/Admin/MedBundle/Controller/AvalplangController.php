@@ -152,7 +152,7 @@ class AvalplangController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(Avalplang $entity) {
-        $form = $this->createForm(new AvalplangType(), $entity, array(
+        $form = $this->createForm(AvalplangType::class, $entity, array(
             'action' => $this->generateUrl('avalplang_create'),
             'method' => 'POST',
         ));
@@ -241,7 +241,7 @@ class AvalplangController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createEditForm(Avalplang $entity) {
-        $form = $this->createForm(new AvalplangType(), $entity, array(
+        $form = $this->createForm(AvalplangType::class, $entity, array(
             'action' => $this->generateUrl('avalplang_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

@@ -93,7 +93,7 @@ class ActividadrolController extends Controller
     */
     private function createCreateForm(Actividadrol $entity)
     {
-        $form = $this->createForm(new ActividadrolType(), $entity, array(
+        $form = $this->createForm(ActividadrolType::class, $entity, array(
             'action' => $this->generateUrl('actividadrol_create'),
             'method' => 'POST',
         ));
@@ -182,7 +182,7 @@ class ActividadrolController extends Controller
     */
     private function createEditForm(Actividadrol $entity)
     {
-        $form = $this->createForm(new ActividadrolType(), $entity, array(
+        $form = $this->createForm(ActividadrolType::class, $entity, array(
             'action' => $this->generateUrl('actividadrol_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

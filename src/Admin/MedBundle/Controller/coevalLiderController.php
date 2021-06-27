@@ -71,7 +71,7 @@ class coevalLiderController extends Controller
     */
     private function createCreateForm(coevalLider $entity)
     {
-        $form = $this->createForm(new coevalLiderType(), $entity, array(
+        $form = $this->createForm(coevalLiderType::class, $entity, array(
             'action' => $this->generateUrl('coevallider_create'),
             'method' => 'POST',
         ));
@@ -160,7 +160,7 @@ class coevalLiderController extends Controller
     */
     private function createEditForm(coevalLider $entity)
     {
-        $form = $this->createForm(new coevalLiderType(), $entity, array(
+        $form = $this->createForm(coevalLiderType::class, $entity, array(
             'action' => $this->generateUrl('coevallider_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

@@ -72,7 +72,7 @@ class RolacademicoController extends Controller
     */
     private function createCreateForm(Rolacademico $entity)
     {
-        $form = $this->createForm(new RolacademicoType(), $entity, array(
+        $form = $this->createForm(RolacademicoType::class, $entity, array(
             'action' => $this->generateUrl('rolacademico_create'),
             'method' => 'POST',
         ));
@@ -161,7 +161,7 @@ class RolacademicoController extends Controller
     */
     private function createEditForm(Rolacademico $entity)
     {
-        $form = $this->createForm(new RolacademicoType(), $entity, array(
+        $form = $this->createForm(RolacademicoType::class, $entity, array(
             'action' => $this->generateUrl('rolacademico_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

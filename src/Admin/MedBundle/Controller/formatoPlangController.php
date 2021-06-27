@@ -75,7 +75,7 @@ class formatoPlangController extends Controller
     */
     private function createCreateForm(formatoPlang $entity, $id)
     {
-        $form = $this->createForm(new formatoPlangType(), $entity, array(
+        $form = $this->createForm(formatoPlangType::class, $entity, array(
             'action' => $this->generateUrl('formatoplang_create', array('id' => $id)),
             'method' => 'POST',
         ));
@@ -167,7 +167,7 @@ class formatoPlangController extends Controller
     */
     private function createEditForm(formatoPlang $entity)
     {
-        $form = $this->createForm(new formatoPlangType(), $entity, array(
+        $form = $this->createForm(formatoPlangType::class, $entity, array(
             'action' => $this->generateUrl('formatoplang_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

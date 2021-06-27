@@ -129,7 +129,7 @@ class DofeController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createEditForm(evalDofe $entity) {
-        $form = $this->createForm(new CalificarDofeType(), $entity, array(
+        $form = $this->createForm(CalificarDofeType::class, $entity, array(
             //  'action' => $this->generateUrl('dofe_calificarupdate', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
@@ -176,7 +176,7 @@ class DofeController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCerrarForm(Plangestion $entity) {
-        $form = $this->createForm(new DofeType(), $entity, array(
+        $form = $this->createForm(DofeType::class, $entity, array(
             'action' => $this->generateUrl('dofe_cerrar', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

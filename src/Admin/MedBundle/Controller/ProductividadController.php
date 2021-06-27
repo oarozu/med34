@@ -87,7 +87,7 @@ class ProductividadController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createProyectForm(Proyectoi $entity) {
-        $form = $this->createForm(new ProyectoiType(), $entity);
+        $form = $this->createForm(ProyectoiType::class, $entity);
         return $form;
     }
     

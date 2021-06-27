@@ -73,7 +73,7 @@ class InstrumentoController extends Controller
     */
     private function createCreateForm(Instrumento $entity)
     {
-        $form = $this->createForm(new InstrumentoType(), $entity, array(
+        $form = $this->createForm(InstrumentoType::class, $entity, array(
             'action' => $this->generateUrl('instrumento_create'),
             'method' => 'POST',
         ));
@@ -162,7 +162,7 @@ class InstrumentoController extends Controller
     */
     private function createEditForm(Instrumento $entity)
     {
-        $form = $this->createForm(new InstrumentoType(), $entity, array(
+        $form = $this->createForm(InstrumentoType::class, $entity, array(
             'action' => $this->generateUrl('admin_instrumento_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));

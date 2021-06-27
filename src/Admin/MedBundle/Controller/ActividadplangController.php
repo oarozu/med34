@@ -103,7 +103,7 @@ class ActividadplangController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(Actividadplang $entity) {
-        $form = $this->createForm(new ActividadplangType(), $entity, array(
+        $form = $this->createForm(ActividadplangType::class, $entity, array(
             'action' => $this->generateUrl('actividadplang_create'),
             'method' => 'POST',
         ));
@@ -121,7 +121,7 @@ class ActividadplangController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createAddForm(Actividadplang $entity, $id) {
-        $form = $this->createForm(new ActividadplangAddType(), $entity, array(
+        $form = $this->createForm(ActividadplangAddType::class, $entity, array(
             'action' => $this->generateUrl('actividadplang_add', array('id' => $id)),
             'method' => 'POST',
         ));
@@ -259,7 +259,7 @@ class ActividadplangController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createEditForm(Actividadplang $entity) {
-        $form = $this->createForm(new ActividadplangType(), $entity, array(
+        $form = $this->createForm( ActividadplangType::class, $entity, array(
             'action' => $this->generateUrl('actividadplang_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
@@ -275,7 +275,7 @@ class ActividadplangController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDofeForm(Actividadplang $entity) {
-        $form = $this->createForm(new ActividadDofeType(), $entity, array(
+        $form = $this->createForm(ActividadDofeType::class, $entity, array(
             'action' => $this->generateUrl('actividadplang_updatedofe', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

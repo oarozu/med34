@@ -76,7 +76,7 @@ class pdfPlangController extends Controller
     */
     private function createCreateForm(pdfPlang $entity, $id)
     {
-        $form = $this->createForm(new pdfPlangType(), $entity, array(
+        $form = $this->createForm(pdfPlangType::class, $entity, array(
             'action' => $this->generateUrl('pdfplang_create', array('id' => $id)),
             'method' => 'POST',
         ));
@@ -146,7 +146,7 @@ class pdfPlangController extends Controller
     */
     private function createEditForm(formatoPlang $entity)
     {
-        $form = $this->createForm(new formatoPlangType(), $entity, array(
+        $form = $this->createForm(formatoPlangType::class, $entity, array(
             'action' => $this->generateUrl('formatoplang_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

@@ -3,6 +3,7 @@
 namespace Admin\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class PassType extends AbstractType
@@ -10,10 +11,10 @@ class PassType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add("username", "text", array(
+            ->add("username", TextType::class, array(
             'required'  => true,
             ))
-            ->add("email", "text", array(
+            ->add("email", TextType::class, array(
             'required'  => true,
             ))
             ->add('vinculacion', ChoiceType::class, array(

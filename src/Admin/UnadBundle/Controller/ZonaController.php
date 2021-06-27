@@ -73,7 +73,7 @@ class ZonaController extends Controller
     */
     private function createCreateForm(Zona $entity)
     {
-        $form = $this->createForm(new ZonaType(), $entity, array(
+        $form = $this->createForm(ZonaType::class, $entity, array(
             'action' => $this->generateUrl('zona_create'),
             'method' => 'POST',
         ));
@@ -164,7 +164,7 @@ class ZonaController extends Controller
     */
     private function createEditForm(Zona $entity)
     {
-        $form = $this->createForm(new ZonaType(), $entity, array(
+        $form = $this->createForm(ZonaType::class, $entity, array(
             'action' => $this->generateUrl('zona_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));

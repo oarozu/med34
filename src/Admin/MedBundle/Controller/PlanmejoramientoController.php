@@ -72,7 +72,7 @@ class PlanmejoramientoController extends Controller
     */
     private function createCreateForm(Planmejoramiento $entity)
     {
-        $form = $this->createForm(new PlanmejoramientoType(), $entity, array(
+        $form = $this->createForm(PlanmejoramientoType::class, $entity, array(
             'action' => $this->generateUrl('planmejoramiento_create'),
             'method' => 'POST',
         ));
@@ -223,7 +223,7 @@ class PlanmejoramientoController extends Controller
     */
     private function createEditForm(Planmejoramiento $entity)
     {
-        $form = $this->createForm(new PlanmejoramientoType(), $entity, array(
+        $form = $this->createForm(PlanmejoramientoType::class, $entity, array(
             'action' => $this->generateUrl('planmejoramiento_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
