@@ -25,7 +25,7 @@ class PassType extends AbstractType
             ))
             ->add('unidad', ChoiceType::class, array(
             'placeholder' => 'Escuela/Unidad:',
-            'choices'   => array('10000'=>'ECACEN', '15000'=>'ECISALUD','20000' => 'ECBTI', '30000' => 'ECAPMA', '40000' => 'ECSAH', '50000' => 'ECEDU', '25000' => 'ECJP', '60000' => 'VIMEP', '65000' => 'VIACI', '40002' => 'INVIL', '70000' => 'VIDER','80000' => 'VISAE', '90000' => 'VIREL' ),
+            'choices'   => array('ECACEN'=>'10000', 'ECISALUD'=>'15000','ECBTI' => '20000', 'ECAPMA' => '30000', 'ECSAH' => '40000', 'ECEDU' => 'ECEDU', 'ECJP' => '25000', 'VIMEP' => '60000', 'VIACI' => '65000', 'INVIL' => '40002', 'VIDER' => '70000','VISAE' => '80000', 'VIREL' => '90000'),
             'required'  => true,
             ));
     }
