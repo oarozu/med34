@@ -16,13 +16,13 @@ class PassType extends AbstractType
             ->add("email", "text", array(
             'required'  => true,
             ))
-            ->add('vinculacion', 'choice', array(
-            'empty_value' => 'Vinculación:',
+            ->add('vinculacion', ChoiceType::class, array(
+            'placeholder' => 'Vinculación:',
             'choices'   => array('Ocasional' => 'Ocasional', 'Hora Catedra' => 'Hora Catedra','De Carrera' => 'De Carrera', 'DOFE' => 'DOFE'),
             'required'  => true,
             ))
-            ->add('unidad', 'choice', array(
-            'empty_value' => 'Escuela/Unidad:',
+            ->add('unidad', ChoiceType::class, array(
+            'placeholder' => 'Escuela/Unidad:',
             'choices'   => array('10000'=>'ECACEN', '15000'=>'ECISALUD','20000' => 'ECBTI', '30000' => 'ECAPMA', '40000' => 'ECSAH', '50000' => 'ECEDU', '25000' => 'ECJP', '60000' => 'VIMEP', '65000' => 'VIACI', '40002' => 'INVIL', '70000' => 'VIDER','80000' => 'VISAE', '90000' => 'VIREL' ),
             'required'  => true,
             ));

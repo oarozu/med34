@@ -23,9 +23,9 @@ class ActividadplangAddType extends AbstractType
          ->add('horas')
          ->add('descripcion', 'textarea', array('attr' => array('cols' => '60')))
         
-         ->add('actividad', 'entity', array(
+         ->add('actividad', EntityType::class, array(
           'class' =>  'AdminMedBundle:Actividadrol',
-          'property' => 'id',
+          'choice_label' => 'id',
           ))         
         ;
     }

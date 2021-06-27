@@ -15,9 +15,9 @@ class AccionespmType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
        {
         $builder
-            ->add('plan','entity', array(
+            ->add('plan',EntityType::class, array(
             'class' =>  'AdminMedBundle:Planmejoramiento',
-            'property' => 'id',
+            'choice_label' => 'id',
                  ))
             ->add('oportunidad', 'textarea', array('required'  => true, 'attr' => array('cols' => '60')))
 

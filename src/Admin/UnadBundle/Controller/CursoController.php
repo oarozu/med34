@@ -3,6 +3,7 @@
 namespace Admin\UnadBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -321,7 +322,7 @@ class CursoController extends Controller
      * @Method("GET")
      * @Template("Curso/edit.html.twig")
      */
-    public function editAction($id)
+    public function editAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -331,7 +332,7 @@ class CursoController extends Controller
             throw $this->createNotFoundException('Unable to find Curso entity.');
         }
         
-        $editForm = $this->createEditarForm($entity);
+        $editForm = $this->createEditarForm($entity, $request);
 
         $deleteForm = $this->createDeleteForm($id);
 
@@ -390,11 +391,11 @@ class CursoController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditarForm(Curso $entity)
+    private function createEditarForm(Curso $entity, Request $request)
     {
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $escuelaid = $session->get('escuelaid');
-        $form = $this->createForm(new CursoprogType($escuelaid), $entity, array(
+        $form = $this->createForm(CursoprogType::class, $entity, array(
             'action' => $this->generateUrl('curso_update', array('id' => $entity->getId())),
             'method' => 'PUT',
              )
@@ -450,9 +451,9 @@ class CursoController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Curso entity.');
         }
-
+        $session = $request->getSession();
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditarForm($entity);
+        $editForm = $this->createEditarForm($entity, $request);
         $editForm->handleRequest($request);
         
         $director = $em->getRepository('AdminUnadBundle:Docente')->find($editForm->get('director')->getData());

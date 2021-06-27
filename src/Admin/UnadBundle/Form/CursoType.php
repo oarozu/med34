@@ -2,6 +2,7 @@
 
 namespace Admin\UnadBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -20,9 +21,9 @@ class CursoType extends AbstractType
             ->add('tipologia')
             ->add('creditos')
             ->add('escuela')
-           ->add('Programa', 'entity', array(
+           ->add('Programa', EntityType::class, array(
             'class' =>  'AdminUnadBundle:Programa',
-            'property' => 'nombre',
+            'choice_label' => 'nombre',
                  ))     
         ;
     }

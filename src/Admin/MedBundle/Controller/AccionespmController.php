@@ -181,8 +181,8 @@ class AccionespmController extends Controller
         //$defaultData = array('id' => $id);
         $idplan = $entity->getPlan()->getId();
         $form = $this->createFormBuilder($entity)
-        ->add('estado', 'choice', array(
-        'empty_value' => 'Cumplio?',
+        ->add('estado', ChoiceType::class, array(
+        'placeholder' => 'Cumplio?',
         'label' => 'Tipo ',
         'attr' => array('class' => 'input-lg'),   
         'choices'   => array(

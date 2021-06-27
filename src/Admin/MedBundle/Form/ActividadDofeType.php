@@ -16,7 +16,7 @@ class ActividadDofeType extends AbstractType
     {
         $builder
             ->add('observaciones', 'textarea', array('required'  => true, 'attr' => array('cols' => '110')))
-            ->add('autoevaluacion', 'choice', array('choices'   => array('2' => 'Realizado', '1' => 'No Realizado', '0' => 'No Aplica'),
+            ->add('autoevaluacion', ChoiceType::class, array('choices'   => array('2' => 'Realizado', '1' => 'No Realizado', '0' => 'No Aplica'),
                 'required'  => true,))
             ->add('file')
         ;

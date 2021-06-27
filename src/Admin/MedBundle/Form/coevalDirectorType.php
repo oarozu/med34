@@ -15,39 +15,39 @@ class coevalDirectorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('f1', 'choice', array('empty_value' => '-', 'label' => ' ',    
+            ->add('f1', ChoiceType::class, array('placeholder' => '-', 'label' => ' ',
             'choices'   => array( '5' => 'Siempre', '4' => 'Casi Siempre', '3' => 'Aveces', '2' => 'Casi Nunca', '1' => 'Nunca', '0' => 'No Aplica',), 'required'  => true,))
-            ->add('f2', 'choice', array('empty_value' => '-', 'label' => ' ',    
+            ->add('f2', ChoiceType::class, array('placeholder' => '-', 'label' => ' ',
             'choices'   => array( '5' => 'Siempre', '4' => 'Casi Siempre', '3' => 'Aveces', '2' => 'Casi Nunca', '1' => 'Nunca', '0' => 'No Aplica',), 'required'  => true,))
-            ->add('f3', 'choice', array('empty_value' => '-', 'label' => ' ',    
+            ->add('f3', ChoiceType::class, array('placeholder' => '-', 'label' => ' ',
             'choices'   => array( '5' => 'Siempre', '4' => 'Casi Siempre', '3' => 'Aveces', '2' => 'Casi Nunca', '1' => 'Nunca', '0' => 'No Aplica'), 'required'  => true,))
-            ->add('f4', 'choice', array('empty_value' => '-', 'label' => ' ',    
+            ->add('f4', ChoiceType::class, array('placeholder' => '-', 'label' => ' ',
             'choices'   => array( '5' => 'Siempre', '4' => 'Casi Siempre', '3' => 'Aveces', '2' => 'Casi Nunca', '1' => 'Nunca', '0' => 'No Aplica'), 'required'  => true,))
-            ->add('f5', 'choice', array('empty_value' => '-', 'label' => ' ',    
+            ->add('f5', ChoiceType::class, array('placeholder' => '-', 'label' => ' ',
             'choices'   => array( '5' => 'Siempre', '4' => 'Casi Siempre', '3' => 'Aveces', '2' => 'Casi Nunca', '1' => 'Nunca', '0' => 'No Aplica'), 'required'  => true,))
-            ->add('f6', 'choice', array('empty_value' => '-', 'label' => ' ',    
+            ->add('f6', ChoiceType::class, array('placeholder' => '-', 'label' => ' ',
             'choices'   => array( '5' => 'Siempre', '4' => 'Casi Siempre', '3' => 'Aveces', '2' => 'Casi Nunca', '1' => 'Nunca', '0' => 'No Aplica'), 'required'  => true,))
-            ->add('f7', 'choice', array('empty_value' => '-', 'label' => ' ',    
+            ->add('f7', ChoiceType::class, array('placeholder' => '-', 'label' => ' ',
             'choices'   => array( '5' => 'Siempre', '4' => 'Casi Siempre', '3' => 'Aveces', '2' => 'Casi Nunca', '1' => 'Nunca', '0' => 'No Aplica'), 'required'  => true,))
-            ->add('f8', 'choice', array('empty_value' => '-', 'label' => ' ',    
+            ->add('f8', ChoiceType::class, array('placeholder' => '-', 'label' => ' ',
             'choices'   => array( '5' => 'Siempre', '4' => 'Casi Siempre', '3' => 'Aveces', '2' => 'Casi Nunca', '1' => 'Nunca', '0' => 'No Aplica'), 'required'  => true,))
-            ->add('f9', 'choice', array('empty_value' => '-', 'label' => ' ',    
+            ->add('f9', ChoiceType::class, array('placeholder' => '-', 'label' => ' ',
             'choices'   => array( '5' => 'Siempre', '4' => 'Casi Siempre', '3' => 'Aveces', '2' => 'Casi Nunca', '1' => 'Nunca', '0' => 'No Aplica'), 'required'  => true,))
-            ->add('f10', 'choice', array('empty_value' => '-', 'label' => ' ',    
+            ->add('f10', ChoiceType::class, array('placeholder' => '-', 'label' => ' ',
             'choices'   => array( '5' => 'Siempre', '4' => 'Casi Siempre', '3' => 'Aveces', '2' => 'Casi Nunca', '1' => 'Nunca', '0' => 'No Aplica'), 'required'  => true,))
-            ->add('f11', 'choice', array('empty_value' => '-', 'label' => ' ',    
+            ->add('f11', ChoiceType::class, array('placeholder' => '-', 'label' => ' ',
             'choices'   => array( '5' => 'Siempre', '4' => 'Casi Siempre', '3' => 'Aveces', '2' => 'Casi Nunca', '1' => 'Nunca', '0' => 'No Aplica'), 'required'  => true,))
-            ->add('f12', 'choice', array('empty_value' => '-', 'label' => ' ',    
+            ->add('f12', ChoiceType::class, array('placeholder' => '-', 'label' => ' ',
             'choices'   => array( '5' => 'Siempre', '4' => 'Casi Siempre', '3' => 'Aveces', '2' => 'Casi Nunca', '1' => 'Nunca', '0' => 'No Aplica'), 'required'  => true,))
-            ->add('f13', 'choice', array('empty_value' => '-', 'label' => ' ',    
+            ->add('f13', ChoiceType::class, array('placeholder' => '-', 'label' => ' ',
             'choices'   => array( '5' => 'Siempre', '4' => 'Casi Siempre', '3' => 'Aveces', '2' => 'Casi Nunca', '1' => 'Nunca', '0' => 'No Aplica'), 'required'  => true,))
-            ->add('f14', 'choice', array('empty_value' => '-', 'label' => ' ',    
+            ->add('f14', ChoiceType::class, array('placeholder' => '-', 'label' => ' ',
             'choices'   => array( '5' => 'Siempre', '4' => 'Casi Siempre', '3' => 'Aveces', '2' => 'Casi Nunca', '1' => 'Nunca', '0' => 'No Aplica'), 'required'  => true,))
-            ->add('f15', 'choice', array('empty_value' => '-', 'label' => ' ',    
+            ->add('f15', ChoiceType::class, array('placeholder' => '-', 'label' => ' ',
             'choices'   => array( '5' => 'Siempre', '4' => 'Casi Siempre', '3' => 'Aveces', '2' => 'Casi Nunca', '1' => 'Nunca', '0' => 'No Aplica'), 'required'  => true,))
-            ->add('f16', 'choice', array('empty_value' => '-', 'label' => ' ',    
+            ->add('f16', ChoiceType::class, array('placeholder' => '-', 'label' => ' ',
             'choices'   => array( '5' => 'Siempre', '4' => 'Casi Siempre', '3' => 'Aveces', '2' => 'Casi Nunca', '1' => 'Nunca', '0' => 'No Aplica'), 'required'  => true,))
-            ->add('f17', 'choice', array('empty_value' => '-', 'label' => ' ',    
+            ->add('f17', ChoiceType::class, array('placeholder' => '-', 'label' => ' ',
             'choices'   => array( '5' => 'Siempre', '4' => 'Casi Siempre', '3' => 'Aveces', '2' => 'Casi Nunca', '1' => 'Nunca', '0' => 'No Aplica'), 'required'  => true,))
             ->add('observaciones', 'textarea', array('required'  => true, 'attr' => array('cols' => '120', 'maxlength' => '512')))
         ;

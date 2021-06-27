@@ -5,6 +5,7 @@ namespace Admin\UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 
 class BuscarType extends AbstractType
@@ -13,8 +14,8 @@ class BuscarType extends AbstractType
     {
             $builder
             ->add('texto')
-            ->add('parametro', 'choice', array(
-            'empty_value' => 'Buscar por:',    
+            ->add('parametro', ChoiceType::class, array(
+            'placeholder' => 'Buscar por:',
             'choices'   => array('ced' => 'Cédula', 'nom' => 'Nombres','apell' => 'Apellidos'),
             'required'  => true,
             ));  

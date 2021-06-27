@@ -38,12 +38,12 @@ class RolplangType extends AbstractType {
                     'attr' => array('onkeyup' => 'calculo()')
                 ))
                 ->add('descripcion', 'textarea', array('attr' => array('cols' => '100')))
-                ->add('rol', 'entity', array(
+                ->add('rol', EntityType::class, array(
                     'class' => 'AdminMedBundle:Rolacademico',
-                    'property' => 'id',
+                    'choice_label' => 'id',
                 ))
-                ->add('semanas', 'choice', array(
-                    //     'empty_value' => 'Semanas',
+                ->add('semanas', ChoiceType::class, array(
+                    //     'placeholder' => 'Semanas',
                     'choices' => $opciones,
                     'required' => true,
                     'attr' => array('onchange' => 'calculo()')))

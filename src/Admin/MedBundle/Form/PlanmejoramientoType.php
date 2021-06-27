@@ -16,11 +16,11 @@ class PlanmejoramientoType extends AbstractType
     {
         $builder
             ->add('observaciones', 'textarea', array('required'  => true, 'attr' => array('cols' => '60')))    
-            ->add('docente', 'entity', array(
+            ->add('docente', EntityType::class, array(
                  'class' =>  'AdminUnadBundle:Docente',
-                'property' => 'user.nombres',
+                'choice_label' => 'user.nombres',
                  ))
-            ->add('calificacion', 'choice', array(  
+            ->add('calificacion', ChoiceType::class, array(
             'choices'   => array('1' => 'NO', '5' => 'SI'),
             'required'  => true,))   
         ;

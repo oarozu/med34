@@ -19,7 +19,7 @@ class AvalplangType extends AbstractType
                   "mapped" => false, 'required'  => true, 'attr' => array('cols' => '90')))
 
                 
-            ->add('avalado', 'choice', array('empty_value' => ' ', 'label' => ' ',    
+            ->add('avalado', ChoiceType::class, array('placeholder' => ' ', 'label' => ' ',
             'choices'   => array( '1' => 'Aprobado', '2' => 'No aprobado'), 'required'  => true,))
             
         ;

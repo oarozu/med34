@@ -5,6 +5,7 @@ namespace Admin\UnadBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -192,12 +193,12 @@ class DocenteController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(Docente $entity) {
-        $form = $this->createForm(new DocenteType(), $entity, array(
+        $form = $this->createForm( DocenteType::class, $entity, array(
             'action' => $this->generateUrl('docente_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
         return $form;
     }
@@ -336,12 +337,12 @@ class DocenteController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createEditForm(Docente $entity) {
-        $form = $this->createForm(new DocenteType(), $entity, array(
+        $form = $this->createForm(DocenteType::class, $entity, array(
             'action' => $this->generateUrl('docente_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
 
         return $form;
     }
@@ -415,7 +416,7 @@ class DocenteController extends Controller {
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('docente_delete', array('id' => $id)))
                         ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->add('submit', SubmitType::class, array('label' => 'Delete'))
                         ->getForm()
         ;
     }

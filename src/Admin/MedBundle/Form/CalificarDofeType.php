@@ -14,7 +14,7 @@ class CalificarDofeType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
-        $builder->add('calificacion', 'choice', array(
+        $builder->add('calificacion', ChoiceType::class, array(
             'choices' => array(
                 'Superior' => 30,
                 'Medio' => 20,

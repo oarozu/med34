@@ -26,8 +26,8 @@ class ProductividadType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
         ->add('tipo', 'textarea', array('required' => true, 'attr' => array('cols' => '80', 'rows' => '1')))
-        ->add('articulacion', 'choice', array(
-        'empty_value' => 'Seleccione una...',    
+        ->add('articulacion', ChoiceType::class, array(
+        'placeholder' => 'Seleccione una...',
         'choices' => array(
         'Formación Integral (Docencia)' => 'Docencia',
         'Desarrollo Regional (Proyeción Social)' => 'Proyección Social',
@@ -43,10 +43,10 @@ class ProductividadType extends AbstractType {
         ))
         ->add('descripcion', 'textarea', array('required' => true, 'attr' => array('cols' => '80', 'rows' => '5')))
                 
-                ->add('proyecto', 'entity', array(
+                ->add('proyecto', EntityType::class, array(
                 'placeholder' => 'Seleccione un proyecto',
                 'class' => 'AdminMedBundle:Proyectoi',
-                'property' => 'nombre',
+                'choice_label' => 'nombre',
                 'query_builder' => function(ProyectoiRepository $repo) {
                 return $repo->porUsuario($this->user);
                 }

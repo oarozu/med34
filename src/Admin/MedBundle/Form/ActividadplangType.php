@@ -16,8 +16,8 @@ class ActividadplangType extends AbstractType
     {
         $builder
             ->add('observaciones', 'textarea', array('required'  => true, 'attr' => array('cols' => '110')))
-            ->add('autoevaluacion', 'choice', array(
-            'empty_value' => ' ',    
+            ->add('autoevaluacion', ChoiceType::class, array(
+            'placeholder' => ' ',
             'choices'   => array('5' => 'Siempre', '4' => 'Casi Siempre', '3' => 'Aveces', '2' => 'Casi Nunca', '1' => 'Nunca', '0' => 'No Aplica'),
             'required'  => true,))
            ->add('file')     

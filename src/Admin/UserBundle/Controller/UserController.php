@@ -40,7 +40,7 @@ class UserController extends Controller
         $entities = $query->getResult();
 
         $valores = new Parabuscar();
-        $Form = $this->createForm(new BuscarType(), $valores);
+        $Form = $this->createForm(BuscarType::class, $valores);
         // $entities = $em->getRepository('AdminUserBundle:User')->findAll();
 
         return $this->render('AdminUserBundle:User:index.html.twig', array(
@@ -68,7 +68,7 @@ class UserController extends Controller
     public function buscarporAction(Request $request)
     {
         $valores = new Parabuscar();
-        $Form = $this->createForm(new BuscarType(), $valores);
+        $Form = $this->createForm(BuscarType::class, $valores);
         $Form->bind($request);
         $cadena = $valores->getTexto();
         //$cadena = $Form->get('texto')->getData();
@@ -97,7 +97,7 @@ class UserController extends Controller
         ));
         $docentes = $query->getResult();
         $valores = new Parabuscar();
-        $Form = $this->createForm(new BuscarType(), $valores);
+        $Form = $this->createForm(BuscarType::class, $valores);
         return $this->render('AdminUserBundle:User:index.html.twig', array(
             'entities' => $docentes,
             'buscar_form' => $Form->createView(),
@@ -113,7 +113,7 @@ class UserController extends Controller
         ));
         $docentes = $query->getResult();
         $valores = new Parabuscar();
-        $Form = $this->createForm(new BuscarType(), $valores);
+        $Form = $this->createForm(BuscarType::class, $valores);
         return $this->render('AdminUserBundle:User:index.html.twig', array(
             'entities' => $docentes,
             'buscar_form' => $Form->createView(),
@@ -129,7 +129,7 @@ class UserController extends Controller
         ));
         $docentes = $query->getResult();
         $valores = new Parabuscar();
-        $Form = $this->createForm(new BuscarType(), $valores);
+        $Form = $this->createForm(BuscarType::class, $valores);
         return $this->render('AdminUserBundle:User:index.html.twig', array(
             'entities' => $docentes,
             'buscar_form' => $Form->createView(),

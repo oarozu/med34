@@ -2,9 +2,12 @@
 
 namespace Admin\UnadBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
 
 class DocenteType extends AbstractType
 {
@@ -15,24 +18,24 @@ class DocenteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('modalidad', 'choice', array(  
+            ->add('modalidad', ChoiceType::class, array(
             'choices'   => array('TC' => 'Tiempo Completo', 'MT' => 'Medio Tiempo'),
             'required'  => true,
             ))
-            ->add('vinculacion', 'choice', array(  
+            ->add('vinculacion', ChoiceType::class, array(
             'choices'   => array('HC' => 'Hora Catedra', 'DO' => 'Ocasional','DC' => 'Carrera' ),
             'required'  => true,
             ))    
             ->add('cargo')
             ->add('resolucion')
             ->add('perfil')  
-            ->add('escuela', 'entity', array(
+            ->add('escuela', EntityType::class, array(
                  'class' =>  'AdminUnadBundle:Escuela',
-                'property' => 'sigla',
+                'choice_label' => 'sigla',
                  ))       
-            ->add('centro', 'entity', array(
+            ->add('centro', EntityType::class   , array(
                  'class' =>  'AdminUnadBundle:Centro',
-                'property' => 'nombre',
+                'choice_label' => 'nombre',
                  ))      
         ;
     }
