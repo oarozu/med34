@@ -28,7 +28,7 @@ class AvalplangController extends Controller {
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
         $entities = $em->getRepository('AdminMedBundle:Avalplang')->findby(array('user' => $user, 'periodo' => $this->container->getParameter('appmed.periodo')));
         return array(
             'entities' => $entities,

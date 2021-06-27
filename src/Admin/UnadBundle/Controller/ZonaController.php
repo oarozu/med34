@@ -286,7 +286,7 @@ class ZonaController extends Controller
     public function listaAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
         $zona = $user->getDirectorzona();
         $periodos = $em->getRepository('AdminMedBundle:Periodoe')->findAll();
         if ($id == 1){

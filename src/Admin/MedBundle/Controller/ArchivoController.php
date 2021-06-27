@@ -66,7 +66,7 @@ class ArchivoController extends Controller
     public function docenteAction()
     {
        $em = $this->getDoctrine()->getManager();
-       $user = $this->get('security.context')->getToken()->getUser();
+       $user = $this->get('security.token_storage')->getToken()->getUser();
        $userId = $user->getId();
        $entities = $em->getRepository('AdminMedBundle:Archivo')->findBy(array('cedula' => $userId));
        return array(

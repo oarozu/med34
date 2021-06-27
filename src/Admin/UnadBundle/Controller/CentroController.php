@@ -253,7 +253,7 @@ class CentroController extends Controller
     public function docsAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
         $centros = $user->getDirectorcentro();
         $centro = $em->getRepository('AdminUnadBundle:Centro')->findBy(array('id' => $id));
         $docentes = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('centro' => $centro));
@@ -273,7 +273,7 @@ class CentroController extends Controller
      */
     public function listaAction()
     {
-        $user = $this->get('security.context')->getToken()->getUser();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
         $centros = $user->getDirectorcentro();
         $zonas = $user->getDirectorzona();
 
