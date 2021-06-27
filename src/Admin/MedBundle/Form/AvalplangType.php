@@ -3,6 +3,7 @@
 namespace Admin\MedBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -15,7 +16,7 @@ class AvalplangType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('observaciones', 'textarea', array(
+            ->add('observaciones', TextareaType::class, array(
                   "mapped" => false, 'required'  => true, 'attr' => array('cols' => '90')))
 
                 

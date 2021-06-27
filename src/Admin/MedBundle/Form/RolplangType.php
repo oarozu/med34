@@ -3,6 +3,7 @@
 namespace Admin\MedBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -38,7 +39,7 @@ class RolplangType extends AbstractType {
                 ->add('horas', TextType::class, array(
                     'attr' => array('onkeyup' => 'calculo()')
                 ))
-                ->add('descripcion', 'textarea', array('attr' => array('cols' => '100')))
+                ->add('descripcion', TextareaType::class, array('attr' => array('cols' => '100')))
                 ->add('rol', EntityType::class, array(
                     'class' => 'AdminMedBundle:Rolacademico',
                     'choice_label' => 'id',

@@ -3,6 +3,7 @@
 namespace Admin\MedBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -19,9 +20,9 @@ class AccionespmType extends AbstractType
             'class' =>  'AdminMedBundle:Planmejoramiento',
             'choice_label' => 'id',
                  ))
-            ->add('oportunidad', 'textarea', array('required'  => true, 'attr' => array('cols' => '60')))
+            ->add('oportunidad', TextareaType::class, array('required'  => true, 'attr' => array('cols' => '60')))
 
-            ->add('accion', 'textarea', array('required'  => true, 'attr' => array('cols' => '60')))
+            ->add('accion', TextareaType::class, array('required'  => true, 'attr' => array('cols' => '60')))
         ;
     }
     

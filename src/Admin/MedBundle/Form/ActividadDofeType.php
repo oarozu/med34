@@ -3,6 +3,7 @@
 namespace Admin\MedBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -15,7 +16,7 @@ class ActividadDofeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('observaciones', 'textarea', array('required'  => true, 'attr' => array('cols' => '110')))
+            ->add('observaciones', TextareaType::class, array('required'  => true, 'attr' => array('cols' => '110')))
             ->add('autoevaluacion', ChoiceType::class, array('choices'   => array('2' => 'Realizado', '1' => 'No Realizado', '0' => 'No Aplica'),
                 'required'  => true,))
             ->add('file')

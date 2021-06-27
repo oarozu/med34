@@ -3,6 +3,7 @@
 namespace Admin\MedBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -25,7 +26,7 @@ class ProductividadType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-        ->add('tipo', 'textarea', array('required' => true, 'attr' => array('cols' => '80', 'rows' => '1')))
+        ->add('tipo', TextareaType::class, array('required' => true, 'attr' => array('cols' => '80', 'rows' => '1')))
         ->add('articulacion', ChoiceType::class, array(
         'placeholder' => 'Seleccione una...',
         'choices' => array(

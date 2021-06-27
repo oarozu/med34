@@ -3,6 +3,8 @@
 namespace Admin\MedBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -15,13 +17,13 @@ class ActividadplangAddType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-         ->add("actividad", "text", array(
+         ->add("actividad", TextType::class, array(
          "mapped" => false,
          'required'  => true,
          /* 'attr' => array('readonly' => 'readonly')*/
                  )) 
          ->add('horas')
-         ->add('descripcion', 'textarea', array('attr' => array('cols' => '60')))
+         ->add('descripcion', TextareaType::class, array('attr' => array('cols' => '60')))
         
          ->add('actividad', EntityType::class, array(
           'class' =>  'AdminMedBundle:Actividadrol',

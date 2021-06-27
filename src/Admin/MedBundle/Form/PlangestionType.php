@@ -2,6 +2,7 @@
 namespace Admin\MedBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -14,7 +15,7 @@ class PlangestionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('observaciones', 'textarea', array('required'  => true, 'attr' => array('cols' => '120', 'maxlength' => '512')))
+            ->add('observaciones', TextareaType::class, array('required'  => true, 'attr' => array('cols' => '120', 'maxlength' => '512')))
         ;
     }
     
