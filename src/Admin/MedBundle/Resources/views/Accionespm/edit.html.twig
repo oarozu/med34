@@ -4,7 +4,7 @@
             <h4 class="modal-title">Editar Item</h4>
             </div>			<!-- /modal-header -->
             <div class="modal-body">          
-   <form  action="{{ path('accionespm_update', { 'id': entity.id }) }}" method="post" {{ form_start(edit_form) }}>
+   <form  action="{{ path('accionespm_update', { 'id': entity.id }) }}" method="post" {{ form_start(edit_form) }}
    <table class="table table-bordered table-striped hidden-mobile">
    <input type="hidden" name="_method" value="PUT" />
      {{ form_errors(edit_form) }}

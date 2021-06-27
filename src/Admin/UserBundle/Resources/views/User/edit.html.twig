@@ -23,7 +23,7 @@
                 <div class="widget-body no-padding" id="bodyform">
                 <div class="form_error">
                 </div> 
- <form action="{{ path('admin_user_update', { 'id': entity.id }) }}" method="post" {{ form_start(edit_form) }}>
+ <form action="{{ path('admin_user_update', { 'id': entity.id }) }}" method="post" {{ form_start(edit_form) }}
             <table class="table table-bordered table-striped hidden-mobile" style="width: 80%">
    <input type="hidden" name="_method" value="PUT"/>
      {{ form_errors(edit_form) }}

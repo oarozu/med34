@@ -9,7 +9,7 @@
     </tr>
 </table>
  
-<form action="{{ path('coevaldirector_update', { 'id': entity.oferta.id }) }}" method="post" {{ form_start(edit_form) }}>
+<form action="{{ path('coevaldirector_update', { 'id': entity.oferta.id }) }}" method="post" {{ form_start(edit_form) }}
   <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
      <input type="hidden" name="_method" value="PUT" />
      {{ form_errors(edit_form) }}

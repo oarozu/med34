@@ -6,7 +6,7 @@
             <h4 class="modal-title">Cargar Plan de Gestión PDF</h4>
             </div>			<!-- /modal-header -->
             <div class="modal-body">          
-   <form method="POST" action="{{path('pdfplang_create', { 'id': id })}}" {{ form_start(form) }}>
+   <form method="POST" action="{{path('pdfplang_create', { 'id': id })}}" {{ form_start(form) }}
    <table class="table table-bordered table-striped hidden-mobile">
    <input type="hidden" name="_method" value="POST" />
      {{ form_errors(form) }}

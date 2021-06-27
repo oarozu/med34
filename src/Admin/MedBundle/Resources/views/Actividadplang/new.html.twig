@@ -4,7 +4,7 @@
             <h4 class="modal-title">Agregar actividad al plan</h4>
             </div>			<!-- /modal-header -->
             <div class="modal-body">          
-   <form  action="{{ path('actividadplang_add', { 'id' : id } ) }}" method="post" {{ form_start(form) }}>
+   <form  action="{{ path('actividadplang_add', { 'id' : id } ) }}" method="post" {{ form_start(form) }}
    <table class="table table-bordered table-striped hidden-mobile">
    <input type="hidden" name="_method" value="POST" />
      {{ form_errors(form) }}

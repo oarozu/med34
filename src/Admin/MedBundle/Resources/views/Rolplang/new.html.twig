@@ -4,7 +4,7 @@
             <h4 class="modal-title">Agregar Rol al Plan de Gestión</h4>
             </div>			<!-- /modal-header -->
             <div class="modal-body">          
-   <form  action="{{ path('rolplang_create', { 'id' : id } ) }}" method="post" {{ form_start(form) }}>
+   <form  action="{{ path('rolplang_create', { 'id' : id } ) }}" method="post" {{ form_start(form) }}
    <table class="table table-bordered table-striped hidden-mobile">
    <input type="hidden" name="_method" value="POST" />
      {{ form_errors(form) }}

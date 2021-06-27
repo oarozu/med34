@@ -3,7 +3,7 @@
 {% block body -%}
     <h3>Curso: {{evaluacion.id.oferta.curso.id}} {{evaluacion.id.oferta.curso.nombre}} - Director: {{evaluacion.id.oferta.director.user.nombres}} {{evaluacion.id.oferta.director.user.apellidos}}</h3>
   <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
-     <form action="{{ path('redtutores_update', { 'id': evaluacion.id.id }) }}" method="post" {{ form_start(edit_form) }}>
+     <form action="{{ path('redtutores_update', { 'id': evaluacion.id.id }) }}" method="post" {{ form_start(edit_form) }}
      <input type="hidden" name="_method" value="PUT" />
      {{ form_errors(edit_form) }}
         <thead>

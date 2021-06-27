@@ -171,7 +171,7 @@ Aprobado
     <td colspan="3">Observaciones Decano de la Escuela: {{docente.evaluacion.observaciones}}
     
     
-   <form  action="{{ path('docente_observaciones', { 'id': docente.id }) }}" method="post" {{ form_start(form) }}>
+   <form  action="{{ path('docente_observaciones', { 'id': docente.id }) }}" method="post" {{ form_start(form) }}
 
    <input type="hidden" name="_method" value="PUT" />
      {{ form_errors(form) }}

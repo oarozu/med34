@@ -80,7 +80,7 @@
                 <div class="widget-body no-padding" id="bodyform">
                 <div class="form_error">
                 </div>
-        <form method="POST" class="smart-form"  method="POST" action="{{path('admin_user_newpass', { 'id': entity.id })}}" {{ form_start(newpass_form) }}>
+        <form method="POST" class="smart-form"  method="POST" action="{{path('admin_user_newpass', { 'id': entity.id })}}" {{ form_start(newpass_form) }}
         <div id="form_body">
         {{ form_errors(newpass_form) }}
         </div>
