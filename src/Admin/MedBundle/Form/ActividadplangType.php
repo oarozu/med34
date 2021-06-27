@@ -20,7 +20,7 @@ class ActividadplangType extends AbstractType
             ->add('observaciones', TextareaType::class, array('required'  => true, 'attr' => array('cols' => '110')))
             ->add('autoevaluacion', ChoiceType::class, array(
             'placeholder' => ' ',
-            'choices'   => array('5' => 'Siempre', '4' => 'Casi Siempre', '3' => 'Aveces', '2' => 'Casi Nunca', '1' => 'Nunca', '0' => 'No Aplica'),
+            'choices'   => array('Siempre' => '5', 'Casi Siempre' => '4', 'Aveces' => '3', 'Casi Nunca' => '1', 'Nunca' => '1', 'No Aplica' => '0'),
             'required'  => true,))
            ->add('file')     
         ;
