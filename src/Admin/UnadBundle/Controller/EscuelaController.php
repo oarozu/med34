@@ -5,10 +5,6 @@ namespace Admin\UnadBundle\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Admin\UnadBundle\Entity\Escuela;
 use Admin\UnadBundle\Form\EscuelaType;
 
@@ -142,12 +138,12 @@ class EscuelaController extends Controller
      * @Method("GET")
      * @Template("Escuela/info.html.twig")
      */
-    public function infoAction()
+    public function infoAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
-        //$session = new Session();
-        //$session->migrate();
+
+        $session = $request->getSession();
+
         $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
         $periodose = $em->getRepository('AdminMedBundle:Periodoe')->findby(array(),array('id' => 'DESC'));
         $programas = $em->getRepository('AdminUnadBundle:Programa')->findBy(array('escuela' => $escuela),array('nivel' => 'DESC'));
@@ -299,10 +295,10 @@ class EscuelaController extends Controller
      * @Method("GET")
      * @Template("Escuela/coevallider.html.twig")
      */
-    public function coevalliderAction()
+    public function coevalliderAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
         if (!$escuela) {
             throw $this->createNotFoundException('Unable to find Escuela entity.');
@@ -321,10 +317,10 @@ class EscuelaController extends Controller
      * @Method("GET")
      * @Template("Escuela/heteroeval.html.twig")
      */
-    public function heteroevalAction()
+    public function heteroevalAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
         $docentes = $em->getRepository('AdminUnadBundle:Docente')->findby(array( 'escuela' => $session->get('escuelaid')));
         if (!$escuela) {
@@ -342,10 +338,10 @@ class EscuelaController extends Controller
      * @Method("GET")
      * @Template("Escuela/resultados.html.twig")
      */
-    public function resultadosAction()
+    public function resultadosAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $session = $this->getRequest()->getSession();
+        $session = $request->getSession();
         $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
         if (!$escuela) {
             throw $this->createNotFoundException('Unable to find Escuela entity.');
