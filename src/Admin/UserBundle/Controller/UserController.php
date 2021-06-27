@@ -32,8 +32,6 @@ class UserController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        //  $entities = $em->getRepository('AdminUserBundle:User')->findAll(array ($orderBy = null, $maxResults = 500, $firstResult = null));
-
         $dql = "select a from AdminUserBundle:User a";
         $query = $em->createQuery($dql);
         $query->setMaxResults(50);
@@ -41,7 +39,6 @@ class UserController extends Controller
 
         $valores = new Parabuscar();
         $Form = $this->createForm(BuscarType::class, $valores);
-        // $entities = $em->getRepository('AdminUserBundle:User')->findAll();
 
         return $this->render('AdminUserBundle:User:index.html.twig', array(
             'entities' => $entities,
@@ -69,21 +66,18 @@ class UserController extends Controller
     {
         $valores = new Parabuscar();
         $Form = $this->createForm(BuscarType::class, $valores);
-        $Form->bind($request);
+        $Form->handleRequest($request);
         $cadena = $valores->getTexto();
         //$cadena = $Form->get('texto')->getData();
         //$param = $Form->get('parametro')->getData();
         $param = $valores->getParametro();
 
         if ($param == 'ced') {
-            //return $this->redirect($this->generateUrl('admin_user_cedula', array('text' => $cadena)));
             return $this->buscarcedulaAction($cadena);
         } elseif ($param == 'nom') {
-            //return $this->redirect($this->generateUrl('admin_user_nombres', array('text' => $cadena)));
             return $this->buscarnombreAction($cadena);
         } elseif ($param == 'apell') {
             return $this->buscarapellidoAction($cadena);
-            //return $this->redirect($this->generateUrl('admin_user_apellidos', array('text' => $cadena)));
         }
         return $this->redirect($this->generateUrl('_welcome'));
     }
