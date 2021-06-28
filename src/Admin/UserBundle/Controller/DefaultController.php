@@ -89,7 +89,6 @@ class DefaultController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
         $instrumentos = $em->getRepository('AdminMedBundle:Instrumento')->findAll();
-        //$request = $this->getRequest();
         $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $this->container->getParameter('appmed.periodo')));
 
         $session = $request->getSession();
@@ -122,7 +121,7 @@ class DefaultController extends Controller {
         $ucount = (isset($user)) ? 1 : 0;
 
         if ($autenticacion == "Aceptada" && $ucount == 1) {
-            $this->ingresoAction($cedula_usuario);
+            $this->ingresoAction($cedula_usuario, $request);
         } else {
             # $this->ingresoAction($cedula_usuario);    
             return $this->render('AdminUserBundle:Default:home.html.twig', array(
@@ -156,8 +155,7 @@ class DefaultController extends Controller {
         echo $formulario;
     }
 
-    public function ingresoAction($cedula_usuario) {
-        $request = $this->getRequest();
+    public function ingresoAction($cedula_usuario, $request) {
         $pass = $request->server->get('MED_PKW');
         $formulario = "<form method='post' name='datos' action='/login_check'>";
         $formulario .= "<input id='username' type='hidden' name='_username' value=$cedula_usuario />";
