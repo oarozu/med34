@@ -21,12 +21,7 @@ admin_user_show:
 admon_user:
     path:  /admon/user
     defaults: { _controller: "AdminUserBundle:User:index" }       
-    
-admon_user_buscarpor:
-    path:  /admon/user/
-    defaults: { _controller: "AdminUserBundle:User:buscarpor" } 
-    methods: [PUT]
-    
+
 home_user_info:
     path:  /home/info
     defaults: { _controller: "AdminUserBundle:User:info" }

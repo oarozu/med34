@@ -2,6 +2,10 @@
 
 namespace Admin\UserBundle\Controller;
 
+use Admin\MedBundle\Entity\Avalplang;
+use Admin\MedBundle\Form\AvalplangType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -29,7 +33,7 @@ class UserController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $dql = "select a from AdminUserBundle:User a";
@@ -38,11 +42,31 @@ class UserController extends Controller
         $entities = $query->getResult();
 
         $valores = new Parabuscar();
-        $Form = $this->createForm(BuscarType::class, $valores);
+        $Form = $this->createForm(BuscarType::class, $valores );
+
+        $newform = $this->createFormBuilder($valores)
+            ->setMethod('GET')
+            ->add('texto')
+            ->add('parametro', ChoiceType::class, array(
+                'placeholder' => 'Buscar por:',
+                'choices'   => array('Cédula' => 'ced', 'Nombres' => 'nom','Apellidos' => 'apell'),
+                'required'  => true,
+            ))
+            ->add('save', SubmitType::class, ['label' => 'Buscar Usuario'])
+            ->getForm();
+
+        $newform->handleRequest($request);
+
+        if ($newform->isSubmitted() && $newform->isValid()) {
+            $valores = $newform->getData();
+            $entities = $this->buscarDocenteAction($valores->getTexto(),$valores->getParametro());
+        }
+
 
         return $this->render('AdminUserBundle:User:index.html.twig', array(
             'entities' => $entities,
-            'buscar_form' => $Form->createView(),
+            'form' => $Form->createView(),
+            'newform' => $newform->createView()
         ));
     }
 
@@ -57,77 +81,39 @@ class UserController extends Controller
     }
 
     /**
-     * Lists all Usuarios entities.
-     * @Route("/", name="admin_user_buscarpor")
-     * @Method("PUT")
-     * @Template()
+     * Creates a form to edit a Avalplang entity.
+     *
+     * @param Parabuscar $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
      */
-    public function buscarporAction(Request $request)
-    {
-        $valores = new Parabuscar();
-        $Form = $this->createForm(BuscarType::class, $valores);
-        $Form->handleRequest($request);
-        $cadena = $valores->getTexto();
-        //$cadena = $Form->get('texto')->getData();
-        //$param = $Form->get('parametro')->getData();
-        $param = $valores->getParametro();
+    private function createBuscarForm(Parabuscar $entity) {
+        $form = $this->createForm(BuscarType::class, $entity, array(
+            'action' => $this->generateUrl('admon_user_buscarpor'),
+            'method' => 'POST',
+        ));
 
-        if ($param == 'ced') {
-            return $this->buscarcedulaAction($cadena);
-        } elseif ($param == 'nom') {
-            return $this->buscarnombreAction($cadena);
-        } elseif ($param == 'apell') {
-            return $this->buscarapellidoAction($cadena);
+        $form->add('submit', SubmitType::class, array('label' => 'New Buscar'));
+
+        return $form;
+    }
+
+    public function buscarDocenteAction($text, $parametro)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if ($parametro == 'ced') {
+            $query = $em->createQuery('SELECT a FROM AdminUserBundle:User a WHERE a.id LIKE :text');
+        } elseif ($parametro == 'nom') {
+            $query = $em->createQuery('SELECT a FROM AdminUserBundle:User a WHERE a.nombres LIKE :text');
+        } elseif ($parametro == 'apell') {
+            $query = $em->createQuery('SELECT a FROM AdminUserBundle:User a WHERE a.apellidos LIKE :text ');
         }
-        return $this->redirect($this->generateUrl('_welcome'));
-    }
-
-    public function buscarapellidoAction($text)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery('SELECT a FROM AdminUserBundle:User a WHERE a.apellidos LIKE :text ');
+        $query->setMaxResults(200);
         $query->setParameters(array(
             'text' => '%' . $text . '%',
         ));
         $docentes = $query->getResult();
-        $valores = new Parabuscar();
-        $Form = $this->createForm(BuscarType::class, $valores);
-        return $this->render('AdminUserBundle:User:index.html.twig', array(
-            'entities' => $docentes,
-            'buscar_form' => $Form->createView(),
-        ));
-    }
-
-    public function buscarnombreAction($text)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery('SELECT a FROM AdminUserBundle:User a WHERE a.nombres LIKE :text');
-        $query->setParameters(array(
-            'text' => '%' . $text . '%',
-        ));
-        $docentes = $query->getResult();
-        $valores = new Parabuscar();
-        $Form = $this->createForm(BuscarType::class, $valores);
-        return $this->render('AdminUserBundle:User:index.html.twig', array(
-            'entities' => $docentes,
-            'buscar_form' => $Form->createView(),
-        ));
-    }
-
-    public function buscarcedulaAction($text)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery('SELECT a FROM AdminUserBundle:User a WHERE a.id LIKE :text');
-        $query->setParameters(array(
-            'text' => $text,
-        ));
-        $docentes = $query->getResult();
-        $valores = new Parabuscar();
-        $Form = $this->createForm(BuscarType::class, $valores);
-        return $this->render('AdminUserBundle:User:index.html.twig', array(
-            'entities' => $docentes,
-            'buscar_form' => $Form->createView(),
-        ));
+        return $docentes;
     }
 
     /**
