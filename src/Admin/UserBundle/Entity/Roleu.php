@@ -2,14 +2,14 @@
 
 namespace Admin\UserBundle\Entity;
 
-use Symfony\Component\Security\Core\Role\RoleInterface;
+use Symfony\Component\Security\Core\Role\Role;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="admin_roles")
  */
-class Role implements RoleInterface,  \Serializable
+class Roleu extends Role
 {
     /**
      * @ORM\Id

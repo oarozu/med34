@@ -75,7 +75,7 @@ class User implements UserInterface,  \Serializable
     
     /**
      * se utilizó user_roles para no hacer conflicto al aplicar ->toArray en getRoles()
-     * @ORM\ManyToMany(targetEntity="Role")
+     * @ORM\ManyToMany(targetEntity="Roleu")
      * @ORM\JoinTable(name="user_role",
      *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
@@ -191,9 +191,9 @@ class User implements UserInterface,  \Serializable
     /**
      * Add user_roles
      *
-     * @param \Admin\UserBundle\Entity\Role $userRoles
+     * @param \Admin\UserBundle\Entity\Roleu $userRoles
      */
-    public function addRole(\Admin\UserBundle\Entity\Role $userRoles)
+    public function addRole(\Admin\UserBundle\Entity\Roleu $userRoles)
     {
         $this->user_roles[] = $userRoles;
     }
@@ -311,10 +311,10 @@ class User implements UserInterface,  \Serializable
     /**
      * Add user_roles
      *
-     * @param \Admin\UserBundle\Entity\Role $userRoles
+     * @param \Admin\UserBundle\Entity\Roleu $userRoles
      * @return User
      */
-    public function addUserRole(\Admin\UserBundle\Entity\Role $userRoles)
+    public function addUserRole(\Admin\UserBundle\Entity\Roleu $userRoles)
     {
         $this->user_roles[] = $userRoles;
     
@@ -324,9 +324,9 @@ class User implements UserInterface,  \Serializable
     /**
      * Remove user_roles
      *
-     * @param \Admin\UserBundle\Entity\Role $userRoles
+     * @param \Admin\UserBundle\Entity\Roleu $userRoles
      */
-    public function removeUserRole(\Admin\UserBundle\Entity\Role $userRoles)
+    public function removeUserRole(\Admin\UserBundle\Entity\Roleu $userRoles)
     {
         $this->user_roles->removeElement($userRoles);
     }
