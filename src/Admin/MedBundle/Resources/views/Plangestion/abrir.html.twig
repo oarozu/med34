@@ -1,7 +1,7 @@
 		  {% block body -%}
                 <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
-                <h4 class="modal-title">Abrir Registro</h4>
+                <h4 class="modal-title">Editar auto evaluación </h4>
                 </div>			<!-- /modal-header -->
                 <div class="modal-body">          
                 <form  action="{{ path('plangestion_abrir_registro', { 'id': entity.id }) }}" method="post" {{ form_start(edit_form) }}
@@ -9,14 +9,14 @@
                 <input type="hidden" name="_method" value="PUT" />
                   {{ form_errors(edit_form) }}
                 <tr>
-                 <td>Indique porque requiere reabrir el registro.</td>
+                 <td>Observaciones:</td>
                  <td>
                   {{ form_widget(edit_form.observaciones) }}
                  </td>
                 </tr>
                 <tr>
                    <td></td>
-                   <td><button type="hidden" class="btn btn-lg btn-primary">Abrir</button></td>
+                   <td><button type="hidden" class="btn btn-lg btn-primary">Habilitar edición</button></td>
                 </tr>
                 {{ form_widget(edit_form._token) }}
                 </table>
