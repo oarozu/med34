@@ -94,8 +94,8 @@
                 <tr>
                 <td>{{periodoa.nombre}}</td>
                 <td>{{ periodoa.semanas }}</td>
-                <td>{{ periodoa.fechainicio|localizeddate('full', 'none', app.request.locale ) }}</td>
-                <td>{{ periodoa.fechafin|localizeddate('full', 'none', app.request.locale )}}</td>
+                <td>{{ periodoa.fechainicio|date('Y-m-d') }}</td>
+                <td>{{ periodoa.fechafin|date('Y-m-d') }}</td>
             {%endfor%}
         </tbody>
               </table>

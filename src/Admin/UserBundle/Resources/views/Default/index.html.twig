@@ -6,7 +6,7 @@
         <div class="well">
             <h1 class="txt-color-orangeDark login-header-big">Periodo de Evaluación: {{periodo.id}}</h1>
             <p>
-                Periodo de Evaluación del {{periodo.fechainicio|localizeddate('none','none',app.request.locale,null,"d' de 'MMMM") }} al {{periodo.fechafin|localizeddate('none', 'none', app.request.locale,null, "d 'de' MMMM") }}
+                Periodo de Evaluación del {{periodo.fechainicio| date('Y-m-d') }} al {{periodo.fechafin|date('Y-m-d') }}
             </p>
             <div class="easy-pie-chart txt-color-blue easyPieChart" data-percent="{{hoy/dias*100}}" data-pie-size="180" style="width: 180px; height: 180px; line-height: 180px;">
                 <span class="percent percent-sign txt-color-blue font-xl semi-bold">{{hoy/dias*100}}</span>
@@ -60,8 +60,8 @@
                             <td>{{periodoa.id}}</td>
                             <td>{{periodoa.nombre}}</td>
                             <td>{{ periodoa.semanas }}</td>
-                            <td>{{ periodoa.fechainicio|localizeddate('none','none',app.request.locale,null,"d' de 'MMMM") }} al
-                                {{ periodoa.fechafin|localizeddate('none','none',app.request.locale,null,"d' de 'MMMM") }}</td>
+                            <td>{{ periodoa.fechainicio | date('Y-m-d') }} al
+                                {{ periodoa.fechafin | date('Y-m-d')}}</td>
            
                         {%endfor%}
                 </tbody>
