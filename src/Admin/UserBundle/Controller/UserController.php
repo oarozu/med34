@@ -2,8 +2,7 @@
 
 namespace Admin\UserBundle\Controller;
 
-use Admin\MedBundle\Entity\Avalplang;
-use Admin\MedBundle\Form\AvalplangType;
+use Admin\UserBundle\Form\CedulaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -178,7 +177,8 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
-        $passForm = $this->createPassForm($id);
+        //$passForm = $this->createPassForm($id);
+        $passForm = $this->createCedulaForm($entity);
 
         return $this->render('AdminUserBundle:User:show.html.twig', array(
             'entity' => $entity,
@@ -251,7 +251,7 @@ class UserController extends Controller
     public function newpassAction(Request $request, $id)
     {
         if (!$request->isXmlHttpRequest()) {
-            //     return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
+            return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -261,13 +261,14 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
-        $passForm = $this->createPassForm($id);
-        $passForm->bind($request);
+        $passForm = $this->createCedulaForm($entity);
+        $passForm->handleRequest($request);
+
         if ($passForm->isValid()) {
             $currentPass = $this->generateRandomString();
             $entity->setPassword($currentPass);
             $this->setSecurePassword($entity);
-            $this->enviarMail($entity, $currentPass);
+          //  $this->enviarMail($entity, $currentPass);
             $em->persist($entity);
             $em->flush();
             return new JsonResponse(array(
@@ -320,19 +321,20 @@ class UserController extends Controller
             ->getForm();
     }
 
+
     /**
-     * Creates a form to delete a Instrumento entity by id.
+     * Creates a form to edit a Instrumento entity.
      *
-     * @param mixed $id The entity id
+     * @param User $user The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createPassForm($id)
+    private function createCedulaForm(User $user)
     {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_user_newpass', array('id' => $id)))
-            ->setMethod('POST')
-            ->getForm();
+        $form = $this->createForm(CedulaType::class, $user, array(
+            'action' => $this->generateUrl('admin_instrumento_update', array('id' => $user->getId()))
+        ));
+        return $form;
     }
 
     private function setSecurePassword(&$entity)
