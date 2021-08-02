@@ -177,7 +177,6 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
-        //$passForm = $this->createPassForm($id);
         $passForm = $this->createCedulaForm($entity);
 
         return $this->render('AdminUserBundle:User:show.html.twig', array(
@@ -268,7 +267,7 @@ class UserController extends Controller
             $currentPass = $this->generateRandomString();
             $entity->setPassword($currentPass);
             $this->setSecurePassword($entity);
-          //  $this->enviarMail($entity, $currentPass);
+            $this->enviarMail($entity, $currentPass);
             $em->persist($entity);
             $em->flush();
             return new JsonResponse(array(
