@@ -61,14 +61,13 @@
                             {% endif %}
                         </td>
                         <td>
-                            {% if not actividad.plang.autoevaluacion %}
+                            {% if not actividad.plang.autoevaluacion %} {% set termino = 0 %}
                             <a data-toggle="modal" href="{{ path('actividadplang_edit', { 'id': actividad.id }) }}"
                                data-target="#myModal" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
                             {% endif %}
                         </td>
                         <td>
-                            {% if actividad.plang.autoevaluacion %} {% set termino = 0 %}
-                            {% elseif actividad.autoevaluacion is not null %}
+                            {% if actividad.autoevaluacion is not null %}
                                 <a data-toggle="modal"
                                    href="{{ path('actividadplang_borrar', { 'id': actividad.id }) }}"
                                    data-target="#myModal" class="btn btn-default btn-xs txt-color-red"><i
