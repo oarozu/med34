@@ -67,7 +67,7 @@
                             {% endif %}
                         </td>
                         <td>
-                            {% if actividad.plang.autoevaluacion is null %} {% set termino = 0 %}
+                            {% if actividad.plang.autoevaluacion %} {% set termino = 0 %}
                             {% elseif actividad.autoevaluacion is not null %}
                                 <a data-toggle="modal"
                                    href="{{ path('actividadplang_borrar', { 'id': actividad.id }) }}"
