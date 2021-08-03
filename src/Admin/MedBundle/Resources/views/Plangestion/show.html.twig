@@ -31,7 +31,7 @@
                 <tbody>
 
                 {% set temp = 'temp' %} {% set num = 0 %} {% set totalhoras = 0 %}
-                {% set termino = 1 %}
+                {% set termino = 0 %}
                 {% for actividad in entity.actividades %}
                     <tr>
                         {% if temp != actividad.actividad.rol.nombre %}
