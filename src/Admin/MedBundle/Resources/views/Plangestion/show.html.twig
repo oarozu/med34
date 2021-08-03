@@ -99,6 +99,7 @@
                             <a data-toggle="modal" href="{{ path('plangestion_edit', { 'id': entity.id }) }}"
                                data-target="#myModal" class="btn btn-labeled btn-success"><span class="btn-label"><i
                                             class="glyphicon glyphicon-thumbs-up"></i></span>Cerrar Autoevaluación</a>
+                        {% endif %}
                         {% if entity.autoevaluacion is null %}
                             <div class="alert alert-danger fade in">
                                 <button class="close" data-dismiss="alert">×</button>
@@ -106,12 +107,11 @@
                                 <strong>Importante!</strong> No a finalizado su autoevaluación. Registre su
                                 auto evaluación por cada actividad y luego oprima el boton "Cerrar Autoevaluación".
                             </div>
-                            {% endif %}
                         {% else %}
                             <a data-toggle="modal" href="{{ path('plangestion_abrir', { 'id': entity.id }) }}"
                                data-target="#myModal" class="btn btn-labeled btn-success"><span class="btn-label"><i
                                             class="glyphicon glyphicon-thumbs-up"></i></span>Editar Autoevaluación</a>
-                            {% endif %}
+                        {% endif %}
                     </td>
                 </tr>
                 <tr>
