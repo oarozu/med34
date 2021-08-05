@@ -174,7 +174,7 @@ class CursoController extends Controller
        $cedula = new Cedula();     
        $Form = $this->createForm(CedulaType::class, $cedula, array(
             'action' => $this->generateUrl('oferta_tutor', array('id' => $entity->getId())),
-            'method' => 'GET',
+            'method' => 'POST',
         ));  
         return array(
             'entity'      => $entity,
@@ -238,17 +238,20 @@ class CursoController extends Controller
    /**
      * Finds and displays a Curso entity
      * @Route("/{id}/tutor", name="oferta_tutor")
-     * @Method("GET")
+     * @Method("POST")
      * @Template()
      */
     public function ofertaTutorAction(Request $request, $id)
     {
       $em = $this->getDoctrine()->getManager();
       $oferta = $em->getRepository('AdminMedBundle:Oferta')->find($id);
-      $cedula = new Cedula();
-      $Form = $this->createForm(CedulaType::class, $cedula);
-      $Form->handleRequest($request);
-      $numeroced = $Form->get('cedula')->getData();
+      $data = new Cedula();
+      $form = $this->createForm(CedulaType::class, $data);
+      $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+        }
       $session = $request->getSession();
       
       if($oferta->getDirector()->getId() != $session->get('docenteid') && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
@@ -256,7 +259,7 @@ class CursoController extends Controller
       return $this->redirect($this->generateUrl('oferta', array('id' => $id)));                     
        }
       
-      $usuario = $em->getRepository('AdminUserBundle:User')->find($numeroced);       
+      $usuario = $em->getRepository('AdminUserBundle:User')->find($data->getCedula());
        if (!$usuario) {
        $this->get('session')->getFlashBag()->add('error', 'Cédula no encontrada');          
        return $this->redirect($this->generateUrl('oferta', array('id' => $id)));          
