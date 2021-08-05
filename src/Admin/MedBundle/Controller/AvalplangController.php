@@ -21,14 +21,6 @@ use Symfony\Component\Security\Core\Security;
  */
 class AvalplangController extends Controller {
 
-
-    protected $security;
-
-    public function __construct(Security $security)
-    {
-        $this->security = $security;
-    }
-
     /**
      * Lists all Avalplang entities.
      *
@@ -80,7 +72,7 @@ class AvalplangController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
 
-          if (!$this->security->isGranted('ROLE_ADMIN')){
+          if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
         $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
               $docentes = $em->getRepository('AdminUnadBundle:Docente')
         ->findBy(
