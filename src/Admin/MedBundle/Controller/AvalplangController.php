@@ -19,6 +19,14 @@ use Admin\MedBundle\Form\AvalplangType;
  */
 class AvalplangController extends Controller {
 
+
+    protected $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     /**
      * Lists all Avalplang entities.
      *
