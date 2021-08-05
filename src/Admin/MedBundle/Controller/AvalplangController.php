@@ -11,6 +11,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Admin\MedBundle\Entity\Avalplang;
 use Admin\MedBundle\Form\AvalplangType;
+use Symfony\Component\Security\Core\Security;
+
 
 /**
  * Avalplang controller.
