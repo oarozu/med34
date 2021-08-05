@@ -196,7 +196,7 @@ class CursoController extends Controller
       $oferta = new Oferta();
       $datos = new \Admin\MedBundle\Entity\OfertaDatos();
       $Form = $this->createForm(ofertaType::class, $datos);
-      $Form->bind($request);
+      $Form->handleRequest($request);
       $numeroced = $Form->get('cedula')->getData();
       
       $usuario = $em->getRepository('AdminUserBundle:User')->find($numeroced);       
@@ -247,7 +247,7 @@ class CursoController extends Controller
       $oferta = $em->getRepository('AdminMedBundle:Oferta')->find($id);
       $cedula = new Cedula();
       $Form = $this->createForm(CedulaType::class, $cedula);
-      $Form->bind($request);
+      $Form->handleRequest($request);
       $numeroced = $Form->get('cedula')->getData();
       $session = $request->getSession();
       
@@ -420,7 +420,7 @@ class CursoController extends Controller
       'action' => $this->generateUrl('oferta_update', array('id' => $id)),
       'method' => 'GET',
       )); 
-      $Form->bind($request);
+      $Form->handleRequest($request);
       
       $ncedula = $Form->get('cedula')->getData();
       $user = $em->getRepository('AdminUserBundle:User')->find($ncedula);
