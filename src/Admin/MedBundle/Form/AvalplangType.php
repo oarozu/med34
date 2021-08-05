@@ -22,7 +22,7 @@ class AvalplangType extends AbstractType
 
                 
             ->add('avalado', ChoiceType::class, array('placeholder' => ' ', 'label' => ' ',
-            'choices'   => array( '1' => 'Aprobado', '2' => 'No aprobado'), 'required'  => true,))
+            'choices'   => array( 'Aprobado' => '1', 'No aprobado' => '2'), 'required'  => true,))
             
         ;
     }

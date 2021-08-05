@@ -70,7 +70,7 @@ class AvalplangController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
 
-          if (!$this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+          if (!$this->security->isGranted('ROLE_ADMIN')){
         $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
               $docentes = $em->getRepository('AdminUnadBundle:Docente')
         ->findBy(
