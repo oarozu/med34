@@ -2,7 +2,8 @@
 {% block body -%}
 <a href="{{ path('docente_show', {'id': app.session.get('docenteid') }) }}"> << Regresar</a>
 <h1>Evaluación a Directores de Curso</h1>
-<h3>Importante: Si un docente fue director de uno o más cursos en uno o más de un periodos académicos y su valoración es la misma solo es necesario que realice una evaluación de todas, de lo contrario realícelas independientes para cada curso.
+<h3>
+    Importante: Si un docente fue director de uno o más cursos en uno o más períodos académicos y su valoración es la misma, solo es necesaria una evaluación, de lo contrario, evalúe cada uno de los cursos independientes.
 </h3>
       <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
         <thead>
