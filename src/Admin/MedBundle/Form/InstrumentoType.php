@@ -22,8 +22,8 @@ class InstrumentoType extends AbstractType
             ->add('tipo')
             ->add('descripcion')
             ->add('estado', ChoiceType::class, array(
-            'choices'   => array( '1' => 'Activo', '0' => 'Inactivo'),
-            'required'  => true,))       
+            'choices'   => array( 'Activo' => '1', 'Inactivo' => '0'),
+            'required'  => true))
         ;
     }
     
