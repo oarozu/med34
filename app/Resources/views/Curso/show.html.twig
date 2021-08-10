@@ -8,7 +8,7 @@
 
 Agregar Oferta al curso: {{entity.id}}
 <table class="table table-bordered table-striped hidden-mobile" style="width: 50%">
-<form action="{{ path('oferta_curso', { 'id': entity.id }) }}" method="get" {{ form_start(form) }}
+<form action="{{ path('oferta_curso', { 'id': entity.id }) }}" method="POST" {{ form_start(form) }}
     <tr>
         <td>
              {{ form_label(form.cedula,  'Cédula del Director') }}

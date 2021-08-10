@@ -186,7 +186,7 @@ class CursoController extends Controller
      /**
      * Finds and displays a Curso entity
      * @Route("/{id}/addoferta", name="oferta_curso")
-     * @Method("GET")
+     * @Method("POST")
      * @Template()
      */
     public function ofertaCursoAction(Request $request, $id)
