@@ -125,7 +125,7 @@ class UserController extends Controller
     {
         $entity = new User();
         $form = $this->createForm(UserType::class, $entity);
-        $form->bind($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $this->setSecurePassword($entity);
@@ -226,7 +226,7 @@ class UserController extends Controller
         $editForm = $this->createForm(UserType::class, $entity);
         //  $currentpass = $entity->getPassword();
         $pass = $request->server->get('MED_PKW');
-        $editForm->bind($request);
+        $editForm->handleRequest($request);
         $entity->setPassword($pass);
         $this->setSecurePassword($entity);
 
@@ -289,7 +289,7 @@ class UserController extends Controller
     public function deleteAction(Request $request, $id)
     {
         $form = $this->createDeleteForm($id);
-        $form->bind($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();

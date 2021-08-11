@@ -521,7 +521,7 @@ class DocenteController extends Controller {
         $evaluacion = $em->getRepository('AdminMedBundle:evaluacion')->find($id);
 
         $Form = $this->createForm(ObservType::class);
-        $Form->bind($request);
+        $Form->handleRequest($request);
         $evaluacion->setObservaciones($Form->get('observaciones')->getData());
         $em->persist($evaluacion);
         $em->flush();
