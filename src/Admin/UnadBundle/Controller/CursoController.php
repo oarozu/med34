@@ -253,8 +253,11 @@ class CursoController extends Controller
             $data = $form->getData();
         }
       $session = $request->getSession();
-      
-      if($oferta->getDirector()->getId() != $session->get('docenteid') || $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+
+        $director = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
+
+
+        if($oferta->getDirector() != $director || $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
       $this->get('session')->getFlashBag()->add('error', 'No permitido no es director');
       return $this->redirect($this->generateUrl('oferta', array('id' => $id)));                     
        }
