@@ -256,7 +256,7 @@ class CursoController extends Controller
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $director = $em->getRepository('AdminUnadBundle:Docente')->findby(array('user' => $user, 'periodo' => $this->container->getParameter('appmed.periodo')));
 
-        if($oferta->getDirector() != $director || $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+        if($oferta->getDirector() != $director && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
       $this->get('session')->getFlashBag()->add('error', 'No permitido no es director');
       return $this->redirect($this->generateUrl('oferta', array('id' => $id)));                     
        }
