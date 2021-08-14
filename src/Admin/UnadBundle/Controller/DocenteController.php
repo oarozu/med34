@@ -231,6 +231,7 @@ class DocenteController extends Controller {
 
         $entity = $em->getRepository('AdminUnadBundle:Docente')->find($id);
         $instrumentos = $em->getRepository('AdminMedBundle:Instrumento')->findAll();
+        $this->get('session')->getFlashBag()->add('warning', 'El plazo para el proceso se extiende hasta el lunes 16 inclusive');
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Docente entity.');
@@ -255,6 +256,7 @@ class DocenteController extends Controller {
     public function inicioAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
+        $this->get('session')->getFlashBag()->add('warning', 'El plazo para el cierre del proceso de evaluación se extiende hasta el lunes 16 de agosto inclusive');
         $entity = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         $instrumentos = $em->getRepository('AdminMedBundle:Instrumento')->findAll();
 
