@@ -47,7 +47,6 @@ class RolplangType extends AbstractType {
                     'choice_label' => 'id',
                 ))
                 ->add('semanas', ChoiceType::class, array(
-                    //     'placeholder' => 'Semanas',
                     'choices' => $opciones,
                     'required' => true,
                     'attr' => array('onchange' => 'calculo()')))
