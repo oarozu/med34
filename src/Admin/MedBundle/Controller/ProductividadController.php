@@ -55,9 +55,7 @@ class ProductividadController extends Controller {
      */
     private function createProdForm(Productividad $entity, $docenteid) {
         $form = $this->createForm(ProductividadType::class, $entity, array(
-            'action' => $this->generateUrl('productividad_add', array('id' => $docenteid)),
-            'method' => 'POST',
-        ));
+            'action' => $this->generateUrl('productividad_add', array('id' => $docenteid))));
         return $form;
     }
     
