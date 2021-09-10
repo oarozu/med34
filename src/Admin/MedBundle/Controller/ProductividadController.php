@@ -53,8 +53,8 @@ class ProductividadController extends Controller {
      * @param Productividad $entity The entity
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createProdForm(Productividad $entity, $proyectos) {
-        $form = $this->createForm(new ProductividadType($proyectos), $entity);
+    private function createProdForm(Productividad $entity) {
+        $form = $this->createForm(ProductividadType::class, $entity);
         return $form;
     }
     
