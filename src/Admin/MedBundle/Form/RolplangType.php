@@ -17,7 +17,7 @@ class RolplangType extends AbstractType {
      */
     public $semanas;
 
-    public function __construct($dias = null) {
+    public function __construct($dias = 128) {
         $this->semanas = $dias / 5;
     }
 
