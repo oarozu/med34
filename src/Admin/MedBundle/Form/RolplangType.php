@@ -28,7 +28,6 @@ class RolplangType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
         $opciones = array();
-
         $opciones['' . $this->semanas] = '' . $this->semanas;
         $entero = intdiv($this->semanas, 1);
         $decimal = $this->semanas - $entero;
