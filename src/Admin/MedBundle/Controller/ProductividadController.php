@@ -39,7 +39,7 @@ class ProductividadController extends Controller {
         $plang = $em->getRepository('AdminMedBundle:Plangestion')->find($docenteid);
         $entity->setPlang($plang);
 
-        $form = $this->createProdForm($entity, $user);
+        $form = $this->createProdForm($entity, $docenteid);
 
         return array(
             'tipo' => $tipo,
@@ -53,8 +53,11 @@ class ProductividadController extends Controller {
      * @param Productividad $entity The entity
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createProdForm(Productividad $entity) {
-        $form = $this->createForm(ProductividadType::class, $entity);
+    private function createProdForm(Productividad $entity, $docenteid) {
+        $form = $this->createForm(ProductividadType::class, $entity, array(
+            'action' => $this->generateUrl('productividad_add', array('id' => $docenteid)),
+            'method' => 'POST',
+        ));
         return $form;
     }
     
