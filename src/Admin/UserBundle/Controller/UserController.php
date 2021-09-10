@@ -190,7 +190,7 @@ class UserController extends Controller
      * Lists all Usuarios entities.
      * @Route("/{id}/edit", name="admin_user_edit")
      * @Method("GET")
-     * @Template()
+     * @Template("AdminUserBundle:User:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -214,7 +214,7 @@ class UserController extends Controller
      * Lists all Usuarios entities.
      * @Route("/{id}/update", name="admin_user_update")
      * @Method("PUT")
-     * @Template()
+     * @Template("AdminUserBundle:User:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -224,7 +224,6 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
         $editForm = $this->createForm(UserType::class, $entity);
-        //  $currentpass = $entity->getPassword();
         $pass = $request->server->get('MED_PKW');
         $editForm->handleRequest($request);
         $entity->setPassword($pass);
@@ -233,11 +232,11 @@ class UserController extends Controller
         if ($editForm->isValid()) {
             $em->persist($entity);
             $em->flush();
-            //  return $this->redirect($this->generateUrl('admin_user_edit', array('id' => $id)));
-            return $this->render('AdminUserBundle:User:edit.html.twig', array(
-                'entity' => $entity,
-                'edit_form' => $editForm->createView(),
-            ));
+            return $this->redirect($this->generateUrl('admin_user_edit', array('id' => $id)));
+            //return $this->render('AdminUserBundle:User:edit.html.twig', array(
+            ///    'entity' => $entity,
+            ///    'edit_form' => $editForm->createView(),
+           /// ));
         }
     }
 
