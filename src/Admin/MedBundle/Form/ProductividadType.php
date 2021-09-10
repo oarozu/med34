@@ -42,7 +42,7 @@ class ProductividadType extends AbstractType {
         'multiple' => false,
         'required' => true
         ))
-        ->add('descripcion', 'textarea', array('required' => true, 'attr' => array('cols' => '80', 'rows' => '5')))
+        ->add('descripcion', EntityType::class, array('required' => true, 'attr' => array('cols' => '80', 'rows' => '5')))
                 
                 ->add('proyecto', EntityType::class, array(
                 'placeholder' => 'Seleccione un proyecto',
