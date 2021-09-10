@@ -86,8 +86,9 @@ class RolplangController extends Controller
     */
     private function createCreateForm(Rolplang $entity, $id, $dias)
     {
-        $form = $this->createForm(new RolplangType($dias), $entity, array(
-            'action' => $this->generateUrl('rolplang_create', array('id' => $id))
+        $form = $this->createForm(RolplangType::class($dias), $entity, array(
+            'action' => $this->generateUrl('rolplang_create', array('id' => $id)),
+            'method' => 'POST',
         ));
 
         $form->add('submit', SubmitType::class, array('label' => 'Create'));
