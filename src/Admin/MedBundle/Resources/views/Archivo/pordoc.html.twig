@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Archivo de evaluaciones recibidas en peridos anteriores</h1>
+    <h1>Archivo de evaluaciones recibidas en periodos anteriores</h1>
 
     <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
         <thead>
@@ -33,24 +33,24 @@
                 <td>{{ entity.periodo }}</td>
                 <td>{{ entity.final|number_format(1, '.', ',') }}</td>
                 <td>
-                <a href="javascript:popUp('/archivo/{{entity.periodo}}/informe/{{entity.cedula}}-{{entity.periodo}}.pdf')" class="btn btn-primary btn-xs"><i class="fa fa-file"></i></a>
+                    <a href="javascript:popUp('/archivo/{{entity.periodo}}/informe/{{entity.cedula}}-{{entity.periodo}}.pdf')" class="btn btn-primary btn-xs"><i class="fa fa-file"></i></a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-    
+
  <script>
-  
+
 function popUp(URL) {
 
-    if(typeof(popupWin) != "object" || popupWin.closed)  { 
+    if(typeof(popupWin) != "object" || popupWin.closed)  {
         popupWin = window.open(URL, 'popupWin', 'scrollbars=auto,toolbar=no,menubar=no,status=no,width=1000,height=600, left=100,top=100');
-    } 
-    else{ 
-        popupWin.location.href = URL; 
     }
-    popupWin.focus(); 
+    else{
+        popupWin.location.href = URL;
+    }
+    popupWin.focus();
  }
 </script>
     {% endblock %}

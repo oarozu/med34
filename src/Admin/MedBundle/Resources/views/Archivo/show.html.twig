@@ -4,92 +4,94 @@
     <h1>Resultados del proceso de evaluación docente del periodo {{ entity.periodo }}</h1>
     <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-                <th>Periodo</th>
-                <td>{{ entity.periodo }}</td>
-            </tr>
-            <tr>
-                <th>Cedula</th>
-                <td>{{ entity.cedula }}</td>
-                <th>Nombres</th>
-                <td>{{ entity.nombres }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+            <th>Periodo</th>
+            <td>{{ entity.periodo }}</td>
+        </tr>
+        <tr>
+            <th>Cedula</th>
+            <td>{{ entity.cedula }}</td>
+            <th>Nombres</th>
+            <td>{{ entity.nombres }}</td>
+        </tr>
 
-            <tr>
-                <th>Apellidos</th>
-                <td>{{ entity.apellidos }}</td>
-                                <th>Vinculacion</th>
-                <td>{{ entity.vinculacion }}</td>
-            </tr>
-            <tr>
-                <th>Escuela</th>
-                <td>{{ entity.sigla }}</td>
-                <th>Centro</th>
-                <td>{{ entity.centro }} - {{ entity.zona }}</td>
-            </tr>
-            <tr>
-            </tr>
-            <tr>
-                <th>Final</th>
-                <td>{{ entity.final }}</td>
-                <th>Informe Final</th>
-                <td>
-                <a href="javascript:popUp('/archivo/{{entity.periodo}}/informe/{{entity.cedula}}-{{entity.periodo}}.pdf')" class="btn btn-primary btn-xs"><i class="fa fa-file"></i></a>
-                </td>
-            </tr>
-            <tr>
+        <tr>
+            <th>Apellidos</th>
+            <td>{{ entity.apellidos }}</td>
+            <th>Vinculacion</th>
+            <td>{{ entity.vinculacion }}</td>
+        </tr>
+        <tr>
+            <th>Escuela</th>
+            <td>{{ entity.sigla }}</td>
+            <th>Centro</th>
+            <td>{{ entity.centro }} - {{ entity.zona }}</td>
+        </tr>
+        <tr>
+        </tr>
+        <tr>
+            <th>Final</th>
+            <td>{{ entity.final }}</td>
+            <th>Informe Final</th>
+            <td>
+                <a href="javascript:popUp('{{ path('docente_final', {'id': entity.id }) }}')"
+                   class="btn btn-primary btn-xs">Ver... <i class="fa fa-sign-in"></i></a>
+            </td>
+        </tr>
+        <tr>
             <th>Plan de Gestión</th>
             <td>
-            {%if plan%}
-            <a href="javascript:popUp('{{plan}}')" class="btn btn-primary btn-xs"><i class="fa fa-file"></i></a>
-            {%endif%}
+                {% if plan %}
+                    <a href="javascript:popUp('{{ plan }}')" class="btn btn-primary btn-xs"><i
+                                class="fa fa-file"></i></a>
+                {% endif %}
             </td>
             <th>Autoevaluación</th>
             <td>
-            {%if auto%}    
-            <a href="javascript:popUp('{{auto}}')" class="btn btn-primary btn-xs"><i class="fa fa-file"></i></a>
-            {%endif%}
+                {% if auto %}
+                    <a href="javascript:popUp('{{ auto }}')" class="btn btn-primary btn-xs"><i
+                                class="fa fa-file"></i></a>
+                {% endif %}
             </td>
-            </tr>           
-            <tr>
+        </tr>
+        <tr>
             <th>Heteroevaluación (Evaluación de estudiantes)</th>
             <td>
-            {%if hetero%}    
-            <a href="javascript:popUp('{{hetero}}')" class="btn btn-primary btn-xs"><i class="fa fa-file"></i></a>
-            {%endif%}
+                {% if hetero %}
+                    <a href="javascript:popUp('{{ hetero }}')" class="btn btn-primary btn-xs"><i class="fa fa-file"></i></a>
+                {% endif %}
             </td>
             <th>Coevaluaciones</th>
             <td>
-            {%if coeval%}    
-            <a href="javascript:popUp('{{coeval}}')" class="btn btn-primary btn-xs"><i class="fa fa-file"></i></a>
-            {%endif%}
+                {% if coeval %}
+                    <a href="javascript:popUp('{{ coeval }}')" class="btn btn-primary btn-xs"><i class="fa fa-file"></i></a>
+                {% endif %}
             </td>
-            </tr>
+        </tr>
         </tbody>
     </table>
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('archivo_docente')}}">
-            Regresar
-            
-        </a>
-    </li>
-</ul>
-    
-    
-     <script>
-  
-function popUp(URL) {
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('archivo_docente') }}">
+                Regresar
 
-    if(typeof(popupWin) != "object" || popupWin.closed)  { 
-        popupWin = window.open(URL, 'popupWin', 'scrollbars=auto,toolbar=no,menubar=no,status=no,width=1000,height=600, left=100,top=100');
-    } 
-    else{ 
-        popupWin.location.href = URL; 
-    }
-    popupWin.focus(); 
- }
-</script>
+            </a>
+        </li>
+    </ul>
+
+
+    <script>
+
+        function popUp(URL) {
+
+            if (typeof (popupWin) != "object" || popupWin.closed) {
+                popupWin = window.open(URL, 'popupWin', 'scrollbars=auto,toolbar=no,menubar=no,status=no,width=1000,height=600, left=100,top=100');
+            } else {
+                popupWin.location.href = URL;
+            }
+            popupWin.focus();
+        }
+    </script>
 {% endblock %}

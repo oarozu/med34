@@ -18,7 +18,7 @@ use Admin\MedBundle\Form\ArchivoType;
  */
 class ArchivoController extends Controller
 {
-    
+
      /**
      * Lists all Archivo entities.
      *
@@ -36,8 +36,8 @@ class ArchivoController extends Controller
             'entities' => $entities,
         );
     }
-    
-    
+
+
          /**
      * Lists all Archivo entities.
      *
@@ -56,8 +56,8 @@ class ArchivoController extends Controller
             'id'    => $id,
         );
     }
-    
-    
+
+
      /**
      * Lists all Archivo entities.
         * @Route("/docente", name="archivo_docente")
@@ -74,7 +74,7 @@ class ArchivoController extends Controller
             'entities' => $entities,
         );
     }
-    
+
     /**
      * Creates a new Archivo entity.
      *
@@ -155,38 +155,38 @@ class ArchivoController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Archivo entity.');
         }
-        
+
         $urlserver = 'https://med.unad.edu.co';
-        
+
         $plan = null;
         $hetero = null;
         $auto = null;
         $coeval = null;
-        
+
         $urlplan = $urlserver.'/archivo/'.$entity->getPeriodo().'/plan/'.$entity->getCedula().'-'.$entity->getPeriodo().'-plan.pdf';
         $urlhetero = $urlserver.'/archivo/'.$entity->getPeriodo().'/hetero/'.$entity->getCedula().'-'.$entity->getPeriodo().'-hetero.pdf';
         $urlauto = $urlserver.'/archivo/'.$entity->getPeriodo().'/auto/'.$entity->getCedula().'-'.$entity->getPeriodo().'-auto.pdf';
         $urlcoeval = $urlserver.'/archivo/'.$entity->getPeriodo().'/coeval/'.$entity->getCedula().'-'.$entity->getPeriodo().'-co.pdf';
-        
+
         if ($this->is_url_exist($urlplan)){
-        $plan = $urlplan;      
+        $plan = $urlplan;
         }
         if ($this->is_url_exist($urlhetero)){
-        $hetero = $urlhetero;      
+        $hetero = $urlhetero;
         }
         if ($this->is_url_exist($urlauto)){
-        $auto = $urlauto;      
+        $auto = $urlauto;
         }
         if ($this->is_url_exist($urlcoeval)){
-        $coeval = $urlcoeval;      
-        }   
-        
+        $coeval = $urlcoeval;
+        }
+
         return array(
             'entity'  => $entity,
             'plan'    => $plan,
             'hetero'  => $hetero,
             'auto'    => $auto,
-            'coeval'  => $coeval  
+            'coeval'  => $coeval
         );
     }
 
@@ -310,9 +310,9 @@ class ArchivoController extends Controller
             ->getForm()
         ;
     }
-    
+
     public function is_url_exist($url){
-    $ch = curl_init($url);    
+    $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_NOBODY, true);
     curl_exec($ch);
     $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
