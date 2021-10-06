@@ -53,8 +53,5 @@
         "branch-alias": {
             "dev-master": "3.4-dev"
         }
-    },
-    "require-dev": {
-        "rector/rector-prefixed": "^0.10.21"
     }
 }
