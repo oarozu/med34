@@ -60,7 +60,7 @@ class DefaultController extends Controller {
 
 
             if (!$docente) {
-                $this->get('session')->getFlashBag()->add('warning', 'Usted no se encuentra registrado como Docente para el periodo de evaluación Vigente ' . $this->container->getParameter('appmed.periodo') . ', es posible que aún no este activo por favor revise las fechas del cronograma de evaluación');
+                $this->get('session')->getFlashBag()->add('warning', 'Usted no se aún encuentra registrado para el periodo de evaluación vigente ' . $this->container->getParameter('appmed.periodo') . ', recuerde que en este periodo el proceso inicia el 10 de diciembre');
             } else {
                 $session->set('docenteid', $docente->getId());
 
@@ -114,7 +114,7 @@ class DefaultController extends Controller {
         //------------- Origenes validos ----------------------------------------------------------
         $urlOrigenValido1 = "https://intranet.unad.edu.co/autenticacion.php?continue=http://med.unad.edu.co/"; //cuando accede por el home de intranet
         $urlOrigenValido2 = $url_autenticacion . "Usuario/envioDatosUsuario.php"; //cuando accede por login.unad.edu.co
-        $urlOrigenValido3 = $url_autenticacion . "Usuario/envioDatosUsuario.php?continue=" . $urlInicioApp; //cuando accede por login.unad.edu.co 
+        $urlOrigenValido3 = $url_autenticacion . "Usuario/envioDatosUsuario.php?continue=" . $urlInicioApp; //cuando accede por login.unad.edu.co
         //
         //-----------------------------------------------------------------------------------------
 
@@ -123,7 +123,7 @@ class DefaultController extends Controller {
         if ($autenticacion == "Aceptada" && $ucount == 1) {
             $this->ingresoAction($cedula_usuario, $request);
         } else {
-            # $this->ingresoAction($cedula_usuario);    
+            # $this->ingresoAction($cedula_usuario);
             return $this->render('AdminUserBundle:Default:home.html.twig', array(
                         // el último nombre de usuario ingresado por el usuario
                         'cedula_usuario' => $cedula_usuario,
@@ -165,6 +165,6 @@ class DefaultController extends Controller {
         echo $formulario;
     }
 
-   
+
 
 }
