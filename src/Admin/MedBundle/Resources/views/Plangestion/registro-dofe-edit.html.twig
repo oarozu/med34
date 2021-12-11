@@ -17,7 +17,7 @@
         {% set temp = 'temp' %} {% set num = 0 %}
         {% set termino = 1 %}
         {% set resp = "0" %}
-        {% for actividad in entity.plangestion.actividades %}
+        {% for actividad in entity.actividades %}
             <tr>
             {% if temp != actividad.actividad.rol.nombre %}
                 <td colspan="3">
