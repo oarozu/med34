@@ -118,7 +118,7 @@ class PlangestionController extends Controller
     /**
      * @Route("/{id}/dofe", name="plangestion_dofe")
      * @Method("GET")
-     * @Template("AdminMedBundle:Actividadplang:registro-dofe-edit.html.twig")
+     * @Template("AdminMedBundle:Plangestion:registro-dofe-edit.html.twig")
      */
     public function dofeAction($id)
     {
