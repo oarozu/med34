@@ -77,9 +77,9 @@ class DocenteController extends Controller {
             'periodo' => $periodo
         );
     }
-    
-    
-    
+
+
+
         /**
      * Lists all Docente entities.
      *
@@ -90,9 +90,9 @@ class DocenteController extends Controller {
     public function indexVinculacionAction($id) {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('vinculacion' => $id, 'periodo' => $this->container->getParameter('appmed.periodo')));
-       // $periodo= $this->container->getParameter('appmed.periodo'); 
+       // $periodo= $this->container->getParameter('appmed.periodo');
        // $entities = $em->getRepository('AdminUnadBundle:Docente')->porVinculacion($id,$periodo);
-        
+
         $total = count($entities);
         return array(
             'entities' => $entities,
@@ -245,8 +245,8 @@ class DocenteController extends Controller {
             'instrumentos' => $instrumentos,
         );
     }
-    
-    
+
+
         /**
      * Finds and displays a Docente entity
      * @Route("/inicio/", name="docente_inicio")
@@ -256,14 +256,14 @@ class DocenteController extends Controller {
     public function inicioAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $this->get('session')->getFlashBag()->add('warning', 'El plazo para el cierre del proceso de evaluación se extiende hasta el lunes 16 de agosto inclusive');
+        $this->get('session')->getFlashBag()->add('warning', 'Las actividades del periodo 16-05 no hacen parte de este periodo de evaluación 2021-2');
         $entity = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         $instrumentos = $em->getRepository('AdminMedBundle:Instrumento')->findAll();
 
         if (!$entity) {
             throw $this->createNotFoundException('Error al buscarla entidad del docente.');
         }
-        
+
         if ($entity->getVinculacion() == 'DOFE') {
             $red = $em->getRepository('AdminMedBundle:RedDofe')->findBy(array('docente' => $entity));
             return $this->render('AdminUnadBundle:Docente:iniciodofe.html.twig', array(
@@ -293,7 +293,7 @@ class DocenteController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Docente entity.');
         }
-        
+
         if ($entity->getVinculacion() == 'DOFE') {
             return $this->render('AdminUnadBundle:Docente:dofe.html.twig', array(
                         'entity' => $entity,
@@ -486,7 +486,7 @@ class DocenteController extends Controller {
                         'red' => $red
             ));
         }
-        
+
         else {
             return array(
                 'docente' => $entity,

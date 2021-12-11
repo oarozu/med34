@@ -320,7 +320,7 @@ class ActividadplangController extends Controller {
      *
      * @Route("/{id}/dofe", name="actividadplang_updatedofe")
      * @Method("PUT")
-     * @Template("AdminMedBundle:Actividadplang:dofe.html.twig")
+     * @Template("AdminMedBundle:Actividadplang:regitro-dofe-edit.html.twig")
      */
     public function updatedofeAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();

@@ -1,104 +1,116 @@
 {% extends '::base.html.twig' %}
 
-{% block body -%} 
+{% block body -%}
 
-<h1>Registro del Cumplimiento del Plan de Trabajo de {{ entity.docente.user.nombres}} {{ entity.docente.user.apellidos}} : {{ entity.docente.user.id}} </h1>
+    <h1>Registro del Cumplimiento del Plan de Trabajo
+        de {{ entity.docente.user.nombres }} {{ entity.docente.user.apellidos }} : {{ entity.docente.user.id }} </h1>
 
 
 
-   <table class="table table-bordered hidden-mobile" style="width: 95%">
+    <table class="table table-bordered hidden-mobile" style="width: 95%">
         <thead>
-            <tr>
-                <th>Actividad</th>
-                <th>Accción</th>
-                <th>Adjunto</th>
-            </tr>
+        <tr>
+            <th>Actividad</th>
+            <th>Accción</th>
+            <th>Adjunto</th>
+        </tr>
         </thead>
         <tbody>
-   
+
         {% set temp = 'temp' %} {% set num = 0 %} {% set totalhoras = 0 %}
         {% set termino = 1 %}
         {% for actividad in entity.actividades %}
-           <tr>
-                    {%if temp != actividad.actividad.rol.nombre %} 
-                <td>
-                    <b>ROL:
-                    {{actividad.actividad.rol.nombre}}
-                    {% set temp = actividad.actividad.rol.nombre %}        
-                    </b>
+            <tr>
+                {% if temp != actividad.actividad.rol.nombre %}
+                    <td>
+                        <b>ROL:
+                            {{ actividad.actividad.rol.nombre }}
+                            {% set temp = actividad.actividad.rol.nombre %}
+                        </b>
                     </td>
                     <td></td>
-                    {%endif%}
-               </tr>     
+                {% endif %}
+            </tr>
             <tr>
                 {% set num = num+1 %}
-                <td>{{num}}.     
-                {{ actividad.actividad.descripcion }}
-                {%if actividad.observaciones %}
-                <br><font color="#058dc7">Descripción del avance: {{actividad.observaciones}}</font><br>
-                {%else%} 
-                {% set termino = 0 %}
-                {%endif%}
+                <td>{{ num }}.
+                    {{ actividad.actividad.descripcion }}
+                    {% if actividad.observaciones %}
+                        <br><font color="#058dc7">Descripción del avance: {{ actividad.observaciones }}</font><br>
+                    {% else %}
+                        {% set termino = 0 %}
+                    {% endif %}
                 </td>
-                
-                 <td>
-                {%if actividad.plang.autoevaluacion is null %} 
-                     
-                {%if actividad.observaciones %}
-               <a data-toggle="modal" href="{{ path('actividadplang_borrar', { 'id': actividad.id }) }}" data-target="#myModal" class="btn btn-default btn-xs txt-color-red"><i class="fa fa-trash-o"></i></a>
-                  {%else%}
-                <a data-toggle="modal" href="{{ path('actividadplang_dofe', { 'id': actividad.id }) }}" data-target="#myModal" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
-                      {%endif%}   
-               {%endif%}
-                 </td>
 
-                    <td>
-                {%if actividad.path %}
-                <a href="../../../{{actividad.webpath}}" target="_blank" class="btn btn-default btn-xs txt-color-green"><i class="fa fa-download"></i></a>
-                {%endif%}      
-                    </td>
-               </tr>
-        {% endfor %}  
+                <td>
+                    {% if actividad.plang.autoevaluacion is null %}
+
+                        {% if actividad.observaciones %}
+                            <a data-toggle="modal" href="{{ path('actividadplang_borrar', { 'id': actividad.id }) }}"
+                               data-target="#myModal" class="btn btn-default btn-xs txt-color-red"><i
+                                        class="fa fa-trash-o"></i></a>
+                        {% else %}
+                            <a data-toggle="modal" href="{{ path('actividadplang_dofe', { 'id': actividad.id }) }}"
+                               data-target="#myModal" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                        {% endif %}
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if actividad.path %}
+                        <a href="../../../{{ actividad.webpath }}" target="_blank"
+                           class="btn btn-default btn-xs txt-color-green"><i class="fa fa-download"></i></a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
         </tbody>
-        
-          </table>
+
+    </table>
     <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
         <tbody>
-            <tr>
-                <td colspan="2">
-                {%if termino == 1 and entity.autoevaluacion is null %}
-                <a data-toggle="modal" href="{{ path('plangestion_edit', { 'id': entity.id }) }}" data-target="#myModal" class="btn btn-labeled btn-success"><span class="btn-label"><i class="glyphicon glyphicon-thumbs-up"></i></span>Cerrar Registro</a>
-                {%elseif entity.autoevaluacion is  null %}
-                <div class="alert alert-danger fade in">
-                <button class="close" data-dismiss="alert">×</button>
-                <i class="fa-fw fa fa-times"></i>
-                <strong>Importante!</strong> No a finalizado su registro. Registre  por cada actividad y luego oprima el boton "Cerrar Registro".
-                </div>
-                {%endif%}               
-                </td>    
-            </tr>
-            <tr>
-                <td>Fecha Registro: {{ entity.fechaautoevaluacion? entity.fechaautoevaluacion|date('Y-m-d H:i:s') : '' }}</td>
-                <td>Estado: 
-                         {%if entity.estado != 'Autoevaluado'%}
-                         <h1> <font color="#c7254e">Registro sin Cerrar !</font></h1> 
-                         {%else%}
-                         Registro cerrado
-                         {%endif%}
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">Observaciones:<br>
-          {{ entity.observaciones }}
-                </td>
-            </tr>
+        <tr>
+            <td colspan="2">
+                {% if termino == 1 and entity.autoevaluacion is null %}
+                    <a data-toggle="modal" href="{{ path('plangestion_edit', { 'id': entity.id }) }}"
+                       data-target="#myModal" class="btn btn-labeled btn-success"><span class="btn-label"><i
+                                    class="glyphicon glyphicon-thumbs-up"></i></span>Cerrar Registro</a>
+                {% elseif entity.autoevaluacion is  null %}
+                    <div class="alert alert-danger fade in">
+                        <button class="close" data-dismiss="alert">×</button>
+                        <i class="fa-fw fa fa-times"></i>
+                        <strong>Importante!</strong> No a finalizado su registro. Registre por cada actividad y luego
+                        oprima el boton "Cerrar Registro".
+                    </div>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>Fecha
+                Registro: {{ entity.fechaautoevaluacion? entity.fechaautoevaluacion|date('Y-m-d H:i:s') : '' }}</td>
+            <td>Estado:
+                {% if entity.estado != 'Autoevaluado' %}
+                    <h1><font color="#c7254e">Registro sin Cerrar !</font></h1>
+                {% else %}
+                    Registro cerrado
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">Observaciones:<br>
+                {{ entity.observaciones }}
+            </td>
+        </tr>
         </tbody>
     </table>
-                
-                
-<div class="modal fade" data-refresh="true" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-lg">
-<div class="modal-content">
-</div></div></div>    
-    
+
+
+    <div class="modal fade" data-refresh="true" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

@@ -1,38 +1,20 @@
+{% extends '::base.html.twig' %}
+
 {% block body -%}
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/print.css') }}">
-    <table>
-        <tr>
-            <td align="center" colspan="3"><img src="/img/logo-med-unad.png" alt="MED"></td>
-        </tr>
-        <tr>
-            <td align="center" colspan="2">
-                <h3>Registro de Cumplimiento de :
-                    {{ entity.user.nombres }} {{ entity.user.apellidos }} : {{ entity.user.id }}  </h3>
-            </td>
-        </tr>
-        <tr>
-            <td>Periodo: {{ entity.periodo }}</td>
-            <td>Fecha de
-                Registro: {{ entity.plangestion.fechaautoevaluacion? entity.plangestion.fechaautoevaluacion|date('Y-m-d H:i:s') : '' }}</td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                Observaciones: {{ entity.plangestion.observaciones }}
-            </td>
-        </tr>
-    </table>
+    <h1>Registro del Cumplimiento del Plan de Trabajo
+        de {{ entity.docente.user.nombres }} {{ entity.docente.user.apellidos }} : {{ entity.docente.user.id }} </h1>
 
     <table class="table table-bordered hidden-mobile" style="width: 95%">
         <thead>
         <tr>
             <th>Actividad</th>
-            <th>Evidencia</th>
-            <th>Registrado</th>
+            <th>Accción</th>
+            <th>Adjunto</th>
         </tr>
         </thead>
         <tbody>
-        {% set temp = 'temp' %} {% set num = 0 %} {% set totalhoras = 0 %}
+        {% set temp = 'temp' %} {% set num = 0 %}
         {% set termino = 1 %}
         {% set resp = "0" %}
         {% for actividad in entity.plangestion.actividades %}
@@ -57,13 +39,16 @@
             </tr>
             <tr>
                 {% set num = num+1 %}
-                <td>{{ num }}.
-                    {{ actividad.actividad.descripcion }}
-                    {% if actividad.actividad.textoampliacion %}
-                        <font color="#a57225">{{ actividad.descripcion }}</font>
-                    {% endif %}
-                    {% if actividad.observaciones %}
-                        <br>DESCRIPCIÓN DEL AVANCE: <font color="#058dc7">{{ actividad.observaciones }}</font><br>
+                <td>
+                    {% if actividad.plang.autoevaluacion is null %}
+                        {% if actividad.observaciones %}
+                            <a data-toggle="modal" href="{{ path('actividadplang_borrar', { 'id': actividad.id }) }}"
+                               data-target="#myModal" class="btn btn-default btn-xs txt-color-red"><i
+                                        class="fa fa-trash-o"></i></a>
+                        {% else %}
+                            <a data-toggle="modal" href="{{ path('actividadplang_dofe', { 'id': actividad.id }) }}"
+                               data-target="#myModal" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                        {% endif %}
                     {% endif %}
                 </td>
                 <td>
@@ -73,15 +58,22 @@
                     {% endif %}
                 </td>
                 <td>
-                    {% if actividad.plang.autoevaluacion %}
-                        Si
-                    {% elseif actividad.autoevaluacion is null %}
-                        {% set termino = 0 %}
-                    {% else %}
+                    {% if actividad.path %}
+                        <a href="../../../{{ actividad.webpath }}" target="_blank"
+                           class="btn btn-default btn-xs txt-color-green"><i class="fa fa-download"></i></a>
                     {% endif %}
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+
+    <div class="modal fade" data-refresh="true" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
