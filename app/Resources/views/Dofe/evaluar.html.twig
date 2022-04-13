@@ -77,7 +77,7 @@
                           {%endif%}
           
                 {%else%}
-                    {%if  entity.docente.plangestion.autoevaluacion == 10 %}
+                    {%if  entity.docente.plangestion.estado == 'Autoevaluado' %}
                  <a  href="{{ path('dofe_eval', { 'id': entity.id }) }}"  class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Evaluar </a>
                     {%endif%}
                 {%endif%}
