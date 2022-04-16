@@ -73,4 +73,4 @@ swiftmailer:
     transport:  gmail
     host:       smtp.gmail.com
     username:   'siga@unad.edu.co'
-    password:   'Siga123456'
+    password:   'Unad123456#'

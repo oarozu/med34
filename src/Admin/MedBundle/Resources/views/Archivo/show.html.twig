@@ -40,36 +40,6 @@
                    class="btn btn-primary btn-xs">Ver... <i class="fa fa-sign-in"></i></a>
             </td>
         </tr>
-        <tr>
-            <th>Plan de Gestión</th>
-            <td>
-                {% if plan %}
-                    <a href="javascript:popUp('{{ plan }}')" class="btn btn-primary btn-xs"><i
-                                class="fa fa-file"></i></a>
-                {% endif %}
-            </td>
-            <th>Autoevaluación</th>
-            <td>
-                {% if auto %}
-                    <a href="javascript:popUp('{{ auto }}')" class="btn btn-primary btn-xs"><i
-                                class="fa fa-file"></i></a>
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <th>Heteroevaluación (Evaluación de estudiantes)</th>
-            <td>
-                {% if hetero %}
-                    <a href="javascript:popUp('{{ hetero }}')" class="btn btn-primary btn-xs"><i class="fa fa-file"></i></a>
-                {% endif %}
-            </td>
-            <th>Coevaluaciones</th>
-            <td>
-                {% if coeval %}
-                    <a href="javascript:popUp('{{ coeval }}')" class="btn btn-primary btn-xs"><i class="fa fa-file"></i></a>
-                {% endif %}
-            </td>
-        </tr>
         </tbody>
     </table>
     <ul class="record_actions">
