@@ -216,6 +216,9 @@ class UserController extends Controller
      * @Route("/{id}/update", name="admin_user_update")
      * @Method("PUT")
      * @Template("AdminUserBundle:User:edit.html.twig")
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function updateAction(Request $request, $id)
     {
@@ -234,7 +237,6 @@ class UserController extends Controller
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('admin_user_edit', array('id' => $id)));
-
         }
         return $this->editAction($id);
     }
