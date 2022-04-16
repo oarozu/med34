@@ -203,7 +203,7 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
-        $editForm = $this->createForm(UserType::class, $entity);
+        $editForm = $this->createEditForm($entity);
 
         return $this->render('AdminUserBundle:User:edit.html.twig', array(
             'entity' => $entity,
@@ -227,7 +227,7 @@ class UserController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
         }
-        $editForm = $this->createForm(UserType::class, $entity);
+        $editForm = $this->createEditForm($entity);
         $pass = $request->server->get('MED_PKW');
         $editForm->handleRequest($request);
         $entity->setPassword($pass);
@@ -239,6 +239,22 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('admin_user_edit', array('id' => $id)));
         }
         return $this->editAction($id);
+    }
+
+
+    /**
+     * Creates a form to edit a User entity.
+     * @param User $entity The entity
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(User $entity)
+    {
+        $form = $this->createForm( UserType::class, $entity, array(
+            'action' => $this->generateUrl('admin_user_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
+        return $form;
     }
 
     /**
