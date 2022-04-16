@@ -41,15 +41,15 @@ class UserController extends Controller
         $entities = $query->getResult();
 
         $valores = new Parabuscar();
-        $Form = $this->createForm(BuscarType::class, $valores );
+        $Form = $this->createForm(BuscarType::class, $valores);
 
         $newform = $this->createFormBuilder($valores)
             ->setMethod('GET')
             ->add('texto')
             ->add('parametro', ChoiceType::class, array(
                 'placeholder' => 'Buscar por:',
-                'choices'   => array('Cédula' => 'ced', 'Nombres' => 'nom','Apellidos' => 'apell'),
-                'required'  => true,
+                'choices' => array('Cédula' => 'ced', 'Nombres' => 'nom', 'Apellidos' => 'apell'),
+                'required' => true,
             ))
             ->add('save', SubmitType::class, ['label' => 'Buscar Usuario'])
             ->getForm();
@@ -58,7 +58,7 @@ class UserController extends Controller
 
         if ($newform->isSubmitted() && $newform->isValid()) {
             $valores = $newform->getData();
-            $entities = $this->buscarDocenteAction($valores->getTexto(),$valores->getParametro());
+            $entities = $this->buscarDocenteAction($valores->getTexto(), $valores->getParametro());
         }
 
 
@@ -86,7 +86,8 @@ class UserController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createBuscarForm(Parabuscar $entity) {
+    private function createBuscarForm(Parabuscar $entity)
+    {
         $form = $this->createForm(BuscarType::class, $entity, array(
             'action' => $this->generateUrl('admon_user_buscarpor'),
             'method' => 'POST',
@@ -202,7 +203,7 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
-        $editForm = $this->createForm(UserType::class, $entity);
+        $editForm = $this->createEditForm($entity);
 
         return $this->render('AdminUserBundle:User:edit.html.twig', array(
             'entity' => $entity,
@@ -223,7 +224,7 @@ class UserController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
         }
-        $editForm = $this->createForm(UserType::class, $entity);
+        $editForm = $this->createEditForm($entity);
         $pass = $request->server->get('MED_PKW');
         $editForm->handleRequest($request);
         $entity->setPassword($pass);
@@ -233,11 +234,25 @@ class UserController extends Controller
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('admin_user_edit', array('id' => $id)));
-            //return $this->render('AdminUserBundle:User:edit.html.twig', array(
-            ///    'entity' => $entity,
-            ///    'edit_form' => $editForm->createView(),
-           /// ));
+
         }
+        return $this->editAction($id);
+    }
+
+
+    /**
+     * Creates a form to edit a User entity.
+     * @param User $entity The entity
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(User $entity)
+    {
+        $form = $this->createForm( UserType::class, $entity, array(
+            'action' => $this->generateUrl('admin_user_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+        $form->add('submit', SubmitType::class, array('label' => 'Update'));
+        return $form;
     }
 
     /**
@@ -406,8 +421,8 @@ class UserController extends Controller
             $escuela_id = $docente->getEscuela()->getId();
             $docente_vinculacion = $docente->getVinculacion();
 
-            if (isset($docente) && (strcmp($user->getEmail(), $email)==0)) {
-                if ((strcmp($docente_vinculacion, $vinculacion)==0) && strcmp($escuela_id, $unidad)==0) {
+            if (isset($docente) && (strcmp($user->getEmail(), $email) == 0)) {
+                if ((strcmp($docente_vinculacion, $vinculacion) == 0) && strcmp($escuela_id, $unidad) == 0) {
                     $currentpass = $this->generateRandomString();
                     $user->setPassword($currentpass);
                     $this->setSecurePassword($user);
