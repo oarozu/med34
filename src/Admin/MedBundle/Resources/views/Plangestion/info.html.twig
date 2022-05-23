@@ -1,254 +1,207 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>{% block title %}{{docente.user.id}}-{{docente.periodo}}-plan{% endblock %}</title>
-<meta name="description" content="Plan de Gestión Docente">
-<meta charset="utf-8">
-<meta name="author" content="MED Módulo de Evaluación Docente UNAD">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/print.css') }}">
+    <title>{% block title %}{{ docente.user.id }}-{{ docente.periodo }}-plan{% endblock %}</title>
+    <meta name="description" content="Plan de Gestión Docente">
+    <meta charset="utf-8">
+    <meta name="author" content="MED Módulo de Evaluación Docente UNAD">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/print.css') }}">
 </head>
 {% block body -%}
-<body>
-<table widtd="100%" border="0">
-  <tr>
-    <td colspan="4" align="center"><img src="/img/logo-med-unad.png" alt="MED">
-        <h3>PLAN DE GESTIÓN DE DOCENTE</h3>
-    </td>
-  </tr>
-  <tr>
-      <td><b>Escuela:</b></td>
-    <td>{{docente.escuela.nombre}}</td>
-    <td><b>Periodo de Ejecución:</b>
-    {{docente.periodo}} - Dias Habiles: {{docente.plangestion.dias}} (Horas: {{docente.plangestion.dias*8}})</td>
-  </tr>
-  <tr>
-    <td><b>Nombre</b></td>
-    <td>{{docente.user.nombres}} {{docente.user.apellidos}}</td>
-    <td><b>Cédula:</b> {{docente.user.id}}</td>
-  </tr>
-  <tr>
-   <td colspan="2"><b>Programa:</b> {{docente.programa.nombre}}</td>
-    <td><b>Cargo:</b>
-    {{docente.cargo}} - <b>Perfil:</b> {{docente.perfil}}</td>
-  </tr>
-  <tr>
-      <td colspan="2">
-          <b>Zona:</b> {{docente.centro.zona.nombre}} - <b>Director:</b> 
-              {%if docente.centro.zona.director%}
-{{docente.centro.zona.director.nombres}} {{docente.centro.zona.director.apellidos}}
-    {%endif%}
-      </td>
-    <td colspan="2">
-        <b>Centro:</b> {{docente.centro.tipo}} - {{docente.centro.nombre}}
+    <body>
+    <table widtd="100%" border="0">
+        <tr>
+            <td colspan="4" align="center"><img src="/img/logo-med-unad.png" alt="MED">
+                <h3>PLAN DE GESTIÓN DE DOCENTE</h3>
+            </td>
+        </tr>
+        <tr>
+            <td><b>Escuela:</b></td>
+            <td>{{ docente.escuela.nombre }}</td>
+            <td><b>Periodo de Ejecución:</b>
+                {{ docente.periodo }} - Dias Habiles: {{ docente.plangestion.dias }}
+                (Horas: {{ docente.plangestion.dias*8 }})
+            </td>
+        </tr>
+        <tr>
+            <td><b>Nombre</b></td>
+            <td>{{ docente.user.nombres }} {{ docente.user.apellidos }}</td>
+            <td><b>Cédula:</b> {{ docente.user.id }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><b>Programa:</b> {{ docente.programa.nombre }}</td>
+            <td><b>Cargo:</b>
+                {{ docente.cargo }} - <b>Perfil:</b> {{ docente.perfil }}</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <b>Zona:</b> {{ docente.centro.zona.nombre }} - <b>Director:</b>
+                {% if docente.centro.zona.director %}
+                    {{ docente.centro.zona.director.nombres }} {{ docente.centro.zona.director.apellidos }}
+                {% endif %}
+            </td>
+            <td colspan="2">
+                <b>Centro:</b> {{ docente.centro.tipo }} - {{ docente.centro.nombre }}
 
-    </td>
-  </tr>
-</table>
-<table>
+            </td>
+        </tr>
+    </table>
+    <table>
         <thead>
-            <tr>
-    <th colspan="6"><b>1. Roles</b></th>
-                </tr>
-            <tr>
-                <th>Rol</th>
-                <th>Descripción de la Actividad</th>
-                <th>Horas Semana</th>
-                <th>Semanas</th>
-                <th>Horas Periodo</th>
-            </tr>
+        <tr>
+            <th colspan="6"><b>1. Roles</b></th>
+        </tr>
+        <tr>
+            <th>Rol</th>
+            <th>Descripción de la Actividad</th>
+            <th>Horas Semana</th>
+            <th>Semanas</th>
+            <th>Horas Periodo</th>
+        </tr>
         </thead>
         <tbody>
         {% set num = 0 %} {% set totalhoras = 0 %}
-       
-        {% for rol in entity.roles %}   
+
+        {% for rol in entity.roles %}
             <tr>
                 {% set num = num+1 %}
-                <td>{{num}}.     
-                {{ rol.rol.nombre }}
-                    </td>
-                    <td>
-                <font color="#a57225">{{rol.descripcion}}</font>
-                </td>
-                <td>{{(rol.horas/rol.semanas)|number_format(1, '.', ',')}}
-                    {% set totalhoras = totalhoras + rol.horas%}
-                </td>
-                <td>{{rol.semanas|number_format(1, '.', ',')}}
+                <td>{{ num }}.
+                    {{ rol.rol.nombre }}
                 </td>
                 <td>
-                    {{rol.horas}}
+                    <font color="#a57225">{{ rol.descripcion }}</font>
                 </td>
-               </tr>
+                <td>{{ (rol.horas/rol.semanas)|number_format(1, '.', ',') }}
+                    {% set totalhoras = totalhoras + rol.horas %}
+                </td>
+                <td>{{ rol.semanas|number_format(1, '.', ',') }}
+                </td>
+                <td>
+                    {{ rol.horas }}
+                </td>
+            </tr>
         {% endfor %}
-               <tr>
-                   <td></td>
-                   <td></td>
-                    <td></td>
-                   <td align="right">Total:</td>
-                   
-                    <td>{{totalhoras }}</td>
-               </tr>
-               <tr>
-                   <td colspan="5" align="center">Fecha de Registro: {{docente.plangestion.fechacierre? docente.plangestion.fechacierre|date('d-m-Y'):'Sin Cerrar'}}</td>
-                   </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td align="right">Total:</td>
+
+            <td>{{ totalhoras }}</td>
+        </tr>
+        <tr>
+            <td colspan="5" align="center">Fecha de
+                Registro: {{ docente.plangestion.fechacierre? docente.plangestion.fechacierre|date('d-m-Y'):'Sin Cerrar' }}</td>
+        </tr>
         </tbody>
     </table>
-                   
-                   
-<table>
-<thead>
-<tr>
-    <th colspan="4"><b>2. Productividad</b></th>
-                </tr>
-                <tr>
-                    <th>No</th>
-                    <th>Tipo</th>
-                    <th>Descripción</th>
-                    <th>Vinculado a:</th>
-                
-                </tr>
-                </thead>
-                <tbody>
-                    {% for key, producto in entity.productos %}
-                        <tr>
-                            <td>{{key+1}}</td>
-                            <td>
-                                {{producto.tipo}}
-                            </td>
-                            <td>
-                                {{producto.descripcion}}
-                            </td>
-                            <td>
-                                {%if producto.proyecto%}   
-                                    Proyecto: {{producto.proyecto.nombre}} ({{producto.proyecto.linea}})
-                                {%else%}
-                                    Responsabilidad Sustantiva: {{producto.articulacion}}
-                                {%endif%}
-                            </td>
-                        </tr>
-                    {%endfor%}
-                </tbody>
-                </table>
 
-<table>
-  <tr>
-    <th>Avalador</th>
-    <th>Perfil</th>
-    <th>Fecha de Aval</th>
-    <th>Estado</th>
-  </tr>
-  {% for aval in entity.avales %}
-  <tr>
-    <td>{{aval.user.nombres}} {{aval.user.apellidos}}</td>
-    <td>{{aval.perfil}}</td>
-    <td>{{aval.fechaAval? aval.fechaAval|date('Y-m-d H:i') : ''}}</td>
-    <td>
-{%if aval.avalado == 1%}
-Aprobado
-{%elseif aval.avalado == 2%}
-<font color="#F87217">No aprobado</font>
-{%else%}
-Sin revisar
-{%endif%}
 
-    </td>
-  </tr>
-    <tr>
-    <td  colspan="4"><b>Observaciones Generales:</b><br>
-   {% set texto = aval.observaciones|split('|') %} 
-   {% for obs in texto%}
-   {{obs}}<br>
-   {%endfor%}
-   </td>
-  </tr>
-  {% endfor %}
-  
-    <tr>
-        <td  colspan="4"align="center"><br><br>_______________________________________<br>Firma Docente<br><b>{{docente.user.nombres}} {{docente.user.apellidos}}</b><br>
-              
-          </td>
-    </tr>
+    <table>
+        <thead>
         <tr>
-          <td  colspan="2" align="center"><br><br>_______________________________________<br>
-              {%if docente.centro.director %}
-              Firma Director {{docente.centro.tipo}}<br><b>{{docente.centro.director.nombres}} {{docente.centro.director.apellidos}}
-              {%else%}
-                  Firma Director Zonal<br><b>{{docente.centro.zona.director.nombres}} {{docente.centro.zona.director.apellidos}}
-                  {%endif%}</b><br>
-              
-          </td>
-          <td  colspan="2" align="center"><br><br>_______________________________________<br>Firma Decano<br><b>{{docente.escuela.decano.nombres}} {{docente.escuela.decano.apellidos}}</b><br>
-              
-          </td>
-    </tr>
-    
-</table>
- {%if entity.fechaautoevaluacion %}         
-   <h2>2. Auto Evaluación</h2> 
-        <table class="table table-bordered hidden-mobile" style="width: 95%">
-            <thead>
-                <tr>
-                    <th>Actividad</th>
-                    <th>Evidencia</th>
-                    <th>Auto</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% set temp = 'temp' %} {% set num = 0 %} {% set totalhoras = 0 %}
-                {% set termino = 1 %}
-                {% for actividad in entity.actividades %}
-                    <tr>
-                        {%if temp != actividad.actividad.rol.nombre %} 
-                            <td>
-                                <b>Rol:
-                                    {{actividad.actividad.rol.nombre}}
-                                    {% set temp = actividad.actividad.rol.nombre %}        
-                                </b>
-                                <br>{{actividad.actividad.rol.descripcion}}
-                            </td>
-                            <td></td>
-                            <td></td>
-                        {%endif%}
-                    </tr>     
-                    <tr>
-                        {% set num = num+1 %}
-                        <td>{{num}}.     
-                            {{ actividad.actividad.descripcion }}
-                            {%if actividad.actividad.textoampliacion %}
-                                <font color="#a57225">{{actividad.descripcion}}</font>
-                            {%endif%}
-                            {%if actividad.observaciones %}
-                                <br>DESCRIPCIÓN DEL AVANCE: <font color="#058dc7">{{actividad.observaciones}}</font><br>
-                            {%endif%}
-                        </td>
-                        <td>
-                            {%if actividad.path %}
-                                {{actividad.id}}    
-                                <a href="../../../{{actividad.webpath}}" target="_blank"><i class="fa fa-download"></i>Ver...</a>
-                            {%endif%}
-                        </td>
-                        <td>
-                            {%if actividad.plang.autoevaluacion %}
-                                {{actividad.autoevaluacion}}
-                            {%elseif actividad.autoevaluacion is null%}
-                                {% set termino = 0 %}
+            <th colspan="4"><b>2. Productividad</b></th>
+        </tr>
+        <tr>
+            <th>No</th>
+            <th>Tipo</th>
+            <th>Descripción</th>
+            <th>Vinculado a:</th>
 
-                            {%else%}  
-                            {%endif%}   
-                        </td>
-                    </tr>
-                {% endfor %}
-                <tr>
-                    <td  colspan="2" align="right">Autoevaluación:</td>
-                    <td>{{ entity.autoevaluacion }}</td>
-                </tr> 
-                <tr>
-                    <td colspan="3"><b>Observaciones: </b>{{ entity.observaciones }}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="3"><b>Fecha autoevaluación: </b>{{ entity.fechaautoevaluacion? entity.fechaautoevaluacion|date('Y-m-d H:i:s') : '' }}</td>
-                </tr>   
-            </tbody>
-        </table>           
-{%endif%}                
+        </tr>
+        </thead>
+        <tbody>
+        {% for key, producto in entity.productos %}
+            <tr>
+                <td>{{ key+1 }}</td>
+                <td>
+                    {{ producto.tipo }}
+                </td>
+                <td>
+                    {{ producto.descripcion }}
+                </td>
+                <td>
+                    {% if producto.proyecto %}
+                        Proyecto: {{ producto.proyecto.nombre }} ({{ producto.proyecto.linea }})
+                    {% else %}
+                        Responsabilidad Sustantiva: {{ producto.articulacion }}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <table>
+        <tr>
+            <th>Avalador</th>
+            <th>Perfil</th>
+            <th>Fecha de Aval</th>
+            <th>Estado</th>
+        </tr>
+        {% for aval in entity.avales %}
+            <tr>
+                <td>{{ aval.user.nombres }} {{ aval.user.apellidos }}</td>
+                <td>{{ aval.perfil }}</td>
+                <td>{{ aval.fechaAval? aval.fechaAval|date('Y-m-d H:i') : '' }}</td>
+                <td>
+                    {% if aval.avalado == 1 %}
+                        Aprobado
+                    {% elseif aval.avalado == 2 %}
+                        <font color="#F87217">No aprobado</font>
+                    {% else %}
+                        Sin revisar
+                    {% endif %}
+
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4"><b>Observaciones Generales:</b><br>
+                    {% set texto = aval.observaciones|split('|') %}
+                    {% for obs in texto %}
+                        {{ obs }}<br>
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+
+        <tr>
+            <td colspan="4" align="center"><br><br>_______________________________________<br>Firma
+                Docente<br><b>{{ docente.user.nombres }} {{ docente.user.apellidos }}</b><br>
+
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center"><br><br>_______________________________________<br>
+                {% if docente.centro.director %}
+                Firma Director {{ docente.centro.tipo }}
+                <br><b>{{ docente.centro.director.nombres }} {{ docente.centro.director.apellidos }}</b>
+                {% else %}
+                Firma Director
+                Zonal<br><b>{{ docente.centro.zona.director.nombres }} {{ docente.centro.zona.director.apellidos }}
+                    {% endif %}</b><br>
+            </td>
+            <td colspan="2" align="center"><br><br>_______________________________________<br>Firma
+                Decano<br><b>{{ docente.escuela.decano.nombres }} {{ docente.escuela.decano.apellidos }}</b><br>
+
+            </td>
+        </tr>
+    </table>
+<br>
+    <table>
+    {% if docente.plangestion.pdf %}
+            <tr>
+                <td colspan="2">
+                    Plan de Gestión Firmado:
+                </td>
+                <td colspan="2">
+                    <a href="../../uploads/{{ docente.periodo }}{{ docente.plangestion.pdf.webpath }}"
+                       target="_blank">
+                        <img src="/img/pdf-icon.jpeg" alt="Descargar">
+                    </a>
+                </td>
+            </tr>
+        {% endif %}
+    </table>
     </body>
 {% endblock %}
