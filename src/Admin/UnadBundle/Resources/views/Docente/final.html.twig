@@ -167,7 +167,7 @@
   <tr>
     <td>Autoevaluación (A1)</td>
     <td>25%</td>
-    <td class="centro">{{(docente.evaluacion.auto*0.25)|number_format(2, '.', ','): ''}}</td>
+    <td class="centro">{{docente.evaluacion.auto? (docente.evaluacion.auto*0.25)|number_format(2, '.', ',') : ''}}</td>
   </tr>
   <tr>
     <td>Heteroevaluación (H1)</td>
