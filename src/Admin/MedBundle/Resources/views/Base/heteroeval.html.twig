@@ -30,7 +30,7 @@
     <td>{{entity.escuela.decano.nombres}} {{entity.escuela.decano.apellidos}}</td>
   </tr>
 </table>
-    
+
 {%if entity.heteroeval%}
 <table class="data" width="100%" border="0">
   <tr>
@@ -83,7 +83,7 @@
     <td>Curso</td>
     <td>Nombre</td>
     <td>Periodo</td>
-    <td>Participantes</td> 
+    <td>Participantes</td>
     <td align="center">C1</td>
     <td align="center">C2</td>
     <td align="center">C3</td>
@@ -93,7 +93,7 @@
     <td align="center">Puntaje</td>
   </tr>
     {%for curso in evaluaciones %}
-  <tr>   
+  <tr>
     <td>{{curso.cursoId}}</td>
     <td>{{curso.nombre}}</td>
     <td>{{curso.periodo}}</td>
@@ -109,7 +109,7 @@
   {%endfor%}
   <tr>
 <td class="data" colspan="11">
-    <b>Puntajes recibidos por competencias:</b><br>    
+    <b>Puntajes recibidos por competencias:</b><br>
 C1 = COGNITIVA<br>
 C2 = COMUNICATIVA<br>
 C3 = METODOLÓGICA<br>
@@ -120,8 +120,8 @@ C6 = TECNOLÓGICA<br>
       </tr>
 </table>
 {%else%}
- Docente si resultados de Hetero Evalaución MED   
+ Docente si resultados de Hetero Evaluación MED
 {%endif%}
 
-  
+
  {% endblock %}

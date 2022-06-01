@@ -60,7 +60,7 @@ class DefaultController extends Controller {
 
 
             if (!$docente) {
-                $this->get('session')->getFlashBag()->add('warning', 'Usted no se aún encuentra registrado para el periodo de evaluación vigente ' . $this->container->getParameter('appmed.periodo') . ', recuerde que en este periodo el proceso inicia el 10 de diciembre');
+                $this->get('session')->getFlashBag()->add('warning', 'A partir del 3 de junio estarán disponibles los instrumentos de evaluación del periodo 16-01, Autoevaluación y Coevalauciones.');
             } else {
                 $session->set('docenteid', $docente->getId());
 

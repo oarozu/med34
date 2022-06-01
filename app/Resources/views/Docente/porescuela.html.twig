@@ -22,7 +22,7 @@
                     -->
                     <header>
                         <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                        <h2>Docentes {{escuela.nombre}} del periodo de evalaución {{periodo}}</h2>
+                        <h2>Docentes {{escuela.nombre}} del periodo de evaluación {{periodo}}</h2>
                     </header>
                     <!-- widget div-->
                     <div>
@@ -64,16 +64,16 @@
                                             <td>{{ entity.programa.id }}</td>
                                             <td>{{ entity.centro.nombre }}</td>
                                             {%if entity.evaluacion %}
-                                            <td>   
+                                            <td>
                                             {{ entity.evaluacion.auto }}
                                             </td>
-                                                <td>   
+                                                <td>
                                             {{ entity.evaluacion.hetero }}
                                             </td>
-                                                <td>   
+                                                <td>
                                             {{ entity.evaluacion.co }}
                                             </td>
-                                                <td>   
+                                                <td>
                                             {{ entity.evaluacion.final }}
                                             </td>
                                             {%endif%}
@@ -92,5 +92,5 @@
         </div>
         <!-- end row -->
     </section>
-    <!-- end widget grid -->                 
+    <!-- end widget grid -->
 {% endblock %}
