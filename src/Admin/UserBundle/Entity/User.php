@@ -27,22 +27,22 @@ class User implements UserInterface,  \Serializable
      * @ORM\Column(type="string", length=255)
      */
     private $nombres;
-    
+
             /**
      * @ORM\Column(type="string", length=255)
      */
     private $apellidos;
-    
+
     /**
-     * @ORM\Column(type="string", length=60, unique=true)
+     * @ORM\Column(type="string", length=60 )
      */
     private $email;
-    
+
     /**
      * @ORM\Column(type="string", length=60)
      */
-    private $emailp;    
-    
+    private $emailp;
+
     /**
      * @ORM\Column(name="password", type="string", length=255)
      */
@@ -52,7 +52,7 @@ class User implements UserInterface,  \Serializable
      * @ORM\Column(name="salt", type="string", length=255)
      */
     protected $salt;
-      
+
        /**
      * @ORM\Column(name="is_active", type="boolean")
      */
@@ -71,8 +71,8 @@ class User implements UserInterface,  \Serializable
      * @ORM\Column(type="datetime")
      */
     private $updated;
-      
-    
+
+
     /**
      * se utilizó user_roles para no hacer conflicto al aplicar ->toArray en getRoles()
      * @ORM\ManyToMany(targetEntity="Roleu")
@@ -82,37 +82,37 @@ class User implements UserInterface,  \Serializable
      * )
      */
     protected $user_roles;
-    
-    
-        
+
+
+
     /**
      * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\Escuela", mappedBy="decano")
      */
-    
+
     protected $decano;
-    
-    
+
+
     /**
      * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\Escuela", mappedBy="secretaria")
      */
-    
+
     protected $secretaria;
 
      /**
      * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\Zona", mappedBy="director")
      */
     protected $directorzona;
-    
+
          /**
      * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\Centro", mappedBy="director")
      */
     protected $directorcentro;
-    
+
      /**
      * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\Docente", mappedBy="user")
      */
-    protected $docente; 
-    
+    protected $docente;
+
     public function __construct()
     {
         $this->user_roles = new \Doctrine\Common\Collections\ArrayCollection();
@@ -271,14 +271,14 @@ class User implements UserInterface,  \Serializable
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -294,14 +294,14 @@ class User implements UserInterface,  \Serializable
     public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
-    
+
         return $this;
     }
 
     /**
      * Get isActive
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsActive()
     {
@@ -317,7 +317,7 @@ class User implements UserInterface,  \Serializable
     public function addUserRole(\Admin\UserBundle\Entity\Roleu $userRoles)
     {
         $this->user_roles[] = $userRoles;
-    
+
         return $this;
     }
 
@@ -340,31 +340,31 @@ class User implements UserInterface,  \Serializable
     public function setNombres($nombres)
     {
         $this->nombres = $nombres;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombres()
     {
         return $this->nombres;
     }
-    
+
     public function setApellidos($apellidos)
     {
         $this->apellidos = $apellidos;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getApellidos()
     {
@@ -381,7 +381,7 @@ class User implements UserInterface,  \Serializable
     public function setId($id)
     {
         $this->id = $id;
-    
+
         return $this;
     }
 
@@ -411,7 +411,7 @@ class User implements UserInterface,  \Serializable
     /**
      * Get decano
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getDecano()
     {
@@ -444,7 +444,7 @@ class User implements UserInterface,  \Serializable
     /**
      * Get secretaria
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSecretaria()
     {
@@ -477,7 +477,7 @@ class User implements UserInterface,  \Serializable
     /**
      * Get directorzona
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getDirectorzona()
     {
@@ -510,7 +510,7 @@ class User implements UserInterface,  \Serializable
     /**
      * Get directorcentro
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getDirectorcentro()
     {
@@ -543,7 +543,7 @@ class User implements UserInterface,  \Serializable
     /**
      * Get docente
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getDocente()
     {
@@ -554,7 +554,7 @@ class User implements UserInterface,  \Serializable
     /**
      * Get created
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -565,7 +565,7 @@ class User implements UserInterface,  \Serializable
     /**
      * Get updated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdated()
     {
@@ -597,7 +597,7 @@ class User implements UserInterface,  \Serializable
 
         return $this;
     }
-    
+
  /**
  *
  * @ORM\PrePersist
@@ -629,7 +629,7 @@ public function updatedTimestamps()
     /**
      * Get emailp
      *
-     * @return string 
+     * @return string
      */
     public function getEmailp()
     {
