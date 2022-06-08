@@ -47,7 +47,7 @@
                             <td></td>
                         {% endif %}
                     </tr>
-                    <tr {% if not actividad.autoevaluacion is not null %} style="background-color: rgba(0, 255, 0, 0.05);" {% else %} style="background-color: rgba(255, 0, 0, 0.05);" {% endif %}>
+                    <tr {% if not actividad.autoevaluacion is null %} style="background-color: rgba(0, 255, 0, 0.05);" {% else %} style="background-color: rgba(255, 0, 0, 0.05);" {% endif %}>
                         {% set num = num+1 %}
                         <td>{{ num }}.
                             {{ actividad.actividad.descripcion }} {{ actividad.descripcion }}
