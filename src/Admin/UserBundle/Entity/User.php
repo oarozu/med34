@@ -1,14 +1,16 @@
 <?php
+
 namespace Admin\UserBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+
 /**
-  * @ORM\Entity
-  * @ORM\HasLifecycleCallbacks
-  * @ORM\Table(name="admin_user")
-  */
-class User implements UserInterface,  \Serializable
+ * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Table(name="admin_user")
+ */
+class User implements UserInterface, \Serializable
 {
     /**
      * @var integer $id
@@ -16,25 +18,25 @@ class User implements UserInterface,  \Serializable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
      */
- private $id;
+    private $id;
 
     /**
-    * @ORM\Column(type="string", length=255)
-    */
+     * @ORM\Column(type="string", length=255)
+     */
     protected $username;
 
-        /**
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $nombres;
 
-            /**
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $apellidos;
 
     /**
-     * @ORM\Column(type="string", length=60 )
+     * @ORM\Column(type="string", length=60)
      */
     private $email;
 
@@ -53,7 +55,7 @@ class User implements UserInterface,  \Serializable
      */
     protected $salt;
 
-       /**
+    /**
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
@@ -84,7 +86,6 @@ class User implements UserInterface,  \Serializable
     protected $user_roles;
 
 
-
     /**
      * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\Escuela", mappedBy="decano")
      */
@@ -98,17 +99,17 @@ class User implements UserInterface,  \Serializable
 
     protected $secretaria;
 
-     /**
+    /**
      * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\Zona", mappedBy="director")
      */
     protected $directorzona;
 
-         /**
+    /**
      * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\Centro", mappedBy="director")
      */
     protected $directorcentro;
 
-     /**
+    /**
      * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\Docente", mappedBy="user")
      */
     protected $docente;
@@ -198,7 +199,8 @@ class User implements UserInterface,  \Serializable
         $this->user_roles[] = $userRoles;
     }
 
-    public function setUserRoles($roles) {
+    public function setUserRoles($roles)
+    {
         $this->user_roles = $roles;
     }
 
@@ -228,7 +230,8 @@ class User implements UserInterface,  \Serializable
      * @param UserInterface $user The user
      * @return boolean True if equal, false othwerwise.
      */
-    public function equals(UserInterface $user) {
+    public function equals(UserInterface $user)
+    {
         return md5($this->getUsername()) == md5($user->getUsername());
 
     }
@@ -236,18 +239,20 @@ class User implements UserInterface,  \Serializable
     /**
      * Erases the user credentials.
      */
-    public function eraseCredentials() {
+    public function eraseCredentials()
+    {
 
     }
-        /**
+
+    /**
      * Serializes the content of the current User object
      * @return string
      */
     public function serialize()
     {
         return \json_encode(
-                array($this->username, $this->password, $this->salt,
-                        $this->user_roles, $this->id));
+            array($this->username, $this->password, $this->salt,
+                $this->user_roles, $this->id));
     }
 
     /**
@@ -257,8 +262,8 @@ class User implements UserInterface,  \Serializable
     public function unserialize($serialized)
     {
         list($this->username, $this->password, $this->salt,
-                        $this->user_roles, $this->id) = \json_decode(
-                $serialized);
+            $this->user_roles, $this->id) = \json_decode(
+            $serialized);
     }
 
 
@@ -598,19 +603,19 @@ class User implements UserInterface,  \Serializable
         return $this;
     }
 
- /**
- *
- * @ORM\PrePersist
- * @ORM\PreUpdate
- */
-public function updatedTimestamps()
-{
-    $this->setUpdated(new \DateTime('now'));
+    /**
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updatedTimestamps()
+    {
+        $this->setUpdated(new \DateTime('now'));
 
-    if ($this->getCreated() == null) {
-        $this->setCreated(new \DateTime('now'));
+        if ($this->getCreated() == null) {
+            $this->setCreated(new \DateTime('now'));
+        }
     }
-}
 
 
     /**

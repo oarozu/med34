@@ -27,7 +27,7 @@ protected $fechainicio;
   * @ORM\Column(type="datetime", nullable=false)
   */
 protected $fechafin;
- 
+
  /**
  * @ORM\Column(type="integer", nullable=false)
  */
@@ -37,6 +37,11 @@ protected $dias;
  * @ORM\Column(type="string", nullable=true)
  */
 protected $observaciones;
+
+/**
+ * @ORM\Column(type="integer", nullable=true)
+ */
+protected $year;
 
 /**
   * @ORM\OneToMany(targetEntity="Admin\MedBundle\Entity\Periodoa", mappedBy="periodoe")
@@ -60,7 +65,7 @@ protected $periodoa;
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -83,7 +88,7 @@ protected $periodoa;
     /**
      * Get fechainicio
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechainicio()
     {
@@ -106,7 +111,7 @@ protected $periodoa;
     /**
      * Get fechafin
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechafin()
     {
@@ -129,11 +134,34 @@ protected $periodoa;
     /**
      * Get dias
      *
-     * @return integer 
+     * @return integer
      */
     public function getDias()
     {
         return $this->dias;
+    }
+
+    /**
+     * Set year
+     *
+     * @param integer $year
+     * @return Periodoe
+     */
+    public function setYear($year)
+    {
+        $this->year = $year;
+
+        return $this;
+    }
+
+    /**
+     * Get year
+     *
+     * @return integer
+     */
+    public function getYear()
+    {
+        return $this->year;
     }
 
     /**
@@ -152,7 +180,7 @@ protected $periodoa;
     /**
      * Get observaciones
      *
-     * @return string 
+     * @return string
      */
     public function getObservaciones()
     {
@@ -192,7 +220,7 @@ protected $periodoa;
     /**
      * Get periodoa
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPeriodoa()
     {
