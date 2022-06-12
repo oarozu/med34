@@ -175,30 +175,13 @@
 
     <table widtd="100%" border="0">
         <tr>
-            <td class="titulo" colspan="3">CONSOLIDACIÓN FINAL</td>
+            <td class="titulo" colspan="3">CONSOLIDACIÓN CUANTITATIVA OTROS INTRUMENTOS</td>
         </tr>
         <tr>
             <td class="centro">Tipo de Evaluación</td>
             <td class="centro">Ponderación:</td>
             <td class="centro">Resultado</td>
         </tr>
-        <tr>
-            <td>Cumplimiento plan de trabajo</td>
-            <td></td>
-            <td class="centro">
-                {% if docente.evaluacion.auto is not null %}
-                    {% if docente.evaluacion.auto >= 25 %}
-                        <span class="center-block padding-5 label label-success">Superior</span><br>
-                    {% elseif docente.evaluacion.auto < 25 and docente.evaluacion.auto > 15 %}
-                        <span class="center-block padding-5 label label-warning">Medio</span><br>
-                    {% elseif docente.evaluacion.auto <= 15 and docente.evaluacion.auto > 0 %}
-                        <span class="center-block padding-5 label label-default">Bajo</span><br>
-                    {% else %}
-                    {% endif %}
-                {% else %}
-                    -
-                {% endif %}
-            </td>
         </tr>
         <tr>
             <td>Heteroevaluación</td>
@@ -212,21 +195,9 @@
         </tr>
         <tr>
             <td>Fecha de consolidación: {{ docente.evaluacion.fecha|date('d/m/Y') }}</td>
-            <td class="centro"><h3>Evaluación Final del Desempeño</h3></td>
+            <td class="centro"><h3>Evaluación DOFE</h3></td>
             <td class="centro">
                 <h3>
-                    {% if docente.evaluacion.auto is not null %}
-                        {% if docente.evaluacion.auto >= 25 %}
-                            <span class="center-block padding-5 label label-success">Superior</span><br>
-                        {% elseif docente.evaluacion.auto < 25 and docente.evaluacion.auto > 15 %}
-                            <span class="center-block padding-5 label label-warning">Medio</span><br>
-                        {% elseif docente.evaluacion.auto <= 15 and docente.evaluacion.auto > 0 %}
-                            <span class="center-block padding-5 label label-default">Bajo</span><br>
-                        {% else %}
-                        {% endif %}
-                    {% else %}
-                        -
-                    {% endif %}
                 </h3>
             </td>
         </tr>
