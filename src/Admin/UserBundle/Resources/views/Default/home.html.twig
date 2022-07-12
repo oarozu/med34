@@ -8,7 +8,7 @@
     <meta name="author" content="">
 
     <!-- Use the correct meta names below for your web application
-             Ref: http://davidbcalhoun.com/2010/viewport-metatag 
+             Ref: http://davidbcalhoun.com/2010/viewport-metatag
 
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">-->
@@ -16,12 +16,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <!-- Basic Styles -->
-    <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css">	
+    <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" media="screen" href="css/font-awesome.min.css">
 
     <!-- SmartAdmin Styles : Please note (smartadmin-production.css) was created using LESS variables -->
     <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-production.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-skins.css">	
+    <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-skins.css">
 
     <!-- SmartAdmin RTL Support is under construction
             <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-rtl.css"> -->
@@ -56,25 +56,20 @@
                     <div id="content" class="container">
                    <h1 class="txt-color-orangeDark login-header-big">Vicerrectoría Académica y de Investigación - Módulo para la Evaluación del Desempeño Docente</h1>
                    <h4 class="paragraph-header"> Desarrollado en coherencia con las directrices emitidas por el Consejo Superior Universitario en el Acuerdo 003 del 28 de enero de 2011 y modificado por el Acuerdo 013 del 05 de mayo de 2011.</h4>
-                   
-                    <h4 class="paragraph-header">Ultimas circulares emitidas:</h4> 
+
+                    <h4 class="paragraph-header">Ultimas circulares emitidas:</h4>
                                          <table class="table table-bordered hidden-mobile">
         <thead>
                        <tr>
-                           <th>Circular informativa</th>
+                           <th>Circularles del proceso:</th>
                            <th>Fecha</th>
                            <th>Ver...</th>
                        </tr>
         </thead>
                         <tr>
-                           <td>400.010</td>
-                           <td>28 de marzo de 2017</td>
-                           <td><a href="http://med.unad.edu.co/archivo/circular20171-1.pdf" target="new">Ver... <i class="fa fa-download"></i></a></td>
-                       </tr>
-                       <tr>
-                           <td>400.018</td>
-                           <td>7 de junio de 2017</td>
-                           <td><a href="http://med.unad.edu.co/archivo/circular20171-2.pdf" target="new">Ver... <i class="fa fa-download"></i></a></td>
+                           <td>101.022</td>
+                           <td>1 de Junio de 2022</td>
+                           <td><a href="http://med.unad.edu.co/archivo/circular2022-101-022.pdf" target="new">Ver... <i class="fa fa-download"></i></a></td>
                        </tr>
                    </table>
                    <h1 class="txt-color-orangeDark login-header-big">Periodo de evaluación en curso: {{periodo.id}}</h1>
@@ -87,7 +82,7 @@
                 <th>Inicio eventos académicos</th>
                 <th>Fin eventos académicos</th>
                  </tr>
-               </thead> 
+               </thead>
                <tbody>
 
             {%for periodoa in periodo.periodoa%}
@@ -118,18 +113,18 @@
                         </h4>
                    <br>
                        <a href="http://med.unad.edu.co/archivo/recuperacion-credenciales-acceso.pdf" target="new">Instructivo de Recuperación de Credenciales de Acceso <i class="fa fa-download"></i></a>
-                       
-                       </td>      
-                       </tr>                  
+
+                       </td>
+                       </tr>
                        <tr>
 
                            <td>
-     
+
                        <a href="https://intranet.unad.edu.co" class="btn btn-primary btn-xs">Ir a Intranet <i class="fa fa-sign-in"></i></a>
 
                        </td>
 
-                       
+
                        </tr>
                        <tr>
                            <td>
@@ -142,7 +137,7 @@
                                     <strong>Error!</strong>  {{ flashMessage }}
                                     </div>
                         {% endfor %}
-                            
+
                      {% for flashMessage in app.session.flashbag.get('success') %}
                      <div class="alert alert-success fade in">
                      <button class="close" data-dismiss="alert">
@@ -160,7 +155,7 @@
                                     <i class="fa-fw fa fa-warning"></i>
                                     <strong>Advertencia!</strong>  {{ flashMessage }}
                                     </div>
-                        {% endfor %}     
+                        {% endfor %}
                            </td>
                            </tr>
                                {%if autenticacion == 'Aceptada' and user %}
@@ -172,24 +167,24 @@
                                     <strong>Advertencia!</strong>{{ ucount }} No se encontro el numero de cédula: {{cedula_usuario}} en el sistema, si considera que extiste alguna inconsistencia por favor escriba a omar.rodriguez@unad.edu.co
                                                 </div>
                      {%endif%}
-                           
-               
-                           
-                          
+
+
+
+
                        <tr>
                            <td colspan="2" align="center">
                                <h5>Navegadores soportados en esta versión: Google Chrome y Firefox</h5>
-                               {{direccion_ip}} 
-                           </td>    
+                               {{direccion_ip}}
+                           </td>
                        </tr>
                    </table>
-                    
+
 			</div>
 
-		</div>         
-                  
+		</div>
 
-		<!--================================================== -->	
+
+		<!--================================================== -->
 
 		<!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
 		<script src="js/plugin/pace/pace.min.js"></script>
@@ -201,10 +196,10 @@
 	    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 		<script> if (!window.jQuery.ui) { document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\/script>');} </script>
 
-		<!-- JS TOUCH : include this plugin for mobile drag / drop touch events 		
+		<!-- JS TOUCH : include this plugin for mobile drag / drop touch events
 		<script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> -->
 
-		<!-- BOOTSTRAP JS -->		
+		<!-- BOOTSTRAP JS -->
 		<script src="js/bootstrap/bootstrap.min.js"></script>
 
 		<!-- CUSTOM NOTIFICATION -->
@@ -212,35 +207,35 @@
 
 		<!-- JARVIS WIDGETS -->
 		<script src="js/smartwidgets/jarvis.widget.min.js"></script>
-		
+
 		<!-- EASY PIE CHARTS -->
 		<script src="js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
-		
+
 		<!-- SPARKLINES -->
 		<script src="js/plugin/sparkline/jquery.sparkline.min.js"></script>
-		
+
 		<!-- JQUERY VALIDATE -->
 		<script src="js/plugin/jquery-validate/jquery.validate.min.js"></script>
-		
+
 		<!-- JQUERY MASKED INPUT -->
 		<script src="js/plugin/masked-input/jquery.maskedinput.min.js"></script>
-		
+
 		<!-- JQUERY SELECT2 INPUT -->
 		<script src="js/plugin/select2/select2.min.js"></script>
 
 		<!-- JQUERY UI + Bootstrap Slider -->
 		<script src="js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
-		
+
 		<!-- browser msie issue fix -->
 		<script src="js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
-		
+
 		<!-- FastClick: For mobile devices -->
 		<script src="js/plugin/fastclick/fastclick.js"></script>
-		
+
 		<!--[if IE 7]>
-			
+
 			<h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
-			
+
 		<![endif]-->
 
 		<!-- MAIN APP JS FILE -->
