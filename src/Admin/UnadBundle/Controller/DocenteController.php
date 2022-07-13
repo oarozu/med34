@@ -256,7 +256,7 @@ class DocenteController extends Controller {
     public function inicioAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $this->get('session')->getFlashBag()->add('warning', 'Periodo de evaluación: 16-01');
+        $this->get('session')->getFlashBag()->add('success', 'Periodo de evaluación seleccionado: '. $session->get('periodoe'));
         $entity = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         $instrumentos = $em->getRepository('AdminMedBundle:Instrumento')->findAll();
 

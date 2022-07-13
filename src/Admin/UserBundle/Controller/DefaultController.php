@@ -65,10 +65,6 @@ class DefaultController extends Controller {
                 $session->set('docenteid', $docente->getId());
 
                 return $this->redirect($this->generateUrl('docente_inicio'));
-                //     return $this->render('AdminUnadBundle:Docente:show.html.twig', array(
-                //                 'entity' => $docente,
-                //                 'instrumentos' => $instrumentos,
-                //     ));
             }
         } else {
             $docente = null;
@@ -84,6 +80,42 @@ class DefaultController extends Controller {
                     'hoy' => $hoy
         ));
     }
+
+    public function periodAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $year = $this->container->getParameter('appmed.year');
+        $roles = $this->getUser()->getUserRoles();
+        $isdc = false;
+        foreach ($roles as $role){
+            if ($role->getName() == 'ROLE_DC'){
+                $isdc = true;
+            }
+        }
+        $periodo = $this->container->getParameter('appmed.periodo');
+        $periodos = $em->getRepository('AdminMedBundle:Periodoe')->findBy(array('year' => $year));
+        return $this->render('AdminUserBundle:Default:periods.html.twig', array(
+            'year' => $year,
+            'periodos' => $periodos,
+            'isdc' => $isdc
+        ));
+    }
+
+    public function selectAction(Request $request, $id){
+        $session = $request->getSession();
+        $session->set('periodoe', $id);
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $docente = $em->getRepository('AdminUnadBundle:Docente')->findOneBy(array('user' => $user, 'periodo' => $id));
+        if (!$docente) {
+            $this->get('session')->getFlashBag()->add('warning', 'A partir del 14 de julio estarán disponibles los instrumentos de evaluación del periodo 16-02, Autoevaluación y Coevalauciones.');
+            return $this->redirect($this->generateUrl('home_user_periodo'));
+        } else {
+            $session->set('docenteid', $docente->getId());
+            return $this->redirect($this->generateUrl('docente_inicio'));
+        }
+    }
+
 
     public function homeAction(Request $request) {
 

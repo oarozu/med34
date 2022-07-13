@@ -196,15 +196,11 @@ class UserController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('AdminUserBundle:User')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
         }
-
         $editForm = $this->createEditForm($entity);
-
         return $this->render('AdminUserBundle:User:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
