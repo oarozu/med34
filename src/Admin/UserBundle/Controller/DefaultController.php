@@ -60,7 +60,7 @@ class DefaultController extends Controller {
 
 
             if (!$docente) {
-                $this->get('session')->getFlashBag()->add('warning', 'A partir del 14 de junio estarán disponibles los instrumentos de evaluación del periodo 16-02, Autoevaluación y Coevalauciones.');
+                $this->get('session')->getFlashBag()->add('warning', 'A partir del 14 de julio estarán disponibles los instrumentos de evaluación del periodo 16-02, Autoevaluación y Coevaluaciones.');
             } else {
                 $session->set('docenteid', $docente->getId());
 
