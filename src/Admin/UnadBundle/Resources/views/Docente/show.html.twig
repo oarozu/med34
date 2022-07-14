@@ -2,7 +2,7 @@
 {% block body -%}
     {{ include(
         'AdminUnadBundle:Docente:detalle.html.twig',
-        {'entity': entity}
+        {'entity': entity, 'periodo': periodo }
     ) }}
     {% if is_granted('ROLE_ADMIN') %}
         <ul class="record_actions">
