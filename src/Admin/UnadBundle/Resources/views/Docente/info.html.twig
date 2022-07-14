@@ -2,7 +2,7 @@
 {% block body -%}
     {{ include(
             'AdminUnadBundle:Docente:detalle.html.twig',
-            {'entity': entity}
+        {'entity': entity, 'periodo': periodo }
         ) }}
 
     {% if is_granted('ROLE_ADMIN') %}
@@ -20,15 +20,15 @@
         <tr>
             <th>
                 {%if entity.vinculacion == 'DC'%}
-                    1. Plan de Gestión      
+                    1. Plan de Gestión
                 {%else%}
                     1. Plan de Actividades
                 {%endif%}
                 (Autoevaluación)
             </th>
             <td>
-                <a href="javascript:popUp('{{ path('plangestion_info', { 'id': entity.id }) }}')" class="btn btn-primary btn-xs">Ver Actividades <i class="fa fa-sign-in"></i></a>    
-            </td>    
+                <a href="javascript:popUp('{{ path('plangestion_info', { 'id': entity.id }) }}')" class="btn btn-primary btn-xs">Ver Actividades <i class="fa fa-sign-in"></i></a>
+            </td>
             <td>
                 <a href="javascript:popUp('{{ path('plangestion_autoeval', { 'id': entity.id }) }}')" class="btn btn-primary btn-xs">Ver Autoevaluación <i class="fa fa-sign-in"></i></a>
             </td>
@@ -38,10 +38,10 @@
                 2. Evaluación de estudiantes (Heteroevaluación)
             </th>
             <td>
-                {%if entity.heteroeval%} 
+                {%if entity.heteroeval%}
                     <a href="javascript:popUp('{{ path('heteroeval_info', {'id': entity.id }) }}')" class="btn btn-primary btn-xs">Ver... <i class="fa fa-sign-in"></i></a>
                 {%else%} Sin registros {%endif%}
-            </td> 
+            </td>
             <td></td>
         </tr>
         <tr>
@@ -52,7 +52,7 @@
                 {%if entity.evaluacion%}
                     <a href="javascript:popUp('{{ path('coeval_info', {'id': entity.id }) }}')" class="btn btn-primary btn-xs">Ver... <i class="fa fa-sign-in"></i></a>
                     {%endif%}
-            </td> 
+            </td>
             <td></td>
         </tr>
 
@@ -62,11 +62,11 @@
             </th>
             <td>
                 {%if entity.evaluacion%}
-                    {%if entity.evaluacion.auto%} 
+                    {%if entity.evaluacion.auto%}
                         <a href="javascript:popUp('{{ path('docente_final', {'id': entity.id }) }}')" class="btn btn-primary btn-xs">Ver... <i class="fa fa-sign-in"></i></a>
                         {%endif%}
                     {%endif%}
-            </td> 
+            </td>
             <td></td>
         </tr>
 
