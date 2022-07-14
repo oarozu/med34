@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% block body -%} 
+{% block body -%}
 
 <h1>Evaluación del Cumplimiento del Plan de Trabajo de {{ entity.docente.user.nombres}} {{ entity.docente.user.apellidos}} : {{ entity.docente.user.id}} </h1>
 
@@ -14,34 +14,34 @@
             </tr>
         </thead>
         <tbody>
-   
+
         {% set temp = 'temp' %} {% set num = 0 %}
         {% set termino = 1 %}
          {% set resp = "0" %}
         {% for actividad in actividades %}
-           
-                    {%if temp != actividad.actividad.rol.nombre %} 
+
+                    {%if temp != actividad.actividad.rol.nombre %}
                 <tr>
                     <td colspan="2">
                     <b>ROL:
                     {{actividad.actividad.rol.nombre}}
-                    {% set temp = actividad.actividad.rol.nombre %}        
+                    {% set temp = actividad.actividad.rol.nombre %}
                     </b>
                     </td>
-                                 </tr>     
+                                 </tr>
                     {%endif%}
-                    
+
                 {%if actividad.actividad.responsabilidad.codigo != resp%}
-               {% set resp = actividad.actividad.responsabilidad.codigo %}  
-              <tr> 
+               {% set resp = actividad.actividad.responsabilidad.codigo %}
+              <tr>
                   <td colspan="2"><b> Responsabilidad: {{actividad.actividad.responsabilidad.codigo}} - {{actividad.actividad.responsabilidad.nombre}}.</b></td>
               </tr>
-              {%endif%} 
-                 
-                   
+              {%endif%}
+
+
             <tr>
                 {% set num = num+1 %}
-                <td>{{num}}.     
+                <td>{{num}}.
                 {{ actividad.actividad.descripcion }}
 
                 </td>
@@ -54,17 +54,17 @@
                      {%else%}
                      <a data-toggle="modal" href="{{ path('dofe_calificaredit', { 'id': actividad.id }) }}" data-target="#myModal" class="btn btn-default btn-xs"> Bajo </a>
                           {%endif%}
-          
+
                 {%else%}
                  <a data-toggle="modal" href="{{ path('dofe_calificaredit', { 'id': actividad.id }) }}" data-target="#myModal" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Calificar </a>
                 {% set termino = 0 %}
                 {%endif%}
-                     
+
                  </td>
                </tr>
-        {% endfor %}  
+        {% endfor %}
         </tbody>
-        
+
           </table>
     <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
         <tbody>
@@ -76,16 +76,16 @@
                 <div class="alert alert-danger fade in">
                 <button class="close" data-dismiss="alert">×</button>
                 <i class="fa-fw fa fa-times"></i>
-                <strong>Importante!</strong> No a finalizado su evaluación. Califique cada actividad y luego oprima el boton "Finalizar Evaluación".
+                <strong>Importante!</strong> No ha finalizado su evaluación. Califique cada actividad y luego oprima el botón "Finalizar Evaluación".
                 </div>
-                {%endif%}               
-                </td>    
+                {%endif%}
+                </td>
             </tr>
             <tr>
                 <td>Fecha Evaluación: </td>
-                <td>Estado: 
+                <td>Estado:
                          {%if entity.calificacion == null%}
-                         <h1> <font color="#c7254e">Evaluación sin Finalizar !</font></h1> 
+                         <h1> <font color="#c7254e">Evaluación sin Finalizar !</font></h1>
                          {%else%}
                          Evaluación Cerrada
                          {%endif%}
@@ -94,14 +94,14 @@
 
         </tbody>
     </table>
-                
-                
+
+
 <div class="modal fade" data-refresh="true" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 <div class="modal-dialog modal-lg">
 <div class="modal-content">
 </div></div></div>
-                         
-                         
+
+
  <div class="modal fade" data-refresh="true" id="ModalCerrar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 <div class="modal-dialog modal-sm">
 <div class="modal-content">
@@ -110,20 +110,20 @@
                 <h4 class="modal-title">Cerrar Evaluación</h4>
                 </div>			<!-- /modal-header -->
                 <div class="modal-body">
-                IMPORTANTE: 
+                IMPORTANTE:
 Para finalizar la evaluación de {{ entity.docente.user.nombres}} {{ entity.docente.user.apellidos}}, oprima el bóton confirmar: <br>
                 </div>
                 <div class="modal-footer">
-               <form  action="{{ path('dofe_cerrar', { 'id': entity.id }) }}" method="get">     
+               <form  action="{{ path('dofe_cerrar', { 'id': entity.id }) }}" method="get">
                 <button type="button" class="btn btn-default" data-dismiss="modal">
                         Cancelar
                 </button>
-               <td><button type="hidden" class="btn btn-primary">Confirmar</button></td>    
-               </form> 
+               <td><button type="hidden" class="btn btn-primary">Confirmar</button></td>
+               </form>
                 </div>
 </div></div>
- </div>                         
-                         
-                         
-                         
+ </div>
+
+
+
 {% endblock %}

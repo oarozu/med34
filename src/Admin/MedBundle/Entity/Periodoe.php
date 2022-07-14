@@ -38,6 +38,17 @@ protected $dias;
  */
 protected $observaciones;
 
+
+/**
+ * @ORM\Column(type="string", nullable=true)
+ */
+protected $cronograma;
+
+/**
+ * @ORM\Column(type="smallint", nullable=false)
+ */
+protected $auto;
+
 /**
  * @ORM\Column(type="integer", nullable=true)
  */
@@ -178,6 +189,20 @@ protected $periodoa;
     }
 
     /**
+     * Set cronograma
+     *
+     * @param string $cronograma
+     * @return Periodoe
+     */
+    public function setCronograma($cronograma)
+    {
+        $this->cronograma = $cronograma;
+
+        return $this;
+    }
+
+
+    /**
      * Get observaciones
      *
      * @return string
@@ -186,6 +211,39 @@ protected $periodoa;
     {
         return $this->observaciones;
     }
+
+    /**
+     * Get cronograma
+     *
+     * @return string
+     */
+    public function getCronograma()
+    {
+        return $this->cronograma;
+    }
+
+
+    /**
+     * Set auto
+     *
+     * @param integer $auto
+     * @return Periodoe
+     */
+    public function setAuto($auto) {
+        $this->auto = $auto;
+
+        return $this;
+    }
+
+    /**
+     * Get auto
+     *
+     * @return integer
+     */
+    public function getAuto() {
+        return $this->auto;
+    }
+
     /**
      * Constructor
      */

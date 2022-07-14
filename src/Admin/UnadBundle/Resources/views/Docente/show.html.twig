@@ -18,7 +18,7 @@
         <tr>
             <th>Instrumento</th>
             <th>Descripción</th>
-            <th>Acción</th>
+            <th>Ingreso</th>
             <th>Estado</th>
         </tr>
         {% if entity.vinculacion == 'De Carrera' %}
@@ -32,7 +32,7 @@
                         {% if instrumentos[0].estado %}
                             <a href="{{ path('plangestion_crear') }}" class="btn btn-primary btn-xs">Ingresar <i
                                         class="fa fa-sign-in"></i></a>
-                        {% else %}<i>Cronograma: 3 al 10 de junio.</i>{% endif %}
+                        {% else %}<i></i>{% endif %}
                     {% endif %}
                 </td>
                 <td>
@@ -74,10 +74,10 @@
                 <td>Descripción del avance y cargue de evidencias</td>
                 <td>
                     {% if entity.plangestion %}
-                        {% if instrumentos[1].estado %}
+                        {% if periodo.auto %}
                             <a href="{{ path('plangestion_show', { 'id': entity.plangestion.id }) }}"
                                class="btn btn-primary btn-xs">Ingresar <i class="fa fa-sign-in"></i></a>
-                        {% else %}<i>Cronograma: 3 al 10 de junio.</i>{% endif %}
+                        {% else %}<i>{{ periodo.cronograma }}</i>{% endif %}
                     {% endif %}
                 </td>
                 <td>
@@ -95,10 +95,10 @@
                     <a href="javascript:popUp('{{ path('plangestion_info', { 'id': entity.id }) }}')">(Ver Plan...)</a>
                 </td>
                 <td>
-                        {% if instrumentos[1].estado %}
+                        {% if periodo.auto %}
                             <a href="{{ path('plangestion_conf', { 'id': entity.id }) }}"
                                class="btn btn-primary btn-xs">Ingresar <i class="fa fa-sign-in"></i></a>
-                        {% else %}<i>Cronograma: 3 al 10 de junio.</i>{% endif %}
+                        {% else %}<i>{{ periodo.cronograma }}</i>{% endif %}
                 </td>
 
             </tr>

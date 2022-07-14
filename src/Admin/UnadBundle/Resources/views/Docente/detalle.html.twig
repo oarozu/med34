@@ -1,12 +1,12 @@
- <h4>1. Información de vinculación</h4>   
+ <h4>1. Información de vinculación</h4>
   <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
      <tr>
     <th>Nombre</th>
     <td>{{ entity.user.nombres }} {{ entity.user.apellidos }}</td>
     <th>Periodo de Evaluación</th>
     <td>{{entity.periodo}}</td>
-  </tr>   
-      
+  </tr>
+
   <tr>
     <th>Cédula</th>
     <td>{{ entity.user.id }}</td>
@@ -24,18 +24,18 @@
     <td>{{ entity.perfil }}</td>
     <th>Programa</th>
     <td>{{ entity.programa.nombre }}</td>
-  </tr> 
+  </tr>
   <tr>
       <td colspan="2"><b>Escuela:</b> {{ entity.escuela.nombre }}<br>
     Decano: {{ entity.escuela.decano.nombres }} {{ entity.escuela.decano.apellidos }}
-    </td>   
+    </td>
     <td colspan="2"><b>Centro:</b> {{ entity.centro.nombre }}<br>
     Director:{%if entity.centro.director %} {{ entity.centro.director.nombres }} {{ entity.centro.director.apellidos }}{%endif%}
     </td>
   </tr>
   </table>
 <h4>2. Asignación roles de formación para co evaluaciones</h4>
-  
+
   <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
     <tr>
       <th>Tutor</th>
@@ -46,15 +46,15 @@
        <i class="fa fa-times" style="color: #a90329"></i>
        {%endif%}
    </td>
-      <td colspan="3">{%for tutoria in entity.tutoria%} 
-      {{tutoria.oferta.curso.id}}:{{tutoria.oferta.curso.nombre}} Periodo:{{tutoria.oferta.periodo}}  Director: 
+      <td colspan="3">{%for tutoria in entity.tutoria%}
+      {{tutoria.oferta.curso.id}}:{{tutoria.oferta.curso.nombre}} Periodo:{{tutoria.oferta.periodo}}  Director:
       {%if tutoria.oferta.director%}
-        {{tutoria.oferta.director.user.nombres}} {{tutoria.oferta.director.user.apellidos}} 
+        {{tutoria.oferta.director.user.nombres}} {{tutoria.oferta.director.user.apellidos}}
       {%endif%}
       <br>{%endfor%}
    </td>
    <td>
-       <a data-toggle="modal" data-target="#ModalTutor" class="btn btn-success btn-xs">Ayuda</a>   
+       <a data-toggle="modal" data-target="#ModalTutor" class="btn btn-success btn-xs">Ayuda</a>
    </td>
   </tr>
     <tr>
@@ -86,7 +86,7 @@
    </td>
       <td colspan="3">
       {%for programa in entity.lider%}
-      <a data-toggle="modal" href="{{ path('programa_modal', { 'id': programa.id }) }}" data-target="#myModal">{{programa.programa.id}}</a>    
+      <a data-toggle="modal" href="{{ path('programa_modal', { 'id': programa.id }) }}" data-target="#myModal">{{programa.programa.id}}</a>
       {{programa.programa.nombre}} <br> {%endfor%}
    </td>
    <td></td>

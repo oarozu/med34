@@ -259,6 +259,7 @@ class DocenteController extends Controller {
         $this->get('session')->getFlashBag()->add('success', 'Periodo de evaluación seleccionado: '. $session->get('periodoe'));
         $entity = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         $instrumentos = $em->getRepository('AdminMedBundle:Instrumento')->findAll();
+        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
 
         if (!$entity) {
             throw $this->createNotFoundException('Error al buscarla entidad del docente.');
@@ -274,7 +275,8 @@ class DocenteController extends Controller {
         } else {
             return $this->render('AdminUnadBundle:Docente:show.html.twig', array(
                         'entity' => $entity,
-                        'instrumentos' => $instrumentos
+                        'instrumentos' => $instrumentos,
+                        'periodo' => $periodo
             ));
         }
     }
