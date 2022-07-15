@@ -28,11 +28,11 @@
             <tr>
                 <th>Docentes</th>
                 <td>
-               Periodos de evaluación: 
-                
+               Periodos de evaluación:
+
                 {%for periodo in periodos %}
                      <a  href="{{ path('docente_escuela', { 'id': entity.id , 'periodo': periodo.id }) }}">{{ periodo.id }}</a>
-                      {%endfor%}  
+                      {%endfor%}
                 </td>
             </tr>
              <th>Cursos</th>
@@ -40,38 +40,38 @@
             </tr>
         </tbody>
     </table>
-                
-   <h4 class="modal-title">Programas periodo actual</h4>	
+
+   <h4 class="modal-title">Programas y lideres del periodo {{ periodo.observaciones }}</h4>
    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
         <tbody>
             <tr>
-           
+
                 <td>Código</td>
                 <td>Nivel</td>
                 <td>Nombre</td>
                 <td>Lider</td>
-               
+
                 <td>Editar</td>
-                
+
             </tr>
          {% for oferta in ofertado %}
                  <tr>
                  <td><a href="{{ path('programa_show', { 'id': oferta.id }) }}">{{oferta.programa.id}}</a></td>
-                
+
                 <td>{{oferta.programa.nivel}}</td>
                  <td>{{oferta.programa.nombre}}</td>
                 <td>{{oferta.lider? oferta.lider.user.nombres~' '~oferta.lider.user.Apellidos : 'sin'}}</td>
-               
+
                 <td>
-                {% if is_granted('ROLE_SECA') or is_granted('ROLE_DEC')   %}   
+                {% if is_granted('ROLE_SECA') or is_granted('ROLE_DEC')   %}
                 <a data-toggle="modal" href="{{ path('programa_edit', { 'id': oferta.programa.id }) }}" data-target="#myModal" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
                 {%endif%}
                  </td>
-            </tr>        
+            </tr>
 {%endfor%}
-             </table>  
- <div class="modal fade" data-refresh="true" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">    
+             </table>
+ <div class="modal fade" data-refresh="true" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 <div class="modal-dialog modal-lg">
-<div class="modal-content">  
+<div class="modal-content">
 </div></div></div>
 {% endblock %}
