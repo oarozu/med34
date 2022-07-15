@@ -328,11 +328,12 @@ class ProgramaController extends Controller
     {
        $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
+        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->find( $session->get('periodoe'));
         $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
-        $entities = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('escuela' => $escuela, 'periodo' => $this->container->getParameter('appmed.periodo')));
+        $entities = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('escuela' => $escuela, 'periodo' => $session->get('periodoe')));
         return array(
         'entities' => $entities,
+        'periodo' => $periodo
         );
     }
-
 }
