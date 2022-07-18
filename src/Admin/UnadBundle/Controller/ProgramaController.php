@@ -29,14 +29,14 @@ class ProgramaController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $session = $request->getSession();
 
         if ($this->container->get('security.authorization_checker')->isGranted('ROLE_SECA')){
-        $session = $request->getSession();
 
         $entities = $em->getRepository('AdminUnadBundle:Programa')->getPorEscuela($session->get('escuelaid'));
         }
         else{
-       $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findBy(array('id' => $this->container->getParameter('appmed.periodo')));
+       $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findBy(array('id' => $session->get('periodoe')));
        $entities = $em->getRepository('AdminUnadBundle:ProgramaPeriodo')->findBy(array('periodo' => $periodo));
         }
         return array(

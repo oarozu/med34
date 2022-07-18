@@ -43,6 +43,7 @@
                 <th>Nivel</th>
                 <th>Nombre</th>
                 <th>Escuela</th>
+                <th>Líder</th>
 
 
             </tr>
@@ -55,8 +56,10 @@
                       <td>{{ entity.programa.nivel }}</td>
                 <td>{{ entity.programa.nombre }}</td>
                 <td>{{ entity.programa.escuela? entity.programa.escuela.sigla : 'sin' }}</td>
+                <td>{{ entity.lider? entity.lider : 'no registrado' }}</td>
 
-          
+
+
             </tr>
         {% endfor %}
         </tbody>
@@ -72,6 +75,6 @@
                     </div>
                     <!-- end row -->
                     </section>
-                    <!-- end widget grid -->        
-                        
+                    <!-- end widget grid -->
+
     {% endblock %}
