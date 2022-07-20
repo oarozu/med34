@@ -71,10 +71,14 @@ class AvalplangController extends Controller {
     public function porescuelaAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
+        $escuelaid = $session->get('escuelaid');
+        if ($escuelaid == null){
+            return $this->redirect($this->generateUrl('home_user_inicio'));
+        }
 
           if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
         $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
-              $docentes = $em->getRepository('AdminUnadBundle:Docente')
+        $docentes = $em->getRepository('AdminUnadBundle:Docente')
         ->findBy(
                 array('periodo' => $this->container->getParameter('appmed.periodo'),
                     'vinculacion' => 'DC', 'escuela' => $escuela));
@@ -82,7 +86,7 @@ class AvalplangController extends Controller {
             'entities' => $docentes,
             'periodo' => $this->container->getParameter('appmed.periodo'),
             'escuela' => $escuela
-        ); 
+        );
         }else{
         $escuela = null;
         $docentes = $em->getRepository('AdminUnadBundle:Docente')
@@ -97,8 +101,8 @@ class AvalplangController extends Controller {
         }
 
     }
-    
-    
+
+
         /**
      * Avalar plang
      *
@@ -112,14 +116,14 @@ class AvalplangController extends Controller {
 
         $docente = $em->getRepository('AdminUnadBundle:Docente')->find($id);
         $entity = $docente->getPlangestion();
-                
+
         return array(
             'docente' => $docente,
             'entity' => $entity
         );
     }
-    
-    
+
+
 
     /**
      * Creates a new Avalplang entity.
@@ -221,7 +225,7 @@ class AvalplangController extends Controller {
         //$entity = $em->getRepository('AdminMedBundle:Avalplang')->findOneBy(array('plan' => $plan, 'user' => $user));
         $entity = $em->getRepository('AdminMedBundle:Avalplang')->find($id);
 
-        
+
         $texto = explode('\n', $entity->getObservaciones());
 
         if (!$entity) {
