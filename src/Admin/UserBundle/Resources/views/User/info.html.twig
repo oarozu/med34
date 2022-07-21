@@ -21,6 +21,10 @@
                 <th>Roles</th>
                 <td>{% for roles in app.user.getUserRoles() %} {{roles.descripcion}}, {% endfor %}</td>
             </tr>
+            <tr>
+                <th>DID</th>
+                <td>{{ app.session.get('docenteid') }}</td>
+            </tr>
         </tbody>
     </table>
 {% endblock %}
