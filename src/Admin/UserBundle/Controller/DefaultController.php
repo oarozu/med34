@@ -108,7 +108,6 @@ class DefaultController extends Controller {
         $user = $this->getUser();
         $docente = $em->getRepository('AdminUnadBundle:Docente')->findOneBy(array('user' => $user, 'periodo' => $id));
         if (!$docente) {
-            $session->set('docenteid', $docente->getId());
             $this->get('session')->getFlashBag()->add('warning', 'A partir del 14 de julio estarán disponibles los instrumentos de evaluación del periodo 16-02, Autoevaluación y Coevalauciones.');
             return $this->redirect($this->generateUrl('home_user_periodo'));
         } else {
