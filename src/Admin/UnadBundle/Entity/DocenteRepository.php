@@ -12,17 +12,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class DocenteRepository extends EntityRepository
 {
-     public function docentesPeriodo($periodo) {
-    $connection = $this->getEntityManager()->getConnection();
-    $q = "select doc.* from (select @periodoe_id:=".$periodo." p) param, docentes_periodo doc";
-    $stmt = $connection->executeQuery($q);
-    return $stmt->fetchAll();
-}
+    public function docentesPeriodo($periodo)
+    {
+        $connection = $this->getEntityManager()->getConnection();
+        $q = "select doc.* from (select @periodoe_id:=" . $periodo . " p) param, docentes_periodo doc";
+        $stmt = $connection->executeQuery($q);
+        return $stmt->fetchAll();
+    }
 
-     public function totalEscuelas($periodo) {
- 
-    $connection = $this->getEntityManager()->getConnection();
-       $q = "select docente.escuela_id, escuela.nombre, escuela.sigla,
+    public function totalEscuelas($periodo)
+    {
+
+        $connection = $this->getEntityManager()->getConnection();
+        $q = "select docente.escuela_id, escuela.nombre, escuela.sigla,
             count(case when vinculacion = 'DC' THEN 1 end) vdc,
             count(case when vinculacion = 'DOFE' THEN 1 end) vdofe,
             count(case when vinculacion = 'DO' THEN 1  end) vdo,
@@ -30,17 +32,17 @@ class DocenteRepository extends EntityRepository
             count(*) total
             from docente
             join escuela on docente.escuela_id = escuela.id
-            where periodo = ".$periodo."
+            where periodo = " . $periodo . "
             group by docente.escuela_id";
-    $stmt = $connection->executeQuery($q);
-    return $stmt->fetchAll();
-}
+        $stmt = $connection->executeQuery($q);
+        return $stmt->fetchAll();
+    }
 
-      public function porVinculacion($sigla, $periodo){
+    public function porVinculacion($sigla, $periodo)
+    {
         $em = $this->getEntityManager();
-        $query = $em->createQuery('SELECT a FROM AdminUnadBundle:Docente a WHERE a.vinculacion = :sigla and a.periodo = :periodo')->setParameter('sigla', $sigla)->setParameter('periodo', $periodo);    
-        $programas = $query->getResult(); 
-        return $programas;   
-      }
-
+        $query = $em->createQuery('SELECT a FROM AdminUnadBundle:Docente a WHERE a.vinculacion = :sigla and a.periodo = :periodo')->setParameter('sigla', $sigla)->setParameter('periodo', $periodo);
+        $programas = $query->getResult();
+        return $programas;
+    }
 }
