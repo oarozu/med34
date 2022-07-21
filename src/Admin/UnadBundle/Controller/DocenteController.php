@@ -242,7 +242,7 @@ class DocenteController extends Controller
         $session = $request->getSession();
         $entity = $em->getRepository('AdminUnadBundle:Docente')->find($id);
         $instrumentos = $em->getRepository('AdminMedBundle:Instrumento')->findAll();
-        $this->get('session')->getFlashBag()->add('warning', 'El plazo para el proceso se extiende hasta el lunes 16 inclusive');
+        //$this->get('session')->getFlashBag()->add('warning', 'El plazo para el proceso se extiende hasta el lunes 16 inclusive');
         $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
 
         if (!$entity) {
