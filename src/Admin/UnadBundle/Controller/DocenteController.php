@@ -236,13 +236,14 @@ class DocenteController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
+    public function showAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $session = $request->getSession();
         $entity = $em->getRepository('AdminUnadBundle:Docente')->find($id);
         $instrumentos = $em->getRepository('AdminMedBundle:Instrumento')->findAll();
         $this->get('session')->getFlashBag()->add('warning', 'El plazo para el proceso se extiende hasta el lunes 16 inclusive');
+        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Docente entity.');
@@ -254,6 +255,7 @@ class DocenteController extends Controller
             'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
             'instrumentos' => $instrumentos,
+            'periodo' => $periodo
         );
     }
 
@@ -282,7 +284,8 @@ class DocenteController extends Controller
             return $this->render('AdminUnadBundle:Docente:iniciodofe.html.twig', array(
                 'entity' => $entity,
                 'instrumentos' => $instrumentos,
-                'red' => $red
+                'red' => $red,
+                'periodo' => $periodo
             ));
         } else {
             return $this->render('AdminUnadBundle:Docente:show.html.twig', array(

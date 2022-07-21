@@ -23,19 +23,19 @@ class coevalDirectorController extends Controller
     /**
      * Lists all coevalDirector entities.
      *
-     * @Route("/", name="docente_coevaldirector")
+     * @Route("/{id}", name="docente_coevaldirector")
      * @Method("GET")
      * @Template()
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $lider = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid')); 
+        $lider = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         $programas = $em->getRepository('AdminUnadBundle:Programa')->findBy(array('lider' => $lider));
         $cursos = $em->getRepository('AdminUnadBundle:Curso')->findBy(array('programa' => $programas));
-        $periodoe = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $lider->getPeriodo()));
-        $periodoa = $em->getRepository('AdminMedBundle:Periodoa')->findBy(array('periodoe' => $periodoe));
+        //$periodoe = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $lider->getPeriodo()));
+        $periodoa = $em->getRepository('AdminMedBundle:Periodoa')->findBy(array('periodoe' => $id));
         $ofertas = $em->getRepository('AdminMedBundle:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa),array('director' => 'ASC'));
 
         return array(
@@ -144,7 +144,7 @@ class coevalDirectorController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AdminMedBundle:coevalDirector')->find($id);
-        
+
         if (!$entity) {
         $entity = new coevalDirector();
         $em = $this->getDoctrine()->getManager();
@@ -202,16 +202,16 @@ class coevalDirectorController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
-        $entity->setFecha(new \DateTime()); 
+        $entity->setFecha(new \DateTime());
         $suma = 0; $tot = 0;
-        for($i=1; $i<18; $i++){   
+        for($i=1; $i<18; $i++){
         if($editForm["f".$i]->getData()>0){
          $suma = $suma + $editForm["f".$i]->getData();
          $tot = $tot + 1;
         }
         }
        $entity->setF0($suma/$tot);
-        
+
         if ($editForm->isValid()) {
             $em->flush();
 
