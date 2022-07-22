@@ -143,11 +143,12 @@ class coevalDirectorController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id)
+    public function editAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $session = $request->getSession();
         $entity = $em->getRepository('AdminMedBundle:coevalDirector')->find($id);
+        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
 
         if (!$entity) {
         $entity = new coevalDirector();
@@ -156,7 +157,6 @@ class coevalDirectorController extends Controller
         $entity->setOferta($oferta);
         $em->persist($entity);
         $em->flush();
-        ##    throw $this->createNotFoundException('Entidad no encontrada');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -166,6 +166,7 @@ class coevalDirectorController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'periodo' => $periodo
         );
     }
 

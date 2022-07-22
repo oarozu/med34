@@ -2,13 +2,13 @@
 {% block body -%}
 <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
     <tr>
-        <td><a href="{{path('docente_coevaldirector')}}"><< Regresar...</a></td>  
+        <td><a href="{{ path('docente_coevaldirector', { 'id': periodo.id }) }}"><< Regresar...</a></td>
         <td>Curso: {{entity.oferta.curso.nombre}} {{entity.oferta.periodo}}</td>
         <td>Director: {{entity.oferta.director.user.nombres}} {{entity.oferta.director.user.apellidos}}</td>
         <td></td>
     </tr>
 </table>
- 
+
 <form action="{{ path('coevaldirector_update', { 'id': entity.oferta.id }) }}" method="post" {{ form_start(edit_form) }}
   <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
      <input type="hidden" name="_method" value="PUT" />
@@ -22,7 +22,7 @@
             </tr>
         </thead>
         <tbody>
-                                              
+
             <tr>
     <td class="data" rowspan="2"><b>1</b></td>
     <td class="data"><b>Planificación del Curso</b></td>
@@ -31,8 +31,8 @@
   </tr>
   <tr>
     <td class="data" colspan="2"><i>Variable: Pedagógico-Didáctico Dimensión: Mediaciones</i></td>
-  </tr>      
-                                  
+  </tr>
+
             <tr>
     <td class="data" rowspan="2"><b>2</b></td>
     <td class="data"><b>Aprendizaje Autónomo</b></td>
@@ -41,8 +41,8 @@
   </tr>
   <tr>
     <td class="data" colspan="2"><i>Variable: Pedagógico-Didáctico Dimensión: Mediaciones</i></td>
-  </tr>      
-                                  
+  </tr>
+
             <tr>
     <td class="data" rowspan="2"><b>3</b></td>
     <td class="data"><b>Planificación del Curso</b></td>
@@ -51,8 +51,8 @@
   </tr>
   <tr>
     <td class="data" colspan="2"><i>Variable: Pedagógico-Didáctico Dimensión: Mediadores</i></td>
-  </tr>      
-                                  
+  </tr>
+
             <tr>
     <td class="data" rowspan="2"><b>4</b></td>
     <td class="data"><b>Planificación del Curso</b></td>
@@ -61,8 +61,8 @@
   </tr>
   <tr>
     <td class="data" colspan="2"><i>Variable: Pedagógico-Didáctico Dimensión: Mediadores</i></td>
-  </tr>      
-                                  
+  </tr>
+
             <tr>
     <td class="data" rowspan="2"><b>5</b></td>
     <td class="data"><b>Planificación del Curso</b></td>
@@ -71,8 +71,8 @@
   </tr>
   <tr>
     <td class="data" colspan="2"><i>Variable: Pedagógico-Didáctico Dimensión: Mediadores</i></td>
-  </tr>      
-                                  
+  </tr>
+
             <tr>
     <td class="data" rowspan="2"><b>6</b></td>
     <td class="data"><b>Peticiones, quejas y reclamos</b></td>
@@ -81,8 +81,8 @@
   </tr>
   <tr>
     <td class="data" colspan="2"><i>Variable: Pedagógico-Didáctico Dimensión: Mediadores</i></td>
-  </tr>      
-                                  
+  </tr>
+
             <tr>
     <td class="data" rowspan="2"><b>7</b></td>
     <td class="data"><b>Acompañamiento</b></td>
@@ -91,8 +91,8 @@
   </tr>
   <tr>
     <td class="data" colspan="2"><i>Variable: Pedagógico-Didáctico Dimensión: Mediadores</i></td>
-  </tr>      
-                                  
+  </tr>
+
             <tr>
     <td class="data" rowspan="2"><b>8</b></td>
     <td class="data"><b>Desarrollo de la acción formativa</b></td>
@@ -101,8 +101,8 @@
   </tr>
   <tr>
     <td class="data" colspan="2"><i>Variable: Pedagógico-Didáctico Dimensión: Mediadores</i></td>
-  </tr>      
-                                  
+  </tr>
+
             <tr>
     <td class="data" rowspan="2"><b>9</b></td>
     <td class="data"><b>Desarrollo de la acción formativa</b></td>
@@ -111,8 +111,8 @@
   </tr>
   <tr>
     <td class="data" colspan="2"><i>Variable: Pedagógico-Didáctico Dimensión: Mediadores</i></td>
-  </tr>      
-                                  
+  </tr>
+
             <tr>
     <td class="data" rowspan="2"><b>10</b></td>
     <td class="data"><b>Red de curso</b></td>
@@ -121,8 +121,8 @@
   </tr>
   <tr>
     <td class="data" colspan="2"><i>Variable: Pedagógico-Didáctico Dimensión: Mediadores</i></td>
-  </tr>      
-                                  
+  </tr>
+
             <tr>
     <td class="data" rowspan="2"><b>11</b></td>
     <td class="data"><b>Red de curso</b></td>
@@ -131,8 +131,8 @@
   </tr>
   <tr>
     <td class="data" colspan="2"><i>Variable: Pedagógico-Didáctico Dimensión: Mediadores</i></td>
-  </tr>      
-                                  
+  </tr>
+
             <tr>
     <td class="data" rowspan="2"><b>12</b></td>
     <td class="data"><b>Red de curso</b></td>
@@ -143,7 +143,7 @@
     <td class="data" colspan="2"><i>Variable: Pedagógico-Didáctico Dimensión: Mediadores</i></td>
   </tr>
   <tr>
-  
+
             <tr>
     <td class="data" rowspan="2"><b>13</b></td>
     <td class="data"><b>Desarrollo de la acción formativa</b></td>
@@ -196,7 +196,7 @@
   <tr>
     <td class="data" colspan="4">{{ form_row(edit_form.observaciones)}}</td>
   </tr>
-  
+
     <tr>
     <td class="data" colspan="4" align="center"><button type="submit">Enviar</button></td>
   </tr>
@@ -206,16 +206,16 @@
   </form>
 
    <script>
-  
+
 function popUp(URL) {
-    if(typeof(popupWin) != "object" || popupWin.closed)  { 
+    if(typeof(popupWin) != "object" || popupWin.closed)  {
         popupWin = window.open(URL, 'popupWin', 'scrollbars=auto,toolbar=no,menubar=no,status=no,width=1000,height=600, left=100,top=100');
-    } 
-    else{ 
-        popupWin.location.href = URL; 
     }
-    popupWin.focus(); 
+    else{
+        popupWin.location.href = URL;
+    }
+    popupWin.focus();
  }
-</script>  
+</script>
   {% endblock %}
 
