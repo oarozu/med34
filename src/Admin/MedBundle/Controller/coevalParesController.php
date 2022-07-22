@@ -255,8 +255,8 @@ class coevalParesController extends Controller {
         $session = $request->getSession();
         $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         $ternado = $em->getRepository('AdminUnadBundle:Terna')->findOneBy(array('docente' => $docente));
-        $ternados = $em->getRepository('AdminUnadBundle:Terna')->findBy(array('escuela' => $ternado->getEscuela(), 'principal' => 1,'periodo' => $this->container->getParameter('appmed.periodo')));
-        $pares = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('vinculacion' => 'DC', 'escuela' => $ternado->getEscuela(), 'periodo' => $this->container->getParameter('appmed.periodo')));
+        $ternados = $em->getRepository('AdminUnadBundle:Terna')->findBy(array('escuela' => $ternado->getEscuela(), 'principal' => 1,'periodo' => $session->get('periodoe')));
+        $pares = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('vinculacion' => 'DC', 'escuela' => $ternado->getEscuela(), 'periodo' => $session->get('periodoe')));
 
         if ($ternado->getPrincipal()) {
             foreach ($pares as $par) {
