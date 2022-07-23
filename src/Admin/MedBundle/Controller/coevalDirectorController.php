@@ -198,7 +198,7 @@ class coevalDirectorController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $session = $request->getSession();
         $entity = $em->getRepository('AdminMedBundle:coevalDirector')->find($id);
 
         if (!$entity) {
@@ -219,8 +219,7 @@ class coevalDirectorController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('docente_coevaldirector'));
+            return $this->redirect($this->generateUrl('docente_coevaldirector', array('id' => $session->get('periodoe'))));
         }
 
         return array(
