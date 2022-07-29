@@ -19,7 +19,8 @@ use Symfony\Component\Security\Core\Security;
  *
  * @Route("/aval")
  */
-class AvalplangController extends Controller {
+class AvalplangController extends Controller
+{
 
     /**
      * Lists all Avalplang entities.
@@ -28,11 +29,12 @@ class AvalplangController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $entities = $em->getRepository('AdminMedBundle:Avalplang')->findby(array('user' => $user, 'periodo' => $this->container->getParameter('appmed.periodo')));
+        $entities = $em->getRepository('AdminMedBundle:Avalplang')->findby(array('user' => $user, 'periodo' => $this->container->getParameter('appmed.semestre')));
         return array(
             'entities' => $entities,
         );
@@ -45,13 +47,14 @@ class AvalplangController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function listaAction() {
+    public function listaAction()
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AdminMedBundle:Avalplang')
-                ->findBy(
-                array('periodo' => $this->container->getParameter('appmed.periodo'))
-        );
+            ->findBy(
+                array('periodo' => $this->container->getParameter('appmed.semestre'))
+            );
         if (count($entities) == 0) {
             $this->addAvales();
         }
@@ -68,49 +71,51 @@ class AvalplangController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function porescuelaAction(Request $request) {
+    public function porescuelaAction(Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
         $escuelaid = $session->get('escuelaid');
-        if ($escuelaid == null){
+        $semestre = $this->container->getParameter('appmed.semestre');
+        if ($escuelaid == null) {
             return $this->redirect($this->generateUrl('home_user_inicio'));
         }
 
-          if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
-        $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
-        $docentes = $em->getRepository('AdminUnadBundle:Docente')
-        ->findBy(
-                array('periodo' => $this->container->getParameter('appmed.periodo'),
-                    'vinculacion' => 'DC', 'escuela' => $escuela));
-        return array(
-            'entities' => $docentes,
-            'periodo' => $this->container->getParameter('appmed.periodo'),
-            'escuela' => $escuela
-        );
-        }else{
-        $escuela = null;
-        $docentes = $em->getRepository('AdminUnadBundle:Docente')
-        ->findBy(
-                array('periodo' => $this->container->getParameter('appmed.periodo'),
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
+            $docentes = $em->getRepository('AdminUnadBundle:Docente')
+                ->findBy(
+                    array('periodo' => $semestre,
+                        'vinculacion' => 'DC', 'escuela' => $escuela));
+            return array(
+                'entities' => $docentes,
+                'periodo' => $semestre,
+                'escuela' => $escuela
+            );
+        } else {
+            $escuela = null;
+            $docentes = $em->getRepository('AdminUnadBundle:Docente')->findBy(
+                array('periodo' => $semestre,
                     'vinculacion' => 'DC'));
-        return array(
-            'entities' => $docentes,
-            'periodo' => $this->container->getParameter('appmed.periodo'),
-            'escuela' => $escuela
-        );
+            return array(
+                'entities' => $docentes,
+                'periodo' => $semestre,
+                'escuela' => $escuela
+            );
         }
 
     }
 
 
-        /**
+    /**
      * Avalar plang
      *
      * @Route("/planesg/{id}", name="aval_plangestion")
      * @Method("GET")
      * @Template()
      */
-    public function plangestionAction($id) {
+    public function plangestionAction($id)
+    {
 
         $em = $this->getDoctrine()->getManager();
 
@@ -124,7 +129,6 @@ class AvalplangController extends Controller {
     }
 
 
-
     /**
      * Creates a new Avalplang entity.
      *
@@ -132,7 +136,8 @@ class AvalplangController extends Controller {
      * @Method("POST")
      * @Template("AdminMedBundle:Avalplang:new.html.twig")
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new Avalplang();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -158,7 +163,8 @@ class AvalplangController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Avalplang $entity) {
+    private function createCreateForm(Avalplang $entity)
+    {
         $form = $this->createForm(AvalplangType::class, $entity, array(
             'action' => $this->generateUrl('avalplang_create'),
             'method' => 'POST',
@@ -176,7 +182,8 @@ class AvalplangController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new Avalplang();
         $form = $this->createCreateForm($entity);
 
@@ -193,7 +200,8 @@ class AvalplangController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AdminMedBundle:Avalplang')->find($id);
@@ -217,14 +225,10 @@ class AvalplangController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
-        //$plan = $em->getRepository('AdminMedBundle:Plangestion')->find($id);
-
-        //$user = $em->getRepository('AdminUserBundle:User')->find($this->getUser());
-        //$entity = $em->getRepository('AdminMedBundle:Avalplang')->findOneBy(array('plan' => $plan, 'user' => $user));
         $entity = $em->getRepository('AdminMedBundle:Avalplang')->find($id);
-
 
         $texto = explode('\n', $entity->getObservaciones());
 
@@ -247,7 +251,8 @@ class AvalplangController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Avalplang $entity) {
+    private function createEditForm(Avalplang $entity)
+    {
         $form = $this->createForm(AvalplangType::class, $entity, array(
             'action' => $this->generateUrl('avalplang_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -265,7 +270,8 @@ class AvalplangController extends Controller {
      * @Method("PUT")
      * @Template("AdminMedBundle:Avalplang:edit.html.twig")
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AdminMedBundle:Avalplang')->find($id);
@@ -314,7 +320,8 @@ class AvalplangController extends Controller {
      * @Route("/{id}", name="avalplang_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -340,13 +347,13 @@ class AvalplangController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('avalplang_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', SubmitType::class, array('label' => 'Delete'))
-                        ->getForm()
-        ;
+            ->setAction($this->generateUrl('avalplang_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', SubmitType::class, array('label' => 'Delete'))
+            ->getForm();
     }
 
     public function enviarMail(\Admin\MedBundle\Entity\Avalplang $aval)
@@ -366,7 +373,8 @@ class AvalplangController extends Controller {
     public function addAvales()
     {
         $em = $this->getDoctrine()->getManager();
-        $docentes = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('periodo' => $this->container->getParameter('appmed.periodo'), 'vinculacion' => 'DC'));
+        $semestre = $this->container->getParameter('appmed.semestre');
+        $docentes = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('periodo' => $semestre, 'vinculacion' => 'DC'));
 
         foreach ($docentes as $docente) {
             //agregar avalador Decano N
@@ -374,7 +382,7 @@ class AvalplangController extends Controller {
             $aval->setPlan($docente->getPlangestion());
             $aval->setUser($docente->getEscuela()->getDecano());
             $aval->setPerfil('DECN');
-            $aval->setPeriodo($this->container->getParameter('appmed.periodo'));
+            $aval->setPeriodo($semestre);
             $em->persist($aval);
             //agregar avalador Director de Zona
             if ($docente->getCentro()->getId() != 89999) {
@@ -382,7 +390,7 @@ class AvalplangController extends Controller {
                 $aval1->setPlan($docente->getPlangestion());
                 $aval1->setUser($docente->getCentro()->getZona()->getDirector());
                 $aval1->setPerfil('DIRZ');
-                $aval1->setPeriodo($this->container->getParameter('appmed.periodo'));
+                $aval1->setPeriodo($semestre);
                 $em->persist($aval1);
             }
             $em->flush();
