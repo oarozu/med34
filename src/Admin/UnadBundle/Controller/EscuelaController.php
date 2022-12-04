@@ -36,6 +36,7 @@ class EscuelaController extends Controller
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Escuela entity.
      *
@@ -65,20 +66,20 @@ class EscuelaController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-    * Creates a form to create a Escuela entity.
-    *
-    * @param Escuela $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to create a Escuela entity.
+     *
+     * @param Escuela $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(Escuela $entity)
     {
-        $form = $this->createForm( EscuelaType::class, $entity, array(
+        $form = $this->createForm(EscuelaType::class, $entity, array(
             'action' => $this->generateUrl('escuela_create'),
             'method' => 'POST',
         ));
@@ -98,11 +99,11 @@ class EscuelaController extends Controller
     public function newAction()
     {
         $entity = new Escuela();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -128,13 +129,13 @@ class EscuelaController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'terna'       => $terna,
+            'entity' => $entity,
+            'terna' => $terna,
             'delete_form' => $deleteForm->createView(),
         );
     }
 
-     /**
+    /**
      * Finds and displays a Escuela entity.
      *
      * @Route("/mi/info", name="escuela_info")
@@ -146,10 +147,11 @@ class EscuelaController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $session = $request->getSession();
-
+        $year = $this->container->getParameter('appmed.year');
         $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
-        $periodose = $em->getRepository('AdminMedBundle:Periodoe')->findby(array(),array('id' => 'DESC'));
-        $programas = $em->getRepository('AdminUnadBundle:Programa')->findBy(array('escuela' => $escuela),array('nivel' => 'DESC'));
+        $periodose = $em->getRepository('AdminMedBundle:Periodoe')->findby(array('type' => 's'), array('id' => 'DESC'), 10);
+        $periodosp = $em->getRepository('AdminMedBundle:Periodoe')->findby(array('type' => 'p', 'year' => $year), array('id' => 'DESC'));
+        $programas = $em->getRepository('AdminUnadBundle:Programa')->findBy(array('escuela' => $escuela), array('nivel' => 'DESC'));
         $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
 
         $ofertado = $em->getRepository('AdminUnadBundle:ProgramaPeriodo')->findby(array('programa' => $programas, 'periodo' => $session->get('periodoe')));
@@ -159,10 +161,12 @@ class EscuelaController extends Controller
             throw $this->createNotFoundException('Unable to find Escuela entity.');
         }
         return array(
-        'entity'      => $escuela,
-        'ofertado'   => $ofertado,
-        'periodos'    => $periodose,
-        'periodo'   => $periodo
+            'entity' => $escuela,
+            'ofertado' => $ofertado,
+            'periodos' => $periodose,
+            'periodosp' => $periodosp,
+            'periodo' => $periodo,
+            'year' => $year
         );
     }
 
@@ -189,22 +193,22 @@ class EscuelaController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Escuela entity.
-    *
-    * @param Escuela $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Escuela entity.
+     *
+     * @param Escuela $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Escuela $entity)
     {
-        $form = $this->createForm( EscuelaType::class, $entity, array(
+        $form = $this->createForm(EscuelaType::class, $entity, array(
             'action' => $this->generateUrl('escuela_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
@@ -213,6 +217,7 @@ class EscuelaController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Escuela entity.
      *
@@ -246,11 +251,12 @@ class EscuelaController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Escuela entity.
      *
@@ -290,11 +296,10 @@ class EscuelaController extends Controller
             ->setAction($this->generateUrl('escuela_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', SubmitType::class, array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 
-     /**
+    /**
      * Finds and displays a Escuela entity.
      *
      * @Method("GET")
@@ -309,14 +314,12 @@ class EscuelaController extends Controller
             throw $this->createNotFoundException('Unable to find Escuela entity.');
         }
         return array(
-        'entity'      => $escuela,
+            'entity' => $escuela,
         );
     }
 
 
-
-
-     /**
+    /**
      * Lista la evaluacion de estudiantes
      * @Route("/mi/heteroeval", name="escuela_heteroeval")
      * @Method("GET")
@@ -327,18 +330,18 @@ class EscuelaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
         $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
-        $docentes = $em->getRepository('AdminUnadBundle:Docente')->findby(array( 'escuela' => $session->get('escuelaid')));
+        $docentes = $em->getRepository('AdminUnadBundle:Docente')->findby(array('escuela' => $session->get('escuelaid')));
         if (!$escuela) {
             throw $this->createNotFoundException('Unable to find Escuela entity.');
         }
         return array(
-        'escuela'      => $escuela,
-        'docentes'    => $docentes,
+            'escuela' => $escuela,
+            'docentes' => $docentes,
         );
     }
 
 
-      /**
+    /**
      * @Route("/mi/resultados", name="escuela_resultados")
      * @Method("GET")
      * @Template("Escuela/resultados.html.twig")
@@ -352,7 +355,7 @@ class EscuelaController extends Controller
             throw $this->createNotFoundException('Unable to find Escuela entity.');
         }
         return array(
-        'escuela'      => $escuela,
+            'escuela' => $escuela,
         );
     }
 }

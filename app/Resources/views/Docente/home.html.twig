@@ -22,7 +22,7 @@
                 <header>
                     <span class="widget-icon"> <i class="fa fa-table"></i> </span>
                     <h2>Periodo de evaluación {{periodo}}</h2>
-                </header>    
+                </header>
                 <!-- widget div-->
                 <div>
 
@@ -72,7 +72,7 @@
                                     <td>{{tdofe}}</td>
                                     <td>{{tdo}}</td>
                                     <td>{{thc}}</td>
-                                    <td>{{tdc+tdofe+tdo+thc}}</td>         
+                                    <td>{{tdc+tdofe+tdo+thc}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -82,12 +82,12 @@
                 </div>
                 <!-- end widget div -->
             </div>
-            <!-- end widget -->                                                           
-                Periodos de evaluación: 
-                
+            <!-- end widget -->
+                Periodos de evaluación:
+
                 {%for periodo in periodos %}
-                      <a class="btn btn-primary btn-sm" href="{{ path('docente_home', { 'periodo': periodo.id }) }}">{{periodo.id}} </a>
-                      {%endfor%}  
+                      <a class="btn btn-primary btn-sm" href="{{ path('docente_home', { 'periodo': periodo.id }) }}">{{periodo.year}} {{ periodo.observaciones }}</a>
+                      {%endfor%}
 
         </div>
     </div>

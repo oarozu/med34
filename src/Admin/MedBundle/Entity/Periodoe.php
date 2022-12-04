@@ -1,5 +1,7 @@
 <?php
+
 namespace Admin\MedBundle\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -10,54 +12,60 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="periodoe")
  * @ORM\Entity(repositoryClass="Admin\MedBundle\Entity\periodoelRepository")
  */
-class Periodoe{
+class Periodoe
+{
 
-/**
- * @ORM\Id
- * @ORM\Column(name="id", type="integer", nullable=false)
- */
- protected $id;
+    /**
+     * @ORM\Id
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     */
+    protected $id;
 
- /**
-  * @ORM\Column(type="datetime", nullable=false)
-  */
-protected $fechainicio;
+    /**
+     * @ORM\Column(type="datetime", nullable=false)
+     */
+    protected $fechainicio;
 
- /**
-  * @ORM\Column(type="datetime", nullable=false)
-  */
-protected $fechafin;
+    /**
+     * @ORM\Column(type="datetime", nullable=false)
+     */
+    protected $fechafin;
 
- /**
- * @ORM\Column(type="integer", nullable=false)
- */
-protected $dias;
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    protected $dias;
 
-/**
- * @ORM\Column(type="string", nullable=true)
- */
-protected $observaciones;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $observaciones;
 
 
-/**
- * @ORM\Column(type="string", nullable=true)
- */
-protected $cronograma;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $cronograma;
 
-/**
- * @ORM\Column(type="smallint", nullable=false)
- */
-protected $auto;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $type;
 
-/**
- * @ORM\Column(type="integer", nullable=true)
- */
-protected $year;
+    /**
+     * @ORM\Column(type="smallint", nullable=false)
+     */
+    protected $auto;
 
-/**
-  * @ORM\OneToMany(targetEntity="Admin\MedBundle\Entity\Periodoa", mappedBy="periodoe")
-  */
-protected $periodoa;
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $year;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Admin\MedBundle\Entity\Periodoa", mappedBy="periodoe")
+     */
+    protected $periodoa;
 
 
     /**
@@ -189,6 +197,19 @@ protected $periodoa;
     }
 
     /**
+     * Set type
+     *
+     * @param string $type
+     * @return Periodoe
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
      * Set cronograma
      *
      * @param string $cronograma
@@ -213,6 +234,16 @@ protected $periodoa;
     }
 
     /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
      * Get cronograma
      *
      * @return string
@@ -229,7 +260,8 @@ protected $periodoa;
      * @param integer $auto
      * @return Periodoe
      */
-    public function setAuto($auto) {
+    public function setAuto($auto)
+    {
         $this->auto = $auto;
 
         return $this;
@@ -240,7 +272,8 @@ protected $periodoa;
      *
      * @return integer
      */
-    public function getAuto() {
+    public function getAuto()
+    {
         return $this->auto;
     }
 
