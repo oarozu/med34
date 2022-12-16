@@ -60,7 +60,7 @@ class DefaultController extends Controller {
 
 
             if (!$docente) {
-                $this->get('session')->getFlashBag()->add('warning', 'A partir del 14 de julio estarán disponibles los instrumentos de evaluación del periodo 16-02, Autoevaluación y Coevaluaciones.');
+                $this->get('session')->getFlashBag()->add('warning', 'Sin vinculación en este periodo.');
             } else {
                 $session->set('docenteid', $docente->getId());
 
@@ -108,7 +108,7 @@ class DefaultController extends Controller {
         $user = $this->getUser();
         $docente = $em->getRepository('AdminUnadBundle:Docente')->findOneBy(array('user' => $user, 'periodo' => $id));
         if (!$docente) {
-            $this->get('session')->getFlashBag()->add('warning', 'A partir del 14 de julio estarán disponibles los instrumentos de evaluación del periodo 16-02, Autoevaluación y Coevaluaciones.');
+            $this->get('session')->getFlashBag()->add('warning', 'Sin vinculación en este periodo.');
             return $this->redirect($this->generateUrl('home_user_periodo'));
         } else {
             $session->set('docenteid', $docente->getId());

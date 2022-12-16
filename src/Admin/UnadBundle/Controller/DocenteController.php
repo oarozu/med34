@@ -50,7 +50,7 @@ class DocenteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $escuelas = $em->getRepository('AdminUnadBundle:Escuela')->findAll();
-        $periodose = $em->getRepository('AdminMedBundle:Periodoe')->findby(array(), array('id' => 'DESC'),10);
+        $periodose = $em->getRepository('AdminMedBundle:Periodoe')->findby(array(), array('id' => 'DESC'), 10);
         $docsdc = $em->getRepository('AdminUnadBundle:Docente')->totalEscuelas($periodo);
         return array(
             'escuelas' => $escuelas,
@@ -71,13 +71,14 @@ class DocenteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $escuela = $em->getRepository('AdminUnadBundle:Escuela')->findOneBy(array('id' => $id));
+        $periodoe = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $periodo));
         $entities = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('escuela' => $escuela, 'periodo' => $periodo));
         $total = count($entities);
         return array(
             'entities' => $entities,
             'total' => $total,
             'escuela' => $escuela,
-            'periodo' => $periodo
+            'periodo' => $periodoe
         );
     }
 
@@ -284,6 +285,12 @@ class DocenteController extends Controller
                 'entity' => $entity,
                 'instrumentos' => $instrumentos,
                 'red' => $red,
+                'periodo' => $periodo
+            ));
+        } else if ($entity->getVinculacion() == 'De Carrera') {
+            return $this->render('Docente/inicio-dc.html.twig', array(
+                'entity' => $entity,
+                'instrumentos' => $instrumentos,
                 'periodo' => $periodo
             ));
         } else {

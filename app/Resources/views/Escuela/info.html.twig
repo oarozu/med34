@@ -29,7 +29,7 @@
                 <th>Docentes por periodo vigencia {{ year }}</th>
                 <td>
                 {%for periodo in periodosp %}
-                    <a class="btn btn-primary btn-sm" href="{{ path('docente_escuela', {'id': entity.id, 'periodo': periodo.id }) }}">{{periodo.year}} {{ periodo.observaciones }}</a>
+                    <a class="btn btn-primary btn-sm" href="{{ path('docente_escuela', {'id': entity.id, 'periodo': periodo.id }) }}">{{ periodo.observaciones }}</a>
                       {%endfor%}
                 </td>
             </tr>

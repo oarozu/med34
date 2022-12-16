@@ -8,7 +8,7 @@
             <!-- NEW WIDGET START -->
             <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-{{escuela.id}}" data-widget-editbutton="false">
+                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-{{escuela.id}}{{ periodo.id }}" data-widget-editbutton="false">
                     <!-- widget options:
                     usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
                    data-widget-colorbutton="false"
@@ -22,7 +22,7 @@
                     -->
                     <header>
                         <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                        <h2>Docentes {{escuela.nombre}} del periodo de evaluación {{periodo}}</h2>
+                        <h2>Docentes {{escuela.nombre}} periodo :  {{periodo.observaciones}}</h2>
                     </header>
                     <!-- widget div-->
                     <div>
