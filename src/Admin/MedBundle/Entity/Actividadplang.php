@@ -248,7 +248,7 @@ protected $actividad;
     public function getWebPathRepo() {
         return null === $this->path
             ? null
-            : $this->getUploadDir() . '/' . $this->path;
+            : $this->getUploadDirRepo() . '/' . $this->path;
     }
 
     protected function getUploadDirRepo() {
