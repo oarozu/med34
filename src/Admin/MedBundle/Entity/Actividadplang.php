@@ -252,7 +252,7 @@ protected $actividad;
     }
 
     protected function getUploadDirRepo() {
-        return 'uploads/'.$this->getPlang()->getDocente()->getPeriodo().'/plang/plan_'.$this->getPlang()->getDocente()->getId();
+        return 'repo/'.$this->getPlang()->getDocente()->getPeriodo().'/plang/plan_'.$this->getPlang()->getDocente()->getId();
 
     }
       /**
