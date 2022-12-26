@@ -25,12 +25,12 @@ class Actividadplang{
  * @ORM\Column(type="decimal", scale=1, nullable=true)
  */
 protected $horas;
- 
+
 /**
 * @ORM\Column(type="string", length=2500, nullable=true)
 */
-protected $descripcion; 
- 
+protected $descripcion;
+
 /**
 * @ORM\Column(type="string", length=2500, nullable=true)
 */
@@ -45,12 +45,12 @@ protected $autoevaluacion;
      * @ORM\Column(type="string", nullable=true)
      * @Assert\Length( max = "255" )
      */
-    
+
 protected $path;
 
     /**
      * @Assert\File(
-     *     maxSize = "4000000", 
+     *     maxSize = "4000000",
      *     maxSizeMessage = "El tamaño máximo permitido es de 4MB",
      *     mimeTypes = {"application/pdf", "application/x-pdf", "application/zip"},
      *     mimeTypesMessage = "Tipo de archivo no válido"
@@ -59,7 +59,7 @@ protected $path;
  private $file;
 
 
-/** 
+/**
 * @var Plang
 * @ORM\ManyToOne(targetEntity="Admin\MedBundle\Entity\Plangestion", inversedBy="actividades")
 * @ORM\JoinColumn(name="plan_id", referencedColumnName="id", nullable=false)
@@ -67,7 +67,7 @@ protected $path;
 protected $plang;
 
 
-/** 
+/**
 * @var Actividad
 * @ORM\ManyToOne(targetEntity="Admin\MedBundle\Entity\Actividadrol")
 * @ORM\JoinColumn(name="actividad_id", referencedColumnName="id", nullable=false)
@@ -77,7 +77,7 @@ protected $actividad;
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -100,7 +100,7 @@ protected $actividad;
     /**
      * Get horas
      *
-     * @return float 
+     * @return float
      */
     public function getHoras()
     {
@@ -123,7 +123,7 @@ protected $actividad;
     /**
      * Get descripcion
      *
-     * @return string 
+     * @return string
      */
     public function getDescripcion()
     {
@@ -146,7 +146,7 @@ protected $actividad;
     /**
      * Get observaciones
      *
-     * @return string 
+     * @return string
      */
     public function getObservaciones()
     {
@@ -169,7 +169,7 @@ protected $actividad;
     /**
      * Get autoevaluacion
      *
-     * @return float 
+     * @return float
      */
     public function getAutoevaluacion()
     {
@@ -192,7 +192,7 @@ protected $actividad;
     /**
      * Get plang
      *
-     * @return \Admin\MedBundle\Entity\Plangestion 
+     * @return \Admin\MedBundle\Entity\Plangestion
      */
     public function getPlang()
     {
@@ -215,24 +215,24 @@ protected $actividad;
     /**
      * Get actividad
      *
-     * @return \Admin\MedBundle\Entity\Actividadrol 
+     * @return \Admin\MedBundle\Entity\Actividadrol
      */
     public function getActividad()
     {
         return $this->actividad;
     }
-    
+
      /******* Logica Archivos**/
-    
+
      public function getAbsolutePath() {
-        return null === $this->path 
-                ? null 
+        return null === $this->path
+                ? null
                 : $this->getUploadRootDir() . '/' . $this->path;
     }
 
     public function getWebPath() {
-        return null === $this->path 
-                ? null 
+        return null === $this->path
+                ? null
                 : $this->getUploadDir() . '/' . $this->path;
     }
 
@@ -242,7 +242,18 @@ protected $actividad;
 
     protected function getUploadDir() {
         return 'uploads/'.$this->getPlang()->getDocente()->getPeriodo().'/plang/plan_'.$this->getPlang()->getDocente()->getId();
-    
+
+    }
+
+    public function getWebPathRepo() {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir() . '/' . $this->path;
+    }
+
+    protected function getUploadDirRepo() {
+        return 'uploads/'.$this->getPlang()->getDocente()->getPeriodo().'/plang/plan_'.$this->getPlang()->getDocente()->getId();
+
     }
       /**
      * Sets file.
@@ -317,7 +328,7 @@ protected $actividad;
             unlink($file);
         }
     }
-    
+
 
     /**
      * Set path
@@ -335,17 +346,17 @@ protected $actividad;
     /**
      * Get path
      *
-     * @return string 
+     * @return string
      */
     public function getPath()
     {
         return $this->path;
     }
-    
+
      /**
      * Get letras
      *
-     * @return string 
+     * @return string
      */
     public function getLetras()
     {
@@ -363,8 +374,8 @@ protected $actividad;
         return 'Casi Siempre';
         elseif ($this->autoevaluacion == 5)
         return 'Siempre';
-                
+
         else
-         return $this->estado;   
+         return $this->estado;
     }
 }
