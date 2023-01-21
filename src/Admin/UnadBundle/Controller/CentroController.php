@@ -190,6 +190,10 @@ class CentroController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
+        $cedulaDirector =  $editForm["cedulaDirector"]->getData();
+        $director = $em->getRepository('AdminUserBundle:User')->find($cedulaDirector);
+        $entity->setDirector($director);
+
         if ($editForm->isValid()) {
             $em->flush();
 
@@ -244,7 +248,7 @@ class CentroController extends Controller
             ->getForm()
         ;
     }
-    
+
      /**
      * @Route("/docs/{id}/pc", name="centro_docs")
      * @Method("GET")
@@ -264,8 +268,8 @@ class CentroController extends Controller
             'user'   => $user,
         );
     }
-    
-    
+
+
     /**
      * @Route("/docs/index", name="centro_index")
      * @Method("GET")
@@ -282,6 +286,6 @@ class CentroController extends Controller
             'zonas'    => $zonas,
         );
     }
-    
-    
+
+
 }

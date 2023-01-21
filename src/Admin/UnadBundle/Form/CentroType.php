@@ -5,6 +5,7 @@ namespace Admin\UnadBundle\Form;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -37,9 +38,13 @@ class CentroType extends AbstractType
                 'placeholder' => ' ',
                 'choice_label' => 'nombre',
             ))
+            ->add("cedulaDirector", TextType::class, array(
+                "mapped" => true,
+                'required'  => true,
+            ))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

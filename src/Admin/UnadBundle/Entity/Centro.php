@@ -12,13 +12,13 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 
 class Centro{
-   
+
 /**
  * @ORM\Id
  * @ORM\Column(name="id", type="integer", nullable=false)
  * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-protected $id;    
+protected $id;
 
 /**
      * @ORM\Column(type="string", length=255)
@@ -32,8 +32,8 @@ protected $nombre;
      */
 protected $tipo;
 
-      /** 
-     * @var Director 
+      /**
+     * @var Director
      * @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User", inversedBy="directorcentro")
      * @ORM\JoinColumn(name="director_id", referencedColumnName="id",
      * nullable=true
@@ -41,9 +41,14 @@ protected $tipo;
      */
 protected $director;
 
+    /**
+     * @Assert\NotBlank()
+     */
+    protected $cedulaDirector;
 
-      /** 
-     * @var Departamento 
+
+      /**
+     * @var Departamento
      * @ORM\ManyToOne(targetEntity="Admin\UnadBundle\Entity\Departamento")
      * @ORM\JoinColumn(name="departamento_id", referencedColumnName="id",
      * nullable=true
@@ -52,8 +57,8 @@ protected $director;
 protected $departamento;
 
 
-      /** 
-     * @var Zona 
+      /**
+     * @var Zona
      * @ORM\ManyToOne(targetEntity="Admin\UnadBundle\Entity\Zona", inversedBy="centros")
      * @ORM\JoinColumn(name="zona_id", referencedColumnName="id",
      * nullable=false,
@@ -63,15 +68,11 @@ protected $departamento;
 protected $zona;
 
 
-    /**
-     * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\Docente", mappedBy="centro")
-     */
-    protected $docentes;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -94,7 +95,7 @@ protected $zona;
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -117,7 +118,7 @@ protected $zona;
     /**
      * Get tipo
      *
-     * @return string 
+     * @return string
      */
     public function getTipo()
     {
@@ -140,11 +141,38 @@ protected $zona;
     /**
      * Get director
      *
-     * @return \Admin\UserBundle\Entity\User 
+     * @return \Admin\UserBundle\Entity\User
      */
     public function getDirector()
     {
         return $this->director;
+    }
+
+    /**
+     * Get Cedula Director
+     *
+     * @return integer
+     */
+    public function getCedulaDirector()
+    {
+        if ($this->director != null){
+            return $this->director->getId();
+        }else{
+            return 0;
+        }
+    }
+
+    /**
+     * Set cedula Directo
+     *
+     * @param integer $cedulaDirector
+     * @return Centro
+     */
+    public function setCedulaDirector($cedulaDirector)
+    {
+        $this->cedulaDirector = $cedulaDirector;
+
+        return $this;
     }
 
     /**
@@ -163,7 +191,7 @@ protected $zona;
     /**
      * Get zona
      *
-     * @return \Admin\UserBundle\Entity\Zona 
+     * @return \Admin\UserBundle\Entity\Zona
      */
     public function getZona()
     {
@@ -175,39 +203,6 @@ protected $zona;
     public function __construct()
     {
         $this->docentes = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add docentes
-     *
-     * @param \Admin\UnadBundle\Entity\Docente $docentes
-     * @return Centro
-     */
-    public function addDocente(\Admin\UnadBundle\Entity\Docente $docentes)
-    {
-        $this->docentes[] = $docentes;
-
-        return $this;
-    }
-
-    /**
-     * Remove docentes
-     *
-     * @param \Admin\UnadBundle\Entity\Docente $docentes
-     */
-    public function removeDocente(\Admin\UnadBundle\Entity\Docente $docentes)
-    {
-        $this->docentes->removeElement($docentes);
-    }
-
-    /**
-     * Get docentes
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getDocentes()
-    {
-        return $this->docentes;
     }
 
     /**
@@ -226,7 +221,7 @@ protected $zona;
     /**
      * Get departamento
      *
-     * @return \Admin\UnadBundle\Entity\Departamento 
+     * @return \Admin\UnadBundle\Entity\Departamento
      */
     public function getDepartamento()
     {

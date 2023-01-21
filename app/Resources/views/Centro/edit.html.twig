@@ -1,16 +1,77 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Editar Centro</h1>
 
-    {{ form(edit_form) }}
+    <article class="col-sm-12 col-md-12 col-lg-6 sortable-grid ui-sortable">
+        <!-- Widget ID (each widget will need unique ID)-->
+        <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-0" data-widget-editbutton="false"
+             data-widget-colorbutton="false" data-widget-deletebutton="false">
+            <header>
+                <span class="widget-icon"> <i class="fa git fa-table"></i> </span>
+                <h2>Editar centro</h2>
+            </header>
+            <!-- widget div-->
+            <div>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('zona') }}">
-            Regresar
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+                <!-- widget edit box -->
+                <div class="jarviswidget-editbox">
+                    <!-- This area used as dropdown edit box -->
+
+                </div>
+                <!-- end widget edit box -->
+
+                <!-- widget content -->
+                <div class="content">
+                    <div class="widget-body no-padding" id="bodyform">
+                        <div class="form_error">
+                        </div>
+                        <form action="{{ path('centro_update', { 'id': entity.id }) }}" {{ form_start(edit_form) }}
+                        <table class="table table-bordered table-striped hidden-mobile" style="width: 80%">
+                            <input type="hidden" name="_method" value="PUT"/>
+                            {{ form_errors(edit_form) }}
+                            <tr>
+                                <td>Nombre</td>
+                                <td>{{ form_widget(edit_form.nombre) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Tipo</td>
+                                <td>{{ form_widget(edit_form.tipo) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Zona</td>
+                                <td>{{ form_widget(edit_form.zona) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Departamento</td>
+                                <td>{{ form_widget(edit_form.departamento) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Director</td>
+                                {% if entity.director %}
+                                <td>{{ entity.director.nombres }} {{ entity.director.apellidos }}</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                <td>Cambiar director</td>
+                                <td>{{ form_widget(edit_form.cedulaDirector) }}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <button type="submit" class="btn btn-lg btn-primary">Guardar</button>
+                                </td>
+                            </tr>
+                            {{ form_widget(edit_form._token) }}
+                        </table>
+                        </form>
+
+                    </div>
+                    <!-- end widget content -->
+                </div>
+            </div>
+            <!-- end widget div -->
+        </div>
+        <!-- end widget -->
+    </article>
+
 {% endblock %}
