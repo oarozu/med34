@@ -8,24 +8,29 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RolplangType extends AbstractType {
+class RolplangType extends AbstractType
+{
 
     /**
      * @var int
      */
     public $semanas;
 
-    public function __construct($dias = 122) {
-        $this->semanas = $dias / 5;
+    public function __construct()
+    {
+        //$this->semanas = 100 / 5;
     }
 
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+
+        $this->semanas = $options['dias']/5;
 
         $opciones = array();
         $opciones['' . $this->semanas] = '' . $this->semanas;
@@ -37,34 +42,36 @@ class RolplangType extends AbstractType {
         }
 
         $builder
-                ->add('horas', TextType::class, array(
-                    'attr' => array('onkeyup' => 'calculo()')
-                ))
-                ->add('descripcion', TextareaType::class, array('attr' => array('cols' => '100')))
-                ->add('rol', EntityType::class, array(
-                    'class' => 'AdminMedBundle:Rolacademico',
-                    'choice_label' => 'id',
-                ))
-                ->add('semanas', ChoiceType::class, array(
-                    'choices' => $opciones,
-                    'required' => true,
-                    'attr' => array('onchange' => 'calculo()')))
-        ;
+            ->add('horas', TextType::class, array(
+                'attr' => array('onkeyup' => 'calculo()')
+            ))
+            ->add('descripcion', TextareaType::class, array('attr' => array('cols' => '100')))
+            ->add('rol', EntityType::class, array(
+                'class' => 'AdminMedBundle:Rolacademico',
+                'choice_label' => 'id',
+            ))
+            ->add('semanas', ChoiceType::class, array(
+                'choices' => $opciones,
+                'required' => true,
+                'attr' => array('onchange' => 'calculo()')));
     }
 
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function configureOptions(OptionsResolver $resolver)
+    {
         $resolver->setDefaults(array(
-            'data_class' => 'Admin\MedBundle\Entity\Rolplang'
+            'data_class' => 'Admin\MedBundle\Entity\Rolplang',
+            'dias' => null
         ));
     }
 
     /**
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return 'admin_medbundle_rolplang';
     }
 

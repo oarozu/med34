@@ -36,6 +36,7 @@ class RolplangController extends Controller
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Rolplang entity.
      *
@@ -46,7 +47,7 @@ class RolplangController extends Controller
     public function createAction(Request $request, $id)
     {
         $entity = new Rolplang();
-        
+
         $em = $this->getDoctrine()->getManager();
         $plang = $em->getRepository('AdminMedBundle:Plangestion')->find($id);
         $entity->setPlang($plang);
@@ -56,40 +57,42 @@ class RolplangController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-           try{
-            $em->persist($entity);
-            $em->flush();
+            try {
+                $em->persist($entity);
+                $em->flush();
             } catch (\Doctrine\DBAL\DBALException $e) {
-             $this->get('session')->getFlashBag()->add('error', 'No puede agregar un rol dos veces');
+                $this->get('session')->getFlashBag()->add('error', 'No puede agregar un rol dos veces');
             }
-            
+
             return $this->redirect($this->generateUrl('plangestion_crear', array('id' => $id)));
         }
         $libre = 0;
-       // foreach ($roles as $rolok){ 
-        //$libre = $libre + $rolok->getHoras();   
-       // }
+        // foreach ($roles as $rolok){
+        //$libre = $libre + $rolok->getHoras();
+        // }
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
-            'id'    => $id,
+            'form' => $form->createView(),
+            'id' => $id,
             'libre' => $libre,
         );
     }
 
     /**
-    * Creates a form to create a Rolplang entity.
-    *
-    * @param Rolplang $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to create a Rolplang entity.
+     *
+     * @param Rolplang $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(Rolplang $entity, $id, $dias)
     {
         $form = $this->createForm(RolplangType::class, $entity, array(
-            'action' => $this->generateUrl('rolplang_create', array('id' => $id)),
-            'method' => 'POST',
-        ));
+                'action' => $this->generateUrl('rolplang_create', array('id' => $id)),
+                'method' => 'POST',
+                'dias' => $dias
+            )
+        );
 
         $form->add('submit', SubmitType::class, array('label' => 'Create'));
 
@@ -103,7 +106,7 @@ class RolplangController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function newAction($id,$idr)
+    public function newAction($id, $idr)
     {
         $entity = new Rolplang();
         $em = $this->getDoctrine()->getManager();
@@ -111,19 +114,19 @@ class RolplangController extends Controller
         $rol = $em->getRepository('AdminMedBundle:Rolacademico')->find($idr);
         $roles = $em->getRepository('AdminMedBundle:Rolplang')->findBy(array('plang' => $plang));
         $libre = 0;
-        foreach ($roles as $rolok){ 
-        $libre = $libre + $rolok->getHoras();   
+        foreach ($roles as $rolok) {
+            $libre = $libre + $rolok->getHoras();
         }
         $entity->setRol($rol);
         $entity->setPlang($plang);
-        $form   = $this->createCreateForm($entity, $id,$plang->getDias());
+        $form = $this->createCreateForm($entity, $id, $plang->getDias());
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
-            'id'     => $id,
-            'libre'   => $libre,
-            'total'  => $plang->getDias()*8,
+            'form' => $form->createView(),
+            'id' => $id,
+            'libre' => $libre,
+            'total' => $plang->getDias() * 8,
         );
     }
 
@@ -147,7 +150,7 @@ class RolplangController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -173,19 +176,19 @@ class RolplangController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Rolplang entity.
-    *
-    * @param Rolplang $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Rolplang entity.
+     *
+     * @param Rolplang $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Rolplang $entity)
     {
         $form = $this->createForm(RolplangType::class, $entity, array(
@@ -197,6 +200,7 @@ class RolplangController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Rolplang entity.
      *
@@ -225,11 +229,12 @@ class RolplangController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Rolplang entity.
      *
@@ -269,7 +274,6 @@ class RolplangController extends Controller
             ->setAction($this->generateUrl('rolplang_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', SubmitType::class, array('label' => 'Borrar', 'attr' => array('class' => 'btn btn-labeled btn-success')))
-            ->getForm()
-        ;
+            ->getForm();
     }
 }
