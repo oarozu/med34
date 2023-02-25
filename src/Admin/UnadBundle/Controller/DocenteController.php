@@ -270,10 +270,11 @@ class DocenteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $this->get('session')->getFlashBag()->add('success', 'Periodo de evaluación seleccionado: ' . $session->get('periodoe'));
         $entity = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         $instrumentos = $em->getRepository('AdminMedBundle:Instrumento')->findAll();
         $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
+        $this->get('session')->getFlashBag()->add('success', 'Periodo de evaluación seleccionado: ' . $periodo->getObservaciones());
+
 
         if (!$entity) {
             throw $this->createNotFoundException('Error al buscarla entidad del docente.');
