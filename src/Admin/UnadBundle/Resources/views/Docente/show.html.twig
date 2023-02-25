@@ -19,7 +19,7 @@
             <th>Instrumento</th>
             <th>Descripción</th>
             <th>Ingreso</th>
-            <th>Estado</th>
+            <th>Cronograma</th>
         </tr>
         {% if entity.vinculacion == 'De Carrera' %}
             <tr>
@@ -98,7 +98,10 @@
                         {% if periodo.auto %}
                             <a href="{{ path('plangestion_conf', { 'id': entity.id }) }}"
                                class="btn btn-primary btn-xs">Ingresar <i class="fa fa-sign-in"></i></a>
-                        {% else %}<i>{{ periodo.cronograma }}</i>{% endif %}
+                        {% endif %}
+                </td>
+                <td>
+                    {{ periodo.cronograma }}
                 </td>
 
             </tr>
@@ -115,6 +118,8 @@
                                     class="fa fa-sign-in"></i></a>
                     {% endif %}
                 </td>
+                <td>
+                </td>
             </tr>
         {% endif %}
         {% if entity.director|length > 0 %}
@@ -128,6 +133,8 @@
                         <a href="{{ path('docente_coevaltutor') }}" class="btn btn-primary btn-xs">Ingresar <i
                                     class="fa fa-sign-in"></i></a>
                     {% endif %}
+                </td>
+                <td>
                 </td>
             </tr>
         {% endif %}
