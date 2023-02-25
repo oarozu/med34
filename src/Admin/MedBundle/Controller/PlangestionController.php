@@ -357,6 +357,7 @@ class PlangestionController extends Controller
         $session = $request->getSession();
         $entity = $em->getRepository('AdminMedBundle:Plangestion')->find($id);
         $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
+        $eval = $em->getRepository('AdminMedBundle:Evaluacion')->findOneBy(array('docente' => $docente));
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Plangestion entity.');
         }
@@ -370,6 +371,7 @@ class PlangestionController extends Controller
             }
         }
         $entity->setAutoevaluacion($suma / $aux);
+        $eval->setAuto($suma / $aux);
         $entity->setFechaAutoevaluacion(new \DateTime());
         $entity->setEstado(10);
         $editForm = $this->createEditForm($entity);
