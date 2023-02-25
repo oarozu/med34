@@ -168,21 +168,38 @@ class ProgramaController extends Controller
     public function modalAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('AdminUnadBundle:ProgramaPeriodo')->find($id);
-
         $cursos = $em->getRepository('AdminUnadBundle:Curso')->findBy(array('programa' => $entity->getPrograma()));
         $periodoa = $em->getRepository('AdminMedBundle:Periodoa')->findBy(array('periodoe' => $entity->getPeriodo()->getId()));
-
         $oferta = $em->getRepository('AdminMedBundle:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa));
-
-
-
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Programa entity.');
         }
+        return array(
+            'entity'      => $entity,
+            'oferta'      => $oferta
+        );
+    }
 
+
+    /**
+     * Finds and displays a Programa entity.
+     * @Route("/{id}/cursos", name="programa_cursos")
+     * @Method("GET")
+     * @Template("Programa/modal.html.twig")
+     */
+    public function programacursos($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AdminUnadBundle:ProgramaPeriodo')->find($id);
+        $cursos = $em->getRepository('AdminUnadBundle:Curso')->findBy(array('programa' => $entity->getPrograma()));
+        $periodoa = $em->getRepository('AdminMedBundle:Periodoa')->findBy(array('periodoe' => $entity->getPeriodo()->getId()));
+        $oferta = $em->getRepository('AdminMedBundle:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa));
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Programa entity.');
+        }
         return array(
             'entity'      => $entity,
             'oferta'      => $oferta

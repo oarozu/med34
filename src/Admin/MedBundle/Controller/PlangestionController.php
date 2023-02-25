@@ -2,6 +2,7 @@
 
 namespace Admin\MedBundle\Controller;
 
+use Admin\MedBundle\Entity\Rolplang;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -143,8 +144,13 @@ class PlangestionController extends Controller
     {
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
+        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $this->container->getParameter('appmed.periodo')));
         $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         $entity = $em->getRepository('AdminMedBundle:Plangestion')->findOneBy(array('docente' => $docente));
+        $rol_tutor = $em->getRepository('AdminMedBundle:Rolacademico')->findOneBy(array('id' => 1));
+        $estutor = $em->getRepository('AdminMedBundle:Rolplang')->findOneBy(array('rol' => $rol_tutor,'plang'=> $entity));
+        $rol_director = $em->getRepository('AdminMedBundle:Rolacademico')->findOneBy(array('id' => 2));
+        $esdirector = $em->getRepository('AdminMedBundle:Rolplang')->findOneBy(array('rol' => $rol_director,'plang'=> $entity));
         if (!$entity) {
             throw $this->createNotFoundException('Plangestion no encontrado');
         }
@@ -155,7 +161,35 @@ class PlangestionController extends Controller
 
         return array(
             'entity' => $entity,
+            'estutor' => isset($estutor),
+            'esdirector' => isset($esdirector),
+            'periodo' => $periodo
         );
+    }
+
+
+    /**
+     * @Route("/conf/plan/{id}", name="plangestion_conf_add")
+     * @Method("GET")
+     * @Template()
+     */
+    public function addRole(Request $request, $id)
+    {
+        $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
+        $plang = $em->getRepository('AdminMedBundle:Plangestion')->findOneBy(array('docente' => $docente));
+        $rol_a = $em->getRepository('AdminMedBundle:Rolacademico')->findOneBy(array('id' => $id));
+        $rol_plang = $em->getRepository('AdminMedBundle:Rolplang')->findOneBy(array('rol' => $rol_a, 'plang' => $plang));
+        if (!isset($rol_plang)) {
+            $rol_plang = new Rolplang();
+            $rol_plang->setPlang($plang);
+            $rol_plang->setRol($rol_a);
+            $rol_plang->setDescripcion("auto asignación");
+            $em->persist($rol_plang);
+            $em->flush();
+        }
+        return $this->redirect($this->generateUrl('plangestion_conf'));
     }
 
     /**
@@ -175,7 +209,6 @@ class PlangestionController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Plan gestion no encontrado');
         }
-
 
 
         return array(
@@ -201,18 +234,18 @@ class PlangestionController extends Controller
 
         if ($docente->getVinculacion() == 'De Carrera') {
             return $this->render('AdminMedBundle:Plangestion:info.html.twig', array(
-                        'entity' => $entity,
-                        'docente' => $docente,
+                'entity' => $entity,
+                'docente' => $docente,
             ));
         } elseif ($docente->getVinculacion() == 'DOFE') {
             return $this->render('AdminMedBundle:Plangestion:plandofe.html.twig', array(
-                        'entity' => $entity,
-                        'docente' => $docente
+                'entity' => $entity,
+                'docente' => $docente
             ));
         } else {
             return $this->render('AdminMedBundle:Plangestion:planactividades.html.twig', array('docente' => $docente,
-                        'entity' => $entity,
-                        'periodo' => $periodo));
+                'entity' => $entity,
+                'periodo' => $periodo));
         }
     }
 
@@ -229,7 +262,7 @@ class PlangestionController extends Controller
         }
         if ($docente->getVinculacion() == 'DOFE') {
             return $this->render('AdminMedBundle:Plangestion:registrodofe.html.twig', array(
-                        'entity' => $docente,
+                'entity' => $docente,
             ));
         } else {
             return array(
@@ -346,11 +379,11 @@ class PlangestionController extends Controller
 
             if ($docente->getVinculacion() == 'DOFE') {
                 return $this->redirect($this->generateUrl('plangestion_dofe', array(
-                                    'id' => $entity->getId()
+                    'id' => $entity->getId()
                 )));
             } else {
                 return $this->redirect($this->generateUrl('plangestion_show', array(
-                                    'id' => $entity->getId()
+                    'id' => $entity->getId()
                 )));
             }
         }
@@ -487,11 +520,10 @@ class PlangestionController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('plangestion_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', SubmitType::class, array('label' => 'Delete'))
-                        ->getForm()
-        ;
+            ->setAction($this->generateUrl('plangestion_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', SubmitType::class, array('label' => 'Delete'))
+            ->getForm();
     }
 
     public function addAvales(Request $request)

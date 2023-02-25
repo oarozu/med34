@@ -1,50 +1,49 @@
-
-        <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
-        <tbody>
-            <tr>
-                <th>Código</th>
-                <td>{{ entity.programa.id }}</td>
-            </tr>
-            <tr>
-                <th>Nombre</th>
-                <td>{{ entity.programa.nombre }}</td>
-            </tr>
-            <tr>
-                <th>Nivel</th>
-                <td>{{ entity.programa.nivel }}</td>
-            </tr>
-            <tr>
-                <th>Periodo Evaluación</th>
-                <td>{{ entity.periodo.id }}</td>
-            </tr>
-            <tr>
-                <th>Lider</th>
-                <td>[{{ entity.lider? entity.lider.user.id}}]
-                {{ entity.lider? entity.lider.user.nombres~' '~ entity.lider.user.apellidos : 'sin'}}</td>
-            </tr>
-        </tbody>
-    </table>
-    
-    Cursos Ofertados en el periodo {{ entity.periodo.id}}:
-    
-    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+<table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+    <tbody>
     <tr>
-    <th>id</th>
-    <th>Curso</th>
-    <th>Periodo</th>
-    <th>Director</th>
-    </tr>     
-     {%for curso in oferta %}
-    
-     <tr>
-    <td>
-    <a href="{{ path('curso_show', { 'id': curso.curso.id }) }}">{{curso.curso.id}}</a>
-    </td>
-    <td>{{curso.curso.nombre}}</td>
-    <td>{{curso.periodo}}</td>
-    <td>{{ curso.director? curso.director.user.nombres~' '~curso.director.user.apellidos : 'sin'}}</td>
+        <th>Código</th>
+        <td>{{ entity.programa.id }}</td>
     </tr>
-    
-    {%endfor%}
-    
-    </table>
+    <tr>
+        <th>Nombre</th>
+        <td>{{ entity.programa.nombre }}</td>
+    </tr>
+    <tr>
+        <th>Nivel</th>
+        <td>{{ entity.programa.nivel }}</td>
+    </tr>
+    <tr>
+        <th>Periodo Evaluación</th>
+        <td>{{ entity.periodo.id }}</td>
+    </tr>
+    <tr>
+        <th>Líder</th>
+        <td>[{{ entity.lider? entity.lider.user.id }}]
+            {{ entity.lider? entity.lider.user.nombres~' '~ entity.lider.user.apellidos : 'sin' }}</td>
+    </tr>
+    </tbody>
+</table>
+
+Cursos ofertados para el periodo {{ entity.periodo.year }} {{ entity.periodo.observaciones  }}
+
+<table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+    <tr>
+        <th>id</th>
+        <th>Curso</th>
+        <th>Periodo</th>
+        <th>Director</th>
+    </tr>
+    {% for curso in oferta %}
+
+        <tr>
+            <td>
+                <a href="{{ path('curso_show', { 'id': curso.curso.id }) }}">{{ curso.curso.id }}</a>
+            </td>
+            <td>{{ curso.curso.nombre }}</td>
+            <td>{{ curso.periodo }}</td>
+            <td>{{ curso.director? curso.director.user.nombres~' '~curso.director.user.apellidos : 'sin' }}</td>
+        </tr>
+
+    {% endfor %}
+
+</table>
