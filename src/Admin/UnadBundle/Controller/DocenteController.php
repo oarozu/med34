@@ -314,7 +314,7 @@ class DocenteController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
         $entity = $em->getRepository('AdminUnadBundle:Docente')->find($id);
-        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
+        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $entity->getPeriodo()));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Docente entity.');
