@@ -35,8 +35,22 @@ class DocenteRepository extends EntityRepository
             where periodo = " . $periodo . "
             group by docente.escuela_id";
         $stmt = $connection->executeQuery($q);
-        return $stmt->fetchAll();
+        return $stmt->fetchAllAssociative();
     }
+
+
+    public function evalAnual($year, $docente)
+    {
+        $connection = $this->getEntityManager()->getConnection();
+        $query = "SELECT do.id, es.sigla, pe.year, pe.observaciones as periodo, e.hetero, e.co, e.auto
+            FROM docente do
+            JOIN periodoe pe ON do.periodo = pe.id
+            JOIN evaluacion e ON do.id = e.id
+            WHERE pe.year =' . $year .' AND do.user_id = ' . $docente . '";
+        $result = $connection->executeQuery($query);
+        return $result->fetchAllAssociative();
+    }
+
 
     public function porVinculacion($sigla, $periodo)
     {

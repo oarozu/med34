@@ -11,20 +11,20 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity(repositoryClass="Admin\UnadBundle\Entity\ProgramaRepository")
  */
 class Programa{
-   
+
 /**
  * @ORM\Id
  * @ORM\Column(name="id", type="integer", nullable=false)
  * @ORM\GeneratedValue(strategy="IDENTITY")
      */
- protected $id;    
- 
+ protected $id;
+
  /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
 protected $nombre;
-         
+
 /**
      * @ORM\Column(type="string", length=15)
      * @Assert\NotBlank()
@@ -32,8 +32,8 @@ protected $nombre;
 protected $nivel;
 
 
-     /** 
-     * @var Escuela 
+     /**
+     * @var Escuela
      * @ORM\ManyToOne(targetEntity="Admin\UnadBundle\Entity\Escuela", inversedBy="programas")
      * @ORM\JoinColumn(name="escuela_id", referencedColumnName="id",
      * nullable=true
@@ -42,33 +42,32 @@ protected $nivel;
 protected $escuela;
 
 
-      /** 
-     * @var Lider 
-     * @ORM\ManyToOne(targetEntity="Admin\UnadBundle\Entity\Docente", inversedBy="lider")
+    /**
+     * @var Lider
+     * @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User", inversedBy="lider")
      * @ORM\JoinColumn(name="lider_id", referencedColumnName="id",
      * nullable=true
      * )
      */
-protected $lider;
-
+    protected $lider;
 
     /**
      * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\Docente", mappedBy="programa")
      */
-    protected $docentes;    
-    
-    
+    protected $docentes;
+
+
     /**
       * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\Curso", mappedBy="programa")
       */
     protected $cursos;
-    
-    
-    
+
+
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -91,7 +90,7 @@ protected $lider;
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -114,7 +113,7 @@ protected $lider;
     /**
      * Get nivel
      *
-     * @return string 
+     * @return string
      */
     public function getNivel()
     {
@@ -137,7 +136,7 @@ protected $lider;
     /**
      * Get escuela
      *
-     * @return \Admin\UnadBundle\Entity\Escuela 
+     * @return \Admin\UnadBundle\Entity\Escuela
      */
     public function getEscuela()
     {
@@ -161,27 +160,27 @@ protected $lider;
     /**
      * Get tipo
      *
-     * @return string 
+     * @return string
      */
     public function getTipo()
     {
         return $this->tipo;
     }
-    
+
         /**
      * Get lista para menu
      *
-     * @return string 
+     * @return string
      */
     public function getLista()
     {
         if ($this->getEscuela()){
-          return $this->getEscuela()->getSigla().'-'.$this->nombre;  
+          return $this->getEscuela()->getSigla().'-'.$this->nombre;
         }
       else{
-       return 'Sin-'.$this->nombre;   
-      }      
-        
+       return 'Sin-'.$this->nombre;
+      }
+
     }
 
     /**
@@ -200,7 +199,7 @@ protected $lider;
     /**
      * Get lider
      *
-     * @return \Admin\UnadBundle\Entity\Docente 
+     * @return \Admin\UnadBundle\Entity\Docente
      */
     public function getLider()
     {
@@ -240,7 +239,7 @@ protected $lider;
     /**
      * Get docentes
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getDocentes()
     {
@@ -273,7 +272,7 @@ protected $lider;
     /**
      * Get cursos
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCursos()
     {
@@ -296,7 +295,7 @@ protected $lider;
     /**
      * Get coeval
      *
-     * @return \Admin\MedBundle\Entity\coevalLider 
+     * @return \Admin\MedBundle\Entity\coevalLider
      */
     public function getCoeval()
     {

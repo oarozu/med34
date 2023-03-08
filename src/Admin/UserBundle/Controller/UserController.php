@@ -35,10 +35,11 @@ class UserController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $dql = "select a from AdminUserBundle:User a";
+        $dql = "select a from AdminUserBundle:User a ORDER BY a.updated DESC";
         $query = $em->createQuery($dql);
-        $query->setMaxResults(50);
+        $query->setMaxResults(200);
         $entities = $query->getResult();
+
 
         $valores = new Parabuscar();
         $Form = $this->createForm(BuscarType::class, $valores);
@@ -60,7 +61,6 @@ class UserController extends Controller
             $valores = $newform->getData();
             $entities = $this->buscarDocenteAction($valores->getTexto(), $valores->getParametro());
         }
-
 
         return $this->render('AdminUserBundle:User:index.html.twig', array(
             'entities' => $entities,

@@ -323,6 +323,37 @@ class DocenteController extends Controller
         if ($entity->getVinculacion() == 'DOFE') {
             return $this->render('AdminUnadBundle:Docente:dofe.html.twig', array(
                 'entity' => $entity,
+                'periodo' => $periodo
+            ));
+        } else {
+            return array(
+                'entity' => $entity,
+                'periodo' => $periodo
+            );
+        }
+    }
+
+
+    /**
+     * Finds and displays a Docente entity
+     * @Route("/{id}/final", name="docente_final_anual")
+     * @Method("GET")
+     * @Template()
+     */
+    public function finalAnual(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $session = $request->getSession();
+        $entity = $em->getRepository('AdminUnadBundle:Docente')->find($id);
+        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $entity->getPeriodo()));
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Docente entity.');
+        }
+
+        if ($entity->getVinculacion() == 'DOFE') {
+            return $this->render('AdminUnadBundle:Docente:dofe.html.twig', array(
+                'entity' => $entity,
             ));
         } else {
             return array(
@@ -462,6 +493,9 @@ class DocenteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $programas = $em->getRepository('AdminUnadBundle:Programa')->findBy(array('lider' => $user));
+
         $entity = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         $ofertas = $em->getRepository('AdminMedBundle:Oferta')->findBy(array('director' => $entity));
 
