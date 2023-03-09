@@ -178,6 +178,16 @@
             </li>
             {% endif %}
 
+            {% if is_granted('ROLE_LP') %}
+                <li>
+                    <a href="#"><i class="fa fa-lg fa-fw fa-bar-chart-o"></i> <span class="menu-item-parent">Co-evaluaciones</span></a>
+                    <ul style="display: block;">
+                        <li>
+                            <a href="{{ path('docente_coevaldirector', { 'id': app.session.get('periodoe')}) }}">A Directores de Curso</a>
+                        </li>
+                    </ul>
+                </li>
+            {% endif %}
 
             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ADMON') %}
                 <li>

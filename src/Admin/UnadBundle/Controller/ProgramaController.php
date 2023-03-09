@@ -37,7 +37,7 @@ class ProgramaController extends Controller
         }
         else{
        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findBy(array('id' => $session->get('periodoe')));
-       $entities = $em->getRepository('AdminUnadBundle:ProgramaPeriodo')->findBy(array('periodo' => $periodo));
+       $entities = $em->getRepository('AdminUnadBundle:Programa')->findAll();
         }
         return array(
             'entities' => $entities,

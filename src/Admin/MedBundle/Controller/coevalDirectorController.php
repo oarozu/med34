@@ -30,14 +30,8 @@ class coevalDirectorController extends Controller
     public function indexAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $session = $request->getSession();
-        $lider = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
-        $programaperiodo = $em->getRepository('AdminUnadBundle:ProgramaPeriodo')->findBy(array('lider' => $lider));
-        foreach ($programaperiodo as $programa) {
-            $programasp[] = $programa->getPrograma()->getId();
-        }
-
-        $programas = $em->getRepository('AdminUnadBundle:Programa')->findBy(array('id' => $programasp));
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $programas = $em->getRepository('AdminUnadBundle:Programa')->findBy(array('lider' => $user));
         $cursos = $em->getRepository('AdminUnadBundle:Curso')->findBy(array('programa' => $programas));
         $periodoa = $em->getRepository('AdminMedBundle:Periodoa')->findBy(array('periodoe' => $id));
         $ofertas = $em->getRepository('AdminMedBundle:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa),array('director' => 'ASC'));

@@ -63,6 +63,11 @@ class Periodoe
     protected $year;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $peraca;
+
+    /**
      * @ORM\OneToMany(targetEntity="Admin\MedBundle\Entity\Periodoa", mappedBy="periodoe")
      */
     protected $periodoa;
@@ -149,6 +154,24 @@ class Periodoe
 
         return $this;
     }
+
+    /**
+     * @return integer
+     */
+    public function getPeraca()
+    {
+        return $this->peraca;
+    }
+
+
+    /**
+     * @param integer $peraca
+     */
+    public function setPeraca($peraca): void
+    {
+        $this->peraca = $peraca;
+    }
+
 
     /**
      * Get dias
