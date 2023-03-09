@@ -41,7 +41,8 @@ class coevalDirectorController extends Controller
             'programas' => $programas,
             'cursos' => $cursos,
             'ofertas' => $ofertas,
-            'periodoe' => $periodoe
+            'periodoe' => $periodoe,
+            'periodoa' => $periodoa
         );
     }
     /**
