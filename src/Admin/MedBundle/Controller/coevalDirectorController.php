@@ -35,7 +35,7 @@ class coevalDirectorController extends Controller
         $cursos = $em->getRepository('AdminUnadBundle:Curso')->findBy(array('programa' => $programas));
         $periodoe = $em->getRepository('AdminMedBundle:Periodoe')->findBy(array('id' => $id));
         $periodoa = $em->getRepository('AdminMedBundle:Periodoa')->findOneBy(array('periodoe' => $periodoe));
-        $ofertas = $em->getRepository('AdminMedBundle:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa),array('director' => 'ASC'));
+        $ofertas = $em->getRepository('AdminMedBundle:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa->getId()),array('director' => 'ASC'));
 
         return array(
             'programas' => $programas,
