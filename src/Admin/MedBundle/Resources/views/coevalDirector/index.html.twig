@@ -1,72 +1,70 @@
 {% extends '::base.html.twig' %}
 {% block body -%}
-<a href="{{ path('docente_show', {'id': app.session.get('docenteid') }) }}"> << Regresar</a>
-<h1>Evaluación a Directores de Curso del periodo seleccionado:</h1>
-<h3>
-    Importante: Si un docente fue director de uno o más cursos y su valoración es la misma, solo es necesaria una evaluación, de lo contrario, evalúe cada uno de los cursos independientes.
-</h3>
-      <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+    <h1>Evaluación a Directores de Curso del periodo seleccionado:</h1>
+    <h3>
+        Importante: Si un docente fue director de uno o más cursos y su valoración es la misma, solo es necesaria una
+        evaluación, de lo contrario, evalúe cada uno de los cursos independientes.
+        <br>{{ programas|length }},{{ cursos|length }},{{ ofertas|length }}
+    </h3>
+    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
         <thead>
-            <tr>
-                <th>Director</th>
-                <th>Cursos</th>
-                <th>Evaluar</th>
-            </tr>
+        <tr>
+            <th>Director</th>
+            <th>Cursos</th>
+            <th>Evaluar</th>
+        </tr>
         </thead>
         <tbody>
-       {%set var = '123'%}
+        {% set var = '123' %}
 
-            {%for oferta in ofertas%}
-            {%if oferta.director.user.id != var  %}
-            <tr>
-                <th colspan = 2>{{oferta.director.user.nombres}} {{oferta.director.user.apellidos}}</th>
-               </tr>
-               <tr>
-                <td></td>
-                <td>{{oferta.curso.id}} - {{oferta.curso.nombre}} - {{oferta.periodo}}</td>
-                   <td>
-               {%if app.session.get('docenteid') == oferta.director.id %}
-                   No aplica *
-               {%else%}
-                {%if oferta.coeval %}
-               {%if oferta.coeval.f0 %}
-               {{oferta.coeval.f0}}
-                {%else%}
-                <a href="{{ path('coevaldirector_edit', { 'id': oferta.id }) }}">Evaluar...</a>
-                {%endif%}
-                {%else%}
-                <a href="{{ path('coevaldirector_edit', { 'id': oferta.id }) }}">Evaluar...</a>
-                 {%endif%}
-                  {%endif%}
-                 </td>
-               </tr>
-               {%set var =  oferta.director.user.id %}
-
-              {%else%}
+        {% for oferta in ofertas %}
+            {% if oferta.director.user.id != var %}
                 <tr>
-                <td></td>
-                <td>{{oferta.curso.id}} - {{oferta.curso.nombre}} - {{oferta.periodo}}</td>
-                <td>
-               {%if app.session.get('docenteid') == oferta.director.id %}
-                   No aplica *
-               {%else%}
-                {%if oferta.coeval %}
-               {%if oferta.coeval.f0 %}
-               {{oferta.coeval.f0}}
-                {%else%}
-                <a href="{{ path('coevaldirector_edit', { 'id': oferta.id }) }}">Evaluar...</a>
-                {%endif%}
-                {%else%}
-                <a href="{{ path('coevaldirector_edit', { 'id': oferta.id }) }}">Evaluar...</a>
-                 {%endif%}
-                  {%endif%}
-                 </td>
-               </tr>
-               {%endif%}
+                    <th colspan=2>{{ oferta.director.user.nombres }} {{ oferta.director.user.apellidos }}</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>{{ oferta.curso.id }} - {{ oferta.curso.nombre }} - {{ oferta.periodo }}</td>
+                    <td>
+                        {% if app.session.get('docenteid') == oferta.director.id %}
+                            No aplica *
+                        {% else %}
+                            {% if oferta.coeval %}
+                                {% if oferta.coeval.f0 %}
+                                    {{ oferta.coeval.f0 }}
+                                {% else %}
+                                    <a href="{{ path('coevaldirector_edit', { 'id': oferta.id }) }}">Evaluar...</a>
+                                {% endif %}
+                            {% else %}
+                                <a href="{{ path('coevaldirector_edit', { 'id': oferta.id }) }}">Evaluar...</a>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% set var =  oferta.director.user.id %}
 
-
-
-            {%endfor%}
+            {% else %}
+                <tr>
+                    <td></td>
+                    <td>{{ oferta.curso.id }} - {{ oferta.curso.nombre }} - {{ oferta.periodo }}</td>
+                    <td>
+                        {% if app.session.get('docenteid') == oferta.director.id %}
+                            No aplica *
+                        {% else %}
+                            {% if oferta.coeval %}
+                                {% if oferta.coeval.f0 %}
+                                    {{ oferta.coeval.f0 }}
+                                {% else %}
+                                    <a href="{{ path('coevaldirector_edit', { 'id': oferta.id }) }}">Evaluar...</a>
+                                {% endif %}
+                            {% else %}
+                                <a href="{{ path('coevaldirector_edit', { 'id': oferta.id }) }}">Evaluar...</a>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
         </tbody>
     </table>
 {% endblock %}

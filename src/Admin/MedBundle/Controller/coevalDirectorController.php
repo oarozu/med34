@@ -39,6 +39,7 @@ class coevalDirectorController extends Controller
 
         return array(
             'programas' => $programas,
+            'cursos' => $cursos,
             'ofertas' => $ofertas,
         );
     }
