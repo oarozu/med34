@@ -186,10 +186,10 @@ protected $escuela;
     /**
      * Set lider
      *
-     * @param \Admin\UnadBundle\Entity\Docente $lider
+     * @param Admin\UserBundle\Entity\User $lider
      * @return Programa
      */
-    public function setLider(\Admin\UnadBundle\Entity\Docente $lider = null)
+    public function setLider(\Admin\UserBundle\Entity\User $lider = null)
     {
         $this->lider = $lider;
 
@@ -199,7 +199,7 @@ protected $escuela;
     /**
      * Get lider
      *
-     * @return \Admin\UnadBundle\Entity\Docente
+     * @return \Admin\UserBundle\Entity\User
      */
     public function getLider()
     {

@@ -6,24 +6,24 @@
         <tbody>
             <tr>
                 <th>Código</th>
-                <td>{{ entity.programa.id }}</td>
+                <td>{{ entity.id }}</td>
             </tr>
             <tr>
                 <th>Nombre</th>
-                <td>{{ entity.programa.nombre }}</td>
+                <td>{{ entity.nombre }}</td>
             </tr>
             <tr>
                 <th>Nivel</th>
-                <td>{{ entity.programa.nivel }}</td>
+                <td>{{ entity.nivel }}</td>
             </tr>
             <tr>
                 <th>Periodo Evaluación</th>
-                <td>{{ entity.periodo.id }}</td>
+                <td>{{ periodo }}</td>
             </tr>
             <tr>
                 <th>Lider</th>
-                <td>[{{ entity.lider? entity.lider.user.id}}]
-                {{ entity.lider? entity.lider.user.nombres~' '~ entity.lider.user.apellidos : 'sin'}}</td>
+                <td>[{{ entity.lider? entity.lider.id}}]
+                {{ entity.lider? entity.lider.nombres~' '~ entity.lider.apellidos : 'sin'}}</td>
             </tr>
         </tbody>
     </table>
@@ -35,18 +35,16 @@
     <li>{{ form(delete_form) }}</li>
     </ul>
     {%endif%}
-    
-    Cursos Ofertados en el periodo {{ entity.periodo.id}}:
-    
+
     <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
     <tr>
     <th>id</th>
     <th>Curso</th>
     <th>Periodo</th>
     <th>Director</th>
-    </tr>     
+    </tr>
      {%for curso in oferta %}
-    
+
      <tr>
     <td>
     <a href="{{ path('curso_show', { 'id': curso.curso.id }) }}">{{curso.curso.id}}</a>
@@ -55,9 +53,9 @@
     <td>{{curso.periodo}}</td>
     <td>{{ curso.director? curso.director.user.nombres~' '~curso.director.user.apellidos : 'sin'}}</td>
     </tr>
-    
+
     {%endfor%}
-    
+
     </table>
 
 {% endblock %}

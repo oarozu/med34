@@ -31,20 +31,19 @@ class ProgramaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
 
-        if ($this->container->get('security.authorization_checker')->isGranted('ROLE_SECA')){
+        if ($this->container->get('security.authorization_checker')->isGranted('ROLE_SECA')) {
 
-        $entities = $em->getRepository('AdminUnadBundle:Programa')->getPorEscuela($session->get('escuelaid'));
-        }
-        else{
-       $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findBy(array('id' => $session->get('periodoe')));
-       $entities = $em->getRepository('AdminUnadBundle:Programa')->findAll();
+            $entities = $em->getRepository('AdminUnadBundle:Programa')->getPorEscuela($session->get('escuelaid'));
+        } else {
+            $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findBy(array('id' => $session->get('periodoe')));
+            $entities = $em->getRepository('AdminUnadBundle:Programa')->findAll();
         }
         return array(
             'entities' => $entities,
         );
     }
 
-        /**
+    /**
      * Lists all Programa entities.
      *
      * @Route("/pe/{id}", name="programa_periodo")
@@ -55,13 +54,12 @@ class ProgramaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-       $entities = $em->getRepository('AdminUnadBundle:ProgramaPeriodo')->findBy(array('periodo' => $id));
+        $entities = $em->getRepository('AdminUnadBundle:ProgramaPeriodo')->findBy(array('periodo' => $id));
 
         return array(
             'entities' => $entities,
         );
     }
-
 
 
     /**
@@ -87,17 +85,17 @@ class ProgramaController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-    * Creates a form to create a Programa entity.
-    *
-    * @param Programa $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to create a Programa entity.
+     *
+     * @param Programa $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(Programa $entity)
     {
         $form = $this->createForm(ProgramaType::class, $entity, array(
@@ -120,11 +118,11 @@ class ProgramaController extends Controller
     public function newAction()
     {
         $entity = new Programa();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -135,31 +133,30 @@ class ProgramaController extends Controller
      * @Method("GET")
      * @Template("Programa/show.html.twig")
      */
-    public function showAction($id)
+    public function showAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AdminUnadBundle:ProgramaPeriodo')->find($id);
-
-        $cursos = $em->getRepository('AdminUnadBundle:Curso')->findBy(array('programa' => $entity->getPrograma()));
-        $periodoa = $em->getRepository('AdminMedBundle:Periodoa')->findBy(array('periodoe' => $entity->getPeriodo()->getId()));
-
+        $session = $request->getSession();
+        $programa = $em->getRepository('AdminUnadBundle:Programa')->find($id);
+        $cursos = $em->getRepository('AdminUnadBundle:Curso')->findBy(array('programa' => $id));
+        $periodoa = $em->getRepository('AdminMedBundle:Periodoa')->findBy(array('periodoe' => $session->get('periodoe')));
         $oferta = $em->getRepository('AdminMedBundle:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa));
 
-        if (!$entity) {
+        if (!$programa) {
             throw $this->createNotFoundException('Unable to find Programa entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'oferta'      => $oferta,
+            'entity' => $programa,
+            'oferta' => $oferta,
+            'periodo' => $session->get('periodoe'),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
-     /**
+    /**
      * Finds and displays a Programa entity.
      * @Route("/{id}/modal", name="programa_modal")
      * @Method("GET")
@@ -177,8 +174,8 @@ class ProgramaController extends Controller
             throw $this->createNotFoundException('Unable to find Programa entity.');
         }
         return array(
-            'entity'      => $entity,
-            'oferta'      => $oferta
+            'entity' => $entity,
+            'oferta' => $oferta
         );
     }
 
@@ -201,8 +198,8 @@ class ProgramaController extends Controller
             throw $this->createNotFoundException('Unable to find Programa entity.');
         }
         return array(
-            'entity'      => $entity,
-            'oferta'      => $oferta
+            'entity' => $entity,
+            'oferta' => $oferta
         );
     }
 
@@ -227,19 +224,19 @@ class ProgramaController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Programa entity.
-    *
-    * @param Programa $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Programa entity.
+     *
+     * @param Programa $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Programa $entity)
     {
         $form = $this->createForm(ProgramaType::class, $entity, array(
@@ -251,6 +248,7 @@ class ProgramaController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Programa entity.
      *
@@ -263,8 +261,8 @@ class ProgramaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
         $entity = $em->getRepository('AdminUnadBundle:Programa')->find($id);
-        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->find( $session->get('periodoe'));
-        $programa = $em->getRepository('AdminUnadBundle:ProgramaPeriodo')->findOneBy(array('programa' => $entity,'periodo' => $periodo));
+        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->find($session->get('periodoe'));
+        $programa = $em->getRepository('AdminUnadBundle:ProgramaPeriodo')->findOneBy(array('programa' => $entity, 'periodo' => $periodo));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Programa entity.');
@@ -273,10 +271,10 @@ class ProgramaController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-        if ($editForm["lider"]->getData() != null){
-        $lider = $em->getRepository('AdminUnadBundle:Docente')->find($editForm["lider"]->getData());
-        $entity->setLider($lider);
-        $programa->setLider($lider);
+        if ($editForm["lider"]->getData() != null) {
+            $lider = $em->getRepository('AdminUnadBundle:Docente')->find($editForm["lider"]->getData());
+            $entity->setLider($lider);
+            $programa->setLider($lider);
         }
         if ($editForm->isValid()) {
             $em->flush();
@@ -285,11 +283,12 @@ class ProgramaController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Programa entity.
      *
@@ -329,13 +328,11 @@ class ProgramaController extends Controller
             ->setAction($this->generateUrl('programa_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', SubmitType::class, array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 
 
-
-     /**
+    /**
      * Seleccionar docente
      * @Route("/add/lider", name="programa_addlider")
      * @Method("GET")
@@ -343,14 +340,14 @@ class ProgramaController extends Controller
      */
     public function addliderAction(Request $request)
     {
-       $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->find( $session->get('periodoe'));
+        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->find($session->get('periodoe'));
         $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
         $entities = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('escuela' => $escuela, 'periodo' => $session->get('periodoe')));
         return array(
-        'entities' => $entities,
-        'periodo' => $periodo
+            'entities' => $entities,
+            'periodo' => $periodo
         );
     }
 }
