@@ -1,8 +1,8 @@
 {% block body -%}
 <body>
 <link rel="stylesheet" type="text/css" href="{{ asset('css/print.css') }}">
-<h2>Coevaluaciones de {{ entity.user.id }} {{ entity.user.nombres }} {{ entity.user.apellidos }} - {{entity.periodo}}</h2>  
- 
+<h2>Coevaluaciones de {{ entity.user.id }} {{ entity.user.nombres }} {{ entity.user.apellidos }} - {{entity.periodo}}</h2>
+
    {%if entity.Coevaldepar|length > 0 %}
 
 <h2>Terna de Pares</h2>
@@ -12,16 +12,16 @@
                 <th>Observaciones</th>
                 <th>Calificación</th>
             </tr>
-            <tbody>      
+            <tbody>
             {%for evaluacion in entity.Coevaldepar%}
-   
+
             <tr>
                 <td>
                 {{evaluacion.evaluador.docente.user.nombres}} {{evaluacion.evaluador.docente.user.apellidos}}
-                   
+
                 </td>
             <td>
-               {{evaluacion.observaciones}} 
+               {{evaluacion.observaciones}}
             </td>
 
              <td>
@@ -32,12 +32,12 @@
                  {%endif%}
              </td>
             </tr>
-               
+
         {%endfor%}
         </tbody>
         </table>
-{%endif%}  
- 
+{%endif%}
+
 
 {%set final=0%} {%set aux=0%}
 {%if entity.director|length > 0 %}
@@ -49,12 +49,12 @@
                 <th>Observaciones</th>
                 <th>Calificación</th>
             </tr>
-            <tbody> 
-{%for oferta in entity.director%}              
+            <tbody>
+{%for oferta in entity.director%}
             {%for tutor in oferta.tutores%}
-            
+
             <tr>
-                <td>{{oferta.curso.nombre}} - {{oferta.periodo}} </td> 
+                <td>{{oferta.curso.nombre}} - {{oferta.periodo}} </td>
                             <td>{{tutor.docente.user.nombres}} {{tutor.docente.user.apellidos}}</td>
                             <td>{{tutor.coevaldirector? tutor.coevaldirector.observaciones : ' ' }}</td>
                             <td>
@@ -65,7 +65,7 @@
                                 {%endif%}
                             </td>
             </tr>
-            {%if tutor.coevaldirector%}{%set final=final+tutor.coevaldirector.f0%}{%set aux=aux+1%}{%endif%}  
+            {%if tutor.coevaldirector%}{%set final=final+tutor.coevaldirector.f0%}{%set aux=aux+1%}{%endif%}
             {%endfor%}
 {%endfor%}
             <tr>
@@ -75,10 +75,10 @@
             </tbody>
 </table>
   {%endif%}
-  
-  
-{% if is_granted('ROLE_ADMIN') or entity.vinculacion !='De Carrera' %}    
-    
+
+
+{% if is_granted('ROLE_ADMIN') or entity.vinculacion !='De Carrera' %}
+
    {%if entity.tutoria|length > 0 %}
 
 <h2>Director de Curso a Tutores</h2>
@@ -89,9 +89,9 @@
                 <th>Observaciones</th>
                 <th>Calificación</th>
             </tr>
-            <tbody>      
+            <tbody>
             {%for tutor in entity.tutoria%}
-   
+
             <tr>
             <td>{{tutor.oferta.curso.nombre}} - {{tutor.oferta.periodo}}</td>
             <td>
@@ -99,27 +99,27 @@
             {{tutor.oferta.director.user.nombres}} {{tutor.oferta.director.user.apellidos}}
          {%endif%}
             </td>
-                
+
                     {%if tutor.oferta.director.user.id == entity.user.id %}
                     <td></td>
-                    <td>No Aplica</td> 
+                    <td>No Aplica</td>
                     {%else%}
-                        
+
                     {%if tutor.coevaltutor%}
                     <td>{{tutor.coevaltutor.observaciones}}</td>
                     <td>
                     {{tutor.coevaltutor.f0}}
                     </td>
                     {%endif%}
-                    
+
                     {%endif%}
-            
+
             </tr>
-               
+
         {%endfor%}
         </tbody>
         </table>
-{%endif%}            
+{%endif%}
 
   {%if entity.director|length > 0 %}
 
@@ -131,11 +131,11 @@
                 <th>Observaciones</th>
                 <th>Calificación</th>
             </tr>
-            <tbody>   
+            <tbody>
             {%for oferta in entity.director%}
-            
+
             <tr>
-            <td>{{oferta.curso.nombre}} - {{oferta.periodo}}</td>    
+            <td>{{oferta.curso.nombre}} - {{oferta.periodo}}</td>
              <td>
                  {%if oferta.curso.programa%}
                {{oferta.curso.programa.nombre}}
@@ -143,13 +143,13 @@
              </td>
              <td>
                  {%if oferta.curso.programa%}
-               {{oferta.curso.programa.lider? oferta.curso.programa.lider.user.nombres ~ ' ' ~ oferta.curso.programa.lider.user.apellidos : 'Sin lider'}}
+               {{oferta.curso.programa.lider? oferta.curso.programa.lider.nombres ~ ' ' ~ oferta.curso.programa.lider.apellidos : 'Sin lider'}}
                  {%endif%}
              </td>
              <td>{{oferta.coeval? oferta.coeval.observaciones : ' '}}</td>
              <td>
                 {%if oferta.curso.programa.lider%}
-                {%if oferta.curso.programa.lider.user.id == entity.user.id %}
+                {%if oferta.curso.programa.lider.id == entity.user.id %}
                 No Aplica
                 {%else%}
                 {{oferta.coeval? oferta.coeval.f0 : 'Sin Evaluación'}}
@@ -158,7 +158,7 @@
              </td>
             </tr>
         {%endfor%}
-  
+
         </tbody>
         </table>
 {%endif%}
