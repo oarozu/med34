@@ -92,8 +92,8 @@ class DefaultController extends Controller {
                 $isdc = true;
             }
         }
-        $periodo = $this->container->getParameter('appmed.periodo');
-        $periodos = $em->getRepository('AdminMedBundle:Periodoe')->findBy(array('year' => $year));
+        $periodos_on = $this->container->getParameter('appmed.periodos');
+        $periodos = $em->getRepository('AdminMedBundle:Periodoe')->findBy(array('id' => $periodos_on));
         return $this->render('AdminUserBundle:Default:periods.html.twig', array(
             'year' => $year,
             'periodos' => $periodos,
