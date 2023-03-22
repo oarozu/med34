@@ -103,7 +103,11 @@
             <td class="centro"></td>
         </tr>
         <tr>
-            <td>Fecha de consolidación:</td>
+            <td>
+                {% if docente.evaluacion.fecha %}
+                    Fecha de consolidación: {{ docente.evaluacion.fecha|date('d/m/Y') }}
+                {% endif %}
+            </td>
             <td class="centro"><h3>Evaluación Final del Desempeño</h3></td>
             <td class="centro">
                 <h3>{{ docente.evaluacion.final? docente.evaluacion.final|number_format(1, '.', ',') : '*' }}</h3>

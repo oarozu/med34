@@ -1,204 +1,227 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>{% block title %}{{docente.user.id}}-{{docente.periodo}}{% endblock %}</title>
-<meta name="description" content="Informe Final de Evaluación">
-<meta charset="utf-8">
-<meta name="author" content="MED Módulo de Evaluación Docente UNAD">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/print.css') }}">
+    <title>{% block title %}{{ docente.user.id }}-{{ docente.periodo }}{% endblock %}</title>
+    <meta name="description" content="Informe Final de Evaluación">
+    <meta charset="utf-8">
+    <meta name="author" content="MED Módulo de Evaluación Docente UNAD">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/print.css') }}">
 </head>
 {% block body -%}
- <table  class="data" widtd="100%" border="0">
-  <tr>
-    <td colspan="4" align="center"><img src="/img/logo-med-unad.png" alt="MED">
-        <h3>INFORME FINAL DE EVALUACIÓN INDIVIDUAL</h3>
-    </td>
-  </tr>
-  <tr>
-      <td><b>Cédula</b></td>
-    <td>{{docente.user.id}}</td>
-    <td><b>Periodo de Evaluación</b></td>
-    <td>{{docente.periodo}}</td>
-  </tr>
-  <tr>
-    <td><b>Nombres</b></td>
-    <td>{{docente.user.nombres}}</td>
-    <td><b>Programa</b></td>
-    <td>{{docente.programa.nombre}}</td>
-  </tr>
-  <tr>
-      <td><b>Apellidos</b></td>
-    <td>{{docente.user.apellidos}}</td>
-    <td><b>Cargo</b></td>
-    <td>{{docente.cargo}}</td>
-  </tr>
-  <tr>
-      <td colspan="2"><b>Vinculación:</b> {{docente.vinculacion}} - <b>Modalidad:</b> {{docente.modalidad}}</td>
-      <td colspan="2"><b>Perfil:</b> {{docente.perfil}}</td>
-  </tr>
-  <tr>
-      <td colspan="4"><b>Escuela:</b> {{docente.escuela.nombre}}<br>
-          <b>Decano:</b> {{docente.escuela.decano.nombres}} {{docente.escuela.decano.apellidos}}
-    </td>
-  </tr>
-  <tr>
-      <td colspan="2"><b>Centro:</b> {{docente.centro.nombre}}</td>
-    <td colspan="2">
-        <b>Director:</b>
-    {%if docente.centro.director%}
-{{docente.centro.director.nombres}} {{docente.centro.director.apellidos}}
-    {%endif%}
-    </td>
-  </tr>
-      <tr>
-          <td><b>Tutorias de curso:</b></td>
-    <td colspan="3">
-      {%for tutor in docente.tutoria%}
-      {{tutor.oferta.curso.id}} {{tutor.oferta.curso.nombre}},  {%endfor%}
-    </td>
-  </tr>
-    <tr>
-        <td><b>Direcciones de curso:</b></td>
-      <td colspan="3">
-      {%for oferta in docente.director%}
-      {{oferta.curso.id}} {{oferta.curso.nombre}} - {{oferta.periodo}}, {%endfor%}
-   </td>
-  </tr>
-</table>
-{%if docente.heteroeval%}
-<table width="100%" border="0">
-  <tr>
-      <td class="titulo" colspan="8">EVALUACIÓN DE ESTUDIANTES</td>
-  </tr>
-  <tr>
-    <td>Competencia</td>
-    <td class="centro">Cognitiva</td>
-    <td class="centro">Comunicativa</td>
-    <td class="centro">Metodológicas</td>
-    <td class="centro">Pedagógico - Didácticas</td>
-    <td class="centro">Socioafectiva</td>
-    <td class="centro">Tecnológica</td>
-    <td class="centro">Promedio</td>
-  </tr>
-  <tr>
-       <td>Calificación</td>
-      <td class="centro">{{(docente.heteroeval.competencia1)|number_format(1, '.', ',')}}</td>
-    <td class="centro">{{(docente.heteroeval.competencia2)|number_format(1, '.', ',')}}</td>
-    <td class="centro">{{(docente.heteroeval.competencia3)|number_format(1, '.', ',')}}</td>
-    <td class="centro">{{(docente.heteroeval.competencia4)|number_format(1, '.', ',')}}</td>
-    <td class="centro">{{(docente.heteroeval.competencia5)|number_format(1, '.', ',')}}</td>
-    <td class="centro">{{(docente.heteroeval.competencia6)|number_format(1, '.', ',')}}</td>
-    <td class="centro">{{(docente.heteroeval.calificacion)|number_format(1, '.', ',')}}</td>
-  </tr>
-</table>
-{%endif%}
- <table  widtd="100%" border="0">
+    <table class="data" widtd="100%" border="0">
         <tr>
-      <td class="titulo" colspan="5">RESULTADOS POR INSTRUMENTOS</td>
-  </tr>
-     <tr>
-    <td class="centro">Item</td>
-    <td class="centro">Instrumento</td>
-    <td class="centro">Tipo</td>
-    <td class="centro">Evaluó</td>
-    <td class="centro">Calificación</td>
-  </tr>
-  <tr>
-    <td>A1</td>
-    <td>Plan de Gestión</td>
-    <td>Autoevaluación</td>
-    <td>Docente</td>
-    <td class="centro">{{docente.evaluacion.auto? docente.evaluacion.auto : 'Sin Autoevaluación' }}</td>
-  </tr>
-  <tr>
-    <td>H1</td>
-    <td>Evaluación de Estudiantes</td>
-    <td>Heteroevaluación</td>
-    <td>Estudiante</td>
-    <td class="centro">{{docente.evaluacion.hetero1? docente.evaluacion.hetero1 : 'Sin registros'}}</td>
-  </tr>
-   {%if  docente.evaluacion.co5%}
-  <tr>
-    <td>C2</td>
-    <td>Coevaluación de la Red Tutores</td>
-    <td>Coevaluación</td>
-    <td>Tutor</td>
-    <td class="centro">{{docente.evaluacion.co5? docente.evaluacion.co5: 'n/a' }}</td>
-  </tr>
-  {%endif%}
-    {%if  docente.evaluacion.co2%}
-    <tr>
-    <td>C3</td>
-    <td>Coevaluación cómo Tutor</td>
-    <td>Coevaluación</td>
-    <td>Director de Curso</td>
-    <td class="centro">{{docente.evaluacion.co2}}</td>
-  </tr>
-  {%endif%}
-    {%if  docente.evaluacion.co3%}
-    <tr>
-    <td>C4</td>
-    <td>Coevaluación cómo Director</td>
-        <td>Coevaluación</td>
-    <td>Lider de Programa</td>
-    <td class="centro">{{docente.evaluacion.co3}}</td>
-  </tr>
-  {%endif%}
-    {%if  docente.evaluacion.co4%}
-    <tr>
-    <td>C5</td>
-    <td>Coevaluación Lider de Programa</td>
-    <td>Coevaluación</td>
-    <td>Decano Nacional</td>
-    <td class="centro">{{docente.evaluacion.co4}}</td>
-  </tr>
-  {%endif%}
-</table>
+            <td colspan="4" align="center"><img src="/img/logo-med-unad.png" alt="MED">
+                {% if periodo.type == 's' %}
+                    <h3>INFORME FINAL DE EVALUACIÓN INDIVIDUAL</h3>
+                {% else %}
+                    <h3>INFORME PARCIAL DE EVALUACIÓN INDIVIDUAL</h3>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td><b>Cédula</b></td>
+            <td>{{ docente.user.id }}</td>
+            <td><b>Periodo de Evaluación</b></td>
+            <td>
+                {% if periodo.type == 's' %}
+                    {{ periodo.observaciones }}
+                {% else %}
+                    {{ periodo.year }} {{ periodo.observaciones }}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td><b>Nombres</b></td>
+            <td>{{ docente.user.nombres }}</td>
+            <td><b>Programa</b></td>
+            <td>{{ docente.programa.nombre }}</td>
+        </tr>
+        <tr>
+            <td><b>Apellidos</b></td>
+            <td>{{ docente.user.apellidos }}</td>
+            <td><b>Cargo</b></td>
+            <td>{{ docente.cargo }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><b>Vinculación:</b> {{ docente.vinculacion }} - <b>Modalidad:</b> {{ docente.modalidad }}
+            </td>
+            <td colspan="2"><b>Perfil:</b> {{ docente.perfil }}</td>
+        </tr>
+        <tr>
+            <td colspan="4"><b>Escuela:</b> {{ docente.escuela.nombre }}<br>
+                <b>Decano:</b> {{ docente.escuela.decano.nombres }} {{ docente.escuela.decano.apellidos }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><b>Centro:</b> {{ docente.centro.nombre }}</td>
+            <td colspan="2">
+                <b>Director:</b>
+                {% if docente.centro.director %}
+                    {{ docente.centro.director.nombres }} {{ docente.centro.director.apellidos }}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td><b>Tutorias de curso:</b></td>
+            <td colspan="3">
+                {% for tutor in docente.tutoria %}
+                    {{ tutor.oferta.curso.id }} {{ tutor.oferta.curso.nombre }},  {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <td><b>Direcciones de curso:</b></td>
+            <td colspan="3">
+                {% for oferta in docente.director %}
+                    {{ oferta.curso.id }} {{ oferta.curso.nombre }} - {{ oferta.periodo }}, {% endfor %}
+            </td>
+        </tr>
+    </table>
+    {% if docente.heteroeval %}
+        <table width="100%" border="0">
+            <tr>
+                <td class="titulo" colspan="8">EVALUACIÓN DE ESTUDIANTES</td>
+            </tr>
+            <tr>
+                <td>Competencia</td>
+                <td class="centro">Cognitiva</td>
+                <td class="centro">Comunicativa</td>
+                <td class="centro">Metodológicas</td>
+                <td class="centro">Pedagógico - Didácticas</td>
+                <td class="centro">Socioafectiva</td>
+                <td class="centro">Tecnológica</td>
+                <td class="centro">Promedio</td>
+            </tr>
+            <tr>
+                <td>Calificación</td>
+                <td class="centro">{{ (docente.heteroeval.competencia1)|number_format(1, '.', ',') }}</td>
+                <td class="centro">{{ (docente.heteroeval.competencia2)|number_format(1, '.', ',') }}</td>
+                <td class="centro">{{ (docente.heteroeval.competencia3)|number_format(1, '.', ',') }}</td>
+                <td class="centro">{{ (docente.heteroeval.competencia4)|number_format(1, '.', ',') }}</td>
+                <td class="centro">{{ (docente.heteroeval.competencia5)|number_format(1, '.', ',') }}</td>
+                <td class="centro">{{ (docente.heteroeval.competencia6)|number_format(1, '.', ',') }}</td>
+                <td class="centro">{{ (docente.heteroeval.calificacion)|number_format(1, '.', ',') }}</td>
+            </tr>
+        </table>
+    {% endif %}
+    <table widtd="100%" border="0">
+        <tr>
+            <td class="titulo" colspan="5">RESULTADOS POR INSTRUMENTOS</td>
+        </tr>
+        <tr>
+            <td class="centro">Item</td>
+            <td class="centro">Instrumento</td>
+            <td class="centro">Tipo</td>
+            <td class="centro">Evaluó</td>
+            <td class="centro">Calificación</td>
+        </tr>
+        <tr>
+            <td>A1</td>
+            <td>Plan de Gestión</td>
+            <td>Autoevaluación</td>
+            <td>Docente</td>
+            <td class="centro">{{ docente.evaluacion.auto? docente.evaluacion.auto : 'Sin Autoevaluación' }}</td>
+        </tr>
+        <tr>
+            <td>H1</td>
+            <td>Evaluación de Estudiantes</td>
+            <td>Heteroevaluación</td>
+            <td>Estudiante</td>
+            <td class="centro">{{ docente.evaluacion.hetero1? docente.evaluacion.hetero1 : 'Sin registros' }}</td>
+        </tr>
+        {% if  docente.evaluacion.co5 %}
+            <tr>
+                <td>C2</td>
+                <td>Coevaluación de la Red Tutores</td>
+                <td>Coevaluación</td>
+                <td>Tutor</td>
+                <td class="centro">{{ docente.evaluacion.co5? docente.evaluacion.co5: 'n/a' }}</td>
+            </tr>
+        {% endif %}
+        {% if  docente.evaluacion.co2 %}
+            <tr>
+                <td>C3</td>
+                <td>Coevaluación cómo Tutor</td>
+                <td>Coevaluación</td>
+                <td>Director de Curso</td>
+                <td class="centro">{{ docente.evaluacion.co2 }}</td>
+            </tr>
+        {% endif %}
+        {% if  docente.evaluacion.co3 %}
+            <tr>
+                <td>C4</td>
+                <td>Coevaluación cómo Director</td>
+                <td>Coevaluación</td>
+                <td>Lider de Programa</td>
+                <td class="centro">{{ docente.evaluacion.co3 }}</td>
+            </tr>
+        {% endif %}
+        {% if  docente.evaluacion.co4 %}
+            <tr>
+                <td>C5</td>
+                <td>Coevaluación Lider de Programa</td>
+                <td>Coevaluación</td>
+                <td>Decano Nacional</td>
+                <td class="centro">{{ docente.evaluacion.co4 }}</td>
+            </tr>
+        {% endif %}
+    </table>
 
-<table widtd="100%" border="0">
-      <tr>
-      <td class="titulo" colspan="3">CONSOLIDACIÓN FINAL</td>
-  </tr>
-    <tr>
-    <td class="centro">Tipo de Evaluación</td>
-    <td class="centro">Ponderación:</td>
-    <td class="centro">Porcentil</td>
-  </tr>
-  <tr>
-    <td>Autoevaluación (A1)</td>
-    <td>25%</td>
-    <td class="centro">{{docente.evaluacion.auto? (docente.evaluacion.auto*0.25)|number_format(2, '.', ',') : ''}}</td>
-  </tr>
-  <tr>
-    <td>Heteroevaluación (H1)</td>
-    <td>50%</td>
-    <td class="centro">{{docente.evaluacion.hetero? (docente.evaluacion.hetero*0.50)|number_format(2, '.', ',') : ''}}</td>
-  </tr>
-  <tr>
-    <td>Coevaluación (C2,C3,C4 y C5)</td>
-    <td>25%</td>
-    <td class="centro">{{docente.evaluacion.co? (docente.evaluacion.co*0.25)|number_format(2, '.', ','): ''}}</td>
-  </tr>
-  <tr>
-    <td>Fecha de consolidación: {{docente.evaluacion.fecha|date('d/m/Y')}}</td>
-    <td class="centro"><h3>Evaluación Final del Desempeño</h3></td>
-    <td class="centro"><h3>{{docente.evaluacion.final? docente.evaluacion.final|number_format(1, '.', ',') : '*'}}</h3>
-    </td>
-    </tr>
-</table>
+    <table widtd="100%" border="0">
+        <tr>
+            <td class="titulo" colspan="3">CONSOLIDACIÓN FINAL</td>
+        </tr>
+        <tr>
+            <td class="centro">Tipo de Evaluación</td>
+            <td class="centro">Ponderación:</td>
+            <td class="centro">Porcentil</td>
+        </tr>
+        <tr>
+            <td>Autoevaluación (A1)</td>
+            <td>25%</td>
+            <td class="centro">{{ docente.evaluacion.auto? (docente.evaluacion.auto*0.25)|number_format(2, '.', ',') : '' }}</td>
+        </tr>
+        <tr>
+            <td>Heteroevaluación (H1)</td>
+            <td>50%</td>
+            <td class="centro">{{ docente.evaluacion.hetero? (docente.evaluacion.hetero*0.50)|number_format(2, '.', ',') : '' }}</td>
+        </tr>
+        <tr>
+            <td>Coevaluación (C2,C3,C4 y C5)</td>
+            <td>25%</td>
+            <td class="centro">{{ docente.evaluacion.co? (docente.evaluacion.co*0.25)|number_format(2, '.', ','): '' }}</td>
+        </tr>
+        <tr>
+            <td>
+                {% if docente.evaluacion.fecha %}
+                    Fecha de consolidación: {{ docente.evaluacion.fecha|date('d/m/Y') }}
+                {% endif %}
+            </td>
+            <td class="centro"><h3>
+                    {% if periodo.type == 's' %}
+                        Evaluación Final del Desempeño
+                    {% else %}
+                        Evaluación parcial {{ periodo.year }} {{ periodo.observaciones }}
+                    {% endif %}
+                </h3></td>
+            <td class="centro">
+                <h3>{{ docente.evaluacion.final? docente.evaluacion.final|number_format(1, '.', ',') : '*' }}</h3>
+            </td>
+        </tr>
+    </table>
 
-<table>
-    {%if docente.evaluacion.aclaraciones%}
-    <tr>
-     <td>
-    ACLARACIONES:<br>
-    {{docente.evaluacion.aclaraciones}}
-     </td>
-    </tr>
-     {%endif%}
-    <tr>
-    <td colspan="3" align="center">Evaluación Número:{{docente.id}} -  Fecha y hora de consulta: {{ "now"|date("d/m/Y H:m") }}</td>
-  </tr>
-</table>
+    <table>
+        {% if docente.evaluacion.aclaraciones %}
+            <tr>
+                <td>
+                    ACLARACIONES:<br>
+                    {{ docente.evaluacion.aclaraciones }}
+                </td>
+            </tr>
+        {% endif %}
+        <tr>
+            <td colspan="3" align="center">Evaluación Número:{{ docente.id }} - Fecha y hora de
+                consulta: {{ "now"|date("d/m/Y H:m") }}</td>
+        </tr>
+    </table>
 {% endblock %}
 </html>

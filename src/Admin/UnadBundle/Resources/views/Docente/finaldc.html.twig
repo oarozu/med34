@@ -52,7 +52,7 @@
     </td>
 </table>
   <table width="100%" border="0">
-    <tr>  
+    <tr>
     <td class="titulo">OBSERVACIONES PLAN DE GESTIÓN</td>
     <td>Perfil</td>
     <td>Fecha</td>
@@ -72,7 +72,7 @@ Aprobado
     <tr>
         <td colspan="5">{{avales.observaciones}}</td>
   </tr>
-  {% endfor %}                  
+  {% endfor %}
     </table>
 {%if docente.heteroeval%}
 <table width="100%" border="0">
@@ -80,7 +80,7 @@ Aprobado
       <td class="titulo" colspan="8">EVALUACIÓN DE ESTUDIANTES</td>
   </tr>
   <tr>
-    <td>Competencia</td>  
+    <td>Competencia</td>
     <td class="centro">Cognitiva</td>
     <td class="centro">Comunicativa</td>
     <td class="centro">Metodológicas</td>
@@ -90,7 +90,7 @@ Aprobado
     <td class="centro">Promedio</td>
   </tr>
   <tr>
-       <td>Calificación</td> 
+       <td>Calificación</td>
       <td class="centro">{{(docente.heteroeval.competencia1)|number_format(1, '.', ',')}}</td>
     <td class="centro">{{(docente.heteroeval.competencia2)|number_format(1, '.', ',')}}</td>
     <td class="centro">{{(docente.heteroeval.competencia3)|number_format(1, '.', ',')}}</td>
@@ -148,7 +148,7 @@ Aprobado
   </tr>
   </tr>
 </table>
-       
+
 <table widtd="100%" border="0">
     <tr>
       <td class="titulo" colspan="3">CONSOLIDACIÓN FINAL</td>
@@ -174,7 +174,10 @@ Aprobado
     <td class="centro">{{docente.evaluacion.co? (docente.evaluacion.co*0.25)|number_format(2, '.', ','): 'sin'}}</td>
   </tr>
   <tr>
-    <td>Fecha de consolidación: {{docente.evaluacion.fecha|date('d/m/Y')}}</td>
+    <td>
+        {% if docente.evaluacion.fecha %}
+            Fecha de consolidación: {{ docente.evaluacion.fecha|date('d/m/Y') }}
+        {% endif %}    </td>
     <td class="centro"><h3>Evaluación Final del Desempeño:</h3></td>
     <td class="centro"><h3>{{docente.evaluacion.final? docente.evaluacion.final|number_format(1, '.', ',') : '*'}}</h3>
     </td>

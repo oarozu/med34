@@ -194,7 +194,10 @@
             <td class="centro">{{ docente.evaluacion.co? (docente.evaluacion.co)|number_format(1, '.', ','): '' }}</td>
         </tr>
         <tr>
-            <td>Fecha de consolidación: {{ docente.evaluacion.fecha|date('d/m/Y') }}</td>
+            <td>
+                {% if docente.evaluacion.fecha %}
+                    Fecha de consolidación: {{ docente.evaluacion.fecha|date('d/m/Y') }}
+                {% endif %}            </td>
             <td class="centro"><h3>Evaluación DOFE</h3></td>
             <td class="centro">
                 <h3>

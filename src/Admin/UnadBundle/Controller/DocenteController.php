@@ -542,7 +542,7 @@ class DocenteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AdminUnadBundle:Docente')->find($id);
-
+        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $entity->getPeriodo()));
         if ($entity->getVinculacion() == 'De Carrera') {
             return $this->render('AdminUnadBundle:Docente:finaldc.html.twig', array(
                 'docente' => $entity,
@@ -556,6 +556,7 @@ class DocenteController extends Controller
         } else {
             return array(
                 'docente' => $entity,
+                'periodo' => $periodo
             );
         }
     }
