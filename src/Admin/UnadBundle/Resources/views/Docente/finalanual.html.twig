@@ -56,26 +56,29 @@
 
     <table widtd="100%" border="0">
         <tr>
-            <td class="titulo" colspan="5">RESULTADOS POR PERIODOS ACADÉMICOS</td>
+            <td class="titulo" colspan="5">RESULTADOS POR PERIODOS ACADÉMICOS {{ periodo.year }}</td>
         </tr>
         <tr>
             <td class="centro">ID</td>
-            <td class="centro">Año</td>
             <td class="centro">Periodo</td>
             <td class="centro">Hetero-evaluación</td>
+            <td class="centro">Co-evaluación</td>
             <td class="centro">Auto Evaluación</td>
-            <td class="centro">Co-evalaución</td>
         </tr>
-
-        <tr>
-            <td>idxxx</td>
-            <td>2022xx</td>
-            <td>16-05xx</td>
-            <td>hetero</td>
-            <td class="centro">auto</td>
-            <td class="centro">coeval</td>
-
-        </tr>
+        {% for parcial in parciales %}
+            <tr>
+                <td>{{ parcial.id }}</td>
+                <td>
+                    {% if periodo.id == parcial.periodo %}
+                        PROMEDIO
+                    {% endif %}
+                    {{ parcial.periodo }}
+                </td>
+                <td class="centro">{{ parcial.hetero }}</td>
+                <td class="centro">{{ parcial.co }}</td>
+                <td class="centro">{{ parcial.auto }}</td>
+            </tr>
+        {% endfor %}
     </table>
 
     <table widtd="100%" border="0">
@@ -88,19 +91,19 @@
             <td class="centro">Porcentil</td>
         </tr>
         <tr>
-            <td>Autoevaluación (A1)</td>
-            <td>25%</td>
-            <td class="centro"></td>
-        </tr>
-        <tr>
-            <td>Heteroevaluación (H1)</td>
+            <td>Heteroevaluación</td>
             <td>50%</td>
-            <td class="centro"></td>
+            <td class="centro">{{ docente.evaluacion.hetero? (docente.evaluacion.hetero*0.5)|number_format(1, '.', ',') : '*' }}</td>
         </tr>
         <tr>
-            <td>Coevaluación (C2,C3,C4 y C5)</td>
+            <td>Coevaluación</td>
             <td>25%</td>
-            <td class="centro"></td>
+            <td class="centro">{{ docente.evaluacion.co? (docente.evaluacion.co*0.25)|number_format(1, '.', ',') : '*' }}</td>
+        </tr>
+        <tr>
+            <td>Autoevaluación</td>
+            <td>25%</td>
+            <td class="centro">{{ docente.evaluacion.auto? (docente.evaluacion.auto*0.25)|number_format(1, '.', ',') : '*' }}</td>
         </tr>
         <tr>
             <td>

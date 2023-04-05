@@ -543,6 +543,7 @@ class DocenteController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AdminUnadBundle:Docente')->find($id);
         $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $entity->getPeriodo()));
+        $parciales = $em->getRepository('AdminUnadBundle:Docente')->evalAnual($periodo->getYear(), $entity->getUser()->getId());
         if ($entity->getVinculacion() == 'De Carrera') {
             return $this->render('AdminUnadBundle:Docente:finaldc.html.twig', array(
                 'docente' => $entity,
@@ -553,7 +554,14 @@ class DocenteController extends Controller
                 'docente' => $entity,
                 'red' => $red
             ));
-        } else {
+        } else if($periodo->getType() == "a"){
+            return $this->render('AdminUnadBundle:Docente:finalanual.html.twig', array(
+                'docente' => $entity,
+                'periodo' => $periodo,
+                'parciales' => $parciales
+            ));
+        }
+        else {
             return array(
                 'docente' => $entity,
                 'periodo' => $periodo
