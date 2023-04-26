@@ -46,7 +46,7 @@
   </tr>
 </table>
   <table class="data" width="100%" border="0">
-    <tr>  
+    <tr>
     <td><b>1. Observaciones Plan de Gestión</b></td>
     <td>Perfil</td>
     <td>Fecha</td>
@@ -66,7 +66,7 @@ Aprobado
     <tr>
         <td colspan="5">{{avales.observaciones}}</td>
   </tr>
-  {% endfor %}                  
+  {% endfor %}
     </table>
 {%if docente.heteroeval%}
 <table class="data" width="100%" border="0">
@@ -137,12 +137,12 @@ Aprobado
   </tr>
   </tr>
 </table>
-       
+
 <table  class="data" widtd="100%" border="0">
   <tr>
     <td>Tipo de Evaluación</td>
     <td>Ponderación:</td>
-    <td>Porcentil</td>
+    <td>Percentil</td>
   </tr>
   <tr>
     <td>Autoevaluación (A1)</td>
@@ -169,23 +169,23 @@ Aprobado
 <table>
   <tr>
     <td colspan="3">Observaciones Decano de la Escuela: {{docente.evaluacion.observaciones}}
-    
-    
+
+
    <form  action="{{ path('docente_observaciones', { 'id': docente.id }) }}" method="post" {{ form_start(form) }}
 
    <input type="hidden" name="_method" value="PUT" />
      {{ form_errors(form) }}
    <tr>
        <td>{{ form_widget(form.observaciones) }}</td>
-       
+
    </tr>
    <tr>
     <td><button type="hidden" class="btn btn-lg btn-primary">Guardar</button></td>
   </tr>
   {{ form_widget(form._token) }}
 </form>
-    
-    
+
+
     </td>
     </tr>
     <tr>
