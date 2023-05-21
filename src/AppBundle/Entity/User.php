@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\UserBundle\Entity;
+namespace AppBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -192,9 +192,9 @@ class User implements UserInterface, \Serializable
     /**
      * Add user_roles
      *
-     * @param \Admin\UserBundle\Entity\Roleu $userRoles
+     * @param \AppBundle\Entity\Roleu $userRoles
      */
-    public function addRole(\Admin\UserBundle\Entity\Roleu $userRoles)
+    public function addRole(\AppBundle\Entity\Roleu $userRoles)
     {
         $this->user_roles[] = $userRoles;
     }
@@ -316,10 +316,10 @@ class User implements UserInterface, \Serializable
     /**
      * Add user_roles
      *
-     * @param \Admin\UserBundle\Entity\Roleu $userRoles
+     * @param \AppBundle\Entity\Roleu $userRoles
      * @return User
      */
-    public function addUserRole(\Admin\UserBundle\Entity\Roleu $userRoles)
+    public function addUserRole(\AppBundle\Entity\Roleu $userRoles)
     {
         $this->user_roles[] = $userRoles;
 
@@ -329,9 +329,9 @@ class User implements UserInterface, \Serializable
     /**
      * Remove user_roles
      *
-     * @param \Admin\UserBundle\Entity\Roleu $userRoles
+     * @param \AppBundle\Entity\Roleu $userRoles
      */
-    public function removeUserRole(\Admin\UserBundle\Entity\Roleu $userRoles)
+    public function removeUserRole(\AppBundle\Entity\Roleu $userRoles)
     {
         $this->user_roles->removeElement($userRoles);
     }

@@ -28,7 +28,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Admin\UnadBundle\AdminUnadBundle(),
-            new Admin\UserBundle\AdminUserBundle(),
+            new AppBundle\AppBundle(),
             new Admin\MedBundle\AdminMedBundle(),
         );
 

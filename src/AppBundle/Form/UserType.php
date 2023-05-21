@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\UserBundle\Form;
+namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -43,12 +43,12 @@ class UserType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Admin\UserBundle\Entity\User'
+            'data_class' => 'AppBundle\Entity\User'
         ));
     }
 
     public function getName()
     {
-        return 'admin_userbundle_usertype';
+        return 'appbundle_usertype';
     }
 }

@@ -51,9 +51,9 @@ class EscuelaController extends Controller
         $form->handleRequest($request);
 
         $em = $this->getDoctrine()->getManager();
-        $decano = $em->getRepository('AdminUserBundle:User')->find($form["decano"]->getData());
+        $decano = $em->getRepository('AppBundle:User')->find($form["decano"]->getData());
         $entity->setDecano($decano);
-        $secretaria = $em->getRepository('AdminUserBundle:User')->find($form["secretaria"]->getData());
+        $secretaria = $em->getRepository('AppBundle:User')->find($form["secretaria"]->getData());
         $entity->setSecretaria($secretaria);
 
         if ($form->isValid()) {
@@ -241,9 +241,9 @@ class EscuelaController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
-        $decano = $em->getRepository('AdminUserBundle:User')->find($editForm["decano"]->getData());
+        $decano = $em->getRepository('AppBundle:User')->find($editForm["decano"]->getData());
         $entity->setDecano($decano);
-        $secretaria = $em->getRepository('AdminUserBundle:User')->find($editForm["secretaria"]->getData());
+        $secretaria = $em->getRepository('AppBundle:User')->find($editForm["secretaria"]->getData());
         $entity->setSecretaria($secretaria);
 
         if ($editForm->isValid() && $secretaria && $decano) {

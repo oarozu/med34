@@ -34,7 +34,7 @@ protected $tipo;
 
       /**
      * @var Director
-     * @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User", inversedBy="directorcentro")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="directorcentro")
      * @ORM\JoinColumn(name="director_id", referencedColumnName="id",
      * nullable=true
      * )
@@ -128,10 +128,10 @@ protected $zona;
     /**
      * Set director
      *
-     * @param \Admin\UserBundle\Entity\User $director
+     * @param \AppBundle\Entity\User $director
      * @return Centro
      */
-    public function setDirector(\Admin\UserBundle\Entity\User $director = null)
+    public function setDirector(\AppBundle\Entity\User $director = null)
     {
         $this->director = $director;
 
@@ -141,7 +141,7 @@ protected $zona;
     /**
      * Get director
      *
-     * @return \Admin\UserBundle\Entity\User
+     * @return \AppBundle\Entity\User
      */
     public function getDirector()
     {
@@ -191,7 +191,7 @@ protected $zona;
     /**
      * Get zona
      *
-     * @return \Admin\UserBundle\Entity\Zona
+     * @return \AppBundle\Entity\Zona
      */
     public function getZona()
     {

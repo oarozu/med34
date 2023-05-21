@@ -1,23 +1,23 @@
 <?php
-namespace Admin\UserBundle\Entity;
+namespace AppBundle\Entity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
 class Parabuscar{
-    
+
     /**
      * @Assert\NotBlank()
      */
     public $texto;
-    
-    
-    
+
+
+
         /**
      * @Assert\NotBlank()
      */
     public $parametro;
 
-    
+
     /**
      * Set texto
      *
@@ -27,7 +27,7 @@ class Parabuscar{
     {
         $this->texto = $texto;
     }
-    
+
     /**
      * Get texto
      *
@@ -37,7 +37,7 @@ class Parabuscar{
     {
         return $this->texto;
     }
-    
+
         /**
      * Set parametro
      *
@@ -47,7 +47,7 @@ class Parabuscar{
     {
         $this->parametro = $parametro;
     }
-    
+
     /**
      * Get parametro
      *
@@ -57,5 +57,5 @@ class Parabuscar{
     {
         return $this->parametro;
     }
-    
+
 }

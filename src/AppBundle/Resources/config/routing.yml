@@ -1,0 +1,44 @@
+_admin_usuario:
+    resource: "@AppBundle/Controller/UserController.php"
+    type:     annotation
+
+home_user:
+    path:  /home
+    defaults: { _controller: "AppBundle:Default:home" }
+
+home_user_send:
+    path:  /home/send
+    defaults: { _controller: "AppBundle:Default:send" }
+
+home_user_inicio:
+    path:  /home/inicio
+    defaults: { _controller: "AppBundle:Default:index" }
+
+home_user_periodo:
+    path:  /home/periodo
+    defaults: { _controller: "AppBundle:Default:period" }
+
+home_user_periodo_select:
+    path:  /home/periodo/{id}
+    defaults: { _controller: "AppBundle:Default:select" }
+
+admin_user_show:
+    path:  /unad/user/{id}/doc
+    defaults: { _controller: "AppBundle:User:show" }
+
+admon_user:
+    path:  /admon/user
+    defaults: { _controller: "AppBundle:User:index" }
+
+home_user_info:
+    path:  /home/info
+    defaults: { _controller: "AppBundle:User:info" }
+
+home_pass:
+    path:  /getpass
+    defaults: { _controller: "AppBundle:User:passmed" }
+
+home_pass2:
+    path:  /setpass
+    defaults: { _controller: "AppBundle:User:setpass" }
+    methods: [POST]

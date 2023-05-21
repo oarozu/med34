@@ -62,7 +62,7 @@ protected $fecha_fin;
 
 /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User", inversedBy="docente")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="docente")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id",
      * nullable=false
      * )
@@ -313,10 +313,10 @@ protected $centro;
     /**
      * Set user
      *
-     * @param \Admin\UserBundle\Entity\User $user
+     * @param \AppBundle\Entity\User $user
      * @return Docente
      */
-    public function setUser(\Admin\UserBundle\Entity\User $user)
+    public function setUser(\AppBundle\Entity\User $user)
     {
         $this->user = $user;
 
@@ -326,7 +326,7 @@ protected $centro;
     /**
      * Get user
      *
-     * @return \Admin\UserBundle\Entity\User
+     * @return \AppBundle\Entity\User
      */
     public function getUser()
     {

@@ -39,14 +39,14 @@ class Proyectoi {
 
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id",
      * nullable=false
      * )
      */
     protected $user;
-    
-    
+
+
      /**
      * @ORM\OneToMany(targetEntity="Admin\MedBundle\Entity\Productividad", mappedBy="proyecto")
      */
@@ -56,7 +56,7 @@ class Proyectoi {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId() {
         return $this->id;
@@ -77,7 +77,7 @@ class Proyectoi {
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre() {
         return $this->nombre;
@@ -98,7 +98,7 @@ class Proyectoi {
     /**
      * Get linea
      *
-     * @return string 
+     * @return string
      */
     public function getLinea() {
         return $this->linea;
@@ -107,10 +107,10 @@ class Proyectoi {
     /**
      * Set user
      *
-     * @param \Admin\UserBundle\Entity\User $user
+     * @param \AppBundle\Entity\User $user
      * @return Proyectoi
      */
-    public function setUser(\Admin\UserBundle\Entity\User $user) {
+    public function setUser(\AppBundle\Entity\User $user) {
         $this->user = $user;
 
         return $this;
@@ -119,7 +119,7 @@ class Proyectoi {
     /**
      * Get user
      *
-     * @return \Admin\UserBundle\Entity\User 
+     * @return \AppBundle\Entity\User
      */
     public function getUser() {
         return $this->user;
@@ -142,7 +142,7 @@ class Proyectoi {
     /**
      * Get estado
      *
-     * @return integer 
+     * @return integer
      */
     public function getEstado()
     {
@@ -182,7 +182,7 @@ class Proyectoi {
     /**
      * Get productos
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getProductos()
     {

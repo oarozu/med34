@@ -199,7 +199,7 @@ class CursoController extends Controller
       $Form->handleRequest($request);
       $numeroced = $Form->get('cedula')->getData();
 
-      $usuario = $em->getRepository('AdminUserBundle:User')->find($numeroced);
+      $usuario = $em->getRepository('AppBundle:User')->find($numeroced);
        if (!$usuario) {
        $this->get('session')->getFlashBag()->add('error', 'Cédula no encontrada');
        return $this->redirect($this->generateUrl('curso_show', array('id' => $id)));
@@ -261,7 +261,7 @@ class CursoController extends Controller
       return $this->redirect($this->generateUrl('oferta', array('id' => $id)));
        }
 
-      $usuario = $em->getRepository('AdminUserBundle:User')->find($data->getCedula());
+      $usuario = $em->getRepository('AppBundle:User')->find($data->getCedula());
        if (!$usuario) {
        $this->get('session')->getFlashBag()->add('error', 'Cédula no encontrada');
        return $this->redirect($this->generateUrl('oferta', array('id' => $id)));
@@ -428,7 +428,7 @@ class CursoController extends Controller
       $Form->handleRequest($request);
 
       $ncedula = $Form->get('cedula')->getData();
-      $user = $em->getRepository('AdminUserBundle:User')->find($ncedula);
+      $user = $em->getRepository('AppBundle:User')->find($ncedula);
       $docente = $em->getRepository('AdminUnadBundle:Docente')->findOneBy(array ('user' => $user, 'periodo' => $this->container->getParameter('appmed.periodo') ));
       if (!$docente) {
       $this->get('session')->getFlashBag()->add('error', 'El número no corresponde a un docente');

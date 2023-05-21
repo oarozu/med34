@@ -12,24 +12,24 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 
 class Zona{
-   
+
 /**
  * @ORM\Id
  * @ORM\Column(name="id", type="integer", nullable=false)
  * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-protected $id;    
+protected $id;
 
 /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
- 
+
 protected $nombre;
 
-      /** 
-     * @var Director 
-     * @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User", inversedBy="directorzona")
+      /**
+     * @var Director
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="directorzona")
      * @ORM\JoinColumn(name="director_id", referencedColumnName="id",
      * nullable=false,
      * onDelete="CASCADE"
@@ -41,7 +41,7 @@ protected $director;
 /**
  * @var Nodo
  * @ORM\OneToOne(targetEntity="Admin\UnadBundle\Entity\Centro")
- * @ORM\JoinColumn(name="nodo_id",referencedColumnName="id") 
+ * @ORM\JoinColumn(name="nodo_id",referencedColumnName="id")
      */
  protected $nodo;
 
@@ -53,7 +53,7 @@ protected $director;
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -76,7 +76,7 @@ protected $director;
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -86,10 +86,10 @@ protected $director;
     /**
      * Set director
      *
-     * @param \Admin\UserBundle\Entity\User $director
+     * @param \AppBundle\Entity\User $director
      * @return Zona
      */
-    public function setDirector(\Admin\UserBundle\Entity\User $director)
+    public function setDirector(\AppBundle\Entity\User $director)
     {
         $this->director = $director;
 
@@ -99,7 +99,7 @@ protected $director;
     /**
      * Get director
      *
-     * @return \Admin\UserBundle\Entity\User 
+     * @return \AppBundle\Entity\User
      */
     public function getDirector()
     {
@@ -139,7 +139,7 @@ protected $director;
     /**
      * Get centros
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCentros()
     {
@@ -162,7 +162,7 @@ protected $director;
     /**
      * Get nodo
      *
-     * @return \Admin\UnadBundle\Entity\Centro 
+     * @return \Admin\UnadBundle\Entity\Centro
      */
     public function getNodo()
     {

@@ -193,7 +193,7 @@ class ZonaController extends Controller
         }
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-        $director = $em->getRepository('AdminUserBundle:User')->find($editForm["director"]->getData());
+        $director = $em->getRepository('AppBundle:User')->find($editForm["director"]->getData());
 
         if (count($director) == 0){
             return new JsonResponse(
@@ -276,9 +276,9 @@ class ZonaController extends Controller
             ->getForm()
         ;
     }
-    
-    
-    
+
+
+
         /**
      * @Route("/docs/{id}", name="zona_index")
      * @Method("GET")
@@ -295,7 +295,7 @@ class ZonaController extends Controller
         }
         $centros = $em->getRepository('AdminUnadBundle:Centro')->findBy(array('zona' => $zona[0]));
         $docentes = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('centro' => $centros, 'periodo' => $id));
-        
+
         return array(
             'docentes'      => $docentes,
             'zona'        => $zona[0],

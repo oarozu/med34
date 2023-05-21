@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\UserBundle\Form;
+namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -32,6 +32,6 @@ class PassType extends AbstractType
 
     public function getName()
     {
-        return 'admin_userbundle_passtype';
+        return 'appbundle_passtype';
     }
 }
