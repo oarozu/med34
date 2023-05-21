@@ -3,7 +3,7 @@
 {% block body -%}
 
   <h4 class="modal-title">{{ entity.nombre }}</h4>
-  <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+  <table class="table table-bordered hidden-mobile" style="width: 95%">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -26,7 +26,10 @@
                 <td>{{ entity.secretaria ? entity.secretaria.username~' '~entity.secretaria.nombres~' '~entity.secretaria.apellidos  : 'SIN' }}</td>
             </tr>
             <tr>
-                <th>Docentes por periodo vigencia {{ year }}</th>
+                <th colspan="2">Docentes por periodo</th>
+            </tr>
+            <tr>
+                <th>Periodos parciales vigencia {{ year }}</th>
                 <td>
                 {%for periodo in periodosp %}
                     <a class="btn btn-primary btn-sm" href="{{ path('docente_escuela', {'id': entity.id, 'periodo': periodo.id }) }}">{{ periodo.observaciones }}</a>
@@ -34,9 +37,17 @@
                 </td>
             </tr>
             <tr>
-                <th>Docentes por periodo consolidado</th>
+                <th>Periodos consolidados anuales</th>
                 <td>
-                    {%for periodo in periodos %}
+                    {%for periodo in periodosa %}
+                        <a class="btn btn-primary btn-sm" href="{{ path('docente_escuela', {'id': entity.id, 'periodo': periodo.id }) }}">{{ periodo.observaciones }}</a>
+                    {%endfor%}
+                </td>
+            </tr>
+            <tr>
+                <th>Periodos consolidados semestrales</th>
+                <td>
+                    {%for periodo in periodoss %}
                         <a class="btn btn-primary btn-sm" href="{{ path('docente_escuela', {'id': entity.id, 'periodo': periodo.id }) }}">{{ periodo.observaciones }}</a>
                     {%endfor%}
                 </td>

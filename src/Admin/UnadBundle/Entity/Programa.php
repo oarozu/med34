@@ -44,7 +44,7 @@ protected $escuela;
 
     /**
      * @var Lider
-     * @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User", inversedBy="lider")
+     * @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="lider_id", referencedColumnName="id",
      * nullable=true
      * )

@@ -149,7 +149,8 @@ class EscuelaController extends Controller
         $session = $request->getSession();
         $year = $this->container->getParameter('appmed.year');
         $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
-        $periodose = $em->getRepository('AdminMedBundle:Periodoe')->findby(array('type' => 's'), array('id' => 'DESC'), 10);
+        $periodoss = $em->getRepository('AdminMedBundle:Periodoe')->findby(array('type' => 's'), array('id' => 'DESC'), 10);
+        $periodosa = $em->getRepository('AdminMedBundle:Periodoe')->findby(array('type' => 'a'), array('id' => 'DESC'), 5);
         $periodosp = $em->getRepository('AdminMedBundle:Periodoe')->findby(array('type' => 'p', 'year' => $year), array('id' => 'DESC'));
         $programas = $em->getRepository('AdminUnadBundle:Programa')->findBy(array('escuela' => $escuela), array('nivel' => 'DESC'));
         $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
@@ -163,7 +164,8 @@ class EscuelaController extends Controller
         return array(
             'entity' => $escuela,
             'ofertado' => $ofertado,
-            'periodos' => $periodose,
+            'periodoss' => $periodoss,
+            'periodosa' => $periodosa,
             'periodosp' => $periodosp,
             'periodo' => $periodo,
             'year' => $year

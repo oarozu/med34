@@ -17,8 +17,8 @@ class Docente{
  * @ORM\Column(name="id", type="integer", nullable=false)
  * @ORM\GeneratedValue(strategy="NONE")
      */
- protected $id;  
- 
+ protected $id;
+
  /**
      * @ORM\Column(type="string", length=10)
      * @Assert\NotBlank()
@@ -39,7 +39,7 @@ protected $cargo;
      * @ORM\Column(type="string", length=15, nullable=true)
      */
 protected $resolucion;
- 
+
  /**
      * @ORM\Column(type="string", length=15)
      */
@@ -60,7 +60,7 @@ protected $fecha_inicio;
   */
 protected $fecha_fin;
 
-/** 
+/**
      * @var User
      * @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User", inversedBy="docente")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id",
@@ -70,7 +70,7 @@ protected $fecha_fin;
 protected $user;
 
 
-/** 
+/**
      * @var Escuela
      * @ORM\ManyToOne(targetEntity="Admin\UnadBundle\Entity\Escuela", inversedBy="docentes")
      * @ORM\JoinColumn(name="escuela_id", referencedColumnName="id",
@@ -79,7 +79,7 @@ protected $user;
      */
 protected $escuela;
 
-/** 
+/**
      * @var Programa
      * @ORM\ManyToOne(targetEntity="Admin\UnadBundle\Entity\Programa", inversedBy="docentes")
      * @ORM\JoinColumn(name="programa_id", referencedColumnName="id",
@@ -89,9 +89,9 @@ protected $escuela;
 protected $programa;
 
 
-/** 
+/**
      * @var Centro
-     * @ORM\ManyToOne(targetEntity="Admin\UnadBundle\Entity\Centro", inversedBy="docentes")
+     * @ORM\ManyToOne(targetEntity="Admin\UnadBundle\Entity\Centro")
      * @ORM\JoinColumn(name="centro_id", referencedColumnName="id",
      * nullable=false
      * )
@@ -103,53 +103,53 @@ protected $centro;
      * @ORM\OneToMany(targetEntity="Admin\MedBundle\Entity\Planmejoramiento", mappedBy="docente")
      */
     protected $planmejoramiento;
-    
+
 
     /**
      * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\ProgramaPeriodo", mappedBy="lider")
      */
     protected $lider;
-    
-    
+
+
     /**
      * @ORM\OneToMany(targetEntity="Admin\MedBundle\Entity\Oferta", mappedBy="director")
      */
-    protected $director;    
+    protected $director;
 
-    
+
    /**
-    * @ORM\OneToOne(targetEntity="Admin\MedBundle\Entity\Plangestion", mappedBy="docente") 
+    * @ORM\OneToOne(targetEntity="Admin\MedBundle\Entity\Plangestion", mappedBy="docente")
     */
    protected $plangestion;
-   
+
 
     /**
     * @ORM\OneToMany(targetEntity="Admin\MedBundle\Entity\Tutor", mappedBy="docente")
     */
     protected $tutoria;
-    
-   
+
+
     /**
-    * @ORM\OneToMany(targetEntity="Admin\MedBundle\Entity\coevalPares", mappedBy="evaluado") 
+    * @ORM\OneToMany(targetEntity="Admin\MedBundle\Entity\coevalPares", mappedBy="evaluado")
     */
    protected $coevaldepar;
-   
-   
+
+
     /**
-    * @ORM\OneToOne(targetEntity="Admin\MedBundle\Entity\Heteroeval", mappedBy="docente") 
+    * @ORM\OneToOne(targetEntity="Admin\MedBundle\Entity\Heteroeval", mappedBy="docente")
     */
    protected $heteroeval;
-   
+
     /**
-    * @ORM\OneToOne(targetEntity="Admin\MedBundle\Entity\Evaluacion", mappedBy="docente") 
+    * @ORM\OneToOne(targetEntity="Admin\MedBundle\Entity\Evaluacion", mappedBy="docente")
     */
    protected $evaluacion;
-   
+
     /**
-    * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\Terna", mappedBy="docente") 
+    * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\Terna", mappedBy="docente")
     */
    protected $ternado;
-   
+
     /**
      * Set id
      *
@@ -166,7 +166,7 @@ protected $centro;
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -189,12 +189,12 @@ protected $centro;
     /**
      * Get modalidad
      *
-     * @return string 
+     * @return string
      */
     public function getModalidad()
     {
             if ($this->modalidad == 'TC'){
-            return 'Tiempo Completo';   
+            return 'Tiempo Completo';
         }
         Elseif($this->modalidad == 'MT'){
             return 'Medio Tiempo';
@@ -203,7 +203,7 @@ protected $centro;
             return 'Hora Catedra';
         }
         Else {
-          return $this->modalidad;  
+          return $this->modalidad;
         }
     }
 
@@ -223,12 +223,12 @@ protected $centro;
     /**
      * Get vinculacion
      *
-     * @return string 
+     * @return string
      */
     public function getVinculacion()
     {
         if ($this->vinculacion == 'DC'){
-            return 'De Carrera';   
+            return 'De Carrera';
         }
         Elseif($this->vinculacion == 'DO'){
             return 'Ocasional';
@@ -237,7 +237,7 @@ protected $centro;
             return 'Hora Catedra';
         }
         Else {
-          return $this->vinculacion;  
+          return $this->vinculacion;
         }
     }
 
@@ -257,7 +257,7 @@ protected $centro;
     /**
      * Get cargo
      *
-     * @return string 
+     * @return string
      */
     public function getCargo()
     {
@@ -280,7 +280,7 @@ protected $centro;
     /**
      * Get resolucion
      *
-     * @return string 
+     * @return string
      */
     public function getResolucion()
     {
@@ -303,7 +303,7 @@ protected $centro;
     /**
      * Get perfil
      *
-     * @return string 
+     * @return string
      */
     public function getPerfil()
     {
@@ -326,7 +326,7 @@ protected $centro;
     /**
      * Get user
      *
-     * @return \Admin\UserBundle\Entity\User 
+     * @return \Admin\UserBundle\Entity\User
      */
     public function getUser()
     {
@@ -349,7 +349,7 @@ protected $centro;
     /**
      * Get escuela
      *
-     * @return \Admin\UnadBundle\Entity\Escuela 
+     * @return \Admin\UnadBundle\Entity\Escuela
      */
     public function getEscuela()
     {
@@ -372,7 +372,7 @@ protected $centro;
     /**
      * Get centro
      *
-     * @return \Admin\UnadBundle\Entity\Centro 
+     * @return \Admin\UnadBundle\Entity\Centro
      */
     public function getCentro()
     {
@@ -402,7 +402,7 @@ protected $centro;
     /**
      * Get programa
      *
-     * @return \Admin\UnadBundle\Entity\Programa 
+     * @return \Admin\UnadBundle\Entity\Programa
      */
     public function getPrograma()
     {
@@ -435,7 +435,7 @@ protected $centro;
     /**
      * Get planmejoramiento
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPlanmejoramiento()
     {
@@ -469,7 +469,7 @@ protected $centro;
     /**
      * Get director
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getDirector()
     {
@@ -506,7 +506,7 @@ protected $centro;
     /**
      * Get plangestion
      *
-     * @return \Admin\MedBundle\Entity\Plangestion 
+     * @return \Admin\MedBundle\Entity\Plangestion
      */
     public function getPlangestion()
     {
@@ -540,7 +540,7 @@ protected $centro;
     /**
      * Get coevaldepar
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCoevaldepar()
     {
@@ -564,7 +564,7 @@ protected $centro;
     /**
      * Get heteroeval
      *
-     * @return \Admin\MedBundle\Entity\Heteroeval 
+     * @return \Admin\MedBundle\Entity\Heteroeval
      */
     public function getHeteroeval()
     {
@@ -587,7 +587,7 @@ protected $centro;
     /**
      * Get evaluacion
      *
-     * @return \Admin\MedBundle\Entity\Evaluacion 
+     * @return \Admin\MedBundle\Entity\Evaluacion
      */
     public function getEvaluacion()
     {
@@ -610,7 +610,7 @@ protected $centro;
     /**
      * Get periodo
      *
-     * @return integer 
+     * @return integer
      */
     public function getPeriodo()
     {
@@ -630,7 +630,7 @@ protected $centro;
     /**
      * Get tutoria
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTutoria()
     {
@@ -663,7 +663,7 @@ protected $centro;
     /**
      * Get ternado
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTernado()
     {
@@ -686,7 +686,7 @@ protected $centro;
     /**
      * Get fecha_inicio
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaInicio()
     {
@@ -709,7 +709,7 @@ protected $centro;
     /**
      * Get fecha_fin
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaFin()
     {
@@ -742,7 +742,7 @@ protected $centro;
     /**
      * Get lider
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getLider()
     {
