@@ -115,18 +115,18 @@
             <td class="centro">Calificación</td>
         </tr>
         <tr>
-            <td>A1</td>
-            <td>Plan de Gestión</td>
-            <td>Autoevaluación</td>
-            <td>Docente</td>
-            <td class="centro">{{ docente.evaluacion.auto? docente.evaluacion.auto : 'Sin Autoevaluación' }}</td>
-        </tr>
-        <tr>
             <td>H1</td>
             <td>Evaluación de Estudiantes</td>
             <td>Heteroevaluación</td>
             <td>Estudiante</td>
             <td class="centro">{{ docente.evaluacion.hetero1? docente.evaluacion.hetero1 : 'Sin registros' }}</td>
+        </tr>
+        <tr>
+            <td>A1</td>
+            <td>Plan de Gestión</td>
+            <td>Autoevaluación</td>
+            <td>Docente</td>
+            <td class="centro">{{ docente.evaluacion.auto? docente.evaluacion.auto : 'Sin Autoevaluación' }}</td>
         </tr>
         {% if  docente.evaluacion.co5 %}
             <tr>
