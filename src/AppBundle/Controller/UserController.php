@@ -1,8 +1,8 @@
 <?php
 
-namespace Admin\UserBundle\Controller;
+namespace AppBundle\Controller;
 
-use Admin\UserBundle\Form\CedulaType;
+use AppBundle\Form\CedulaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,12 +11,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Admin\UserBundle\Entity\Parabuscar;
-use Admin\UserBundle\Entity\User;
-use Admin\UserBundle\Form\UserType;
-use Admin\UserBundle\Form\BuscarType;
-use Admin\UserBundle\Form\PassType;
-use Admin\UserBundle\Entity\Newpass;
+use AppBundle\Entity\Parabuscar;
+use AppBundle\Entity\User;
+use AppBundle\Form\UserType;
+use AppBundle\Form\BuscarType;
+use AppBundle\Form\PassType;
+use AppBundle\Entity\Newpass;
 
 /**
  * User controller.
@@ -35,7 +35,7 @@ class UserController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $dql = "select a from AdminUserBundle:User a ORDER BY a.updated DESC";
+        $dql = "select a from AppBundle:User a ORDER BY a.updated DESC";
         $query = $em->createQuery($dql);
         $query->setMaxResults(200);
         $entities = $query->getResult();
@@ -62,7 +62,7 @@ class UserController extends Controller
             $entities = $this->buscarDocenteAction($valores->getTexto(), $valores->getParametro());
         }
 
-        return $this->render('AdminUserBundle:User:index.html.twig', array(
+        return $this->render('AppBundle:User:index.html.twig', array(
             'entities' => $entities,
             'form' => $Form->createView(),
             'newform' => $newform->createView()
@@ -76,7 +76,7 @@ class UserController extends Controller
      */
     public function infoAction()
     {
-        return $this->render('AdminUserBundle:User:info.html.twig');
+        return $this->render('AppBundle:User:info.html.twig');
     }
 
     /**
@@ -102,11 +102,11 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         if ($parametro == 'ced') {
-            $query = $em->createQuery('SELECT a FROM AdminUserBundle:User a WHERE a.id LIKE :text');
+            $query = $em->createQuery('SELECT a FROM AppBundle:User a WHERE a.id LIKE :text');
         } elseif ($parametro == 'nom') {
-            $query = $em->createQuery('SELECT a FROM AdminUserBundle:User a WHERE a.nombres LIKE :text');
+            $query = $em->createQuery('SELECT a FROM AppBundle:User a WHERE a.nombres LIKE :text');
         } elseif ($parametro == 'apell') {
-            $query = $em->createQuery('SELECT a FROM AdminUserBundle:User a WHERE a.apellidos LIKE :text ');
+            $query = $em->createQuery('SELECT a FROM AppBundle:User a WHERE a.apellidos LIKE :text ');
         }
         $query->setMaxResults(200);
         $query->setParameters(array(
@@ -137,7 +137,7 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('admin_user_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('AdminUserBundle:User:new.html.twig', array(
+        return $this->render('AppBundle:User:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
         ));
@@ -154,7 +154,7 @@ class UserController extends Controller
         $entity = new User();
         $form = $this->createForm(UserType::class, $entity);
 
-        return $this->render('AdminUserBundle:User:new.html.twig', array(
+        return $this->render('AppBundle:User:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
         ));
@@ -172,7 +172,7 @@ class UserController extends Controller
 
         $archivo = $em->getRepository('AdminMedBundle:Archivo')->findBy(array('cedula' => $id));
 
-        $entity = $em->getRepository('AdminUserBundle:User')->find($id);
+        $entity = $em->getRepository('AppBundle:User')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
@@ -180,7 +180,7 @@ class UserController extends Controller
 
         $passForm = $this->createCedulaForm($entity);
 
-        return $this->render('AdminUserBundle:User:show.html.twig', array(
+        return $this->render('AppBundle:User:show.html.twig', array(
             'entity' => $entity,
             'newpass_form' => $passForm->createView(),
             'archivo' => $archivo,
@@ -191,17 +191,17 @@ class UserController extends Controller
      * Lists all Usuarios entities.
      * @Route("/{id}/edit", name="admin_user_edit")
      * @Method("GET")
-     * @Template("AdminUserBundle:User:edit.html.twig")
+     * @Template("AppBundle:User:edit.html.twig")
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AdminUserBundle:User')->find($id);
+        $entity = $em->getRepository('AppBundle:User')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
         }
         $editForm = $this->createEditForm($entity);
-        return $this->render('AdminUserBundle:User:edit.html.twig', array(
+        return $this->render('AppBundle:User:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
         ));
@@ -211,7 +211,7 @@ class UserController extends Controller
      * Lists all Usuarios entities.
      * @Route("/{id}/update", name="admin_user_update")
      * @Method("PUT")
-     * @Template("AdminUserBundle:User:edit.html.twig")
+     * @Template("AppBundle:User:edit.html.twig")
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
@@ -219,7 +219,7 @@ class UserController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AdminUserBundle:User')->find($id);
+        $entity = $em->getRepository('AppBundle:User')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
         }
@@ -257,7 +257,7 @@ class UserController extends Controller
      * Lists all Usuarios entities.
      * @Route("/{id}/newpass", name="admin_user_newpass")
      * @Method("POST")
-     * @Template("AdminUserBundle:User:show.html.twig")
+     * @Template("AppBundle:User:show.html.twig")
      */
     public function newpassAction(Request $request, $id)
     {
@@ -266,7 +266,7 @@ class UserController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AdminUserBundle:User')->find($id);
+        $entity = $em->getRepository('AppBundle:User')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
@@ -305,7 +305,7 @@ class UserController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AdminUserBundle:User')->find($id);
+            $entity = $em->getRepository('AppBundle:User')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find User entity.');
@@ -367,7 +367,7 @@ class UserController extends Controller
         return $randomString;
     }
 
-    public function enviarMail(\Admin\UserBundle\Entity\User $user, $newpass)
+    public function enviarMail(\AppBundle\Entity\User $user, $newpass)
     {
         $message = \Swift_Message::newInstance()
             ->setSubject('Contraseña del Módulo MED para ' . $user->getId())
@@ -375,7 +375,7 @@ class UserController extends Controller
             ->setTo(array($user->getEmail() => $user->getNombres() . ' ' . $user->getApellidos()))
             ->setBody(
                 $this->renderView(
-                    'AdminUserBundle:User:newpass.txt.twig',
+                    'AppBundle:User:newpass.txt.twig',
                     array('user' => $user,
                         'newpass' => $newpass
                     )
@@ -391,7 +391,7 @@ class UserController extends Controller
     {
         $valores = new Newpass();
         $Form = $this->createForm(PassType::class, $valores);
-        return $this->render('AdminUserBundle:Default:passmed.html.twig', array(
+        return $this->render('AppBundle:Default:passmed.html.twig', array(
             'form' => $Form->createView(),
         ));
     }
@@ -414,7 +414,7 @@ class UserController extends Controller
             $unidad = (int)$Form["unidad"]->getData();
 
 
-            $user = $em->getRepository('AdminUserBundle:User')->find($username);
+            $user = $em->getRepository('AppBundle:User')->find($username);
             $docente = $em->getRepository('AdminUnadBundle:Docente')->findOneBy(array('user' => $user, 'periodo' => $this->container->getParameter('appmed.periodo')));
             $escuela_id = $docente->getEscuela()->getId();
             $docente_vinculacion = $docente->getVinculacion();
@@ -435,7 +435,7 @@ class UserController extends Controller
                         $response = new JsonResponse(
                             array(
                                 'message' => '<div class="alert alert-warning fade in"><i class="fa-fw fa fa-check"></i><strong>Error !</strong> Error al enviar el correo. Se restablecio su ingreso mediante intranet<a href="http://intranet.unad.edu.co/"> Continuar..</a></div>',
-                                'form' => $this->renderView('AdminUserBundle:Default:passmed.html.twig', array(
+                                'form' => $this->renderView('AppBundle:Default:passmed.html.twig', array(
                                     'form' => $Form->createView(),
                                 ))),
                             200
@@ -449,7 +449,7 @@ class UserController extends Controller
                     $response = new JsonResponse(
                         array(
                             'message' => '<div class="alert alert-success fade in"><i class="fa-fw fa fa-check"></i><strong>Hecho !</strong> Se genero una nueva contraseña de ingreso al MED y se envio a su correo institucional con las instrucciones. <a href="../login">Continuar..</a></div>',
-                            'form' => $this->renderView('AdminUserBundle:Default:passmed.html.twig', array(
+                            'form' => $this->renderView('AppBundle:Default:passmed.html.twig', array(
                                 'form' => $Form->createView(),
                             ))),
                         200
@@ -460,7 +460,7 @@ class UserController extends Controller
                     $response = new JsonResponse(
                         array(
                             'message' => '<div class="alert alert-danger fade in"><i class="fa-fw fa fa-times"></i><strong>Error !</strong> La información suministrada no coincide con la información registrada.</div>',
-                            'form' => $this->renderView('AdminUserBundle:Default:passform.html.twig', array(
+                            'form' => $this->renderView('AppBundle:Default:passform.html.twig', array(
                                 'form' => $Form->createView(),
                             ))),
                         400
@@ -472,7 +472,7 @@ class UserController extends Controller
                 $response = new JsonResponse(
                     array(
                         'message' => '<div class="alert alert-danger fade in"><i class="fa-fw fa fa-times"></i><strong>Error !</strong> La información suministrada no coincide con la información registrada.</div>',
-                        'form' => $this->renderView('AdminUserBundle:Default:passform.html.twig', array(
+                        'form' => $this->renderView('AppBundle:Default:passform.html.twig', array(
                             'form' => $Form->createView(),
                         ))),
                     400
@@ -482,7 +482,7 @@ class UserController extends Controller
         }
         $response = new JsonResponse(
             array(
-                'form' => $this->renderView('AdminUserBundle:Default:passform.html.twig', array(
+                'form' => $this->renderView('AppBundle:Default:passform.html.twig', array(
                     'form' => $Form->createView(),
                 ))),
             400

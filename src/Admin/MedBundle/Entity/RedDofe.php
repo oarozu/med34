@@ -63,7 +63,7 @@ class RedDofe {
 
     /**
      * @var Evaluador
-     * @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumn(name="evaluador_id", referencedColumnName="id",
      * nullable=false
      * )
@@ -79,8 +79,8 @@ class RedDofe {
      * @ORM\Column(type="decimal", scale=2, nullable=true)
      */
     protected $calificacion;
-    
-    
+
+
     /**
     * @ORM\Column(type="datetime", nullable=true)
     */
@@ -89,7 +89,7 @@ class RedDofe {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -112,7 +112,7 @@ class RedDofe {
     /**
      * Get periodo
      *
-     * @return integer 
+     * @return integer
      */
     public function getPeriodo()
     {
@@ -135,7 +135,7 @@ class RedDofe {
     /**
      * Get perfil
      *
-     * @return string 
+     * @return string
      */
     public function getPerfil()
     {
@@ -158,7 +158,7 @@ class RedDofe {
     /**
      * Get calificacion
      *
-     * @return string 
+     * @return string
      */
     public function getCalificacion()
     {
@@ -181,7 +181,7 @@ class RedDofe {
     /**
      * Get docente
      *
-     * @return \Admin\UnadBundle\Entity\Docente 
+     * @return \Admin\UnadBundle\Entity\Docente
      */
     public function getDocente()
     {
@@ -204,7 +204,7 @@ class RedDofe {
     /**
      * Get rol
      *
-     * @return \Admin\MedBundle\Entity\Rolacademico 
+     * @return \Admin\MedBundle\Entity\Rolacademico
      */
     public function getRol()
     {
@@ -227,7 +227,7 @@ class RedDofe {
     /**
      * Get escuela
      *
-     * @return \Admin\UnadBundle\Entity\Escuela 
+     * @return \Admin\UnadBundle\Entity\Escuela
      */
     public function getEscuela()
     {
@@ -250,7 +250,7 @@ class RedDofe {
     /**
      * Get zona
      *
-     * @return \Admin\UnadBundle\Entity\Zona 
+     * @return \Admin\UnadBundle\Entity\Zona
      */
     public function getZona()
     {
@@ -273,7 +273,7 @@ class RedDofe {
     /**
      * Get programa
      *
-     * @return \Admin\UnadBundle\Entity\Programa 
+     * @return \Admin\UnadBundle\Entity\Programa
      */
     public function getPrograma()
     {
@@ -283,10 +283,10 @@ class RedDofe {
     /**
      * Set evaluador
      *
-     * @param \Admin\UserBundle\Entity\User $evaluador
+     * @param \AppBundle\Entity\User $evaluador
      * @return RedDofe
      */
-    public function setEvaluador(\Admin\UserBundle\Entity\User $evaluador)
+    public function setEvaluador(\AppBundle\Entity\User $evaluador)
     {
         $this->evaluador = $evaluador;
 
@@ -296,7 +296,7 @@ class RedDofe {
     /**
      * Get evaluador
      *
-     * @return \Admin\UserBundle\Entity\User 
+     * @return \AppBundle\Entity\User
      */
     public function getEvaluador()
     {
@@ -319,7 +319,7 @@ class RedDofe {
     /**
      * Get fecha
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFecha()
     {

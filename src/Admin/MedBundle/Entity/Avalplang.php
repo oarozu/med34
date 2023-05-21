@@ -18,8 +18,8 @@ class Avalplang{
  * @ORM\GeneratedValue(strategy="AUTO")
      */
  protected $id;
- 
- 
+
+
   /**
   * @ORM\Column(type="string", length=5)
   */
@@ -32,7 +32,7 @@ protected $periodo;
 
  /**
   * @ORM\Column(type="text", length=1024, nullable=true)
-  * 
+  *
   */
 protected $observaciones;
 
@@ -46,8 +46,8 @@ protected $fecha_aval;
   */
 protected $avalado;
 
- /** 
-    * @var Plan 
+ /**
+    * @var Plan
     * @ORM\ManyToOne(targetEntity="Admin\MedBundle\Entity\Plangestion", inversedBy="avales")
     * @ORM\JoinColumn(name="plangestion_id", referencedColumnName="id",
     * nullable=false
@@ -55,9 +55,9 @@ protected $avalado;
     */
 protected $plan;
 
-/** 
-    * @var User 
-    * @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User")
+/**
+    * @var User
+    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
     * @ORM\JoinColumn(name="user_id", referencedColumnName="id",
     * nullable=false
     * )
@@ -68,7 +68,7 @@ protected $user;
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -91,7 +91,7 @@ protected $user;
     /**
      * Get perfil
      *
-     * @return string 
+     * @return string
      */
     public function getPerfil()
     {
@@ -114,7 +114,7 @@ protected $user;
     /**
      * Get observaciones
      *
-     * @return string 
+     * @return string
      */
     public function getObservaciones()
     {
@@ -137,7 +137,7 @@ protected $user;
     /**
      * Get fecha_aval
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaAval()
     {
@@ -160,17 +160,17 @@ protected $user;
     /**
      * Get avalado
      *
-     * @return integer 
+     * @return integer
      */
     public function getAvalado()
     {
         return $this->avalado;
     }
-    
+
      /**
      * Get avalado
      *
-     * @return integer 
+     * @return integer
      */
     public function getEstado()
     {
@@ -178,10 +178,10 @@ protected $user;
         return 'Aprobado';
         }
         else if ($this->avalado == 2){
-        return 'No Aprobado';  
+        return 'No Aprobado';
         }
-        else{ 
-        return '';    
+        else{
+        return '';
         }
     }
 
@@ -201,7 +201,7 @@ protected $user;
     /**
      * Get plan
      *
-     * @return \Admin\MedBundle\Entity\Plangestion 
+     * @return \Admin\MedBundle\Entity\Plangestion
      */
     public function getPlan()
     {
@@ -211,10 +211,10 @@ protected $user;
     /**
      * Set user
      *
-     * @param \Admin\UserBundle\Entity\User $user
+     * @param \AppBundle\Entity\User $user
      * @return Avalplang
      */
-    public function setUser(\Admin\UserBundle\Entity\User $user)
+    public function setUser(\AppBundle\Entity\User $user)
     {
         $this->user = $user;
 
@@ -224,13 +224,13 @@ protected $user;
     /**
      * Get user
      *
-     * @return \Admin\UserBundle\Entity\User 
+     * @return \AppBundle\Entity\User
      */
     public function getUser()
     {
         return $this->user;
     }
-        
+
 
     /**
      * Set periodo
@@ -248,7 +248,7 @@ protected $user;
     /**
      * Get periodo
      *
-     * @return integer 
+     * @return integer
      */
     public function getPeriodo()
     {

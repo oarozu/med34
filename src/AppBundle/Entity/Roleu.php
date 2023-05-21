@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\UserBundle\Entity;
+namespace AppBundle\Entity;
 
 use Symfony\Component\Security\Core\Role\Role;
 use Doctrine\ORM\Mapping as ORM;
@@ -26,8 +26,8 @@ class Roleu extends Role
   /**
      * @ORM\Column(type="text", length=255)
      */
-protected $descripcion;    
-    
+protected $descripcion;
+
     /**
      * Get id
      *
@@ -47,7 +47,7 @@ protected $descripcion;
     {
         $this->name = $name;
     }
-    
+
     /**
      * Get name
      *
@@ -83,8 +83,8 @@ protected $descripcion;
     {
         list($this->id, $this->name) = \json_decode(
                 $serialized);
-    } 
-    
+    }
+
 
     /**
      * Set descripcion
@@ -95,14 +95,14 @@ protected $descripcion;
     public function setDescripcion($descripcion)
     {
         $this->descripcion = $descripcion;
-    
+
         return $this;
     }
 
     /**
      * Get descripcion
      *
-     * @return string 
+     * @return string
      */
     public function getDescripcion()
     {

@@ -1,13 +1,13 @@
 security:
     encoders:
-        Admin\UserBundle\Entity\User:
+        AppBundle\Entity\User:
             algorithm: sha512
             encode-as-base64: true
             iterations: 10
 
     providers:
         user_db:
-            entity: { class: Admin\UserBundle\Entity\User, property: username }
+            entity: { class: AppBundle\Entity\User, property: username }
 
     firewalls:
 

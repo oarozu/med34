@@ -191,7 +191,7 @@ class CentroController extends Controller
         $editForm->handleRequest($request);
 
         $cedulaDirector =  $editForm["cedulaDirector"]->getData();
-        $director = $em->getRepository('AdminUserBundle:User')->find($cedulaDirector);
+        $director = $em->getRepository('AppBundle:User')->find($cedulaDirector);
         $entity->setDirector($director);
 
         if ($editForm->isValid()) {

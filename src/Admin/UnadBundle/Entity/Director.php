@@ -17,24 +17,24 @@ class Director{
  * @ORM\GeneratedValue(strategy="AUTO")
  */
  protected $id;
- 
-/** 
+
+/**
 * @var Centro
 * @ORM\ManyToOne(targetEntity="Admin\UnadBundle\Entity\Centro")
 * @ORM\JoinColumn(name="centro_id", referencedColumnName="id", nullable=false)
 */
 protected $centro;
- 
-/** 
+
+/**
 * @var Periodo
 * @ORM\ManyToOne(targetEntity="Admin\MedBundle\Entity\Periodoe")
 * @ORM\JoinColumn(name="periodo_id", referencedColumnName="id", nullable=false)
 */
 protected $periodo;
 
-/** 
-* @var Director 
-* @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User")
+/**
+* @var Director
+* @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
 * @ORM\JoinColumn(name="director_id", referencedColumnName="id",
 * nullable=true
 * )
@@ -44,7 +44,7 @@ protected $director;
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -67,7 +67,7 @@ protected $director;
     /**
      * Get centro
      *
-     * @return \Admin\UnadBundle\Entity\Centro 
+     * @return \Admin\UnadBundle\Entity\Centro
      */
     public function getCentro()
     {
@@ -90,7 +90,7 @@ protected $director;
     /**
      * Get periodo
      *
-     * @return \Admin\MedBundle\Entity\Periodoe 
+     * @return \Admin\MedBundle\Entity\Periodoe
      */
     public function getPeriodo()
     {
@@ -101,10 +101,10 @@ protected $director;
     /**
      * Set director
      *
-     * @param \Admin\UserBundle\Entity\User $director
+     * @param \AppBundle\Entity\User $director
      * @return Director
      */
-    public function setDirector(\Admin\UserBundle\Entity\User $director = null)
+    public function setDirector(\AppBundle\Entity\User $director = null)
     {
         $this->director = $director;
 
@@ -114,7 +114,7 @@ protected $director;
     /**
      * Get director
      *
-     * @return \Admin\UserBundle\Entity\User 
+     * @return \AppBundle\Entity\User
      */
     public function getDirector()
     {

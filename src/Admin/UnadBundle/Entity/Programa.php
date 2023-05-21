@@ -44,7 +44,7 @@ protected $escuela;
 
     /**
      * @var Lider
-     * @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumn(name="lider_id", referencedColumnName="id",
      * nullable=true
      * )
@@ -186,10 +186,10 @@ protected $escuela;
     /**
      * Set lider
      *
-     * @param Admin\UserBundle\Entity\User $lider
+     * @param AppBundle\Entity\User $lider
      * @return Programa
      */
-    public function setLider(\Admin\UserBundle\Entity\User $lider = null)
+    public function setLider(\AppBundle\Entity\User $lider = null)
     {
         $this->lider = $lider;
 
@@ -199,7 +199,7 @@ protected $escuela;
     /**
      * Get lider
      *
-     * @return \Admin\UserBundle\Entity\User
+     * @return \AppBundle\Entity\User
      */
     public function getLider()
     {

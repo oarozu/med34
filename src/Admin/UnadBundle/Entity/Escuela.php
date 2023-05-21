@@ -12,21 +12,21 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 
 class Escuela{
-   
+
 /**
  * @ORM\Id
  * @ORM\Column(name="id", type="integer", nullable=false)
  * @ORM\GeneratedValue(strategy="IDENTITY")
      */
- protected $id;    
- 
+ protected $id;
+
  /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
- 
+
 protected $nombre;
-         
+
 /**
      * @ORM\Column(type="string", length=10)
      * @Assert\NotBlank()
@@ -35,9 +35,9 @@ protected $nombre;
 protected $sigla;
 
 
-      /** 
-     * @var Decano 
-     * @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User", inversedBy="decano")
+      /**
+     * @var Decano
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="decano")
      * @ORM\JoinColumn(name="decano_id", referencedColumnName="id",
      * nullable=false
      * )
@@ -45,9 +45,9 @@ protected $sigla;
 protected $decano;
 
 
-      /** 
-     * @var Secretaria 
-     * @ORM\ManyToOne(targetEntity="Admin\UserBundle\Entity\User", inversedBy="secretaria")
+      /**
+     * @var Secretaria
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="secretaria")
      * @ORM\JoinColumn(name="secretaria_id", referencedColumnName="id",
      * nullable=true
      * )
@@ -63,7 +63,7 @@ protected $secretaria;
      * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\Docente", mappedBy="escuela")
      */
     protected $docentes;
-    
+
     /**
     * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\Terna", mappedBy="escuela")
     */
@@ -72,7 +72,7 @@ protected $secretaria;
     /**
      * Set id
      * @param integer $id
-     * @return integer 
+     * @return integer
      */
     public function setId($id)
     {
@@ -82,7 +82,7 @@ protected $secretaria;
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -105,7 +105,7 @@ protected $secretaria;
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -128,7 +128,7 @@ protected $secretaria;
     /**
      * Get sigla
      *
-     * @return string 
+     * @return string
      */
     public function getSigla()
     {
@@ -138,10 +138,10 @@ protected $secretaria;
     /**
      * Set decano
      *
-     * @param \Admin\UserBundle\Entity\User $decano
+     * @param \AppBundle\Entity\User $decano
      * @return Escuela
      */
-    public function setDecano(\Admin\UserBundle\Entity\User $decano)
+    public function setDecano(\AppBundle\Entity\User $decano)
     {
         $this->decano = $decano;
 
@@ -151,7 +151,7 @@ protected $secretaria;
     /**
      * Get decano
      *
-     * @return \Admin\UserBundle\Entity\User 
+     * @return \AppBundle\Entity\User
      */
     public function getDecano()
     {
@@ -161,10 +161,10 @@ protected $secretaria;
     /**
      * Set secretaria
      *
-     * @param \Admin\UserBundle\Entity\User $secretaria
+     * @param \AppBundle\Entity\User $secretaria
      * @return Escuela
      */
-    public function setSecretaria(\Admin\UserBundle\Entity\User $secretaria = null)
+    public function setSecretaria(\AppBundle\Entity\User $secretaria = null)
     {
         $this->secretaria = $secretaria;
 
@@ -174,7 +174,7 @@ protected $secretaria;
     /**
      * Get secretaria
      *
-     * @return \Admin\UserBundle\Entity\User 
+     * @return \AppBundle\Entity\User
      */
     public function getSecretaria()
     {
@@ -215,7 +215,7 @@ protected $secretaria;
     /**
      * Get programas
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getProgramas()
     {
@@ -248,7 +248,7 @@ protected $secretaria;
     /**
      * Get docentes
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getDocentes()
     {
@@ -281,7 +281,7 @@ protected $secretaria;
     /**
      * Get ternados
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTernados()
     {
