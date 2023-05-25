@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-    <head>
+<head>
     <meta charset="utf-8">
     <!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
 
@@ -36,248 +36,265 @@
     <!-- GOOGLE FONT -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
 
-	</head>
-	<body id="login" class="animated fadeInDown">
-		<!-- possible classes: minified, no-right-panel, fixed-ribbon, fixed-header, fixed-width-->
-		<header id="header">
-			<!--<span id="logo"></span>-->
+</head>
+<body id="login" class="animated fadeInDown">
+<!-- possible classes: minified, no-right-panel, fixed-ribbon, fixed-header, fixed-width-->
+<header id="header">
+    <!--<span id="logo"></span>-->
 
-			<div id="logo-group">
-                            <span id="logo"> <img src="img/logoUNAD.png" style="width:315px;height:67px" alt="Unad"> </span>
+    <div id="logo-group">
+        <span id="logo"> <img src="img/logoUNAD.png" style="width:315px;height:67px" alt="Unad"> </span>
 
-				<!-- END AJAX-DROPDOWN -->
-			</div>
+        <!-- END AJAX-DROPDOWN -->
+    </div>
 
-		</header>
+</header>
 
-                <div id="main" role="main">
+<div id="main" role="main">
 
-            <!-- MAIN CONTENT -->
-                    <div id="content" class="container">
-                   <h1 class="txt-color-orangeDark login-header-big">Vicerrectoría Académica y de Investigación - Módulo para la Evaluación del Desempeño Docente</h1>
-                   <h4 class="paragraph-header"> Desarrollado en coherencia con las directrices emitidas por el Consejo Superior Universitario en el Acuerdo 003 del 28 de enero de 2011 y modificado por el Acuerdo 013 del 05 de mayo de 2011.</h4>
-
-                    <h4 class="paragraph-header">Ultimas circulares emitidas:</h4>
-                                         <table class="table table-bordered hidden-mobile">
-        <thead>
-                       <tr>
-                           <th>Circularles del proceso:</th>
-                           <th>Fecha</th>
-                           <th>Ver...</th>
-                       </tr>
-        </thead>
-                        <tr>
-                           <td>101.022</td>
-                           <td>1 de Junio de 2022</td>
-                           <td><a href="http://med.unad.edu.co/archivo/circular2022-101-022.pdf" target="new">Ver... <i class="fa fa-download"></i></a></td>
-                       </tr>
-                   </table>
-                   <h1 class="txt-color-orangeDark login-header-big">Periodo de evaluación en curso: {{periodo.id}}</h1>
-                   <h4 class="paragraph-header"> La evaluación de este periodo se realiza en base al desempeño de los periodos académicos:</h4>
-                    <table class="table table-bordered hidden-mobile">
-        <thead>
-                <tr>
+    <!-- MAIN CONTENT -->
+    <div id="content" class="container">
+        <h1 class="txt-color-orangeDark login-header-big">Vicerrectoría Académica y de Investigación - Módulo para la
+            Evaluación del Desempeño Docente</h1>
+        <h4 class="paragraph-header"> Desarrollado en coherencia con las directrices emitidas por el Consejo Superior
+            Universitario en el Acuerdo 003 del 28 de enero de 2011 y modificado por el Acuerdo 013 del 05 de mayo de
+            2011.</h4>
+        <div align="center">
+            <span> <img src="img/med-anual.png" style="height: 220px; margin-top: 50px"> </span>
+        </div>
+        <h4 class="paragraph-header">Ultimas circulares emitidas:</h4>
+        <table class="table table-bordered hidden-mobile">
+            <thead>
+            <tr>
+                <th>Circularles del proceso:</th>
+                <th>Fecha</th>
+                <th>Ver...</th>
+            </tr>
+            </thead>
+            <tr>
+                <td>101.020</td>
+                <td>19 de Mayo de 2023</td>
+                <td><a href="http://med.unad.edu.co/archivo/circular2023-101-022.pdf" target="new">Ver... <i
+                                class="fa fa-download"></i></a></td>
+            </tr>
+        </table>
+        <h1 class="txt-color-orangeDark login-header-big">Periodo de evaluación en curso: {{ periodo.id }}</h1>
+        <h4 class="paragraph-header"> La evaluación de este periodo se realiza en base al desempeño de los periodos
+            académicos:</h4>
+        <table class="table table-bordered hidden-mobile">
+            <thead>
+            <tr>
                 <th>Periodo Académico</th>
                 <th>Semanas</th>
                 <th>Inicio eventos académicos</th>
                 <th>Fin eventos académicos</th>
-                 </tr>
-               </thead>
-               <tbody>
+            </tr>
+            </thead>
+            <tbody>
 
-            {%for periodoa in periodo.periodoa%}
-                <tr>
-                <td>{{periodoa.nombre}}</td>
+            {% for periodoa in periodo.periodoa %}
+            <tr>
+                <td>{{ periodoa.nombre }}</td>
                 <td>{{ periodoa.semanas }}</td>
                 <td>{{ periodoa.fechainicio|date('Y-m-d') }}</td>
                 <td>{{ periodoa.fechafin|date('Y-m-d') }}</td>
-            {%endfor%}
-        </tbody>
-              </table>
+                {% endfor %}
+            </tbody>
+        </table>
+        </h4>
+        <br>
+        <table class="table table-bordered hidden-mobile">
+            <thead>
+            <tr>
+                <td colspan="3" align="center">
+                    <h1 class="txt-color-orangeDark login-header-big">AUTENTICACIÓN E INGRESO</h1>
+                </td>
+            </tr>
+            </thead>
+            <tr>
+                <td colspan="3">
+                    <h4>
+                        Para ingresar al módulo debe primero debe ingresar al sitio <a
+                                href="https://intranet.unad.edu.co/">intranet.unad.edu.co</a> Seleccionar:
+                        “Aplicaciones” - “Académicas” - “Módulo de Evaluación Docente MED”.
+                        <br>
+                        Si no puede superar la autenticación de Intranet intente recuperar sus credenciales utilizando
+                        el instructivo que está a continuación o puede comunicarse con la Mesa de Ayuda al correo
+                        soporte.tecnico@unad.edu.co
                     </h4>
                     <br>
-                    <table class="table table-bordered hidden-mobile">
-                               <thead>
-                        <tr>
-                       <td colspan="3" align="center">
-                       <h1 class="txt-color-orangeDark login-header-big">AUTENTICACIÓN E INGRESO</h1>
-                       </td>
-                       </tr>
-                               </thead>
-                       <tr>
-                      <td colspan="3">
-                        <h4>
-                            Para ingresar al módulo debe primero debe ingresar al sitio  <a href="https://intranet.unad.edu.co/">intranet.unad.edu.co</a> luego seleccionar en el menú izquierdo “Módulo de Evaluación Docente MED”.
-                         <br>
-                            Si no puede superar la  autenticación de Intranet intente recuperar sus credenciales utilizando el instructivo que está a continuación o puede comunicarse con la Mesa de Ayuda al correo soporte.tecnico@unad.edu.co
-                        </h4>
-                   <br>
-                       <a href="http://med.unad.edu.co/archivo/recuperacion-credenciales-acceso.pdf" target="new">Instructivo de Recuperación de Credenciales de Acceso <i class="fa fa-download"></i></a>
+                    <a href="http://med.unad.edu.co/archivo/recuperacion-credenciales-acceso.pdf" target="new">Instructivo
+                        de Recuperación de Credenciales de Acceso <i class="fa fa-download"></i></a>
 
-                       </td>
-                       </tr>
-                       <tr>
+                </td>
+            </tr>
+            <tr>
 
-                           <td>
+                <td>
 
-                       <a href="https://intranet.unad.edu.co" class="btn btn-primary btn-xs">Ir a Intranet <i class="fa fa-sign-in"></i></a>
+                    <a href="https://intranet.unad.edu.co" class="btn btn-primary btn-xs">Ir a Intranet <i
+                                class="fa fa-sign-in"></i></a>
 
-                       </td>
+                </td>
 
 
-                       </tr>
-                       <tr>
-                           <td>
-                                               {% for flashMessage in app.session.flashbag.get('error') %}
-                     <div class="alert alert-danger fade in">
-                     <button class="close" data-dismiss="alert">
-                      ×
-                                    </button>
-                                    <i class="fa-fw fa fa-times"></i>
-                                    <strong>Error!</strong>  {{ flashMessage }}
-                                    </div>
-                        {% endfor %}
+            </tr>
+            <tr>
+                <td>
+                    {% for flashMessage in app.session.flashbag.get('error') %}
+                        <div class="alert alert-danger fade in">
+                            <button class="close" data-dismiss="alert">
+                                ×
+                            </button>
+                            <i class="fa-fw fa fa-times"></i>
+                            <strong>Error!</strong> {{ flashMessage }}
+                        </div>
+                    {% endfor %}
 
-                     {% for flashMessage in app.session.flashbag.get('success') %}
-                     <div class="alert alert-success fade in">
-                     <button class="close" data-dismiss="alert">
-                      ×
-                                    </button>
-                                    <i class="fa-fw fa fa-check"></i>
-                                    <strong>Hecho!</strong>  {{ flashMessage }}
-                                    </div>
-                        {% endfor %}
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="alert alert-success fade in">
+                            <button class="close" data-dismiss="alert">
+                                ×
+                            </button>
+                            <i class="fa-fw fa fa-check"></i>
+                            <strong>Hecho!</strong> {{ flashMessage }}
+                        </div>
+                    {% endfor %}
                     {% for flashMessage in app.session.flashbag.get('warning') %}
-                     <div class="alert alert-warning fade in">
-                     <button class="close" data-dismiss="alert">
-                      ×
-                                    </button>
-                                    <i class="fa-fw fa fa-warning"></i>
-                                    <strong>Advertencia!</strong>  {{ flashMessage }}
-                                    </div>
-                        {% endfor %}
-                           </td>
-                           </tr>
-                               {%if autenticacion == 'Aceptada' and user %}
-                                                <div class="alert alert-warning fade in">
-                     <button class="close" data-dismiss="alert">
-                      ×
-                                    </button>
-                                    <i class="fa-fw fa fa-warning"></i>
-                                    <strong>Advertencia!</strong>{{ ucount }} No se encontro el numero de cédula: {{cedula_usuario}} en el sistema, si considera que extiste alguna inconsistencia por favor escriba a omar.rodriguez@unad.edu.co
-                                                </div>
-                     {%endif%}
+                        <div class="alert alert-warning fade in">
+                            <button class="close" data-dismiss="alert">
+                                ×
+                            </button>
+                            <i class="fa-fw fa fa-warning"></i>
+                            <strong>Advertencia!</strong> {{ flashMessage }}
+                        </div>
+                    {% endfor %}
+                </td>
+            </tr>
+            {% if autenticacion == 'Aceptada' and user %}
+                <div class="alert alert-warning fade in">
+                    <button class="close" data-dismiss="alert">
+                        ×
+                    </button>
+                    <i class="fa-fw fa fa-warning"></i>
+                    <strong>Advertencia!</strong>{{ ucount }} No se encontro el numero de cédula: {{ cedula_usuario }}
+                    en el sistema, si considera que extiste alguna inconsistencia por favor escriba a
+                    omar.rodriguez@unad.edu.co
+                </div>
+            {% endif %}
 
 
+            <tr>
+                <td colspan="2" align="center">
+                    <h5>Navegadores compatible con esta versión: Google Chrome</h5>
+                    {{ direccion_ip }}
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+</div>
 
 
-                       <tr>
-                           <td colspan="2" align="center">
-                               <h5>Navegadores soportados en esta versión: Google Chrome y Firefox</h5>
-                               {{direccion_ip}}
-                           </td>
-                       </tr>
-                   </table>
+<!--================================================== -->
 
-			</div>
+<!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
+<script src="js/plugin/pace/pace.min.js"></script>
 
-		</div>
+<!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<script> if (!window.jQuery) {
+        document.write('<script src="js/libs/jquery-2.0.2.min.js"><\/script>');
+    } </script>
 
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script> if (!window.jQuery.ui) {
+        document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\/script>');
+    } </script>
 
-		<!--================================================== -->
+<!-- JS TOUCH : include this plugin for mobile drag / drop touch events
+<script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> -->
 
-		<!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
-		<script src="js/plugin/pace/pace.min.js"></script>
+<!-- BOOTSTRAP JS -->
+<script src="js/bootstrap/bootstrap.min.js"></script>
 
-	    <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
-	    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-		<script> if (!window.jQuery) { document.write('<script src="js/libs/jquery-2.0.2.min.js"><\/script>');} </script>
+<!-- CUSTOM NOTIFICATION -->
+<script src="js/notification/SmartNotification.min.js"></script>
 
-	    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-		<script> if (!window.jQuery.ui) { document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\/script>');} </script>
+<!-- JARVIS WIDGETS -->
+<script src="js/smartwidgets/jarvis.widget.min.js"></script>
 
-		<!-- JS TOUCH : include this plugin for mobile drag / drop touch events
-		<script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> -->
+<!-- EASY PIE CHARTS -->
+<script src="js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
 
-		<!-- BOOTSTRAP JS -->
-		<script src="js/bootstrap/bootstrap.min.js"></script>
+<!-- SPARKLINES -->
+<script src="js/plugin/sparkline/jquery.sparkline.min.js"></script>
 
-		<!-- CUSTOM NOTIFICATION -->
-		<script src="js/notification/SmartNotification.min.js"></script>
+<!-- JQUERY VALIDATE -->
+<script src="js/plugin/jquery-validate/jquery.validate.min.js"></script>
 
-		<!-- JARVIS WIDGETS -->
-		<script src="js/smartwidgets/jarvis.widget.min.js"></script>
+<!-- JQUERY MASKED INPUT -->
+<script src="js/plugin/masked-input/jquery.maskedinput.min.js"></script>
 
-		<!-- EASY PIE CHARTS -->
-		<script src="js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
+<!-- JQUERY SELECT2 INPUT -->
+<script src="js/plugin/select2/select2.min.js"></script>
 
-		<!-- SPARKLINES -->
-		<script src="js/plugin/sparkline/jquery.sparkline.min.js"></script>
+<!-- JQUERY UI + Bootstrap Slider -->
+<script src="js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
 
-		<!-- JQUERY VALIDATE -->
-		<script src="js/plugin/jquery-validate/jquery.validate.min.js"></script>
+<!-- browser msie issue fix -->
+<script src="js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
 
-		<!-- JQUERY MASKED INPUT -->
-		<script src="js/plugin/masked-input/jquery.maskedinput.min.js"></script>
+<!-- FastClick: For mobile devices -->
+<script src="js/plugin/fastclick/fastclick.js"></script>
 
-		<!-- JQUERY SELECT2 INPUT -->
-		<script src="js/plugin/select2/select2.min.js"></script>
+<!--[if IE 7]>
 
-		<!-- JQUERY UI + Bootstrap Slider -->
-		<script src="js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
+<h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
 
-		<!-- browser msie issue fix -->
-		<script src="js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
+<![endif]-->
 
-		<!-- FastClick: For mobile devices -->
-		<script src="js/plugin/fastclick/fastclick.js"></script>
+<!-- MAIN APP JS FILE -->
+<script src="js/app.js"></script>
 
-		<!--[if IE 7]>
+<script type="text/javascript">
+    runAllForms();
 
-			<h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
+    $(function () {
+        // Validation
+        $("#login-form").validate({
+            // Rules for form validation
+            rules: {
+                email: {
+                    required: true,
+                    email: false
+                },
+                password: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 20
+                }
+            },
 
-		<![endif]-->
+            // Messages for form validation
+            messages: {
+                email: {
+                    required: 'Please enter your email address',
+                    email: 'Please enter a VALID email address'
+                },
+                password: {
+                    required: 'Please enter your password'
+                }
+            },
 
-		<!-- MAIN APP JS FILE -->
-		<script src="js/app.js"></script>
+            // Do not change code below
+            errorPlacement: function (error, element) {
+                error.insertAfter(element.parent());
+            }
+        });
+    });
+</script>
 
-		<script type="text/javascript">
-			runAllForms();
-
-			$(function() {
-				// Validation
-				$("#login-form").validate({
-					// Rules for form validation
-					rules : {
-						email : {
-							required : true,
-							email : false
-						},
-						password : {
-							required : true,
-							minlength : 3,
-							maxlength : 20
-						}
-					},
-
-					// Messages for form validation
-					messages : {
-						email : {
-							required : 'Please enter your email address',
-							email : 'Please enter a VALID email address'
-						},
-						password : {
-							required : 'Please enter your password'
-						}
-					},
-
-					// Do not change code below
-					errorPlacement : function(error, element) {
-						error.insertAfter(element.parent());
-					}
-				});
-			});
-		</script>
-
-	</body>
+</body>
 </html>{# empty Twig template #}
