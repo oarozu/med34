@@ -15,7 +15,8 @@ class DefaultController extends Controller {
 
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $periodos = $em->getRepository('AdminMedBundle:Periodoe')->findAll();
+        #$periodos = $em->getRepository('AdminMedBundle:Periodoe')->findAll();
+        $periodos = $em->getRepository('AdminMedBundle:Periodoe')->findby(array('type' => 'p', 'year' => $this->container->getParameter('appmed.year')), array('id' => 'DESC'));
         $periodoe = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $this->container->getParameter('appmed.periodo')));
         $instrumentos = $em->getRepository('AdminMedBundle:Instrumentos')->findBy(array('periodoe' => $periodoe));
 
