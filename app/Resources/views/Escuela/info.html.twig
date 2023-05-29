@@ -79,7 +79,7 @@
                  <td>{{oferta.programa.nombre}}</td>
                      <td>{{oferta.programa.lider? oferta.programa.lider.nombres~' '~oferta.programa.lider.Apellidos : 'sin'}}</td>
                 <td>
-                {% if is_granted('ROLE_SEC') or is_granted('ROLE_DE')   %}
+                {% if is_granted('ROLE_SECA')  %}
                 <a data-toggle="modal" href="{{ path('programa_edit', { 'id': oferta.programa.id }) }}" data-target="#myModal" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
                 {%endif%}
                  </td>

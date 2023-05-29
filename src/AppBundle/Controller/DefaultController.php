@@ -123,6 +123,7 @@ class DefaultController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $instrumentos = $em->getRepository('AdminMedBundle:Instrumento')->findAll();
         $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $this->container->getParameter('appmed.periodo')));
+        $periodos = $em->getRepository('AdminMedBundle:Periodoe')->findby(array('type' => 'p', 'year' => $this->container->getParameter('appmed.year')), array('id' => 'DESC'));
 
         $session = $request->getSession();
 
@@ -167,6 +168,7 @@ class DefaultController extends Controller {
                         'email_usuario' => $email_usuario,
                         'instrumentos' => $instrumentos,
                         'periodo' => $periodo,
+                        'periodos' => $periodos,
                         'user' => $user,
                         'login_usuario' => $login_usuario,
                         'direccion_ip' => $direccion_ip,

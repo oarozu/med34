@@ -30,8 +30,12 @@ class PlanmejoramientoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $entities = $em->getRepository('AdminMedBundle:Planmejoramiento')->findBy(array('autorid' => $session->get('escuelaid')));
-        
+        $escuelaid = $session->get('escuelaid');
+        if ($escuelaid == null) {
+            return $this->redirect($this->generateUrl('home_user_inicio'));
+        }
+        $entities = $em->getRepository('AdminMedBundle:Planmejoramiento')->findBy(array('autorid' => $escuelaid));
+
         return array(
             'entities' => $entities,
         );
@@ -100,7 +104,7 @@ class PlanmejoramientoController extends Controller
         );
     }
 
-    
+
         /**
      * Seleccionar docente
      *
@@ -118,7 +122,7 @@ class PlanmejoramientoController extends Controller
         'entities' => $entities,
         );
     }
-    
+
      /**
      * Agregar Plan Mejoramiento a Docente
      *
@@ -137,12 +141,12 @@ class PlanmejoramientoController extends Controller
        $planm->setAutorid($session->get('escuelaid'));
        $em->persist($planm);
        $em->flush();
-       
+
       return $this->redirect($this->generateUrl('planmejoramiento'));
-  
-    } 
-    
-    
+
+    }
+
+
     /**
      * Finds and displays a Planmejoramiento entity.
      *
@@ -167,8 +171,8 @@ class PlanmejoramientoController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
-    
-    
+
+
      /**
      * Finds and displays a Planmejoramiento entity.
      *
