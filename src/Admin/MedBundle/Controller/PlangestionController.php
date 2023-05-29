@@ -147,7 +147,7 @@ class PlangestionController extends Controller
         $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $this->container->getParameter('appmed.periodo')));
         $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         $entity = $em->getRepository('AdminMedBundle:Plangestion')->findOneBy(array('docente' => $docente));
-        $rol_tutor = $em->getRepository('AdminMedBundle:Rolacademico')->findBy(array('id' => 1, 'id' => 22));
+        $rol_tutor = $em->getRepository('AdminMedBundle:Rolacademico')->findBy(array('id' => 1));
         $estutor = $em->getRepository('AdminMedBundle:Rolplang')->findOneBy(array('rol' => $rol_tutor,'plang'=> $entity));
         $rol_director = $em->getRepository('AdminMedBundle:Rolacademico')->findOneBy(array('id' => 2));
         $esdirector = $em->getRepository('AdminMedBundle:Rolplang')->findOneBy(array('rol' => $rol_director,'plang'=> $entity));
