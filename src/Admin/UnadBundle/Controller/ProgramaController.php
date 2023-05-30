@@ -273,7 +273,7 @@ class ProgramaController extends Controller
         $editForm->handleRequest($request);
         if ($editForm["lider"]->getData() != null) {
             $lider = $em->getRepository('AdminUnadBundle:Docente')->find($editForm["lider"]->getData());
-            $entity->setLider($lider);
+            $entity->setLider($lider->getUser());
             $programa->setLider($lider);
         }
         if ($editForm->isValid()) {
