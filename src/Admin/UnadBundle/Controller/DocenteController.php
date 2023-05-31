@@ -270,7 +270,12 @@ class DocenteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $entity = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
+
+        $docenteid = $session->get('docenteid');
+        if ($docenteid == null) {
+            return $this->redirect($this->generateUrl('home_user_inicio'));
+        }
+        $entity = $em->getRepository('AdminUnadBundle:Docente')->find($docenteid);
         $instrumentos = $em->getRepository('AdminMedBundle:Instrumento')->findAll();
         $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
         $this->get('session')->getFlashBag()->add('success', 'Periodo de evaluación seleccionado: ' . $periodo->getObservaciones());
