@@ -552,6 +552,7 @@ class DocenteController extends Controller
         if ($entity->getVinculacion() == 'De Carrera') {
             return $this->render('AdminUnadBundle:Docente:finaldc.html.twig', array(
                 'docente' => $entity,
+                'periodo' => $periodo
             ));
         } else if ($entity->getVinculacion() == 'DOFE') {
             $red = $em->getRepository('AdminMedBundle:RedDofe')->findBy(array('docente' => $entity));
