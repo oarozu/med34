@@ -31,7 +31,11 @@
                 <td>{{ entity.centro }}</td>
                 <td>{{ entity.zona }}</td>
                 <td>{{ entity.periodo }}</td>
-                <td>{{ entity.final|number_format(1, '.', ',') }}</td>
+                <td>
+                {% if entity.final %}
+                {{ entity.final|number_format(1, '.', ',') }}
+                {% endif %}
+                </td>
                 <td>
                     <a href="javascript:popUp('{{ path('docente_final', {'id': entity.id }) }}')" class="btn btn-primary btn-xs">Ver... <i class="fa fa-sign-in"></i></a>
                 </td>
