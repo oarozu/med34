@@ -17,13 +17,17 @@
                 <td>{{ entity.nivel }}</td>
             </tr>
             <tr>
+                <th>Escuela</th>
+                <td>{{ entity.escuela.sigla }}</td>
+            </tr>
+            <tr>
                 <th>Periodo Evaluación</th>
                 <td>{{ periodo }}</td>
             </tr>
             <tr>
                 <th>Lider</th>
-                <td>[{{ entity.lider? entity.lider.id}}]
-                {{ entity.lider? entity.lider.nombres~' '~ entity.lider.apellidos : 'sin'}}</td>
+                <td>{{ entity.lider? entity.lider.id}}-
+                {{ entity.lider? entity.lider.nombres~' '~ entity.lider.apellidos : 'No registrado'}}</td>
             </tr>
         </tbody>
     </table>
