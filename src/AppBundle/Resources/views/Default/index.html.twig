@@ -47,7 +47,7 @@
                         <div class="easy-pie-chart txt-color-blue easyPieChart" data-percent="{{ hoy/dias*100 }}"
                              data-pie-size="180" style="width: 180px; height: 180px; line-height: 180px;">
                             <span class="percent percent-sign txt-color-blue font-xl semi-bold">{{ hoy/dias*100 }}</span>
-                            <canvas width="360" height="360" style="width: 180px; height: 180px;"></canvas>
+                            <canvas width="240" height="240" style="width: 180px; height: 180px;"></canvas>
                         </div>
                     </td>
                     {% endfor %}
@@ -56,11 +56,11 @@
         </div>
     </div>
 
+    {% if is_granted('ROLE_ADMIN') %}
     <div class="col-sm-12 col-md-12 col-lg-6">
         <div class="well">
             <h1 class="txt-color-orangeDark login-header-big">Acceso simulado</h1>
 
-            {% if is_granted('ROLE_ADMIN') %}
                 <form method="get" action="?php echo $_GET['_quieroser'];?">
                     <fieldset>
                         <p><label>ID <input type=text name=_quieroser></label>
@@ -68,8 +68,8 @@
                         </p>
                     </fieldset>
                 </form>
-            {% endif %}
         </div>
     </div>
+    {% endif %}
 
 {% endblock %}
