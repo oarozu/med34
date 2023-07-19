@@ -4,24 +4,55 @@
 
     <div class="col-sm-12 col-md-12 col-lg-6">
         <div class="well">
-            <h1 class="txt-color-orangeDark login-header-big">Periodo de Evaluación: {{periodo.id}}</h1>
-            <p>
-                Periodo de Evaluación del {{periodo.fechainicio| date('Y-m-d') }} al {{periodo.fechafin|date('Y-m-d') }}
-            </p>
-            <div class="easy-pie-chart txt-color-blue easyPieChart" data-percent="{{hoy/dias*100}}" data-pie-size="180" style="width: 180px; height: 180px; line-height: 180px;">
-                <span class="percent percent-sign txt-color-blue font-xl semi-bold">{{hoy/dias*100}}</span>
-                <canvas width="360" height="360" style="width: 180px; height: 180px;"></canvas></div>
-
+            <h1 class="txt-color-orangeDark login-header-big">Periodo de Evaluación {{ periodo.observaciones }}</h1>
             <br>
+            <h5 class="txt-color-orangeDark login-header-big">Cronograma del proceso: {{ periodo.cronograma }}</h5>
         </div>
     </div>
     <div class="col-sm-12 col-md-12 col-lg-6">
         <div class="well">
             <h1 class="txt-color-orangeDark login-header-big">MED Módulo de Evaluación Docente</h1>
             <p>
-                Desarrollado en coherencia con las directrices emitidas por el Consejo Superior Universitario en el Acuerdo 003 del 28 de enero de 2011, modificado por el Acuerdo 013 del 05 de mayo de 2011.
+                Desarrollado en coherencia con las directrices emitidas por el Consejo Superior Universitario en el
+                Acuerdo 003 del 28 de enero de 2011, modificado por el Acuerdo 013 del 05 de mayo de 2011.
             </p>
             <br>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="well">
+            <h1 class="txt-color-orangeDark login-header-big">Periodo Académico</h1>
+            <table class="table table-bordered hidden-mobile" style="width: 100%">
+                <thead>
+                <tr>
+                    <th>Peraca</th>
+                    <th>Periodo</th>
+                    <th>Semanas</th>
+                    <th>Eventos académicos</th>
+                    <th></th>
+
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for periodoa in periodo.periodoa %}
+                <tr>
+                    <td>{{ periodoa.id }}</td>
+                    <td>{{ periodoa.nombre }}</td>
+                    <td>{{ periodoa.semanas }}</td>
+                    <td>{{ periodoa.fechainicio | date('Y-m-d') }} al
+                        {{ periodoa.fechafin | date('Y-m-d') }}</td>
+                    <td>
+                        <div class="easy-pie-chart txt-color-blue easyPieChart" data-percent="{{ hoy/dias*100 }}"
+                             data-pie-size="180" style="width: 180px; height: 180px; line-height: 180px;">
+                            <span class="percent percent-sign txt-color-blue font-xl semi-bold">{{ hoy/dias*100 }}</span>
+                            <canvas width="360" height="360" style="width: 180px; height: 180px;"></canvas>
+                        </div>
+                    </td>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -30,73 +61,14 @@
             <h1 class="txt-color-orangeDark login-header-big">Acceso simulado</h1>
 
             {% if is_granted('ROLE_ADMIN') %}
-                <form method="get" action="?php echo $_GET['_quieroser'];?" >
+                <form method="get" action="?php echo $_GET['_quieroser'];?">
                     <fieldset>
                         <p><label>ID <input type=text name=_quieroser></label>
-                            <button>Enviar</button></p>
+                            <button>Enviar</button>
+                        </p>
                     </fieldset>
                 </form>
-            {%endif%}
-        </div>
-    </div>
-
-    <div class="col-sm-12">
-        <div class="well">
-            <h1 class="txt-color-orangeDark login-header-big">Periodos Académicos</h1>
-            <table class="table table-bordered hidden-mobile" style="width: 100%">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Periodo Académico</th>
-                        <th>Semanas</th>
-                        <th>Eventos académicos</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-
-                    {%for periodoa in periodo.periodoa%}
-                        <tr>
-                            <td>{{periodoa.id}}</td>
-                            <td>{{periodoa.nombre}}</td>
-                            <td>{{ periodoa.semanas }}</td>
-                            <td>{{ periodoa.fechainicio | date('Y-m-d') }} al
-                                {{ periodoa.fechafin | date('Y-m-d')}}</td>
-
-                        {%endfor%}
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-
-        <div class="col-sm-12">
-        <div class="well">
-            <h1 class="txt-color-orangeDark login-header-big">Instrumentos de Evaluación</h1>
-            <table class="table table-bordered hidden-mobile" style="width: 100%">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Tipo</th>
-                        <th>Descripción</th>
-                        <th>Fecha Incio</th>
-                        <th>Fecha Fin</th>
-                        <th>Alcance</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    {%for entity in instrumentos%}
-                        <tr>
-                            <td>{{entity.instrumento.nombre}}</td>
-                            <td>{{entity.instrumento.tipo}}</td>
-                            <td>{{entity.instrumento.descripcion}}</td>
-                            <td>{{ entity.fechainicio? entity.fechainicio|date("d/m/Y"):'no def'}}</td>
-                           <td>{{ entity.fechafin? entity.fechafin|date("d/m/Y"):'no def'}}</td>
-                            <td>{{entity.alcance}}</td>
-                        {%endfor%}
-                </tbody>
-            </table>
+            {% endif %}
         </div>
     </div>
 

@@ -61,7 +61,7 @@ class DefaultController extends Controller {
 
 
             if (!$docente) {
-                $this->get('session')->getFlashBag()->add('warning', 'Sin vinculación en este periodo.');
+                $this->get('session')->getFlashBag()->add('warning', 'Sin activar en el periodo actual');
             } else {
                 $session->set('docenteid', $docente->getId());
 
@@ -109,7 +109,7 @@ class DefaultController extends Controller {
         $user = $this->getUser();
         $docente = $em->getRepository('AdminUnadBundle:Docente')->findOneBy(array('user' => $user, 'periodo' => $id));
         if (!$docente) {
-            $this->get('session')->getFlashBag()->add('warning', 'Sin vinculación en este periodo.');
+            $this->get('session')->getFlashBag()->add('warning', 'Sin activar en el periodo actual');
             return $this->redirect($this->generateUrl('home_user_periodo'));
         } else {
             $session->set('docenteid', $docente->getId());
