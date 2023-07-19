@@ -23,7 +23,11 @@
                     <th>Id</th>
                     <th>Periodo Académico</th>
                     <th>Eventos académicos</th>
-                    <th>{% if isdc %} Autoevaluación {% endif %}
+                    <th>{% if isdc %}
+                            Autoevaluación
+                        {% else %}
+                            Evaluación Docente
+                        {% endif %}
                     </th>
                     <th>Seleccionar</th>
                 </tr>
@@ -45,7 +49,11 @@
                     <td>{{ periodoe.fechainicio | date('Y-m-d') }} al
                         {{ periodoe.fechafin | date('Y-m-d') }}</td>
                     <td>
-                        {% if isdc %} {% if periodoe.dias > 0 %} Si aplica {% else %} No aplica {% endif %} {% endif %}
+                        {% if isdc %}
+                            {% if periodoe.dias > 0 %} Si aplica {% else %} No aplica {% endif %}
+                         {% else %}
+                             {{ periodoe.cronograma }}
+                        {% endif %}
                     </td>
                     <td>
                         <a href="{{ path('home_user_periodo_select', {'id':periodoe.id}) }}" class="btn btn-primary btn-xs">Seleccionar <i class="fa fa-sign-in"></i></a>
