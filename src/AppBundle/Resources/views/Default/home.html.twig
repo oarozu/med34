@@ -62,11 +62,11 @@
         <div align="center">
             <span> <img src="img/med-anual.png" style="height: 220px; margin-top: 50px"> </span>
         </div>
-        <h4 class="paragraph-header">Ultimas circulares emitidas:</h4>
         <table class="table table-bordered hidden-mobile">
+            <h1 class="txt-color-orangeDark login-header-big">Circular del proceso</h1>
             <thead>
             <tr>
-                <th>Circularles del proceso:</th>
+                <th>Número:</th>
                 <th>Fecha</th>
                 <th>Ver...</th>
             </tr>
@@ -78,9 +78,8 @@
                                 class="fa fa-download"></i></a></td>
             </tr>
         </table>
-        <h1 class="txt-color-orangeDark login-header-big">Periodo de evaluación en curso: {{ periodo.id }}</h1>
-        <h4 class="paragraph-header"> La evaluación de este periodo se realiza en base al desempeño de los periodos
-            académicos:</h4>
+        <h1 class="txt-color-orangeDark login-header-big">Periodo de evaluación en
+            curso: {{ periodo.observaciones }}</h1>
         <table class="table table-bordered hidden-mobile">
             <thead>
             <tr>
@@ -125,19 +124,7 @@
                     <br>
                     <a href="http://med.unad.edu.co/archivo/recuperacion-credenciales-acceso.pdf" target="new">Instructivo
                         de Recuperación de Credenciales de Acceso <i class="fa fa-download"></i></a>
-
                 </td>
-            </tr>
-            <tr>
-
-                <td>
-
-                    <a href="https://intranet.unad.edu.co" class="btn btn-primary btn-xs">Ir a Intranet <i
-                                class="fa fa-sign-in"></i></a>
-
-                </td>
-
-
             </tr>
             <tr>
                 <td>
@@ -182,8 +169,30 @@
                     omar.rodriguez@unad.edu.co
                 </div>
             {% endif %}
-
-
+        </table>
+        <table class="table table-bordered hidden-mobile">
+            <thead>
+            <tr>
+                <td colspan="3" align="center">
+                    <h1 class="txt-color-orangeDark login-header-big">SOPORTE AL PROCESO</h1>
+                </td>
+            </tr>
+            </thead>
+            <tr>
+                <td colspan="3">
+                    <h4 class="paragraph-header">
+                        Conforme a inconsistencias en la información registrada para el proceso 16-02 se realizaron los ajustes correspondientes:
+                        <br>
+                        Por favor ingrese al MED nuevamente y si aún considera que tiene algún inconveniente por favor escriba únicamente al correo soporte.med@unad.edu.co.
+                        <br>
+                        Recuerde:
+                        <br>
+                        Si usted es tutor y no está habilitado para evaluar a su director solicite a éste que lo agregue a la red en el MED.
+                        <br>
+                        Si usted es director y no se encuentra registrado, escriba al correo soporte.med@unad.edu.co indicando el código del curso.
+                    </h4>
+                </td>
+            </tr>
             <tr>
                 <td colspan="2" align="center">
                     <h5>Navegadores compatible con esta versión: Google Chrome</h5>
@@ -191,9 +200,7 @@
                 </td>
             </tr>
         </table>
-
     </div>
-
 </div>
 
 
