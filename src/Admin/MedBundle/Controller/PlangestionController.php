@@ -356,7 +356,11 @@ class PlangestionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
         $entity = $em->getRepository('AdminMedBundle:Plangestion')->find($id);
-        $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
+        $docenteid = $session->get('docenteid');
+        if ($docenteid == null) {
+            return $this->redirect($this->generateUrl('home_user_inicio'));
+        }
+        $docente = $em->getRepository('AdminUnadBundle:Docente')->find($docenteid);
         $eval = $em->getRepository('AdminMedBundle:Evaluacion')->findOneBy(array('docente' => $docente));
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Plangestion entity.');

@@ -6,6 +6,10 @@ home_user:
     path:  /home
     defaults: { _controller: "AppBundle:Default:home" }
 
+home_soporte:
+    path:  /soporte
+    defaults: { _controller: "AppBundle:Default:home" }
+
 home_user_send:
     path:  /home/send
     defaults: { _controller: "AppBundle:Default:send" }
