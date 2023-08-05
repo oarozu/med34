@@ -78,25 +78,32 @@
                                 class="fa fa-download"></i></a></td>
             </tr>
         </table>
-        <h1 class="txt-color-orangeDark login-header-big">Periodo de evaluación en
-            curso: {{ periodo.observaciones }}</h1>
+        <h1 class="txt-color-orangeDark login-header-big">Periodos de evaluación:</h1>
         <table class="table table-bordered hidden-mobile">
             <thead>
             <tr>
                 <th>Periodo Académico</th>
-                <th>Semanas</th>
+                <th>Peraca</th>
                 <th>Inicio eventos académicos</th>
                 <th>Fin eventos académicos</th>
+                <th>Proceso de evaluación en el MED</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
 
-            {% for periodoa in periodo.periodoa %}
+            {% for periodoa in periodos %}
             <tr>
-                <td>{{ periodoa.nombre }}</td>
-                <td>{{ periodoa.semanas }}</td>
+                <td>{{ periodoa.observaciones }}</td>
+                <td>{{ periodoa.peraca }}</td>
                 <td>{{ periodoa.fechainicio|date('Y-m-d') }}</td>
                 <td>{{ periodoa.fechafin|date('Y-m-d') }}</td>
+                <th>{{ periodoa.cronograma }}</th>
+                <th>
+                    {%if periodoa.type == 's'%}
+                        Únicamente Docentes de Carrera
+                    {% endif %}
+                    </th>
                 {% endfor %}
             </tbody>
         </table>

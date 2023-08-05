@@ -16,14 +16,15 @@
 
     <div class="col-sm-12">
         <div class="well">
-            <h1 class="txt-color-orangeDark login-header-big">Periodos académicos activos para evaluación docente. </h1>
+            <h1 class="txt-color-orangeDark login-header-big">Periodos académicos activos para evaluación docente: </h1>
             <table class="table table-bordered hidden-mobile" style="width: 100%">
                 <thead>
                 <tr>
                     <th>Id</th>
                     <th>Periodo Académico</th>
                     <th>Eventos académicos</th>
-                    <th>{% if isdc %}
+                    <th>
+                        {% if isdc %}
                             Autoevaluación
                         {% else %}
                             Evaluación Docente
@@ -56,7 +57,11 @@
                         {% endif %}
                     </td>
                     <td>
-                        <a href="{{ path('home_user_periodo_select', {'id':periodoe.id}) }}" class="btn btn-primary btn-xs">Seleccionar <i class="fa fa-sign-in"></i></a>
+                        {% if is_granted('ROLE_DC') and periodoe.type == 's' %}
+                            <a href="{{ path('home_user_periodo_select', {'id':periodoe.id}) }}" class="btn btn-primary btn-xs">Seleccionar <i class="fa fa-sign-in"></i></a>
+                        {% elseif periodoe.type == 'p' %}
+                            <a href="{{ path('home_user_periodo_select', {'id':periodoe.id}) }}" class="btn btn-primary btn-xs">Seleccionar <i class="fa fa-sign-in"></i></a>
+                        {% endif %}
                     </td>
                 </tr>
                     {% endfor %}
