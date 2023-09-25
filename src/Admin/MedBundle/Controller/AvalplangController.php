@@ -77,6 +77,7 @@ class AvalplangController extends Controller
         $session = $request->getSession();
         $escuelaid = $session->get('escuelaid');
         $semestre = $this->container->getParameter('appmed.semestre');
+        $periodoe = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $semestre));
         if ($escuelaid == null) {
             return $this->redirect($this->generateUrl('home_user_inicio'));
         }
@@ -89,7 +90,7 @@ class AvalplangController extends Controller
                         'vinculacion' => 'DC', 'escuela' => $escuela));
             return array(
                 'entities' => $docentes,
-                'periodo' => $semestre,
+                'periodo' => $periodoe,
                 'escuela' => $escuela
             );
         } else {
