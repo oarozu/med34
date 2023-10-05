@@ -98,21 +98,26 @@ class PlangestionController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="plangestion_show")
+     * @Route("/auto", name="plangestion_show")
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
+    public function showAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AdminMedBundle:Plangestion')->find($id);
+        $session = $request->getSession();
+        $periodoe_id = $session->get('periodoe');
+        $periodoe = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $periodoe_id));
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $docente = $em->getRepository('AdminUnadBundle:Docente')->findOneBy(array('user' => $user, 'periodo' => $periodoe_id));
+        $entity = $em->getRepository('AdminMedBundle:Plangestion')->findOneBy(array('docente' => $docente));
 
         if (!$entity) {
             throw $this->createNotFoundException('Entidad no encontrada');
         }
         return array(
             'entity' => $entity,
+            'periodo' => $periodoe
         );
     }
 

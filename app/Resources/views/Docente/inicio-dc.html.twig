@@ -75,7 +75,7 @@
         <td>
             {% if entity.plangestion %}
                 {% if periodo.auto %}
-                    <a href="{{ path('plangestion_show', { 'id': entity.plangestion.id }) }}"
+                    <a href="{{ path('plangestion_show') }}"
                        class="btn btn-primary btn-xs">Ingresar <i class="fa fa-sign-in"></i></a>
                 {% else %}<i>{{ periodo.cronograma }}</i>{% endif %}
             {% endif %}

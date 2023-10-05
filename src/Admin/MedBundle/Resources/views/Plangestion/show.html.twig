@@ -3,7 +3,7 @@
 {% block body -%}
 
     <h1>Autoevaluación de {{ entity.docente.user.nombres }} {{ entity.docente.user.apellidos }}
-        : {{ entity.docente.user.id }} </h1>
+        - {{ entity.docente.user.id }}  {{ periodo.observaciones }} de {{ periodo.year }}</h1>
 
     {% set temp = 1 %}
     {% for aval in entity.avales %}
@@ -62,8 +62,8 @@
                         </td>
                         <td>
                             {% if not actividad.plang.autoevaluacion %}
-                            <a data-toggle="modal" href="{{ path('actividadplang_edit', { 'id': actividad.id }) }}"
-                               data-target="#myModal" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                                <a data-toggle="modal" href="{{ path('actividadplang_edit', { 'id': actividad.id }) }}"
+                                   data-target="#myModal" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
                             {% endif %}
                         </td>
                         <td>
@@ -75,9 +75,7 @@
                             {% else %}
                                 {% set termino = 0 %}
                             {% endif %}
-
                         </td>
-
                         <td>
                             {% if actividad.path %}
                                 <a href="../../{{ actividad.webpath }}" target="_blank"
@@ -85,9 +83,7 @@
                             {% endif %}
                         </td>
                         <td>
-
                             {{ actividad.letras }}
-
                         </td>
                     </tr>
                 {% endfor %}
@@ -97,6 +93,7 @@
             <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
                 <tbody>
                 <tr>
+                    {% if periodo.auto %}
                     <td colspan="2">
                         {% if termino == 1 and entity.autoevaluacion is null %}
                             <a data-toggle="modal" href="{{ path('plangestion_edit', { 'id': entity.id }) }}"
@@ -116,6 +113,11 @@
                                             class="glyphicon glyphicon-thumbs-up"></i></span>Editar Autoevaluación</a>
                         {% endif %}
                     </td>
+                        {% else %}
+                            <td colspan="2">
+                              Fuera del cronograma, fechas del proceso {{ periodo.observaciones  }} : {{ periodo.cronograma }}
+                            </td>
+                       {% endif %}
                 </tr>
                 <tr>
                     <td>Fecha
