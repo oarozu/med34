@@ -110,7 +110,7 @@ class DocenteController extends Controller
      *
      * @Route("/dc", name="docente_dc")
      * @Method("GET")
-     * @Template("AdminUnadBundle:Docente:dc.html.twig")
+     * @Template("Docente/dc.html.twig")
      */
     public function indexDcAction()
     {
@@ -128,7 +128,7 @@ class DocenteController extends Controller
      *
      * @Route("/dc", name="docente_dcescuela")
      * @Method("GET")
-     * @Template("AdminUnadBundle:Docente:porescueladc.html.twig")
+     * @Template("Docente/porescueladc.html.twig")
      */
     public function indexDcescuelaAction(Request $request)
     {
@@ -150,7 +150,7 @@ class DocenteController extends Controller
      *
      * @Route("/zn", name="docente_dczona")
      * @Method("GET")
-     * @Template("AdminUnadBundle:Docente:porzonadc.html.twig")
+     * @Template("Docente/porzonadc.html.twig")
      */
     public function indexZonaAction(Request $request)
     {
@@ -171,7 +171,7 @@ class DocenteController extends Controller
      *
      * @Route("/", name="docente_create")
      * @Method("POST")
-     * @Template("AdminUnadBundle:Docente:new.html.twig")
+     * @Template("Docente/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -234,7 +234,7 @@ class DocenteController extends Controller
      * Finds and displays a Docente entity
      * @Route("/{id}", name="docente_show")
      * @Method("GET")
-     * @Template()
+     * @Template("Docente/show.html.twig")
      */
     public function showAction(Request $request, $id)
     {
@@ -287,7 +287,7 @@ class DocenteController extends Controller
 
         if ($entity->getVinculacion() == 'DOFE') {
             $red = $em->getRepository('AdminMedBundle:RedDofe')->findBy(array('docente' => $entity));
-            return $this->render('AdminUnadBundle:Docente:iniciodofe.html.twig', array(
+            return $this->render('Docente/iniciodofe.html.twig', array(
                 'entity' => $entity,
                 'instrumentos' => $instrumentos,
                 'red' => $red,
@@ -300,7 +300,7 @@ class DocenteController extends Controller
                 'periodo' => $periodo
             ));
         } else {
-            return $this->render('AdminUnadBundle:Docente:show.html.twig', array(
+            return $this->render('Docente/show.html.twig', array(
                 'entity' => $entity,
                 'instrumentos' => $instrumentos,
                 'periodo' => $periodo
@@ -312,7 +312,7 @@ class DocenteController extends Controller
      * Finds and displays a Docente entity
      * @Route("/{id}/info", name="docente_info")
      * @Method("GET")
-     * @Template()
+     * @Template("Docente/info.html.twig")
      */
     public function infoAction(Request $request, $id)
     {
@@ -326,7 +326,7 @@ class DocenteController extends Controller
         }
 
         if ($entity->getVinculacion() == 'DOFE') {
-            return $this->render('AdminUnadBundle:Docente:dofe.html.twig', array(
+            return $this->render('Docente/dofe.html.twig', array(
                 'entity' => $entity,
                 'periodo' => $periodo
             ));
@@ -357,7 +357,7 @@ class DocenteController extends Controller
         }
 
         if ($entity->getVinculacion() == 'DOFE') {
-            return $this->render('AdminUnadBundle:Docente:dofe.html.twig', array(
+            return $this->render('Docente/dofe.html.twig', array(
                 'entity' => $entity,
             ));
         } else {
@@ -373,7 +373,7 @@ class DocenteController extends Controller
      *
      * @Route("/{id}/edit", name="docente_edit")
      * @Method("GET")
-     * @Template()
+     * @Template("Docente/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -419,7 +419,7 @@ class DocenteController extends Controller
      *
      * @Route("/{id}", name="docente_update")
      * @Method("PUT")
-     * @Template("AdminUnadBundle:Docente:edit.html.twig")
+     * @Template("Docente/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -492,7 +492,7 @@ class DocenteController extends Controller
 
     /**
      * @Method("GET")
-     * @Template()
+     * @Template("Docente/coevaltutor.html.twig")
      */
     public function coevaltutorAction(Request $request)
     {
@@ -510,24 +510,10 @@ class DocenteController extends Controller
         );
     }
 
-    /**
-     * @Method("GET")
-     * @Template()
-     */
-    public function coevaldirectorAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $session = $request->getSession();
-        $entity = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
-
-        return array(
-            'entity' => $entity,
-        );
-    }
 
     /**
      * @Method("GET")
-     * @Template()
+     * @Template("Docente/coevalinfo.html.twig")
      */
     public function coevalinfoAction($id)
     {
@@ -541,7 +527,7 @@ class DocenteController extends Controller
     /**
      * @Route("/final/{id}", name="docente_final")
      * @Method("GET")
-     * @Template("AdminUnadBundle:Docente:final.html.twig")
+     * @Template("Docente/final.html.twig")
      */
     public function finalAction($id)
     {
@@ -550,18 +536,18 @@ class DocenteController extends Controller
         $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $entity->getPeriodo()));
         $parciales = $em->getRepository('AdminUnadBundle:Docente')->evalAnual($periodo->getYear(), $entity->getUser()->getId());
         if ($entity->getVinculacion() == 'De Carrera') {
-            return $this->render('AdminUnadBundle:Docente:finaldc.html.twig', array(
+            return $this->render('Docente/finaldc.html.twig', array(
                 'docente' => $entity,
                 'periodo' => $periodo
             ));
         } else if ($entity->getVinculacion() == 'DOFE') {
             $red = $em->getRepository('AdminMedBundle:RedDofe')->findBy(array('docente' => $entity));
-            return $this->render('AdminUnadBundle:Docente:finaldofe.html.twig', array(
+            return $this->render('Docente/finaldofe.html.twig', array(
                 'docente' => $entity,
                 'red' => $red
             ));
         } else if($periodo->getType() == "a"){
-            return $this->render('AdminUnadBundle:Docente:finalanual.html.twig', array(
+            return $this->render('Docente/finalanual.html.twig', array(
                 'docente' => $entity,
                 'periodo' => $periodo,
                 'parciales' => $parciales
@@ -578,7 +564,7 @@ class DocenteController extends Controller
     /**
      * @Route("/observ/{id}", name="docente_observ")
      * @Method("GET")
-     * @Template("AdminUnadBundle:Docente:observ.html.twig")
+     * @Template("Docente/observ.html.twig")
      */
     public function observAction($id)
     {
@@ -596,7 +582,7 @@ class DocenteController extends Controller
     /**
      * @Route("/observaciones/{id}", name="docente_observaciones")
      * @Method("PUT")
-     * @Template("AdminUnadBundle:Docente:info.html.twig")
+     * @Template("Docente/info.html.twig")
      */
     public function observacionesAction(Request $request, $id)
     {

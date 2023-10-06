@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 {% block body -%}
     {{ include(
-        'AdminUnadBundle:Docente:detalle.html.twig',
+        'Docente/detalle.html.twig',
         {'entity': entity, 'periodo': periodo }
     ) }}
     {% if is_granted('ROLE_ADMIN') %}
@@ -13,13 +13,13 @@
         </ul>
     {% endif %}
 
-    <h4>3. Instrumentos de Evaluación DC</h4>
+    <h4>3. Instrumentos de Evaluación</h4>
     <table class="table table-bordered hidden-mobile" style="width: 95%">
         <tr>
             <th>Instrumento</th>
             <th>Descripción</th>
             <th>Ingreso</th>
-            <th>Estado</th>
+            <th>Cronograma</th>
         </tr>
         {% if entity.vinculacion == 'De Carrera' %}
             <tr>
@@ -54,7 +54,7 @@
                 <td>Plan de Gestión Aprobado en PDF. (Este es cargado por el Decano Nacional)</td>
                 <td>
                     {% if entity.plangestion.pdf %}
-                        <a href="javascript:popUp('../../../repo/{{ entity.plangestion.docente.periodo }}{{ entity.plangestion.pdf.webpath }}')"><i
+                        <a href="javascript:popUp('../../../uploads/{{ entity.plangestion.docente.periodo }}{{ entity.plangestion.pdf.webpath }}')"><i
                                     class="fa fa-file-o"></i> Ver Archivo...</a>
                     {% else %}
                         No cargado
@@ -98,7 +98,10 @@
                         {% if periodo.auto %}
                             <a href="{{ path('plangestion_conf', { 'id': entity.id }) }}"
                                class="btn btn-primary btn-xs">Ingresar <i class="fa fa-sign-in"></i></a>
-                        {% else %}<i>{{ periodo.cronograma }}</i>{% endif %}
+                        {% endif %}
+                </td>
+                <td>
+                    {{ periodo.cronograma }}
                 </td>
 
             </tr>
@@ -115,6 +118,8 @@
                                     class="fa fa-sign-in"></i></a>
                     {% endif %}
                 </td>
+                <td>
+                </td>
             </tr>
         {% endif %}
         {% if entity.director|length > 0 %}
@@ -124,10 +129,12 @@
                 </th>
                 <td>Evaluación del director a los tutores de curso</td>
                 <td>
-                    {% if instrumentos[3].estado %}
+                    {% if periodo.auto %}
                         <a href="{{ path('docente_coevaltutor') }}" class="btn btn-primary btn-xs">Ingresar <i
                                     class="fa fa-sign-in"></i></a>
                     {% endif %}
+                </td>
+                <td>
                 </td>
             </tr>
         {% endif %}
@@ -228,7 +235,7 @@
         </tr>
 
     </table>
-    tw:show-dc
+
     <div class="alert alert-info alert-block">
 
         <h4 class="alert-heading">Ayuda y Soporte:</h4>

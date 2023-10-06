@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 {% block body -%}
         {{ include(
-            'AdminUnadBundle:Docente:detalle.html.twig',
+            'Docente/detalle.html.twig',
             {'entity': entity}
         ) }}
 
@@ -13,7 +13,7 @@
         </a></li>
 </ul>
            {%endif%}
-   
+
   <table class="table table-bordered hidden-mobile" style="width: 95%">
       <tr>
           <th>Resultados</th>
@@ -25,8 +25,8 @@
     1. Plan de Trabajo DOFE
         </th>
         <td>
-        <a href="javascript:popUp('{{ path('plangestion_info', { 'id': entity.id }) }}')" class="btn btn-primary btn-xs">Ver Actividades <i class="fa fa-sign-in"></i></a>    
-        </td>    
+        <a href="javascript:popUp('{{ path('plangestion_info', { 'id': entity.id }) }}')" class="btn btn-primary btn-xs">Ver Actividades <i class="fa fa-sign-in"></i></a>
+        </td>
     <td>
 <a href="javascript:popUp('{{ path('plangestion_autoeval', { 'id': entity.id }) }}')" class="btn btn-primary btn-xs">Ver Autoevaluación <i class="fa fa-sign-in"></i></a>
     </td>
@@ -36,10 +36,10 @@
 2. Evaluación de estudiantes (Heteroevaluación)
         </th>
         <td>
-           {%if entity.heteroeval%} 
+           {%if entity.heteroeval%}
             <a href="javascript:popUp('{{ path('heteroeval_info', {'id': entity.id }) }}')" class="btn btn-primary btn-xs">Ver... <i class="fa fa-sign-in"></i></a>
         {%else%} Sin registros {%endif%}
-        </td> 
+        </td>
     <td></td>
   </tr>
       <tr>
@@ -50,7 +50,7 @@
         {%if entity.evaluacion%}
             <a href="javascript:popUp('{{ path('coeval_info', {'id': entity.id }) }}')" class="btn btn-primary btn-xs">Ver... <i class="fa fa-sign-in"></i></a>
         {%endif%}
-        </td> 
+        </td>
     <td></td>
   </tr>
 
@@ -60,29 +60,28 @@
         </th>
         <td>
         {%if entity.evaluacion%}
-            {%if entity.evaluacion.auto%} 
+            {%if entity.evaluacion.auto%}
             <a href="javascript:popUp('{{ path('docente_final', {'id': entity.id }) }}')" class="btn btn-primary btn-xs">Ver... <i class="fa fa-sign-in"></i></a>
         {%endif%}
             {%endif%}
-        </td> 
+        </td>
     <td></td>
   </tr>
 
   </table>
 
    <script>
-  
+
 function popUp(URL) {
 
-    if(typeof(popupWin) != "object" || popupWin.closed)  { 
+    if(typeof(popupWin) != "object" || popupWin.closed)  {
         popupWin = window.open(URL, 'popupWin', 'scrollbars=auto,toolbar=no,menubar=no,status=no,width=1000,height=600, left=100,top=100');
-    } 
-    else{ 
-        popupWin.location.href = URL; 
     }
-    popupWin.focus(); 
+    else{
+        popupWin.location.href = URL;
+    }
+    popupWin.focus();
  }
 </script>
 
 {% endblock %}
-   
