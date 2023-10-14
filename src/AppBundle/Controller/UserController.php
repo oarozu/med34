@@ -169,8 +169,12 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-
         $archivo = $em->getRepository('AdminMedBundle:Archivo')->findBy(array('cedula' => $id));
+
+        $porSemestre = $em->getRepository('AdminUnadBundle:Docente')->porSemestres($id,"'s'");
+        $porAnual = $em->getRepository('AdminUnadBundle:Docente')->porSemestres($id,"'a'");
+        $porPeriodo = $em->getRepository('AdminUnadBundle:Docente')->porSemestres($id,"'p'");
+
 
         $entity = $em->getRepository('AppBundle:User')->find($id);
 
@@ -184,6 +188,9 @@ class UserController extends Controller
             'entity' => $entity,
             'newpass_form' => $passForm->createView(),
             'archivo' => $archivo,
+            'semestres'=> $porSemestre,
+            'anuales'=> $porAnual,
+            'periodos'=> $porPeriodo
         ));
     }
 

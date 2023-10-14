@@ -35,12 +35,34 @@
                             <td>Fecha Actualización: {{ entity.updated|date('Y-m-d H:i') }}</td>
                         </tr>
                         <tr>
-                            <th>Registro por periodo de evaluación:</th>
+                            <th>Periodos de evaluación consolidados:</th>
                             <td>
-                                {% for entity in entity.getDocente %}
+                                {% for entity in semestres %}
                                     <a class="btn btn-primary btn-sm"
                                        href="{{ path('docente_info', { 'id': entity.id }) }}">
-                                        {{ entity.periodo }}
+                                        {{ entity.observaciones }}
+                                    </a>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                {% for entity in anuales %}
+                                    <a class="btn btn-primary btn-sm"
+                                       href="{{ path('docente_info', { 'id': entity.id }) }}">
+                                        {{ entity.observaciones }}
+                                    </a>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Periodos de evaluación parciales</th>
+                            <td>
+                                {% for entity in periodos %}
+                                    <a class="btn btn-primary btn-sm"
+                                       href="{{ path('docente_info', { 'id': entity.id }) }}">
+                                        {{ entity.observaciones }} {{ entity.year }}
                                     </a>
                                 {% endfor %}
                             </td>
