@@ -22,7 +22,6 @@ class DocenteRepository extends EntityRepository
 
     public function totalEscuelas($periodo)
     {
-
         $connection = $this->getEntityManager()->getConnection();
         $q = "select docente.escuela_id, escuela.nombre, escuela.sigla,
             count(case when vinculacion = 'DC' THEN 1 end) vdc,
@@ -34,6 +33,17 @@ class DocenteRepository extends EntityRepository
             join escuela on docente.escuela_id = escuela.id
             where periodo = " . $periodo . "
             group by docente.escuela_id";
+        $stmt = $connection->executeQuery($q);
+        return $stmt->fetchAllAssociative();
+    }
+
+    public function porSemestres($user, $tipo)
+    {
+        $connection = $this->getEntityManager()->getConnection();
+        $q = "SELECT d.id, d.vinculacion, p.year, p.observaciones FROM docente d
+              JOIN periodoe p ON d.periodo = p.id
+              WHERE p.type = " . $tipo . " AND d.user_id = " . $user . "
+              ORDER BY d.id DESC LIMIT 10";
         $stmt = $connection->executeQuery($q);
         return $stmt->fetchAllAssociative();
     }
