@@ -5,15 +5,12 @@
                 <th>Programa</th>
                 <td>{{ entity.programa? entity.programa.id : ' ' }} {{ entity.programa? entity.programa.nombre : 'Sin' }} - {{ entity.programa.escuela.sigla }}</td>
             </tr>
-            <tr>
-                <td colspan="2"><b>Nivel:</b> {{ entity.nivel }} <b>Tipologia:</b> {{ entity.tipologia }} <b>Creditos:</b> {{ entity.creditos }}</td>
-            </tr>
         </tbody>
     </table>
             {%for oferta in cursooferta %}
         <b>Oferta:</b> {{oferta.periodo}}  <b>Director:</b> {{oferta.director.user.id}} {{oferta.director.user.nombres}} {{oferta.director.user.apellidos}}
 
-        <a href="{{ path('oferta', {'id': oferta.id }) }}" class="btn btn-success btn-xs">Editar Red <i class="fa fa-edit"></i></a>  
+        <a href="{{ path('oferta', {'id': oferta.id }) }}" class="btn btn-success btn-xs">Editar Red <i class="fa fa-edit"></i></a>
     <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
         <tbody>
           <tr>
@@ -30,7 +27,7 @@
                 <td>{{tutor.docente.centro.nombre}}</td>
             </tr>
         {%endfor%}
-           
+
         </tbody>
         </table>
          {%endfor%}

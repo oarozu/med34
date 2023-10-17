@@ -7,7 +7,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Admin\MedBundle\Entity\Proyectoi;
 use Admin\MedBundle\Entity\ProyectoiRepository;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

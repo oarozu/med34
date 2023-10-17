@@ -8,7 +8,7 @@
                     <!-- NEW WIDGET START -->
                     <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <!-- Widget ID (each widget will need unique ID)-->
-                    <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3" data-widget-editbutton="false" data-widget-deletebutton="false">
+                    <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-{{ sigla }}" data-widget-editbutton="false" data-widget-deletebutton="false">
                          <!-- widget options:
                          usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
                         data-widget-colorbutton="false"
@@ -22,8 +22,11 @@
                         -->
                     <header>
                             <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                            <h2>Cursos</h2>
-
+                           {% if sigla %}
+                            <h2>Cursos de {{ sigla }}</h2>
+                            {% else %}
+                                <h2>Cursos UNAD</h2>
+                        {% endif %}
                     </header>
 
                     <!-- widget div-->
@@ -54,7 +57,7 @@
                 <td>{{ entity.nombre }}</td>
                 <td>{{ entity.escuela }}</td>
                 <td>
-                  {{ entity.programa? entity.programa.id : 'sin'}}  
+                  {{ entity.programa? entity.programa.id : 'sin'}}
                 </td>
                 <td>
  <a data-toggle="modal" href="{{ path('curso_edit', { 'id': entity.id }) }}" data-target="#myModal" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
@@ -74,10 +77,10 @@
                     </div>
                     <!-- end row -->
                     </section>
-                    <!-- end widget grid -->                         
+                    <!-- end widget grid -->
 
-<div class="modal fade" data-refresh="true" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">    
+<div class="modal fade" data-refresh="true" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 <div class="modal-dialog modal-lg">
-<div class="modal-content">  
+<div class="modal-content">
 </div></div></div>
     {% endblock %}

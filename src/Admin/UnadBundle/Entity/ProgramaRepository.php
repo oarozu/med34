@@ -27,6 +27,13 @@ class ProgramaRepository extends EntityRepository
         return $programas;
       }
 
+    public function findByEscuela($escuela){
+        return $this->createQueryBuilder('programa')
+            ->where('programa.escuela = :escuela')
+            ->setParameter('escuela', $escuela)
+            ->orderBy('programa.nombre', 'ASC');
+    }
+
     public function getPorIds($ids)
     {
         $em = $this->getEntityManager();
