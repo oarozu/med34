@@ -3,7 +3,7 @@
            <td colspan="4"><h4>Código: {{ entity.id }} Nombre: {{ entity.nombre }} </h4></td>
             <tr>
                 <th>Programa</th>
-                <td>{{ entity.programa? entity.programa.id : ' ' }} {{ entity.programa? entity.programa.nombre : 'Sin' }} - {{ entity.programa.escuela.sigla }}</td>
+                <td>{{ entity.programa? entity.programa.id : ' ' }} {{ entity.programa? entity.programa.nombre : 'Sin' }} - {{ entity.programa? entity.programa.escuela.sigla : ' ' }}</td>
             </tr>
         </tbody>
     </table>
