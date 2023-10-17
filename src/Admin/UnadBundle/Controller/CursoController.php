@@ -39,24 +39,28 @@ class CursoController extends Controller
         $entities = $em->getRepository('AdminUnadBundle:Curso')->findAll();
         return array(
             'entities' => $entities,
+            'sigla' => false
         );
     }
 
     /**
      * Lists all Curso entities.
      *
-     * @Route("/pe/{sigla}", name="curso_escuela")
+     * @Route("/pe/{id}", name="curso_escuela")
      * @Method("GET")
      * @Template("Curso/index.html.twig")
      *
      */
-    public function porescuelaAction($sigla)
+    public function porescuelaAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        $escuela = $em->getRepository('AdminUnadBundle:Escuela')->findOneBy(array('id' => $id));
+        $sigla = $escuela->getSigla();
         $entities = $em->getRepository('AdminUnadBundle:Curso')->findBy(array('escuela' => $sigla));
 
         return array(
             'entities' => $entities,
+            'sigla' => $sigla
         );
     }
 
@@ -135,20 +139,20 @@ class CursoController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AdminUnadBundle:Curso')->find($id);
+        $peracas = $em->getRepository('AdminMedBundle:Periodoe')->findLastThree();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Curso entity.');
         }
 
-
         $periodos = $em->getRepository('AdminMedBundle:Periodoa')->findby(array('periodoe' => $this->container->getParameter('appmed.periodo')));
         $cursooferta = $em->getRepository('AdminMedBundle:Oferta')->findby(array('periodo' => $periodos, 'curso' => $entity));
-
 
         $datos = new \Admin\MedBundle\Entity\OfertaDatos();
         $Form = $this->createForm(ofertaType::class, $datos, array(
             'action' => $this->generateUrl('oferta_curso', array('id' => $entity->getId())),
-            'method' => 'GET',
+            'method' => 'POST',
+            'peracas' => $peracas
         ));
 
         return array(
@@ -196,12 +200,8 @@ class CursoController extends Controller
         $em = $this->getDoctrine()->getManager();
         $curso = $em->getRepository('AdminUnadBundle:Curso')->find($id);
         $oferta = new Oferta();
-        $datos = new \Admin\MedBundle\Entity\OfertaDatos();
-        $Form = $this->createForm(ofertaType::class, $datos);
-        $Form->handleRequest($request);
-        $numeroced = $Form->get('cedula')->getData();
-
-        $usuario = $em->getRepository('AppBundle:User')->find($numeroced);
+        $datos = $request->request->get('oferta');
+        $usuario = $em->getRepository('AppBundle:User')->find($datos['cedula']);
         if (!$usuario) {
             $this->get('session')->getFlashBag()->add('error', 'Cédula no encontrada');
             return $this->redirect($this->generateUrl('curso_show', array('id' => $id)));
@@ -216,13 +216,7 @@ class CursoController extends Controller
 
         $oferta->setCurso($curso);
         $oferta->setDirector($docente);
-        $oferta->setPeriodo($Form->get('periodo')->getData());
-        if ($Form->get('periodo')->getData() == '16-04') {
-            $oferta->setId($curso->getId() + 10000000);
-        } else {
-            $oferta->setId($curso->getId() + 20000000);
-        }
-
+        $oferta->setPeriodo($datos['periodo']);
 
         try {
             $em->persist($oferta);
@@ -329,15 +323,15 @@ class CursoController extends Controller
     public function editAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $session = $request->getSession();
+        $escuelaid = $session->get('escuelaid');
         $entity = $em->getRepository('AdminUnadBundle:Curso')->find($id);
-        $escuela = $em->getRepository('AdminUnadBundle:Escuela')->findBy(array('sigla' => $entity->sigla));
-
+        $siglas = $em->getRepository('AdminUnadBundle:Escuela')->findSiglas();
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Curso entity.');
         }
 
-        $editForm = $this->createEditarForm($entity, $escuela, $request);
+        $editForm = $this->createEditarForm($entity, $escuelaid, $siglas);
 
         $deleteForm = $this->createDeleteForm($id);
 
@@ -346,6 +340,14 @@ class CursoController extends Controller
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
+    }
+
+    public function getArray($values){
+        $result = array();
+        foreach ($values as $i => $value){
+            $result[$i] = $value['sigla'];
+        }
+        return $result;
     }
 
     /**
@@ -396,12 +398,13 @@ class CursoController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditarForm(Curso $entity, $escuela, Request $request)
+    private function createEditarForm(Curso $entity, $escuelaid, $siglas)
     {
         $form = $this->createForm(CursoprogType::class, $entity, array(
                 'action' => $this->generateUrl('curso_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
-                'data' => array('escuela' => $escuela)
+                'escuela' => $escuelaid,
+                'siglas' => $siglas
             )
         );
         $form->add('submit', SubmitType::class, array('label' => 'Actualizar'));
@@ -458,26 +461,24 @@ class CursoController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $session = $request->getSession();
+        $escuelaid = $session->get('escuelaid');
         $entity = $em->getRepository('AdminUnadBundle:Curso')->find($id);
-        $escuela = $em->getRepository('AdminUnadBundle:Escuela')->findBy(array('sigla' => $entity->sigla));
-
-
+        $siglas = $em->getRepository('AdminUnadBundle:Escuela')->findSiglas();
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Curso entity.');
         }
-        $session = $request->getSession();
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditarForm($entity, $escuela, $request);
+        $editForm = $this->createEditarForm($entity, $escuelaid, $siglas);
         $editForm->handleRequest($request);
 
-        $director = $em->getRepository('AdminUnadBundle:Docente')->find($editForm->get('director')->getData());
-        $entity->setDirector($director);
+        //$director = $em->getRepository('AdminUnadBundle:Docente')->find($editForm->get('director')->getData());
+        //$entity->setDirector($director);
 
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('curso_escuela', array('sigla' => $entity->getEscuela())));
+            return $this->redirect($this->generateUrl('curso_escuela', array('id' => $entity->getId())));
         }
 
         return array(

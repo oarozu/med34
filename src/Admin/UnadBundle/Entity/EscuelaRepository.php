@@ -12,4 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class EscuelaRepository extends EntityRepository
 {
+    public function findSiglas(){
+        $qb = $this->createQueryBuilder('escuela')
+                        ->select('escuela.sigla');
+        return $this->getArray($qb->getQuery()->getResult());
+    }
+
+    public function getArray($values){
+        $result = array();
+        foreach ($values as $i => $value){
+            $result[$value['sigla']] = $value['sigla'];
+        }
+        return $result;
+    }
 }

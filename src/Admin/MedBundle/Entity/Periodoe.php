@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity
  * @ORM\Table(name="periodoe")
- * @ORM\Entity(repositoryClass="Admin\MedBundle\Entity\periodoelRepository")
+ * @ORM\Entity(repositoryClass="periodoeRepository")
  */
 class Periodoe
 {

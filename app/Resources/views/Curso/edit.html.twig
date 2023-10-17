@@ -1,47 +1,41 @@
 {% block body -%}
     <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
-    <h4 class="modal-title">Editar Curso</h4>
-   </div> 
-   <form  action="{{ path('curso_update', { 'id': entity.id }) }}" method="post" {{ form_start(edit_form) }}
-   <table class="table table-bordered table-striped hidden-mobile">
-   <input type="hidden" name="_method" value="PUT" />
-     {{ form_errors(edit_form) }}
-   <tr>
-    <td>Nombre</td>
-    <td>{{ form_widget(edit_form.nombre) }}</td>
-   </tr>
-      <tr>
-    <td>Nivel</td>
-    <td>{{ form_widget(edit_form.nivel) }}</td>
-   </tr>
-      <tr>
-    <td>Tipologia</td>
-    <td>{{ form_widget(edit_form.tipologia) }}</td>
-   </tr>
-     <tr>
-    <td>Creditos</td>
-    <td>{{ form_widget(edit_form.creditos) }}</td>
-   </tr>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+        <h4 class="modal-title">Editar Curso código: {{ entity.id }}</h4>
+    </div>
+    <form action="{{ path('curso_update', { 'id': entity.id }) }}" method="post" {{ form_start(edit_form) }}
+    <table class="table table-bordered table-striped hidden-mobile">
+        <input type="hidden" name="_method" value="PUT"/>
+        {{ form_errors(edit_form) }}
         <tr>
-    <td>Escuela</td>
-    <td>{{ form_widget(edit_form.escuela) }}</td>
-   </tr>
+            <td>Nombre</td>
+            <td>{{ form_widget(edit_form.nombre) }}</td>
+        </tr>
         <tr>
-    <td>Programa</td>
-    <td>{{ form_widget(edit_form.programa) }}</td>
-   </tr>
-   <tr>
-    <td></td>
-    <td>    
-    <button type="submit" class="btn btn-lg btn-primary">Guardar</button></td>
-  </tr>
-  {{ form_widget(edit_form._token) }}
-  </table>
-</form>
+            <td>Nivel</td>
+            <td>{{ form_widget(edit_form.nivel) }}</td>
+        </tr>
+        <tr>
+            <td>Escuela</td>
+            <td>{{ form_widget(edit_form.escuela) }}</td>
+        </tr>
+        <tr>
+            <td>Programa</td>
+            <td>{{ form_widget(edit_form.programa) }}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <button type="submit" class="btn btn-lg btn-primary">Guardar</button>
+            </td>
+        </tr>
+        {{ form_widget(edit_form._token) }}
+    </table>
+    </form>
 
-        <ul class="record_actions">
+    <ul class="record_actions">
 
-       {% if is_granted('ROLE_ADMIN') %}  <li>{{ form(delete_form) }}</li> {%endif%}
-</ul>     
+        {% if is_granted('ROLE_ADMIN') %}
+            <li>{{ form(delete_form) }}</li> {% endif %}
+    </ul>
 {% endblock %}
