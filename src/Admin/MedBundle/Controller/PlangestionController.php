@@ -206,8 +206,8 @@ class PlangestionController extends Controller
     {
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
-        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $this->container->getParameter('appmed.periodo')));
         $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
+        $periodoe = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $docente->getPeriodo()));
         $entity = $em->getRepository('AdminMedBundle:Plangestion')->findOneBy(array('docente' => $docente));
         $actividades = $em->getRepository('AdminMedBundle:Actividadplang')->findBy(array('plang' => $entity), array('actividad' => 'ASC'));
 
@@ -219,7 +219,7 @@ class PlangestionController extends Controller
         return array(
             'entity' => $entity,
             'actividades' => $actividades,
-            'periodo' => $periodo
+            'periodo' => $periodoe
         );
     }
 

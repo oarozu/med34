@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 {% block body -%}
-    <h3>Plan Gestión de {{ entity.docente.user.nombres}} {{ entity.docente.user.apellidos}} : {{ entity.docente.user.id}} 
-        Periodo: {{periodo.id}} Semanas: {{entity.dias/5}} Dias Habiles: {{entity.dias}}  Horas: {{entity.dias*8}}</h3>
+    <h3>Plan Gestión de {{ entity.docente.user.nombres}} {{ entity.docente.user.apellidos}} : {{ entity.docente.user.id}}
+        Periodo: {{periodo.observaciones}} Semanas: {{entity.dias/5}} Dias Habiles: {{entity.dias}}  Horas: {{entity.dias*8}}</h3>
 
 </table>
 <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
@@ -25,7 +25,7 @@
 
                                 <tr>
                                     {% set num = num+1 %}
-                                    <td>{{num}}.     
+                                    <td>{{num}}.
                                         {{ rol.rol.nombre }}<br>
                                     </td>
                                     <td>
@@ -47,7 +47,7 @@
                                 </tr>
                             {% endfor %}
                             <tr>
-                                <td></td>                   
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td style="text-align: right"><b>Total: </b></td>
@@ -57,7 +57,7 @@
                             {%if entity.estado == 'Sin Cerrar'%}
                                 <tr>
                                     <td colspan="6">
-                                        <a href="{{ path('actividadrol_select', { 'id': entity.id }) }}" class="btn btn-labeled btn-success"><span class="btn-label"><i class="fa fa-plus"></i></span></i>Agregar Rol</a>  
+                                        <a href="{{ path('actividadrol_select', { 'id': entity.id }) }}" class="btn btn-labeled btn-success"><span class="btn-label"><i class="fa fa-plus"></i></span></i>Agregar Rol</a>
                                                 {%if totalhoras > (entity.dias*8)  or totalhoras < (entity.dias*8) %}
                                             <div class="alert alert-danger fade in">
                                                 <i class="fa-fw fa fa-warning"></i>
@@ -95,7 +95,7 @@
                                                                 {{producto.descripcion}}
                                                             </td>
                                                             <td>
-                                                                {%if producto.proyecto%}   
+                                                                {%if producto.proyecto%}
                                                                     Proyecto: {{producto.proyecto.nombre}} ({{producto.proyecto.linea}})
                                                                 {%else%}
                                                                     Responsabilidad Sustantiva: {{producto.articulacion}}
@@ -130,18 +130,18 @@
                                                 <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
                                                     <tbody>
                                                         <tr>
-                                                            <td>Estado: 
+                                                            <td>Estado:
                                                                 {%if entity.estado == 'Sin Cerrar'%}
-                                                                    <font style="color: red">Sin Cerrar</font>  
+                                                                    <font style="color: red">Sin Cerrar</font>
                                                                     <h1>Cierre su registro para que los avaladores puedan revisarlo.</h1>
-                                                                {%else%}    
-                                                                    <font style="color: green">{{entity.estado}}</font> 
-                                                                {%endif%} 
+                                                                {%else%}
+                                                                    <font style="color: green">{{entity.estado}}</font>
+                                                                {%endif%}
                                                             </td>
                                                             <td>Fecha Registro: {{ entity.fechacierre? entity.fechacierre|date('Y-m-d H:i') : 'Sin Cerrar' }}</td>
                                                         </tr>
                                                     </tbody>
-                                                </table>  
+                                                </table>
 
                                                 <br>
                                                 <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
@@ -169,17 +169,17 @@
                                                         </tr>
                                                         <tr>
                                                             <td  colspan="5"><b>Observaciones:</b><br>
-                                                                {% set texto = aval.observaciones|split('|') %} 
+                                                                {% set texto = aval.observaciones|split('|') %}
                                                                 {% for obs in texto%}
                                                                     {{obs}}<br>
                                                                 {%endfor%}
                                                             </td>
                                                         </tr>
-                                                    {% endfor %}  
+                                                    {% endfor %}
                                                 </table>
 
                                                 {%if entity.estado != 'Sin Cerrar' %}
-                                                    <a href="javascript:popUp('{{ path('plangestion_info', { 'id': entity.docente.id }) }}')" class="btn btn-primary btn-xs">Ver Plan de Gestión para impresión... <i class="fa fa-sign-in"></i></a>   
+                                                    <a href="javascript:popUp('{{ path('plangestion_info', { 'id': entity.docente.id }) }}')" class="btn btn-primary btn-xs">Ver Plan de Gestión para impresión... <i class="fa fa-sign-in"></i></a>
                                                     {%else%}
                                                     Sin Cerrar
                                                 {%endif%}
@@ -200,11 +200,11 @@
                                                                 IMPORTANTE: Al cerrar su registro de roles ya no podra modificarlo, si esta seguro cierrelo y solicite los avales correspondientes para poder relizar su autoevaluación.
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <form  action="{{ path('plangestion_cerrar', { 'id': entity.id }) }}" method="get">     
+                                                                <form  action="{{ path('plangestion_cerrar', { 'id': entity.id }) }}" method="get">
                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">
                                                                         Cancelar
                                                                     </button>
-                                                                    <td><button type="hidden" class="btn btn-primary">Cerrar Registro</button></td>    
+                                                                    <td><button type="hidden" class="btn btn-primary">Cerrar Registro</button></td>
                                                                 </form>
                                                             </div>
 
