@@ -121,11 +121,13 @@ class AvalplangController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $docente = $em->getRepository('AdminUnadBundle:Docente')->find($id);
+        $periodoe = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $docente->getPeriodo()));
         $entity = $docente->getPlangestion();
 
         return array(
             'docente' => $docente,
-            'entity' => $entity
+            'entity' => $entity,
+            'periodo' => $periodoe
         );
     }
 

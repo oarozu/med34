@@ -19,7 +19,7 @@
             <td><b>Escuela:</b></td>
             <td>{{ docente.escuela.nombre }}</td>
             <td><b>Periodo de Ejecución:</b>
-                {{ docente.periodo }} - Dias Habiles: {{ docente.plangestion.dias }}
+                {{ periodo.year }} {{ periodo.observaciones }} - Dias Habiles: {{ docente.plangestion.dias }}
                 (Horas: {{ docente.plangestion.dias*8 }})
             </td>
         </tr>

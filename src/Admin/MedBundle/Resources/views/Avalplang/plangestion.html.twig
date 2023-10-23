@@ -8,7 +8,7 @@
             <td><b>Cédula:</b></td>
             <td>{{ docente.user.id }}</td>
             <td><b>Periodo de Ejecución:</b>
-                {{ docente.periodo }} - Dias Habiles: {{ docente.plangestion.dias }}</td>
+                {{ periodo.year }} {{ periodo.observaciones }} - Dias Habiles: {{ docente.plangestion.dias }}</td>
         </tr>
         <tr>
             <td colspan="2"><b>Programa:</b> {{ docente.programa.nombre }}</td>
