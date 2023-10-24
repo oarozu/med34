@@ -232,7 +232,8 @@ class PlangestionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $docente = $em->getRepository('AdminUnadBundle:Docente')->find($id);
         $entity = $docente->getPlangestion();
-        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $this->container->getParameter('appmed.periodo')));
+        $periodoe = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $docente->getPeriodo()));
+        //$periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $this->container->getParameter('appmed.periodo')));
         if (!$entity) {
             throw $this->createNotFoundException('No se encuentra el plan.');
         }
@@ -241,6 +242,7 @@ class PlangestionController extends Controller
             return $this->render('AdminMedBundle:Plangestion:info.html.twig', array(
                 'entity' => $entity,
                 'docente' => $docente,
+                'periodo' => $periodoe
             ));
         } elseif ($docente->getVinculacion() == 'DOFE') {
             return $this->render('AdminMedBundle:Plangestion:plandofe.html.twig', array(
