@@ -37,6 +37,7 @@ class ZonaController extends Controller
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Zona entity.
      *
@@ -60,17 +61,17 @@ class ZonaController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-    * Creates a form to create a Zona entity.
-    *
-    * @param Zona $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to create a Zona entity.
+     *
+     * @param Zona $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(Zona $entity)
     {
         $form = $this->createForm(ZonaType::class, $entity, array(
@@ -93,11 +94,11 @@ class ZonaController extends Controller
     public function newAction()
     {
         $entity = new Zona();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -121,7 +122,7 @@ class ZonaController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -146,22 +147,22 @@ class ZonaController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm["director"]->setData($entity->getDirector()->getId());
         $deleteForm = $this->createDeleteForm($id);
-        $editForm["director_nom"]->setData($entity->getDirector()->getNombres().' '.$entity->getDirector()->getApellidos());
+        $editForm["director_nom"]->setData($entity->getDirector()->getNombres() . ' ' . $entity->getDirector()->getApellidos());
 
         return array(
-            'entity'      => $entity,
-            'form'   => $editForm->createView(),
+            'entity' => $entity,
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Zona entity.
-    *
-    * @param Zona $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Zona entity.
+     *
+     * @param Zona $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Zona $entity)
     {
         $form = $this->createForm(ZonaType::class, $entity, array(
@@ -171,6 +172,7 @@ class ZonaController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Zona entity.
      *
@@ -189,13 +191,13 @@ class ZonaController extends Controller
 
         if (!$entity) {
             return new JsonResponse(array('message' => 'Unable to find Zona entity'), 500);
-           // throw $this->createNotFoundException('Unable to find Zona entity.');
+            // throw $this->createNotFoundException('Unable to find Zona entity.');
         }
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         $director = $em->getRepository('AppBundle:User')->find($editForm["director"]->getData());
 
-        if (count($director) == 0){
+        if (count($director) == 0) {
             return new JsonResponse(
                 array(
                     'message' => '<div class="alert alert-warning fade in"><i class="fa-fw fa fa-check"></i><strong>Error !</strong> Director no encontrado.</div>'
@@ -210,7 +212,7 @@ class ZonaController extends Controller
             $em->flush();
             $editForm = $this->createEditForm($entity);
             $editForm["director"]->setData($entity->getDirector()->getId());
-            $editForm["director_nom"]->setData($entity->getDirector()->getNombres().' '.$entity->getDirector()->getApellidos());
+            $editForm["director_nom"]->setData($entity->getDirector()->getNombres() . ' ' . $entity->getDirector()->getApellidos());
             $response = new JsonResponse(
                 array(
                     'message' => '<div class="alert alert-success fade in"><i class="fa-fw fa fa-check"></i><strong>Hecho !</strong> Registro actualizado.</div>',
@@ -273,13 +275,11 @@ class ZonaController extends Controller
             ->setAction($this->generateUrl('zona_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', SubmitType::class, array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 
 
-
-        /**
+    /**
      * @Route("/docs/{id}", name="zona_index")
      * @Method("GET")
      * @Template("Zona/docs.html.twig")
@@ -289,18 +289,26 @@ class ZonaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $zona = $user->getDirectorzona();
-        $periodos = $em->getRepository('AdminMedBundle:Periodoe')->findAll();
-        if ($id == 1){
+        $year = $this->container->getParameter('appmed.year');
+        $periodoss = $em->getRepository('AdminMedBundle:Periodoe')->findby(array('type' => 's'), array('id' => 'DESC'), 10);
+        $periodosa = $em->getRepository('AdminMedBundle:Periodoe')->findby(array('type' => 'a'), array('id' => 'DESC'), 5);
+        $periodosp = $em->getRepository('AdminMedBundle:Periodoe')->findby(array('type' => 'p', 'year' => $year), array('id' => 'DESC'));
+        if ($id == 1) {
             $id = $this->container->getParameter('appmed.periodo');
         }
         $centros = $em->getRepository('AdminUnadBundle:Centro')->findBy(array('zona' => $zona[0]));
         $docentes = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('centro' => $centros, 'periodo' => $id));
+        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $id));
+
 
         return array(
-            'docentes'      => $docentes,
-            'zona'        => $zona[0],
-            'periodos'    => $periodos,
-            'periodo'     => $id,
+            'docentes' => $docentes,
+            'zona' => $zona[0],
+            'periodoss' => $periodoss,
+            'periodosa' => $periodosa,
+            'periodosp' => $periodosp,
+            'periodo' => $periodo,
+            'year' => $year
         );
     }
 }
