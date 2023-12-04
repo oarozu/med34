@@ -323,12 +323,12 @@
     <td> </td>
     <td> </td>
     <td>
+      {% if evaluacion.id.oferta.director.user.id == 100 %}
+        Para co evaluar el director debe estar defido.
+      {% else %}
+        <button type="submit">Enviar</button>
+      {% endif %}
     </td>
-    {% if evaluacion.id.oferta.director.user.id == 100 %}
-      Para co evaluar el director debe estar defido.
-    {% else %}
-      <td align="center"><button type="submit">Enviar</button></td>
-    {% endif %}
   </tr>
     </tbody>
     </table>
