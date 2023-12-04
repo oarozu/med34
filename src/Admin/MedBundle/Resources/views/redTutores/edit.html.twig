@@ -1,337 +1,392 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h3>Curso: {{evaluacion.id.oferta.curso.id}} {{evaluacion.id.oferta.curso.nombre}} - Director: {{evaluacion.id.oferta.director.user.nombres}} {{evaluacion.id.oferta.director.user.apellidos}}</h3>
-  <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
-     <form action="{{ path('redtutores_update', { 'id': evaluacion.id.id }) }}" method="post" {{ form_start(edit_form) }}
-     <input type="hidden" name="_method" value="PUT" />
-     {{ form_errors(edit_form) }}
+    <h3>Curso: {{ evaluacion.id.oferta.curso.id }} {{ evaluacion.id.oferta.curso.nombre }} -
+        Director: {{ evaluacion.id.oferta.director.user.nombres }} {{ evaluacion.id.oferta.director.user.apellidos }}</h3>
+    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        <form action="{{ path('redtutores_update', { 'id': evaluacion.id.id }) }}"
+              method="post" {{ form_start(edit_form) }}
+        <input type="hidden" name="_method" value="PUT"/>
+        {{ form_errors(edit_form) }}
         <thead>
-            <tr class="data">
-                <th>Item</th>
-                <th>Factor</th>
-                <th>Descripción</th>
-                <th>Evaluación</th>
-            </tr>
+        <tr class="data">
+            <th>Item</th>
+            <th>Factor</th>
+            <th>Descripción</th>
+            <th>Evaluación</th>
+        </tr>
         </thead>
         <tbody>
-            <tr>
-    <td rowspan="2"><b>1</b></td>
-    <td><b>Currículo</b></td>
-    <td> El curso desarrolla las competencias descritas en el perfil laboral, guarda  coherencia con el plan de estudios y se adecua a la modalidad de Educación Abierta y a Distancia.</td>
-    <td rowspan="2">{{ form_row(edit_form.f1)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Pedagógico-Didáctico -  Dimensión: Mediaciones (Contenidos)</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>1</b></td>
+            <td><b>Currículo</b></td>
+            <td> El curso desarrolla las competencias descritas en el perfil laboral, guarda coherencia con el plan de
+                estudios y se adecua a la modalidad de Educación Abierta y a Distancia.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f1) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Pedagógico-Didáctico - Dimensión: Mediaciones (Contenidos)</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>2</b></td>
-    <td><b>Aseguramiento de la calidad de los materiales didácticos </b></td>
-    <td> El curso está acreditado, es decir, está elaborado conforme a la modalidad y a los parámetros institucionales. </td>
-    <td rowspan="2">{{ form_row(edit_form.f2)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Pedagógico-Didáctico -  Dimensión: Mediaciones (Contenidos)</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>2</b></td>
+            <td><b>Aseguramiento de la calidad de los materiales didácticos </b></td>
+            <td> El curso está acreditado, es decir, está elaborado conforme a la modalidad y a los parámetros
+                institucionales.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f2) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Pedagógico-Didáctico - Dimensión: Mediaciones (Contenidos)</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>3</b></td>
-    <td><b>Planificación del Curso</b></td>
-    <td> El docente planifica la acción formativa y la plasma en la Guía Didáctica y en la Guía del Tutor.</td>
-    <td rowspan="2">{{ form_row(edit_form.f3)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Pedagógico-Didáctico -  Dimensión: Mediaciones (Contenidos)</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>3</b></td>
+            <td><b>Planificación del Curso</b></td>
+            <td> El docente planifica la acción formativa y la plasma en la Guía Didáctica y en la Guía del Tutor.</td>
+            <td rowspan="2">{{ form_row(edit_form.f3) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Pedagógico-Didáctico - Dimensión: Mediaciones (Contenidos)</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>4</b></td>
-    <td><b>Redacción y Lenguaje</b></td>
-    <td> El lenguaje y redacción del curso es claro y los temas tienen una ordenamiento lógico que facilitan su comprensión.</td>
-    <td rowspan="2">{{ form_row(edit_form.f4)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Pedagógico-Didáctico -  Dimensión: Mediaciones (Contenidos)</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>4</b></td>
+            <td><b>Redacción y Lenguaje</b></td>
+            <td> El lenguaje y redacción del curso es claro y los temas tienen una ordenamiento lógico que facilitan su
+                comprensión.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f4) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Pedagógico-Didáctico - Dimensión: Mediaciones (Contenidos)</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>5</b></td>
-    <td><b>Derechos de Autor </b></td>
-    <td> La citación dentro del texto y las referencias bibliográficas guardan rigurosidad metodológica y respeto por los derechos de autor.</td>
-    <td rowspan="2">{{ form_row(edit_form.f5)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Pedagógico-Didáctico -  Dimensión: Mediaciones (Contenidos)</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>5</b></td>
+            <td><b>Derechos de Autor </b></td>
+            <td> La citación dentro del texto y las referencias bibliográficas guardan rigurosidad metodológica y
+                respeto por los derechos de autor.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f5) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Pedagógico-Didáctico - Dimensión: Mediaciones (Contenidos)</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>6</b></td>
-    <td><b>Recursos de Aprendizaje complementarios</b></td>
-    <td> El curso ofrece lecturas, vínculos (links) y otros recursos para facilitar la comprensión de los contenidos. </td>
-    <td rowspan="2">{{ form_row(edit_form.f6)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Pedagógico-Didáctico -  Dimensión: Mediaciones (Contenidos)</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>6</b></td>
+            <td><b>Recursos de Aprendizaje complementarios</b></td>
+            <td> El curso ofrece lecturas, vínculos (links) y otros recursos para facilitar la comprensión de los
+                contenidos.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f6) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Pedagógico-Didáctico - Dimensión: Mediaciones (Contenidos)</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>7</b></td>
-    <td><b>Estética</b></td>
-    <td> Los aspectos de forma del curso lo hacen estéticamente atractivo y confiable) (combinación de colores agradable, presenta imágenes y vínculos o links que no sobrecargan o desorientan al usuario).</td>
-    <td rowspan="2">{{ form_row(edit_form.f7)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Pedagógico-Didáctico -  Dimensión: Mediaciones (Contenidos)</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>7</b></td>
+            <td><b>Estética</b></td>
+            <td> Los aspectos de forma del curso lo hacen estéticamente atractivo y confiable) (combinación de colores
+                agradable, presenta imágenes y vínculos o links que no sobrecargan o desorientan al usuario).
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f7) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Pedagógico-Didáctico - Dimensión: Mediaciones (Contenidos)</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>8</b></td>
-    <td><b>Coordinación  de la acción tutorial</b></td>
-    <td> El docente convoca a los tutores a reuniones periódicas para orientar y retroalimentar a los tutores del curso.</td>
-    <td rowspan="2">{{ form_row(edit_form.f8)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Pedagógico-Didáctico -  Dimensión: Mediadores</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>8</b></td>
+            <td><b>Coordinación de la acción tutorial</b></td>
+            <td> El docente convoca a los tutores a reuniones periódicas para orientar y retroalimentar a los tutores
+                del curso.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f8) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Pedagógico-Didáctico - Dimensión: Mediadores</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>9</b></td>
-    <td><b>Desarrollo de la acción formativa</b></td>
-    <td> El docente apoya a los tutores de la red de curso, se informa y actúa sobre el progreso y dificultades de los estudiantes a cargo del tutor en dicho curso.</td>
-    <td rowspan="2">{{ form_row(edit_form.f9)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Pedagógico-Didáctico -  Dimensión: Mediadores</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>9</b></td>
+            <td><b>Desarrollo de la acción formativa</b></td>
+            <td> El docente apoya a los tutores de la red de curso, se informa y actúa sobre el progreso y dificultades
+                de los estudiantes a cargo del tutor en dicho curso.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f9) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Pedagógico-Didáctico - Dimensión: Mediadores</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>10</b></td>
-    <td><b>Recursos Multimedia</b></td>
-    <td> Los recursos multimedia del curso están contextualizados en el tema, adaptados a los objetivos y contenidos de aprendizaje y a la población destino.</td>
-    <td rowspan="2">{{ form_row(edit_form.f10)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Pedagógico-Didáctico -  Dimensión: Medios</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>10</b></td>
+            <td><b>Recursos Multimedia</b></td>
+            <td> Los recursos multimedia del curso están contextualizados en el tema, adaptados a los objetivos y
+                contenidos de aprendizaje y a la población destino.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f10) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Pedagógico-Didáctico - Dimensión: Medios</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>11</b></td>
-    <td><b>Herramientas Colaborativas</b></td>
-    <td> Las herramientas colaborativas del aula virtual del curso, son pertinentes para los contenidos, tienen objetivos claros y fomentan el desarrollo de valores tales como la solidaridad, la construcción colectiva y el respeto a la diferencia.</td>
-    <td rowspan="2">{{ form_row(edit_form.f11)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Pedagógico-Didáctico -  Dimensión: Medios</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>11</b></td>
+            <td><b>Herramientas Colaborativas</b></td>
+            <td> Las herramientas colaborativas del aula virtual del curso, son pertinentes para los contenidos, tienen
+                objetivos claros y fomentan el desarrollo de valores tales como la solidaridad, la construcción
+                colectiva y el respeto a la diferencia.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f11) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Pedagógico-Didáctico - Dimensión: Medios</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>12</b></td>
-    <td><b>Navegabilidad</b></td>
-    <td> La navegación del curso virtual es sencilla: facilita el desplazamiento y la localización de los recursos. </td>
-    <td rowspan="2">{{ form_row(edit_form.f12)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Pedagógico-Didáctico -  Dimensión: Medios</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>12</b></td>
+            <td><b>Navegabilidad</b></td>
+            <td> La navegación del curso virtual es sencilla: facilita el desplazamiento y la localización de los
+                recursos.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f12) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Pedagógico-Didáctico - Dimensión: Medios</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>13</b></td>
-    <td><b>Interactividad</b></td>
-    <td> El curso es realmente interactivo: facilita la comunicación entre usuarios y entre éstos y la máquina para lograr los objetivos de aprendizaje. </td>
-    <td rowspan="2">{{ form_row(edit_form.f13)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Pedagógico-Didáctico -  Dimensión: Medios</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>13</b></td>
+            <td><b>Interactividad</b></td>
+            <td> El curso es realmente interactivo: facilita la comunicación entre usuarios y entre éstos y la máquina
+                para lograr los objetivos de aprendizaje.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f13) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Pedagógico-Didáctico - Dimensión: Medios</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>14</b></td>
-    <td><b>Estilos Cognitivos</b></td>
-    <td> Los recursos multimedia utilizados en el curso virtual, atienden a los distintos estilos de aprendizaje de los estudiantes. </td>
-    <td rowspan="2">{{ form_row(edit_form.f14)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Pedagógico-Didáctico -  Dimensión: Estudiante</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>14</b></td>
+            <td><b>Estilos Cognitivos</b></td>
+            <td> Los recursos multimedia utilizados en el curso virtual, atienden a los distintos estilos de aprendizaje
+                de los estudiantes.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f14) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Pedagógico-Didáctico - Dimensión: Estudiante</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>15</b></td>
-    <td><b>Transferencia de aprendizaje</b></td>
-    <td> Los distintos medios que ofrece el curso (videos, mensajería instantánea, mundos virtuales, simuladores, etc.) son adecuados para fomentar la comprensión y aplicación de conocimientos. </td>
-    <td rowspan="2">{{ form_row(edit_form.f15)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Pedagógico-Didáctico -  Dimensión: Estudiante</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>15</b></td>
+            <td><b>Transferencia de aprendizaje</b></td>
+            <td> Los distintos medios que ofrece el curso (videos, mensajería instantánea, mundos virtuales,
+                simuladores, etc.) son adecuados para fomentar la comprensión y aplicación de conocimientos.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f15) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Pedagógico-Didáctico - Dimensión: Estudiante</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>16</b></td>
-    <td><b>Aprendizaje Autónomo</b></td>
-    <td> Los diferentes medios estimulan el aprendizaje autónomo del estudiante,  la realización de preguntas, la reflexión y la búsqueda de respuestas  por sí mismo. </td>
-    <td rowspan="2">{{ form_row(edit_form.f16)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Pedagógico-Didáctico -  Dimensión: Estudiante</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>16</b></td>
+            <td><b>Aprendizaje Autónomo</b></td>
+            <td> Los diferentes medios estimulan el aprendizaje autónomo del estudiante, la realización de preguntas, la
+                reflexión y la búsqueda de respuestas por sí mismo.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f16) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Pedagógico-Didáctico - Dimensión: Estudiante</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>17</b></td>
-    <td><b>Necesidades Especiales de Aprendizaje </b></td>
-    <td> El curso prevé la utilización de diferentes medios (audio libros, e- prácticas, e-exámenes, etc.) con el fin de facilitar la inclusión de personas en condiciones especiales de aprendizaje (sordera, ceguera, etc.) en los procesos formativos que se realizan en el Campus Virtual. </td>
-    <td rowspan="2">{{ form_row(edit_form.f17)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Pedagógico-Didáctico -  Dimensión: Estudiante</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>17</b></td>
+            <td><b>Necesidades Especiales de Aprendizaje </b></td>
+            <td> El curso prevé la utilización de diferentes medios (audio libros, e- prácticas, e-exámenes, etc.) con
+                el fin de facilitar la inclusión de personas en condiciones especiales de aprendizaje (sordera, ceguera,
+                etc.) en los procesos formativos que se realizan en el Campus Virtual.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f17) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Pedagógico-Didáctico - Dimensión: Estudiante</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>18</b></td>
-    <td><b>Evaluación Formativa</b></td>
-    <td> El curso diseñado por el docente desarrolla procesos e instrumentos pertinentes de evaluación formativa de los aprendizajes de acuerdo con el tipo de curso (Teórico, práctico, metodológico).</td>
-    <td rowspan="2">{{ form_row(edit_form.f18)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Pedagógico-Didáctico -  Dimensión: Evaluación de los Aprendizajes</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>18</b></td>
+            <td><b>Evaluación Formativa</b></td>
+            <td> El curso diseñado por el docente desarrolla procesos e instrumentos pertinentes de evaluación formativa
+                de los aprendizajes de acuerdo con el tipo de curso (Teórico, práctico, metodológico).
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f18) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Pedagógico-Didáctico - Dimensión: Evaluación de los Aprendizajes</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>19</b></td>
-    <td><b>Evaluación Sumativa</b></td>
-    <td> La evaluación sumativa o final del  curso permiten valorar el nivel de conocimientos y competencias alcanzadas por el estudiante.</td>
-    <td rowspan="2">{{ form_row(edit_form.f19)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Pedagógico-Didáctico -  Dimensión: Evaluación de los Aprendizajes</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>19</b></td>
+            <td><b>Evaluación Sumativa</b></td>
+            <td> La evaluación sumativa o final del curso permiten valorar el nivel de conocimientos y competencias
+                alcanzadas por el estudiante.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f19) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Pedagógico-Didáctico - Dimensión: Evaluación de los Aprendizajes</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>20</b></td>
-    <td><b>Acción de Mejora</b></td>
-    <td> El docente realiza un proceso permanente de mejoramiento del curso a través de los estudios, investigaciones, experiencias y proyectos que desarrolla en la Universidad.</td>
-    <td rowspan="2">{{ form_row(edit_form.f20)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Investigación -  Dimensión: Investigación y Acción Pedagógica</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>20</b></td>
+            <td><b>Acción de Mejora</b></td>
+            <td> El docente realiza un proceso permanente de mejoramiento del curso a través de los estudios,
+                investigaciones, experiencias y proyectos que desarrolla en la Universidad.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f20) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Investigación - Dimensión: Investigación y Acción Pedagógica</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>21</b></td>
-    <td><b>Relación con comunidades científicas nacionales e internacionales</b></td>
-    <td> El docente comunica y estimula la vinculación de la red de tutores de curso a comunidades científicas internacionales, así como la publicación de resultados de investigación disciplinar y pedagógica.</td>
-    <td rowspan="2">{{ form_row(edit_form.f21)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Investigación -  Dimensión: Investigación y Acción Pedagógica</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>21</b></td>
+            <td><b>Relación con comunidades científicas nacionales e internacionales</b></td>
+            <td> El docente comunica y estimula la vinculación de la red de tutores de curso a comunidades científicas
+                internacionales, así como la publicación de resultados de investigación disciplinar y pedagógica.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f21) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Investigación - Dimensión: Investigación y Acción Pedagógica</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>22</b></td>
-    <td><b>Gestión del Conocimiento</b></td>
-    <td> El docente efectúa investigación pedagógica en la modalidad de EaD, la comparte con la red de tutores de curso y/o estudiantes y aplica los resultados en el mejoramiento del curso.</td>
-    <td rowspan="2">{{ form_row(edit_form.f22)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Investigación -  Dimensión: Investigación y Acción Pedagógica</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>22</b></td>
+            <td><b>Gestión del Conocimiento</b></td>
+            <td> El docente efectúa investigación pedagógica en la modalidad de EaD, la comparte con la red de tutores
+                de curso y/o estudiantes y aplica los resultados en el mejoramiento del curso.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f22) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Investigación - Dimensión: Investigación y Acción Pedagógica</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>23</b></td>
-    <td><b>Actualización del curso</b></td>
-    <td> El curso está actualizado y refleja los avances del conocimiento en la materia.</td>
-    <td rowspan="2">{{ form_row(edit_form.f23)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Investigación -  Dimensión: Investigación y Acción Pedagógica</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>23</b></td>
+            <td><b>Actualización del curso</b></td>
+            <td> El curso está actualizado y refleja los avances del conocimiento en la materia.</td>
+            <td rowspan="2">{{ form_row(edit_form.f23) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Investigación - Dimensión: Investigación y Acción Pedagógica</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>24</b></td>
-    <td><b>Desarrollo Social y Humano Sostenible</b></td>
-    <td> El curso promueve acciones de respuesta a las problemáticas locales.</td>
-    <td rowspan="2">{{ form_row(edit_form.f24)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Desarrollo Regional y Proyección comunitaria -  Dimensión: Responsabilidad Social Universitaria</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>24</b></td>
+            <td><b>Desarrollo Social y Humano Sostenible</b></td>
+            <td> El curso promueve acciones de respuesta a las problemáticas locales.</td>
+            <td rowspan="2">{{ form_row(edit_form.f24) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Desarrollo Regional y Proyección comunitaria - Dimensión: Responsabilidad
+                    Social Universitaria</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>25</b></td>
-    <td><b>Desarrollo Social y Humano Sostenible</b></td>
-    <td> El curso estimula el saber hacer en contexto.</td>
-    <td rowspan="2">{{ form_row(edit_form.f25)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Desarrollo Regional y Proyección comunitaria -  Dimensión: Responsabilidad Social Universitaria</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>25</b></td>
+            <td><b>Desarrollo Social y Humano Sostenible</b></td>
+            <td> El curso estimula el saber hacer en contexto.</td>
+            <td rowspan="2">{{ form_row(edit_form.f25) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Desarrollo Regional y Proyección comunitaria - Dimensión: Responsabilidad
+                    Social Universitaria</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>26</b></td>
-    <td><b>Desarrollo Social y Humano Sostenible</b></td>
-    <td> El docente convoca a los tutores de la red de curso a acciones de tipo humanitario.</td>
-    <td rowspan="2">{{ form_row(edit_form.f26)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Desarrollo Regional y Proyección comunitaria -  Dimensión: Responsabilidad Social Universitaria</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>26</b></td>
+            <td><b>Desarrollo Social y Humano Sostenible</b></td>
+            <td> El docente convoca a los tutores de la red de curso a acciones de tipo humanitario.</td>
+            <td rowspan="2">{{ form_row(edit_form.f26) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Desarrollo Regional y Proyección comunitaria - Dimensión: Responsabilidad
+                    Social Universitaria</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>27</b></td>
-    <td><b>Pertenencia</b></td>
-    <td> El docente comunica al tutor una actitud positiva y comprometida con la institución.</td>
-    <td rowspan="2">{{ form_row(edit_form.f27)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Actitudes y Comportamientos -  Dimensión: Relaciones Inter-personales</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>27</b></td>
+            <td><b>Pertenencia</b></td>
+            <td> El docente comunica al tutor una actitud positiva y comprometida con la institución.</td>
+            <td rowspan="2">{{ form_row(edit_form.f27) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Actitudes y Comportamientos - Dimensión: Relaciones Inter-personales</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>28</b></td>
-    <td><b>Trabajo en Equipo</b></td>
-    <td> El docente promueve y mantiene el trabajo en equipo con los tutores y promueve esfuerzos orientados al logro de objetivos comunes.</td>
-    <td rowspan="2">{{ form_row(edit_form.f28)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Actitudes y Comportamientos -  Dimensión: Relaciones Inter-personales</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>28</b></td>
+            <td><b>Trabajo en Equipo</b></td>
+            <td> El docente promueve y mantiene el trabajo en equipo con los tutores y promueve esfuerzos orientados al
+                logro de objetivos comunes.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f28) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Actitudes y Comportamientos - Dimensión: Relaciones Inter-personales</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>29</b></td>
-    <td><b>Resolución de Conflictos</b></td>
-    <td> El docente identifica las causas que motivan conflictos en su relación con la red de tutores de curso, el contexto en que surgen y propone alternativas de acuerdos para su solución.</td>
-    <td rowspan="2">{{ form_row(edit_form.f29)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Actitudes y Comportamientos -  Dimensión: Relaciones Inter-personales</i></td>
-  </tr>
+        <tr>
+            <td rowspan="2"><b>29</b></td>
+            <td><b>Resolución de Conflictos</b></td>
+            <td> El docente identifica las causas que motivan conflictos en su relación con la red de tutores de curso,
+                el contexto en que surgen y propone alternativas de acuerdos para su solución.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f29) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Actitudes y Comportamientos - Dimensión: Relaciones Inter-personales</i></td>
+        </tr>
 
-            <tr>
-    <td rowspan="2"><b>30</b></td>
-    <td><b>Compromiso</b></td>
-    <td> Motiva con su ejemplo y acción pedagógica, procesos de mejoramiento que redundan en el logro de los propósitos institucionales.</td>
-    <td rowspan="2">{{ form_row(edit_form.f30)}}</td>
-  </tr>
-  <tr>
-    <td colspan="2"><i>Variable: Actitudes y Comportamientos -  Dimensión: Relaciones Inter-personales</i></td>
-  </tr>
-    <tr>
-    <td>31</td>
-    <td colspan="2">{{ form_row(edit_form.observaciones)}} </td>
-    <td> </td>
-  </tr>
-  <tr>
-    <td> </td>
-    <td> </td>
-    <td>
-      {% if evaluacion.id.oferta.director.user.id == 100 %}
-        Para co evaluar el director debe estar defido.
-      {% else %}
-        <button type="submit">Enviar</button>
-      {% endif %}
-    </td>
-  </tr>
-    </tbody>
+        <tr>
+            <td rowspan="2"><b>30</b></td>
+            <td><b>Compromiso</b></td>
+            <td> Motiva con su ejemplo y acción pedagógica, procesos de mejoramiento que redundan en el logro de los
+                propósitos institucionales.
+            </td>
+            <td rowspan="2">{{ form_row(edit_form.f30) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><i>Variable: Actitudes y Comportamientos - Dimensión: Relaciones Inter-personales</i></td>
+        </tr>
+        <tr>
+            <td>31</td>
+            <td colspan="2">{{ form_row(edit_form.observaciones) }} </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td colspan="2"></td>
+            <td>
+                {% if evaluacion.id.oferta.director.user.id == 100 %}
+                    Para co evaluar el director debe estar defido.
+                {% else %}
+                    <button type="submit">Enviar</button>
+                {% endif %}
+            </td>
+        </tr>
+        </tbody>
     </table>
- {{ form_widget(edit_form._token) }}
-  </form>
-  {% endblock %}
+    {{ form_widget(edit_form._token) }}
+    </form>
+{% endblock %}
