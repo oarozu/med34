@@ -43,6 +43,7 @@ class CursoController extends Controller
         );
     }
 
+
     /**
      * Lists all Curso entities.
      *

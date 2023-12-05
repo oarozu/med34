@@ -19,10 +19,15 @@
         {% for oferta in ofertas %}
             {% if oferta.director.user.id != var %}
                 <tr>
-                    <th colspan=2>{{ oferta.director.user.nombres }} {{ oferta.director.user.apellidos }}</th>
+                    <th colspan=2>{{ oferta.director.user.nombres }} {{ oferta.director.user.apellidos }}
+                    </th>
                 </tr>
                 <tr>
-                    <td></td>
+                    <td>
+                        {% if oferta.director.user.id == 100 %}
+                            <a href="{{ path('oferta_edit', {'id': oferta.id }) }}" class="btn btn-success btn-xs">Agregar Director <i class="fa fa-edit"></i></a>
+                        {% endif %}
+                    </td>
                     <td>{{ oferta.curso.id }} - {{ oferta.curso.nombre }} - {{ oferta.periodo }}</td>
                     <td>
                         {% if app.session.get('docenteid') == oferta.director.id %}

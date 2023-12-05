@@ -1,11 +1,14 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-
- <h4>Modificar Director</h4><br>
+    <a href="{{ path('lider_programas') }}" class="btn btn-primary btn-xs"><i class="fa fa-backward"> Regresar</i></a>
+    <h1>Modificar director para co evaluación</h1>
+    <p><b>Curso :</b> {{ entity.curso.id~' '~entity.curso.nombre }}</p>
+    <p><b>Peraca :</b> {{ entity.periodo }}</p>
+    <p><b>Director actual :</b> {{ entity.director.user.id~' '~entity.director.user.nombres~' '~entity.director.user.apellidos}}</p><br>
 <form action="{{ path('oferta_update', { 'id': entity.id }) }}" method="get" {{ form_start(cedula_form) }}
-    {{ form_label(cedula_form.cedula,  'Cédula del Tutor') }}
-    {{ form_widget(cedula_form.cedula) }}    
+    {{ form_label(cedula_form.cedula,  'Cédula nuevo director') }}
+    {{ form_widget(cedula_form.cedula) }}
     {{ form_errors(cedula_form.cedula) }}
     <input type="submit" label="Agregar" />
 </form>
