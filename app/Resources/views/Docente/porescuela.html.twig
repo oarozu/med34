@@ -45,9 +45,9 @@
                                         <th>Vinculación</th>
                                         <th>Programa</th>
                                         <th>Centro</th>
-                                        <th>Auto</th>
                                         <th>Hetero</th>
                                         <th>Co</th>
+                                        <th>Auto</th>
                                         <th>Final</th>
                                     </tr>
                                 </thead>
@@ -56,27 +56,25 @@
                                         <tr>
                                             <td><a href="{{ path('docente_info', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                                             <td>
-                                                <a href="{{ path('admin_user_show', { 'id': entity.user.id }) }}">{{ entity.user.id }}</a>
+                                                <a href="{{ path('admin_user_show', { 'id': entity.cedula }) }}">{{ entity.cedula }}</a>
                                             </td>
-                                            <td>{{ entity.user.nombres }}</td>
-                                            <td>{{ entity.user.apellidos }}</td>
+                                            <td>{{ entity.nombres }}</td>
+                                            <td>{{ entity.apellidos }}</td>
                                             <td>{{ entity.vinculacion }}</td>
-                                            <td>{{ entity.programa.id }}</td>
-                                            <td>{{ entity.centro.nombre }}</td>
-                                            {%if entity.evaluacion %}
+                                            <td>{{ entity.programa }}</td>
+                                            <td>{{ entity.centro }}</td>
                                             <td>
-                                            {{ entity.evaluacion.auto }}
+                                            {{ entity.hetero }}
                                             </td>
                                                 <td>
-                                            {{ entity.evaluacion.hetero }}
+                                            {{ entity.co }}
                                             </td>
                                                 <td>
-                                            {{ entity.evaluacion.co }}
+                                            {{ entity.auto }}
                                             </td>
                                                 <td>
-                                            {{ entity.evaluacion.final }}
+                                            {{ entity.final }}
                                             </td>
-                                            {%endif%}
                                         </tr>
                                     {% endfor %}
                                 </tbody>
@@ -89,6 +87,8 @@
                 <!-- end widget -->
             </article>
             <!-- WIDGET END -->
+
+            <a href="{{ path('docente_escuela_csv', {'id':escuela.id , 'periodo':periodo.id} ) }}" class="btn btn-primary">Descargar resultados <i class="fa fa-download"></i></a>
         </div>
         <!-- end row -->
     </section>

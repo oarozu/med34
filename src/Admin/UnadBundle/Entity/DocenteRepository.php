@@ -69,4 +69,19 @@ class DocenteRepository extends EntityRepository
         $programas = $query->getResult();
         return $programas;
     }
+
+    public function resultadosEscuelaPeriodo($escuela, $periodo)
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery('SELECT d.id, u.id AS cedula, u.nombres, u.apellidos, d.vinculacion, c.nombre AS centro, p.id AS programa, e.hetero, e.co, e.auto, e.final
+        FROM AdminUnadBundle:Docente d  
+        JOIN d.user u
+        JOIN d.centro c
+        JOIN d.programa p
+        JOIN d.evaluacion e
+        WHERE d.periodo = :periodo AND d.escuela = :escuela')->setParameter('escuela', $escuela)->setParameter('periodo', $periodo);
+
+        $docentes = $query->getResult();
+        return $docentes;
+    }
 }

@@ -72,7 +72,9 @@ class DocenteController extends Controller
         $em = $this->getDoctrine()->getManager();
         $escuela = $em->getRepository('AdminUnadBundle:Escuela')->findOneBy(array('id' => $id));
         $periodoe = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $periodo));
-        $entities = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('escuela' => $escuela, 'periodo' => $periodo));
+        $entities = $em->getRepository('AdminUnadBundle:Docente')->resultadosEscuelaPeriodo($escuela, $periodo);
+
+//        $entities = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('escuela' => $escuela, 'periodo' => $periodo));
         $total = count($entities);
         return array(
             'entities' => $entities,
@@ -80,6 +82,45 @@ class DocenteController extends Controller
             'escuela' => $escuela,
             'periodo' => $periodoe
         );
+    }
+
+
+    /**
+     * Lists all Docente entities por escuela y periodo
+     *
+     * @Route("/esc/{id}/{periodo}/csv", name="docente_escuela_csv")
+     * @Method("GET")
+     * @Template("Docente/porescuela.html.twig")
+     */
+    public function indexResultadosCsvAction($id, $periodo)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $escuela = $em->getRepository('AdminUnadBundle:Escuela')->findOneBy(array('id' => $id));
+        $resultados = $em->getRepository('AdminUnadBundle:Docente')->resultadosEscuelaPeriodo($escuela, $periodo);
+        $response = new Response();
+        $responseString = $this->array2csv($resultados);
+        $response->headers->set('Content-type', 'application/vnd.ms-excel');
+        $response->headers->set('Cache-Control', 'private');
+        $response->headers->set('Content-Disposition', 'attachment; filename="resultados-' . $escuela->getSigla() .'-'.$periodo . '.xls";');
+        $response->sendHeaders();
+        $response->setContent($responseString);
+        return $response;
+    }
+
+    function array2csv(array &$array)
+    {
+        if (count($array) == 0) {
+            return null;
+        }
+        ob_start();
+        $df = fopen("php://output", 'w');
+        fputs($df, $bom =( chr(0xEF) . chr(0xBB) . chr(0xBF) ));
+        fputcsv($df, array_keys(reset($array)),";");
+        foreach ($array as $row) {
+            fputcsv($df, $row, ";");
+        }
+        fclose($df);
+        return ob_get_clean();
     }
 
 

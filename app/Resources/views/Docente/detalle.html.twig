@@ -1,94 +1,80 @@
- <h4>1. Información de vinculación</h4>
-  <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
-     <tr>
-    <th>Nombre</th>
-    <td>{{ entity.user.nombres }} {{ entity.user.apellidos }}</td>
-    <th>Periodo de Evaluación</th>
-    <td>{{periodo.year}} {{periodo.observaciones}}</td>
-  </tr>
+<h4>1. Información de vinculación</h4>
+<table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+    <tr>
+        <th>Nombre</th>
+        <td>{{ entity.user.nombres }} {{ entity.user.apellidos }}</td>
+        <th>Periodo de Evaluación</th>
+        <td>{{ periodo.year }} {{ periodo.observaciones }}</td>
+    </tr>
 
-  <tr>
-    <th>Cédula</th>
-    <td>{{ entity.user.id }}</td>
-    <th>Vinculación / Modalidad</th>
-    <td>{{ entity.vinculacion }} / {{ entity.modalidad }} [{{ entity.fechainicio|date("d/m/Y") }} - {{ entity.fechafin|date("d/m/Y") }}]</td>
-  </tr>
-  <tr>
-    <th>Cargo</th>
-    <td>{{ entity.cargo }}</td>
-    <th>Correo</th>
-    <td>{{ entity.user.email }} - {{ entity.user.emailp }} </td>
-  </tr>
-   <tr>
-    <th>Perfil</th>
-    <td>{{ entity.perfil }}</td>
-    <th>Programa</th>
-    <td>{{ entity.programa.nombre }}</td>
-  </tr>
-  <tr>
-      <td colspan="2"><b>Escuela:</b> {{ entity.escuela.nombre }}<br>
-    Decano: {{ entity.escuela.decano.nombres }} {{ entity.escuela.decano.apellidos }}
-    </td>
-    <td colspan="2"><b>Centro:</b> {{ entity.centro.nombre }}<br>
-    Director:{%if entity.centro.director %} {{ entity.centro.director.nombres }} {{ entity.centro.director.apellidos }}{%endif%}
-    </td>
-  </tr>
-  </table>
+    <tr>
+        <th>Cédula</th>
+        <td>{{ entity.user.id }}</td>
+        <th>Vinculación / Modalidad</th>
+        <td>{{ entity.vinculacion }} / {{ entity.modalidad }} [{{ entity.fechainicio|date("d/m/Y") }}
+            - {{ entity.fechafin|date("d/m/Y") }}]
+        </td>
+    </tr>
+    <tr>
+        <th>Cargo</th>
+        <td>{{ entity.cargo }}</td>
+        <th>Correo</th>
+        <td>{{ entity.user.email }} - {{ entity.user.emailp }} </td>
+    </tr>
+    <tr>
+        <th>Perfil</th>
+        <td>{{ entity.perfil }}</td>
+        <th>Programa</th>
+        <td>{{ entity.programa.nombre }}</td>
+    </tr>
+    <tr>
+        <td colspan="2"><b>Escuela:</b> {{ entity.escuela.nombre }}<br>
+            Decano: {{ entity.escuela.decano.nombres }} {{ entity.escuela.decano.apellidos }}
+        </td>
+        <td colspan="2"><b>Centro:</b> {{ entity.centro.nombre }}<br>
+            Director:{% if entity.centro.director %} {{ entity.centro.director.nombres }} {{ entity.centro.director.apellidos }}{% endif %}
+        </td>
+    </tr>
+</table>
 <h4>2. Asignación roles de formación para co evaluaciones</h4>
 
-  <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+<table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
     <tr>
-      <th>Tutor</th>
-   <td>
-       {%if entity.tutoria|length > 0%}
-       <i class="fa fa-check" style="color: #739e73"></i>
-       {%else%}
-       <i class="fa fa-times" style="color: #a90329"></i>
-       {%endif%}
-   </td>
-      <td colspan="3">{%for tutoria in entity.tutoria%}
-      {{tutoria.oferta.curso.id}}:{{tutoria.oferta.curso.nombre}} Periodo:{{tutoria.oferta.periodo}}  Director:
-      {%if tutoria.oferta.director%}
-        {{tutoria.oferta.director.user.nombres}} {{tutoria.oferta.director.user.apellidos}}
-      {%endif%}
-      <br>{%endfor%}
-   </td>
-   <td>
-       <a data-toggle="modal" data-target="#ModalTutor" class="btn btn-success btn-xs">Ayuda</a>
-   </td>
-  </tr>
+        <th>Tutor</th>
+        <td>
+            {% if entity.tutoria|length > 0 %}
+                <i class="fa fa-check" style="color: #739e73"></i>
+            {% else %}
+                <i class="fa fa-times" style="color: #a90329"></i>
+            {% endif %}
+        </td>
+        <td colspan="3">{% for tutoria in entity.tutoria %}
+                {{ tutoria.oferta.curso.id }}:{{ tutoria.oferta.curso.nombre }} Periodo:{{ tutoria.oferta.periodo }}  Director:
+                {% if tutoria.oferta.director %}
+                    {{ tutoria.oferta.director.user.nombres }} {{ tutoria.oferta.director.user.apellidos }}
+                {% endif %}
+                <br>{% endfor %}
+        </td>
+        <td>
+            <a data-toggle="modal" data-target="#ModalTutor" class="btn btn-success btn-xs">Ayuda</a>
+        </td>
+    </tr>
     <tr>
-   <th>Director</th>
-   <td>
-       {%if entity.director|length > 0%}
-       <i class="fa fa-check" style="color: #739e73"></i>
-       {%else%}
-       <i class="fa fa-times" style="color: #a90329"></i>
-       {%endif%}
-   </td>
-      <td colspan="3">
-      {%for oferta in entity.director%}
-      <a href="{{ path('oferta', { 'id': oferta.id }) }}">
-      [{{oferta.curso.id}}] {{oferta.periodo}} {{oferta.curso.nombre}}</a><br> {%endfor%}
-   </td>
-   <td>
-   <a data-toggle="modal" data-target="#ModalDirector" class="btn btn-success btn-xs">Ayuda</a>
-   </td>
-  </tr>
-  <tr>
-   <th>Líder de Cadena o Programa</th>
-   <td>
-       {%if entity.lider|length > 0%}
-       <i class="fa fa-check" style="color: #739e73"></i>
-       {%else%}
-       <i class="fa fa-times" style="color: #a90329"></i>
-       {%endif%}
-   </td>
-      <td colspan="3">
-      {%for programa in entity.lider%}
-      <a data-toggle="modal" href="{{ path('programa_modal', { 'id': programa.id }) }}" data-target="#myModal">{{programa.programa.id}}</a>
-      {{programa.programa.nombre}} <br> {%endfor%}
-   </td>
-   <td></td>
-  </tr>
+        <th>Director</th>
+        <td>
+            {% if entity.director|length > 0 %}
+                <i class="fa fa-check" style="color: #739e73"></i>
+            {% else %}
+                <i class="fa fa-times" style="color: #a90329"></i>
+            {% endif %}
+        </td>
+        <td colspan="3">
+            {% for oferta in entity.director %}
+                <a href="{{ path('oferta', { 'id': oferta.id }) }}">
+                    [{{ oferta.curso.id }}] {{ oferta.periodo }} {{ oferta.curso.nombre }}</a><br> {% endfor %}
+        </td>
+        <td>
+            <a data-toggle="modal" data-target="#ModalDirector" class="btn btn-success btn-xs">Ayuda</a>
+        </td>
+    </tr>
 </table>
