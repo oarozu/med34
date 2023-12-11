@@ -99,9 +99,10 @@ class DocenteController extends Controller
         $resultados = $em->getRepository('AdminUnadBundle:Docente')->resultadosEscuelaPeriodo($escuela, $periodo);
         $response = new Response();
         $responseString = $this->array2csv($resultados);
+        $periodoe = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $periodo));
         $response->headers->set('Content-type', 'application/vnd.ms-excel');
         $response->headers->set('Cache-Control', 'private');
-        $response->headers->set('Content-Disposition', 'attachment; filename="resultados-' . $escuela->getSigla() .'-'.$periodo . '.xls";');
+        $response->headers->set('Content-Disposition', 'attachment; filename="resultados-' . $escuela->getSigla() .'-'.$periodoe->getYear() .'_'. $periodoe->getObservaciones() . '.xls";');
         $response->sendHeaders();
         $response->setContent($responseString);
         return $response;
