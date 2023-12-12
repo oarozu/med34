@@ -36,7 +36,7 @@ class DefaultController extends Controller {
         }
 
         if (true === $this->container->get('security.authorization_checker')->isGranted('ROLE_LP')) {
-            $entities = $em->getRepository('AdminUnadBundle:ProgramaPeriodo')->findBy(array('lider' => $this->getUser()));
+            $entities = $em->getRepository('AdminUnadBundle:Programa')->findBy(array('lider' => $this->getUser()));
             $escuela = $entities[0]->getEscuela();
             $escuelaid = ($escuela != null)? $escuela->getId() : 65000;
             $session->set('escuelaid', $escuelaid );
