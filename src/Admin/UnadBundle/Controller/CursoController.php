@@ -473,13 +473,9 @@ class CursoController extends Controller
         $editForm = $this->createEditarForm($entity, $escuelaid, $siglas);
         $editForm->handleRequest($request);
 
-        //$director = $em->getRepository('AdminUnadBundle:Docente')->find($editForm->get('director')->getData());
-        //$entity->setDirector($director);
-
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('curso_escuela', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('lider_cursos', array('id' => $escuelaid)));
         }
 
         return array(
