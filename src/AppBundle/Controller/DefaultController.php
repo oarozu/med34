@@ -24,9 +24,9 @@ class DefaultController extends Controller {
         $dias = $diff->format("%a");
         $hoy = $diff2->format("%a");
 
-
         $session = $request->getSession();
         $session->set('periodoe', $this->container->getParameter('appmed.periodo'));
+
         if (true === $this->container->get('security.authorization_checker')->isGranted('ROLE_DEC')) {
             $escuelas = $this->getUser()->getDecano();
             $escuela = $escuelas[0];
@@ -66,7 +66,6 @@ class DefaultController extends Controller {
         if (true === $this->container->get('security.authorization_checker')->isGranted('ROLE_USER')) {
 
             $docente = $em->getRepository('AdminUnadBundle:Docente')->findOneBy(array('user' => $this->getUser(), 'periodo' => $this->container->getParameter('appmed.periodo')));
-
 
             if (!$docente) {
                 $this->get('session')->getFlashBag()->add('warning', 'Sin activar en el periodo actual');

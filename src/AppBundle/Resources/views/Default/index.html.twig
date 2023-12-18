@@ -44,11 +44,6 @@
                     <td>{{ periodoa.fechainicio | date('Y-m-d') }} al
                         {{ periodoa.fechafin | date('Y-m-d') }}</td>
                     <td>
-                        <div class="easy-pie-chart txt-color-blue easyPieChart" data-percent="{{ hoy/dias*100 }}"
-                             data-pie-size="180" style="width: 180px; height: 180px; line-height: 180px;">
-                            <span class="percent percent-sign txt-color-blue font-xl semi-bold">{{ hoy/dias*100 }}</span>
-                            <canvas width="240" height="240" style="width: 180px; height: 180px;"></canvas>
-                        </div>
                     </td>
                     {% endfor %}
                 </tbody>
