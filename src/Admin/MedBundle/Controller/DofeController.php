@@ -61,6 +61,20 @@ class DofeController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $evaluacion = $em->getRepository('AdminMedBundle:RedDofe')->findOneBy(array('id' => $id));
         $actividades = $em->getRepository('AdminMedBundle:evalDofe')->findBy(array('evaluacion' => $evaluacion));
+        if (count($actividades) == 0){
+            $n_actividades = $em->getRepository('AdminMedBundle:evalDofe')->getActividades($id);
+            $total = count($n_actividades);
+            foreach ($n_actividades as $actividad){
+                $entity = new evalDofe();
+                $eval = $em->getRepository('AdminMedBundle:RedDofe')->findOneBy(array('id' => $actividad['id']));
+                $entity->setEvaluacion($eval);
+                $actPlang = $em->getRepository('AdminMedBundle:Actividadrol')->findOneBy(array('id' => $actividad['actividad_id']));
+                $entity->setActividad($actPlang);
+                $em->persist($entity);
+            }
+            $em->flush();
+            return $this->redirect($this->generateUrl('dofe_eval'));
+        }
         return array(
             'entity' => $evaluacion,
             'actividades' => $actividades
@@ -169,7 +183,7 @@ class DofeController extends Controller {
                 )));
         }
     }
-    
+
      /**
      * Creates a form to cerrar eval Dofe entity
      * @param Plangestion $entity The entity

@@ -13,12 +13,11 @@ use Doctrine\ORM\EntityRepository;
 class actividadplanglRepository extends EntityRepository
 {
    public function ordenado($id){
-    $em = $this->getEntityManager(); 
+    $em = $this->getEntityManager();
     // $centros = $em->getRepository('AdminUnadBundle:Centro')->findAll();
     $query = $em->createQuery('SELECT a FROM AdminMedBundle:Actividadplang a JOIN a.actividadrol b WHERE b.plang = :id ORDER BY b.rol, b.id ASC');
     $query->setParameter('id', $id);
-    $actividades = $query->getResult(); 
+    $actividades = $query->getResult();
     return $actividades;
-    
   }
 }

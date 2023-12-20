@@ -12,4 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class evalDofeRepository extends EntityRepository
 {
+
+
+    public function getActividades($eval)
+    {
+        $connection = $this->getEntityManager()->getConnection();
+        $q = "SELECT red.id, ac.actividad_id FROM red_dofe AS red
+              JOIN actividad_plang AS ac ON red.docente_id = ac.plan_id
+              WHERE red.id = " . $eval . " AND ac.autoevaluacion != 0";
+        $stmt = $connection->executeQuery($q);
+        return $stmt->fetchAllAssociative();
+    }
 }

@@ -18,7 +18,8 @@ use Admin\MedBundle\Form\ActividadplangAddType;
  *
  * @Route("/doc/actividadplang")
  */
-class ActividadplangController extends Controller {
+class ActividadplangController extends Controller
+{
 
     /**
      * Lists all Actividadplang entities.
@@ -27,7 +28,8 @@ class ActividadplangController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('AdminMedBundle:Actividadplang')->findAll();
@@ -43,7 +45,8 @@ class ActividadplangController extends Controller {
      * @Method("POST")
      * @Template("AdminMedBundle:Actividadplang:new.html.twig")
      */
-    public function createAction(Request $request, $id) {
+    public function createAction(Request $request, $id)
+    {
         $entity = new Actividadplang();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -68,7 +71,8 @@ class ActividadplangController extends Controller {
      * @Method("POST")
      * @Template("AdminMedBundle:Actividadplang:new.html.twig")
      */
-    public function addAction(Request $request, $id) {
+    public function addAction(Request $request, $id)
+    {
         $entity = new Actividadplang();
         $em = $this->getDoctrine()->getManager();
         $plang = $em->getRepository('AdminMedBundle:Plangestion')->find($id);
@@ -102,7 +106,8 @@ class ActividadplangController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Actividadplang $entity) {
+    private function createCreateForm(Actividadplang $entity)
+    {
         $form = $this->createForm(ActividadplangType::class, $entity, array(
             'action' => $this->generateUrl('actividadplang_create'),
             'method' => 'POST',
@@ -120,7 +125,8 @@ class ActividadplangController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createAddForm(Actividadplang $entity, $id) {
+    private function createAddForm(Actividadplang $entity, $id)
+    {
         $form = $this->createForm(ActividadplangAddType::class, $entity, array(
             'action' => $this->generateUrl('actividadplang_add', array('id' => $id)),
             'method' => 'POST',
@@ -137,7 +143,8 @@ class ActividadplangController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function newAction($id, $ida) {
+    public function newAction($id, $ida)
+    {
         $entity = new Actividadplang();
         $em = $this->getDoctrine()->getManager();
         $plang = $em->getRepository('AdminMedBundle:Plangestion')->find($id);
@@ -160,7 +167,8 @@ class ActividadplangController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AdminMedBundle:Actividadplang')->find($id);
@@ -184,7 +192,8 @@ class ActividadplangController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AdminMedBundle:Actividadplang')->find($id);
@@ -212,7 +221,8 @@ class ActividadplangController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function dofeAction($id) {
+    public function dofeAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AdminMedBundle:Actividadplang')->find($id);
@@ -235,7 +245,8 @@ class ActividadplangController extends Controller {
      * @Method("GET")
      * @Template()
      */
-    public function borrarAction($id) {
+    public function borrarAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AdminMedBundle:Actividadplang')->find($id);
@@ -258,8 +269,9 @@ class ActividadplangController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Actividadplang $entity) {
-        $form = $this->createForm( ActividadplangType::class, $entity, array(
+    private function createEditForm(Actividadplang $entity)
+    {
+        $form = $this->createForm(ActividadplangType::class, $entity, array(
             'action' => $this->generateUrl('actividadplang_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
@@ -274,7 +286,8 @@ class ActividadplangController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDofeForm(Actividadplang $entity) {
+    private function createDofeForm(Actividadplang $entity)
+    {
         $form = $this->createForm(ActividadDofeType::class, $entity, array(
             'action' => $this->generateUrl('actividadplang_updatedofe', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -290,7 +303,8 @@ class ActividadplangController extends Controller {
      * @Method("PUT")
      * @Template("AdminMedBundle:Actividadplang:edit.html.twig")
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AdminMedBundle:Actividadplang')->find($id);
@@ -322,7 +336,8 @@ class ActividadplangController extends Controller {
      * @Method("PUT")
      * @Template("AdminMedBundle:Actividadplang:dofe.html.twig")
      */
-    public function updatedofeAction(Request $request, $id) {
+    public function updatedofeAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AdminMedBundle:Actividadplang')->find($id);
@@ -353,7 +368,8 @@ class ActividadplangController extends Controller {
      * @Route("/{id}/delete", name="actividadplang_delete")
      * @Method("GET")
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
 
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AdminMedBundle:Actividadplang')->find($id);
@@ -372,7 +388,8 @@ class ActividadplangController extends Controller {
      * @Route("/borrar/{id}", name="actividadplang_borrarreg")
      * @Method("DELETE")
      */
-    public function borrarregAction(Request $request, $id) {
+    public function borrarregAction(Request $request, $id)
+    {
         $form = $this->createBorrarForm($id);
         $form->handleRequest($request);
 
@@ -406,13 +423,13 @@ class ActividadplangController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('actividadplang_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', SubmitType::class, array('label' => 'Delete'))
-                        ->getForm()
-        ;
+            ->setAction($this->generateUrl('actividadplang_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', SubmitType::class, array('label' => 'Delete'))
+            ->getForm();
     }
 
     /**
@@ -420,13 +437,13 @@ class ActividadplangController extends Controller {
      * @param mixed $id The entity id
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createBorrarForm($id) {
+    private function createBorrarForm($id)
+    {
         return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('actividadplang_borrar', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', SubmitType::class, array('label' => 'Borrar'))
-                        ->getForm()
-        ;
+            ->setAction($this->generateUrl('actividadplang_borrar', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', SubmitType::class, array('label' => 'Borrar'))
+            ->getForm();
     }
 
 }
