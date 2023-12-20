@@ -63,7 +63,6 @@ class DofeController extends Controller {
         $actividades = $em->getRepository('AdminMedBundle:evalDofe')->findBy(array('evaluacion' => $evaluacion));
         if (count($actividades) == 0){
             $n_actividades = $em->getRepository('AdminMedBundle:evalDofe')->getActividades($id);
-            $total = count($n_actividades);
             foreach ($n_actividades as $actividad){
                 $entity = new evalDofe();
                 $eval = $em->getRepository('AdminMedBundle:RedDofe')->findOneBy(array('id' => $actividad['id']));
@@ -73,7 +72,8 @@ class DofeController extends Controller {
                 $em->persist($entity);
             }
             $em->flush();
-            return $this->redirect($this->generateUrl('dofe_eval'));
+            return $this->redirect($this->generateUrl('dofe_eval', array('id' => $id)));
+
         }
         return array(
             'entity' => $evaluacion,
