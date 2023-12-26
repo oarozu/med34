@@ -5,8 +5,7 @@ namespace Admin\MedBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\MedBundle\Entity\Actividadplang;
 use Admin\MedBundle\Form\ActividadplangType;
@@ -24,8 +23,7 @@ class ActividadplangController extends Controller
     /**
      * Lists all Actividadplang entities.
      *
-     * @Route("/", name="actividadplang")
-     * @Method("GET")
+     * @Route("/", name="actividadplang", methods={"GET"})
      * @Template()
      */
     public function indexAction()
@@ -41,8 +39,7 @@ class ActividadplangController extends Controller
 
     /**
      * Creates a new Actividadplang entity.
-     * @Route("/", name="actividadplang_create")
-     * @Method("POST")
+     * @Route("/", name="actividadplang_create",  methods={"POST"})
      * @Template("AdminMedBundle:Actividadplang:new.html.twig")
      */
     public function createAction(Request $request, $id)
@@ -67,8 +64,7 @@ class ActividadplangController extends Controller
 
     /**
      * Creates a new Actividadplang entity.
-     * @Route("/add/{id}", name="actividadplang_add")
-     * @Method("POST")
+     * @Route("/add/{id}", name="actividadplang_add",  methods={"POST"})
      * @Template("AdminMedBundle:Actividadplang:new.html.twig")
      */
     public function addAction(Request $request, $id)
@@ -139,9 +135,8 @@ class ActividadplangController extends Controller
     /**
      * Displays a form to create a new Actividadplang entity.
      *
-     * @Route("/new/{id}/{ida}", name="actividadplang_new")
-     * @Method("GET")
-     * @Template()
+     * @Route("/new/{id}/{ida}", name="actividadplang_new",  methods={"GET"})
+     * @Template("AdminMedBundle:Actividadplang:new.html.twig")
      */
     public function newAction($id, $ida)
     {
@@ -163,9 +158,8 @@ class ActividadplangController extends Controller
     /**
      * Finds and displays a Actividadplang entity.
      *
-     * @Route("/{id}", name="actividadplang_show")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}", name="actividadplang_show",  methods={"GET"})
+     * @Template("AdminMedBundle:Actividadplang:show.html.twig")
      */
     public function showAction($id)
     {
@@ -188,9 +182,8 @@ class ActividadplangController extends Controller
     /**
      * Displays a form to edit an existing Actividadplang entity.
      *
-     * @Route("/{id}/edit", name="actividadplang_edit")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}/edit", name="actividadplang_edit",  methods={"GET"})
+     * @Template("AdminMedBundle:Actividadplang:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -217,9 +210,8 @@ class ActividadplangController extends Controller
     /**
      * Displays a form to edit an existing Actividadplang entity.
      *
-     * @Route("/{id}/dofe", name="actividadplang_dofe")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}/dofe", name="actividadplang_dofe",  methods={"GET"})
+     * @Template("AdminMedBundle:Actividadplang:dofe.html.twig")
      */
     public function dofeAction($id)
     {
@@ -241,9 +233,8 @@ class ActividadplangController extends Controller
 
     /**
      *
-     * @Route("/borrar/{id}", name="actividadplang_borrar")
-     * @Method("GET")
-     * @Template()
+     * @Route("/borrar/{id}", name="actividadplang_borrar",  methods={"GET"})
+     * @Template("AdminMedBundle:Actividadplang:borrar.html.twig")
      */
     public function borrarAction($id)
     {
@@ -299,8 +290,7 @@ class ActividadplangController extends Controller
     /**
      * Edits an existing Actividadplang entity.
      *
-     * @Route("/{id}", name="actividadplang_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="actividadplang_update",  methods={"PUT"})
      * @Template("AdminMedBundle:Actividadplang:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -312,7 +302,6 @@ class ActividadplangController extends Controller
             throw $this->createNotFoundException('Unable to find Actividadplang entity.');
         }
         $entity->setPath(null);
-        //$em->flush();
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -332,8 +321,7 @@ class ActividadplangController extends Controller
     /**
      * Edits an existing Actividadplang entity.
      *
-     * @Route("/{id}/dofe", name="actividadplang_updatedofe")
-     * @Method("PUT")
+     * @Route("/{id}/dofe", name="actividadplang_updatedofe",  methods={"PUT"})
      * @Template("AdminMedBundle:Actividadplang:dofe.html.twig")
      */
     public function updatedofeAction(Request $request, $id)
@@ -365,8 +353,7 @@ class ActividadplangController extends Controller
     /**
      * Delete Actividad
      *
-     * @Route("/{id}/delete", name="actividadplang_delete")
-     * @Method("GET")
+     * @Route("/{id}/delete", name="actividadplang_delete",  methods={"GET"})
      */
     public function deleteAction(Request $request, $id)
     {
@@ -385,8 +372,7 @@ class ActividadplangController extends Controller
 
     /**
      * Deletes a Actividadplang entity.
-     * @Route("/borrar/{id}", name="actividadplang_borrarreg")
-     * @Method("DELETE")
+     * @Route("/borrar/{id}", name="actividadplang_borrarreg",  methods={"DELETE"})
      */
     public function borrarregAction(Request $request, $id)
     {

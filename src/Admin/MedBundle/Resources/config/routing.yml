@@ -96,10 +96,13 @@ planmejoramiento_doc:
 plangestion_info:
     path:  /unad/doc/{id}/plan
     defaults: { _controller: "AdminMedBundle:Plangestion:info" }
+    methods: GET
 
 plangestion_autoeval:
     path:  /unad/doc/{id}/autoeval
     defaults: { _controller: "AdminMedBundle:Plangestion:autoeval" }
+    methods: GET
+
 
 redtutores_info:
     path:  /unad/doc/{id}/redtutor

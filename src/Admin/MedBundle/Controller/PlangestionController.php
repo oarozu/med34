@@ -6,13 +6,11 @@ use Admin\MedBundle\Entity\Rolplang;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\MedBundle\Entity\Plangestion;
 use Admin\MedBundle\Entity\Actividadplang;
 use Admin\MedBundle\Entity\Avalplang;
-use Admin\MedBundle\Entity\actividadplanglRepository;
 use Admin\MedBundle\Form\PlangestionType;
 
 /**
@@ -26,8 +24,7 @@ class PlangestionController extends Controller
     /**
      * Creates a new Plangestion entity.
      *
-     * @Route("/", name="plangestion_create")
-     * @Method("POST")
+     * @Route("/", name="plangestion_create", methods={"POST"})
      * @Template("AdminMedBundle:Plangestion:new.html.twig")
      */
     public function createAction(Request $request)
@@ -70,8 +67,7 @@ class PlangestionController extends Controller
 
     /**
      * Displays a form to create a new Plangestion entity.
-     * @Route("/add", name="plangestion_add")
-     * @Method("GET")
+     * @Route("/add", name="plangestion_add", methods={"GET"})
      * @Template()
      */
     public function addAction(Request $request)
@@ -98,8 +94,7 @@ class PlangestionController extends Controller
     }
 
     /**
-     * @Route("/auto", name="plangestion_show")
-     * @Method("GET")
+     * @Route("/auto", name="plangestion_show", methods={"GET"})
      * @Template("AdminMedBundle:Plangestion:show.html.twig")
      */
     public function showAction(Request $request)
@@ -122,8 +117,7 @@ class PlangestionController extends Controller
     }
 
     /**
-     * @Route("/{id}/dofe", name="plangestion_dofe")
-     * @Method("GET")
+     * @Route("/{id}/dofe", name="plangestion_dofe", methods={"GET"})
      * @Template()
      */
     public function dofeAction($id)
@@ -141,8 +135,7 @@ class PlangestionController extends Controller
     }
 
     /**
-     * @Route("/conf/plan", name="plangestion_conf")
-     * @Method("GET")
+     * @Route("/conf/plan", name="plangestion_conf", methods={"GET"})
      * @Template()
      */
     public function confAction(Request $request)
@@ -174,8 +167,7 @@ class PlangestionController extends Controller
 
 
     /**
-     * @Route("/conf/plan/{id}", name="plangestion_conf_add")
-     * @Method("GET")
+     * @Route("/conf/plan/{id}", name="plangestion_conf_add", methods={"GET"})
      * @Template()
      */
     public function addRole(Request $request, $id)
@@ -198,8 +190,7 @@ class PlangestionController extends Controller
     }
 
     /**
-     * @Route("/agregar/roles", name="plangestion_crear")
-     * @Method("GET")
+     * @Route("/agregar/roles", name="plangestion_crear", methods={"GET"})
      * @Template()
      */
     public function crearAction(Request $request)
@@ -224,7 +215,6 @@ class PlangestionController extends Controller
     }
 
     /**
-     * @Method("GET")
      * @Template()
      */
     public function infoAction($id)
@@ -233,7 +223,7 @@ class PlangestionController extends Controller
         $docente = $em->getRepository('AdminUnadBundle:Docente')->find($id);
         $entity = $docente->getPlangestion();
         $periodoe = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $docente->getPeriodo()));
-        //$periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $this->container->getParameter('appmed.periodo')));
+        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $this->container->getParameter('appmed.periodo')));
         if (!$entity) {
             throw $this->createNotFoundException('No se encuentra el plan.');
         }
@@ -257,7 +247,6 @@ class PlangestionController extends Controller
     }
 
     /**
-     * @Method("GET")
      * @Template()
      */
     public function autoevalAction($id)
@@ -281,8 +270,7 @@ class PlangestionController extends Controller
     /**
      * Displays a form to edit an existing Plangestion entity.
      *
-     * @Route("/{id}/edit", name="plangestion_edit")
-     * @Method("GET")
+     * @Route("/{id}/edit", name="plangestion_edit", methods={"GET"})
      * @Template()
      */
     public function editAction($id)
@@ -308,8 +296,7 @@ class PlangestionController extends Controller
     /**
      * Displays a form to edit an existing Plangestion entity.
      *
-     * @Route("/{id}/abrir", name="plangestion_abrir")
-     * @Method("GET")
+     * @Route("/{id}/abrir", name="plangestion_abrir", methods={"GET"})
      * @Template()
      */
     public function abrirAction($id)
@@ -354,8 +341,7 @@ class PlangestionController extends Controller
     /**
      * Edits an existing Plangestion entity.
      *
-     * @Route("/{id}", name="plangestion_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="plangestion_update", methods={"PUT"})
      * @Template("AdminMedBundle:Plangestion:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -410,8 +396,7 @@ class PlangestionController extends Controller
     /**
      * Abrir an existing Plangestion entity.
      *
-     * @Route("/{id}/abrir", name="plangestion_abrir_registro")
-     * @Method("PUT")
+     * @Route("/{id}/abrir", name="plangestion_abrir_registro", methods={"PUT"})
      * @Template("AdminMedBundle:Plangestion:edit.html.twig")
      */
     public function abrirRegistroAction(Request $request, $id)
@@ -448,8 +433,7 @@ class PlangestionController extends Controller
 
 
     /** Cerrar plan
-     * @Route("/{id}/cerrar", name="plangestion_cerrar")
-     * @Method("GET")
+     * @Route("/{id}/cerrar", name="plangestion_cerrar", methods={"GET"})
      */
     public function cerrarAction($id)
     {
@@ -466,8 +450,7 @@ class PlangestionController extends Controller
     }
 
     /** Confirmar plan
-     * @Route("/{id}/confirm", name="plangestion_confirm")
-     * @Method("GET")
+     * @Route("/{id}/confirm", name="plangestion_confirm", methods={"GET"})
      */
     public function confirmAction($id)
     {
@@ -500,8 +483,7 @@ class PlangestionController extends Controller
     /**
      * Deletes a Plangestion entity.
      *
-     * @Route("/{id}", name="plangestion_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="plangestion_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {
