@@ -100,7 +100,7 @@ class PlangestionController extends Controller
     /**
      * @Route("/auto", name="plangestion_show")
      * @Method("GET")
-     * @Template()
+     * @Template("AdminMedBundle:Plangestion:show.html.twig")
      */
     public function showAction(Request $request)
     {
