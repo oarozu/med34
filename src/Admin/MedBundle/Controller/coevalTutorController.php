@@ -5,8 +5,7 @@ namespace Admin\MedBundle\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\MedBundle\Entity\coevalTutor;
 use Admin\MedBundle\Form\coevalTutorType;
@@ -20,26 +19,9 @@ class coevalTutorController extends Controller
 {
 
     /**
-     * Lists all coevalTutor entities.
-     *
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('AdminMedBundle:coevalTutor')->findAll();
-
-        return array(
-            'entities' => $entities,
-        );
-    }
-    /**
      * Creates a new coevalTutor entity.
      *
-     * @Route("/", name="coevaltutor_create")
-     * @Method("POST")
+     * @Route("/", name="coevaltutor_create", methods={"POST"})
      * @Template("AdminMedBundle:coevalTutor:new.html.twig")
      */
     public function createAction(Request $request)
@@ -58,17 +40,17 @@ class coevalTutorController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-    * Creates a form to create a coevalTutor entity.
-    *
-    * @param coevalTutor $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to create a coevalTutor entity.
+     *
+     * @param coevalTutor $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(coevalTutor $entity)
     {
         $form = $this->createForm(coevalTutorType::class, $entity, array(
@@ -84,27 +66,25 @@ class coevalTutorController extends Controller
     /**
      * Displays a form to create a new coevalTutor entity.
      *
-     * @Route("/new", name="coevaltutor_new")
-     * @Method("GET")
-     * @Template()
+     * @Route("/new", name="coevaltutor_new", methods={"GET"})
+     * @Template("AdminMedBundle:coevalTutor:new.html.twig")
      */
     public function newAction()
     {
         $entity = new coevalTutor();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
      * Finds and displays a coevalTutor entity.
      *
-     * @Route("/{id}", name="coevaltutor_show")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}", name="coevaltutor_show", methods={"POST"})
+     * @Template("AdminMedBundle:coevalTutor:show.html.twig")
      */
     public function showAction($id)
     {
@@ -119,7 +99,7 @@ class coevalTutorController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -127,9 +107,8 @@ class coevalTutorController extends Controller
     /**
      * Displays a form to edit an existing coevalTutor entity.
      *
-     * @Route("/{id}/edit", name="coevaltutor_edit")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}/edit", name="coevaltutor_edit", methods={"GET"})
+     * @Template("AdminMedBundle:coevalTutor:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -138,32 +117,31 @@ class coevalTutorController extends Controller
         $entity = $em->getRepository('AdminMedBundle:coevalTutor')->find($id);
 
         if (!$entity) {
-        $entity = new coevalTutor();
-        $em = $this->getDoctrine()->getManager();
-        $tutor = $em->getRepository('AdminMedBundle:Tutor')->find($id);
-        $entity->setTutor($tutor);
-        $em->persist($entity);
-        $em->flush();
-        ##    throw $this->createNotFoundException('Entidad no encontrada');
+            $entity = new coevalTutor();
+            $em = $this->getDoctrine()->getManager();
+            $tutor = $em->getRepository('AdminMedBundle:Tutor')->find($id);
+            $entity->setTutor($tutor);
+            $em->persist($entity);
+            $em->flush();
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'coeval'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'coeval' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a coevalTutor entity.
-    *
-    * @param coevalTutor $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a coevalTutor entity.
+     *
+     * @param coevalTutor $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(coevalTutor $entity)
     {
         $form = $this->createForm(coevalTutorType::class, $entity, array(
@@ -175,11 +153,11 @@ class coevalTutorController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing coevalTutor entity.
      *
-     * @Route("/{id}", name="coevaltutor_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="coevaltutor_update", methods={"PUT"})
      * @Template("AdminMedBundle:coevalTutor:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -191,22 +169,21 @@ class coevalTutorController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find coevalTutor entity.');
         }
-
-       // $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-        
-        $entity->setFecha(new \DateTime()); 
-        
-        $suma = 0; $tot = 0;
-        for($i=1; $i<13; $i++){   
-        if($editForm["f".$i]->getData()>0){
-         $suma = $suma + $editForm["f".$i]->getData();
-         $tot = $tot + 1;
+
+        $entity->setFecha(new \DateTime());
+
+        $suma = 0;
+        $tot = 0;
+        for ($i = 1; $i < 13; $i++) {
+            if ($editForm["f" . $i]->getData() > 0) {
+                $suma = $suma + $editForm["f" . $i]->getData();
+                $tot = $tot + 1;
+            }
         }
-        }
-       $entity->setF0($suma/$tot);
-        
+        $entity->setF0($suma / $tot);
+
         if ($editForm->isValid()) {
             $em->flush();
 
@@ -214,16 +191,15 @@ class coevalTutorController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-         //   'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView()
         );
     }
+
     /**
      * Deletes a coevalTutor entity.
      *
-     * @Route("/{id}", name="coevaltutor_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="coevaltutor_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {
@@ -241,7 +217,6 @@ class coevalTutorController extends Controller
             $em->remove($entity);
             $em->flush();
         }
-
         return $this->redirect($this->generateUrl('coevaltutor'));
     }
 
@@ -258,7 +233,6 @@ class coevalTutorController extends Controller
             ->setAction($this->generateUrl('coevaltutor_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', SubmitType::class, array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 }
