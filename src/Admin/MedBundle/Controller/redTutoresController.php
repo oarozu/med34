@@ -5,8 +5,7 @@ namespace Admin\MedBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\MedBundle\Entity\redTutores;
 use Admin\MedBundle\Form\redTutoresType;
@@ -18,29 +17,27 @@ use Admin\MedBundle\Form\redTutoresType;
  */
 class redTutoresController extends Controller
 {
-
     /**
      * Lists all redTutores entities.
      *
-     * @Route("/", name="redtutores")
-     * @Method("GET")
-     * @Template()
+     * @Route("/", name="redtutores", methods={"GET"})
+     * @Template("AdminMedBundle:redTutores:index.html.twig")
      */
     public function indexAction(Request $request)
     {
-       $em = $this->getDoctrine()->getManager();
-       $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+        $session = $request->getSession();
         $entity = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
         $tutorias = $em->getRepository('AdminMedBundle:Tutor')->findBy(array('docente' => $entity));
 
         return array(
             'entity' => $entity,
-            'tutorias'  => $tutorias,
-         );
+            'tutorias' => $tutorias,
+        );
     }
+
     /**
-     * @Route("/", name="redtutores_create")
-     * @Method("POST")
+     * @Route("/", name="redtutores_create", methods={"POST"})
      * @Template("AdminMedBundle:redTutores:new.html.twig")
      */
     public function createAction(Request $request)
@@ -59,17 +56,17 @@ class redTutoresController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-    * Creates a form to create a redTutores entity.
-    *
-    * @param redTutores $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to create a redTutores entity.
+     *
+     * @param redTutores $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(redTutores $entity)
     {
         $form = $this->createForm(redTutoresType::class, $entity, array(
@@ -85,27 +82,25 @@ class redTutoresController extends Controller
     /**
      * Displays a form to create a new redTutores entity.
      *
-     * @Route("/new", name="redtutores_new")
-     * @Method("GET")
-     * @Template()
+     * @Route("/new", name="redtutores_new", methods={"GET"})
+     * @Template("AdminMedBundle:redTutores:new.html.twig")
      */
     public function newAction()
     {
         $entity = new redTutores();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
      * Finds and displays a redTutores entity.
      *
-     * @Route("/{id}", name="redtutores_show")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}", name="redtutores_show", methods={"GET"})
+     * @Template("AdminMedBundle:redTutores:show.html.twig")
      */
     public function showAction($id)
     {
@@ -120,7 +115,7 @@ class redTutoresController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -128,9 +123,8 @@ class redTutoresController extends Controller
     /**
      * Displays a form to edit an existing redTutores entity.
      *
-     * @Route("/{id}/edit", name="redtutores_edit")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}/edit", name="redtutores_edit", methods={"GET"})
+     * @Template("AdminMedBundle:redTutores:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -139,32 +133,31 @@ class redTutoresController extends Controller
         $entity = $em->getRepository('AdminMedBundle:redTutores')->find($id);
 
         if (!$entity) {
-        $entity = new redTutores();
-        $em = $this->getDoctrine()->getManager();
-        $tutor = $em->getRepository('AdminMedBundle:Tutor')->find($id);
-        $entity->setId($tutor);
-        $em->persist($entity);
-        $em->flush();
-        ##    throw $this->createNotFoundException('Entidad no encontrada');
+            $entity = new redTutores();
+            $em = $this->getDoctrine()->getManager();
+            $tutor = $em->getRepository('AdminMedBundle:Tutor')->find($id);
+            $entity->setId($tutor);
+            $em->persist($entity);
+            $em->flush();
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'evaluacion'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'evaluacion' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a redTutores entity.
-    *
-    * @param redTutores $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a redTutores entity.
+     *
+     * @param redTutores $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(redTutores $entity)
     {
         $form = $this->createForm(redTutoresType::class, $entity, array(
@@ -176,11 +169,11 @@ class redTutoresController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing redTutores entity.
      *
-     * @Route("/{id}", name="redtutores_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="redtutores_update", methods={"PUT"})
      * @Template("AdminMedBundle:redTutores:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -193,15 +186,14 @@ class redTutoresController extends Controller
             throw $this->createNotFoundException('Unable to find redTutores entity.');
         }
 
-       // $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-        
+
         $suma = 0;
-        for($i=1; $i<31; $i++){   
-        $suma = $suma + $editForm["f".$i]->getData();
+        for ($i = 1; $i < 31; $i++) {
+            $suma = $suma + $editForm["f" . $i]->getData();
         }
-        $entity->setF0($suma/30);
+        $entity->setF0($suma / 30);
         $entity->setFecha(new \DateTime());
 
         if ($editForm->isValid()) {
@@ -209,18 +201,16 @@ class redTutoresController extends Controller
 
             return $this->redirect($this->generateUrl('redtutores'));
         }
-
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-        //    'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
         );
     }
+
     /**
      * Deletes a redTutores entity.
      *
-     * @Route("/{id}", name="redtutores_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="redtutores_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {
@@ -255,7 +245,6 @@ class redTutoresController extends Controller
             ->setAction($this->generateUrl('redtutores_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', SubmitType::class, array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 }
