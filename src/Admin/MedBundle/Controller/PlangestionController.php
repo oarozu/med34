@@ -68,7 +68,6 @@ class PlangestionController extends Controller
     /**
      * Displays a form to create a new Plangestion entity.
      * @Route("/add", name="plangestion_add", methods={"GET"})
-     * @Template()
      */
     public function addAction(Request $request)
     {
@@ -118,7 +117,7 @@ class PlangestionController extends Controller
 
     /**
      * @Route("/{id}/dofe", name="plangestion_dofe", methods={"GET"})
-     * @Template()
+     * @Template("AdminMedBundle:Plangestion:dofe.html.twig")
      */
     public function dofeAction($id)
     {
@@ -136,7 +135,7 @@ class PlangestionController extends Controller
 
     /**
      * @Route("/conf/plan", name="plangestion_conf", methods={"GET"})
-     * @Template()
+     * @Template("AdminMedBundle:Plangestion:conf.html.twig")
      */
     public function confAction(Request $request)
     {
@@ -168,7 +167,6 @@ class PlangestionController extends Controller
 
     /**
      * @Route("/conf/plan/{id}", name="plangestion_conf_add", methods={"GET"})
-     * @Template()
      */
     public function addRole(Request $request, $id)
     {
@@ -191,7 +189,7 @@ class PlangestionController extends Controller
 
     /**
      * @Route("/agregar/roles", name="plangestion_crear", methods={"GET"})
-     * @Template()
+     * @Template("AdminMedBundle:Plangestion:crear.html.twig")
      */
     public function crearAction(Request $request)
     {
@@ -247,7 +245,7 @@ class PlangestionController extends Controller
     }
 
     /**
-     * @Template()
+     * @Template("AdminMedBundle:Plangestion:autoeval.html.twig")
      */
     public function autoevalAction($id)
     {
@@ -271,7 +269,7 @@ class PlangestionController extends Controller
      * Displays a form to edit an existing Plangestion entity.
      *
      * @Route("/{id}/edit", name="plangestion_edit", methods={"GET"})
-     * @Template()
+     * @Template("AdminMedBundle:Plangestion:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -297,7 +295,7 @@ class PlangestionController extends Controller
      * Displays a form to edit an existing Plangestion entity.
      *
      * @Route("/{id}/abrir", name="plangestion_abrir", methods={"GET"})
-     * @Template()
+     * @Template("AdminMedBundle:Plangestion:abrir.html.twig")
      */
     public function abrirAction($id)
     {
