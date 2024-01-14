@@ -8,8 +8,7 @@
 
 namespace Admin\MedBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 
@@ -18,25 +17,23 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * @Route("/admin/panel")
  */
 class ConsolidarController extends Controller {
-   
-    
+
+
      /**
      * Mostrar Home
-     * @Route("/", name="admin_consolidar_index")
-     * @Method("GET")
+     * @Route("/", name="admin_consolidar_index", methods={"POST"})
      */
     public function indexAction() {
     return $this->render('Consolidar/index.html.twig');
-    } 
-    
+    }
+
          /**
      * Mostrar Home
-     * @Route("/auto", name="consolidar_index")
-     * @Method("GET")
+     * @Route("/auto", name="consolidar_index", methods={"POST"})
      * @Template("Consolidar/result.html.twig")
      */
     public function heterocursosAction() {
-        
+
         $em = $this->getDoctrine()->getManager();
         $connection = $em->getConnection();
         $q = "update evaluacion as a
@@ -45,10 +42,10 @@ class ConsolidarController extends Controller {
         set a.auto = p.autoevaluacion
         where d.periodo = 20171 and p.autoevaluacion is not null";
         $total = $connection->executeUpdate($q);
-        
+
         return array(
        'result' => $total,
        );
-       } 
-   
+       }
+
 }

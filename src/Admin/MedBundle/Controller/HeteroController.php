@@ -4,8 +4,7 @@ namespace Admin\MedBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\MedBundle\Entity\Heteroeval;
 use Admin\MedBundle\Entity\Heterocursos;
@@ -20,8 +19,7 @@ class HeteroController extends Controller {
     /**
      * Lists all hetero semestre actual
      *
-     * @Route("/pcurso/{pe}", name="hetero_index")
-     * @Method("GET")
+     * @Route("/pcurso/{pe}", name="hetero_index", methods={"GET"})
      * @Template("Hetero/index.html.twig")
      */
     public function indexAction($pe) {
@@ -35,8 +33,7 @@ class HeteroController extends Controller {
 
     /**
      * Mostrar promedio escuelas
-     * @Route("/prom_esc", name="hetero_prom_esc")
-     * @Method("GET")
+     * @Route("/prom_esc", name="hetero_prom_esc", methods={"GET"})
      * @Template("Hetero/promescuela.html.twig")
      */
     public function heteroescuelasAction(Request $request) {
@@ -45,10 +42,10 @@ class HeteroController extends Controller {
 
 
        $session = $request->getSession();
-       
+
        $miescuela = $session->get('escuelaid');
-       
-        
+
+
         return array(
             'data' => $datas,
             'miescuela' => $miescuela
@@ -57,13 +54,12 @@ class HeteroController extends Controller {
 
     /**
      * Listado de hetero escuela en periodo x
-     * @Route("/es_pe/{esc}/{pe}", name="hetero_esc_per")
-     * @Method("GET")
+     * @Route("/es_pe/{esc}/{pe}", name="hetero_esc_per", methods={"GET"})
      * @Template("Hetero/heteroescuelas.html.twig")
      */
     public function escuelaperiodoAction($esc, $pe) {
-        
-        
+
+
         $em = $this->getDoctrine()->getManager();
         $docentes = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('periodo' => $pe, 'escuela' => $esc));
         $hetero = $em->getRepository('AdminMedBundle:Heteroeval')->findBy(array('docente' => $docentes));

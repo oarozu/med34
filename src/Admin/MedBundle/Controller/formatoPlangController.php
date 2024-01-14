@@ -4,8 +4,7 @@ namespace Admin\MedBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\MedBundle\Entity\formatoPlang;
 use Admin\MedBundle\Form\formatoPlangType;
@@ -18,35 +17,18 @@ use Admin\MedBundle\Form\formatoPlangType;
 class formatoPlangController extends Controller
 {
 
-    /**
-     * Lists all formatoPlang entities.
-     *
-     * @Route("/", name="formatoplang")
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AdminMedBundle:formatoPlang')->findAll();
-
-        return array(
-            'entities' => $entities,
-        );
-    }
     /**
      * Creates a new formatoPlang entity.
      *
-     * @Route("/crear/{id}", name="formatoplang_create")
-     * @Method("POST")
+     * @Route("/crear/{id}", name="formatoplang_create", methods={"POST"})
      * @Template("AdminMedBundle:formatoPlang:new.html.twig")
      */
     public function createAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $docente = $em->getRepository('AdminUnadBundle:Docente')->find($id);
-        $plan = $em->getRepository('AdminMedBundle:Plangestion')->findOneBy(array('docente' => $docente)); 
+        $plan = $em->getRepository('AdminMedBundle:Plangestion')->findOneBy(array('docente' => $docente));
         $entity = new formatoPlang();
         $entity->setPlan($plan);
         $form = $this->createCreateForm($entity, $id);
@@ -88,15 +70,14 @@ class formatoPlangController extends Controller
     /**
      * Displays a form to create a new formatoPlang entity.
      *
-     * @Route("/new/{id}", name="formatoplang_new")
-     * @Method("GET")
-     * @Template()
+     * @Route("/new/{id}", name="formatoplang_new", methods={"GET"})
+     * @Template("AdminMedBundle:formatoPlang:new.html.twig")
      */
     public function newAction($id)
     {
 
         $entity = new formatoPlang();
-        
+
         $form   = $this->createCreateForm($entity,$id);
 
         return array(
@@ -109,9 +90,8 @@ class formatoPlangController extends Controller
     /**
      * Finds and displays a formatoPlang entity.
      *
-     * @Route("/{id}", name="formatoplang_show")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}", name="formatoplang_show", methods={"GET"})
+     * @Template("AdminMedBundle:formatoPlang:show.html.twig")
      */
     public function showAction($id)
     {
@@ -134,9 +114,8 @@ class formatoPlangController extends Controller
     /**
      * Displays a form to edit an existing formatoPlang entity.
      *
-     * @Route("/{id}/edit", name="formatoplang_edit")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}/edit", name="formatoplang_edit", methods={"GET"})
+     * @Template("AdminMedBundle:formatoPlang:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -179,8 +158,7 @@ class formatoPlangController extends Controller
     /**
      * Edits an existing formatoPlang entity.
      *
-     * @Route("/{id}", name="formatoplang_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="formatoplang_update", methods={"PUT"})
      * @Template("AdminMedBundle:formatoPlang:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -212,8 +190,7 @@ class formatoPlangController extends Controller
     /**
      * Deletes a formatoPlang entity.
      *
-     * @Route("/{id}", name="formatoplang_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="formatoplang_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

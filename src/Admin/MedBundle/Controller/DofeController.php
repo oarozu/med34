@@ -6,8 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\MedBundle\Entity\evalDofe;
 use Admin\MedBundle\Entity\RedDofe;
@@ -22,8 +21,7 @@ class DofeController extends Controller {
     /**
      * Lists all Escuela entities.
      *
-     * @Route("/", name="dofe_index")
-     * @Method("GET")
+     * @Route("/", name="dofe_index", methods={"GET"})
      * @Template("Dofe/index.html.twig")
      */
     public function indexAction() {
@@ -39,8 +37,7 @@ class DofeController extends Controller {
 
     /**
      * Lists all evaluaciones dofe entities
-     * @Route("/evaluar", name="dofe_evaluar")
-     * @Method("GET")
+     * @Route("/evaluar", name="dofe_evaluar", methods={"GET"})
      * @Template("Dofe/evaluar.html.twig")
      */
     public function evaluarAction() {
@@ -53,8 +50,7 @@ class DofeController extends Controller {
 
     /**
      * Lists all evaluaciones dofe entities
-     * @Route("/eval/{id}", name="dofe_eval")
-     * @Method("GET")
+     * @Route("/eval/{id}", name="dofe_eval", methods={"GET"})
      * @Template("Dofe/eval.html.twig")
      */
     public function evalAction($id) {
@@ -82,8 +78,7 @@ class DofeController extends Controller {
     }
 
     /**
-     * @Route("/calificar/{id}", name="dofe_calificaredit")
-     * @Method("GET")
+     * @Route("/calificar/{id}", name="dofe_calificaredit", methods={"GET"})
      * @Template("Dofe/calificar.html.twig")
      */
     public function editAction($id) {
@@ -111,8 +106,7 @@ class DofeController extends Controller {
 
     /**
      * Edits an existing Actividadplang entity.
-     * @Route("/calificar/{id}", name="dofe_calificarupdate")
-     * @Method("PUT")
+     * @Route("/calificar/{id}", name="dofe_calificarupdate", methods={"PUT"})
      * @Template("Dofe/calificar.html.twig")
      */
     public function updateAction(Request $request, $id) {
@@ -154,8 +148,7 @@ class DofeController extends Controller {
     /**
      * Edits an existing reddofe entity.
      *
-     * @Route("/cerrar/{id}", name="dofe_cerrar")
-     * @Method("GET")
+     * @Route("/cerrar/{id}", name="dofe_cerrar", methods={"GET"})
      * @Template("Dofe/calificar.html.twig")
      */
     public function cerrarAction( $id) {

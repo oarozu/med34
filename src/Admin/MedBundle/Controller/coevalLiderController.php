@@ -4,8 +4,7 @@ namespace Admin\MedBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\MedBundle\Entity\coevalLider;
 use Admin\MedBundle\Form\coevalLiderType;
@@ -19,27 +18,9 @@ class coevalLiderController extends Controller
 {
 
     /**
-     * Lists all coevalLider entities.
-     *
-     * @Route("/lista", name="coevallider")
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('AdminMedBundle:coevalLider')->findAll();
-
-        return array(
-            'entities' => $entities,
-        );
-    }
-    /**
      * Creates a new coevalLider entity.
      *
-     * @Route("/", name="coevallider_create")
-     * @Method("POST")
+     * @Route("/", name="coevallider_create", methods={"POST"})
      * @Template("AdminMedBundle:coevalLider:new.html.twig")
      */
     public function createAction(Request $request)
@@ -81,30 +62,12 @@ class coevalLiderController extends Controller
         return $form;
     }
 
-    /**
-     * Displays a form to create a new coevalLider entity.
-     *
-     * @Route("/new", name="coevallider_new")
-     * @Method("GET")
-     * @Template()
-     */
-    public function newAction()
-    {
-        $entity = new coevalLider();
-        $form   = $this->createCreateForm($entity);
-
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
-    }
 
     /**
      * Finds and displays a coevalLider entity.
      *
-     * @Route("/{id}", name="coevallider_show")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}", name="coevallider_show", methods={"GET"})
+     * @Template("AdminMedBundle:coevalLider:show.html.twig")
      */
     public function showAction($id)
     {
@@ -127,9 +90,8 @@ class coevalLiderController extends Controller
     /**
      * Displays a form to edit an existing coevalLider entity.
      *
-     * @Route("/{id}/edit", name="coevallider_edit")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}/edit", name="coevallider_edit", methods={"GET"})
+     * @Template("AdminMedBundle:coevalLider:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -172,8 +134,7 @@ class coevalLiderController extends Controller
     /**
      * Edits an existing coevalLider entity.
      *
-     * @Route("/{id}", name="coevallider_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="coevallider_update", methods={"PUT"})
      * @Template("AdminMedBundle:coevalLider:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -188,16 +149,16 @@ class coevalLiderController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
-        $entity->setFecha(new \DateTime()); 
+        $entity->setFecha(new \DateTime());
         $suma = 0; $tot = 0;
-        for($i=1; $i<15; $i++){   
+        for($i=1; $i<15; $i++){
         if($editForm["f".$i]->getData()>0){
          $suma = $suma + $editForm["f".$i]->getData();
          $tot = $tot + 1;
         }
         }
        $entity->setF0($suma/$tot);
-        
+
         if ($editForm->isValid()) {
             $em->flush();
 
@@ -212,8 +173,7 @@ class coevalLiderController extends Controller
     /**
      * Deletes a coevalLider entity.
      *
-     * @Route("/{id}", name="coevallider_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="coevallider_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {
