@@ -57,7 +57,7 @@ class ArchivoController extends Controller
 
      /**
       * Lists all Archivo entities.
-      * @Route("/docente", name="archivo_docente", methods={"GET"}
+      * @Route("/docente", name="archivo_docente", methods={"GET"})
       * @Template("AdminMedBundle:Archivo:pordoc.html.twig")
      */
     public function docenteAction()
