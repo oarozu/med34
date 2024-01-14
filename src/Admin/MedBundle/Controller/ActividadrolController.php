@@ -5,8 +5,7 @@ namespace Admin\MedBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\MedBundle\Entity\Actividadrol;
 use Admin\MedBundle\Form\ActividadrolType;
@@ -21,9 +20,8 @@ class ActividadrolController extends Controller
 
     /**
      * Lists all Actividadrol entities.
-     * @Route("/", name="actividadrol")
-     * @Method("GET")
-     * @Template()
+     * @Route("/", name="actividadrol", methods={"GET"})
+     * @Template("AdminMedBundle:Actividadrol:index.html.twig")
      */
     public function indexAction()
     {
@@ -35,12 +33,11 @@ class ActividadrolController extends Controller
             'entities' => $entities,
         );
     }
-    
+
         /**
      * Lists all Actividadrol entities.
-     * @Route("/select/{id}", name="actividadrol_select")
-     * @Method("GET")
-     * @Template()
+     * @Route("/select/{id}", name="actividadrol_select", methods={"GET"})
+     * @Template("AdminMedBundle:Actividadrol:select.html.twig")
      */
     public function selectAction($id)
     {
@@ -56,12 +53,11 @@ class ActividadrolController extends Controller
             'periodo' => $periodo
         );
     }
-    
+
     /**
      * Creates a new Actividadrol entity.
      *
-     * @Route("/", name="actividadrol_create")
-     * @Method("POST")
+     * @Route("/", name="actividadrol_create", methods={"POST"})
      * @Template("AdminMedBundle:Actividadrol:new.html.twig")
      */
     public function createAction(Request $request)
@@ -106,8 +102,7 @@ class ActividadrolController extends Controller
     /**
      * Displays a form to create a new Actividadrol entity.
      *
-     * @Route("/new", name="actividadrol_new")
-     * @Method("GET")
+     * @Route("/new", name="actividadrol_new", methods={"GET"})
      * @Template()
      */
     public function newAction()
@@ -124,8 +119,7 @@ class ActividadrolController extends Controller
     /**
      * Finds and displays a Actividadrol entity.
      *
-     * @Route("/{id}", name="actividadrol_show")
-     * @Method("GET")
+     * @Route("/{id}", name="actividadrol_show", methods={"GET"})
      * @Template()
      */
     public function showAction($id)
@@ -149,8 +143,7 @@ class ActividadrolController extends Controller
     /**
      * Displays a form to edit an existing Actividadrol entity.
      *
-     * @Route("/{id}/edit", name="actividadrol_edit")
-     * @Method("GET")
+     * @Route("/{id}/edit", name="actividadrol_edit", methods={"GET"})
      * @Template()
      */
     public function editAction($id)
@@ -194,8 +187,7 @@ class ActividadrolController extends Controller
     /**
      * Edits an existing Actividadrol entity.
      *
-     * @Route("/{id}", name="actividadrol_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="actividadrol_update", methods={"PUT"})
      * @Template("AdminMedBundle:Actividadrol:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -227,8 +219,7 @@ class ActividadrolController extends Controller
     /**
      * Deletes a Actividadrol entity.
      *
-     * @Route("/{id}", name="actividadrol_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="actividadrol_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

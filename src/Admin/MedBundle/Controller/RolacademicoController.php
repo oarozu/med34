@@ -5,8 +5,7 @@ namespace Admin\MedBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\MedBundle\Entity\Rolacademico;
 use Admin\MedBundle\Form\RolacademicoType;
@@ -22,9 +21,8 @@ class RolacademicoController extends Controller
     /**
      * Lists all Rolacademico entities.
      *
-     * @Route("/", name="rolacademico")
-     * @Method("GET")
-     * @Template()
+     * @Route("/", name="rolacademico", methods={"GET"})
+     * @Template("AdminMedBundle:Rolacademico:index.html.twig")
      */
     public function indexAction()
     {
@@ -39,8 +37,7 @@ class RolacademicoController extends Controller
     /**
      * Creates a new Rolacademico entity.
      *
-     * @Route("/", name="rolacademico_create")
-     * @Method("POST")
+     * @Route("/", name="rolacademico_create", methods={"POST"})
      * @Template("AdminMedBundle:Rolacademico:new.html.twig")
      */
     public function createAction(Request $request)
@@ -85,9 +82,8 @@ class RolacademicoController extends Controller
     /**
      * Displays a form to create a new Rolacademico entity.
      *
-     * @Route("/new", name="rolacademico_new")
-     * @Method("GET")
-     * @Template()
+     * @Route("/new", name="rolacademico_new", methods={"GET"})
+     * @Template("AdminMedBundle:Rolacademico:new.html.twig")
      */
     public function newAction()
     {
@@ -103,9 +99,8 @@ class RolacademicoController extends Controller
     /**
      * Finds and displays a Rolacademico entity.
      *
-     * @Route("/{id}", name="rolacademico_show")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}", name="rolacademico_show", methods={"GET"})
+     * @Template("AdminMedBundle:Rolacademico:show.html.twig")
      */
     public function showAction($id)
     {
@@ -128,9 +123,8 @@ class RolacademicoController extends Controller
     /**
      * Displays a form to edit an existing Rolacademico entity.
      *
-     * @Route("/{id}/edit", name="rolacademico_edit")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}/edit", name="rolacademico_edit", methods={"GET"})
+     * @Template("AdminMedBundle:Rolacademico:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -173,8 +167,7 @@ class RolacademicoController extends Controller
     /**
      * Edits an existing Rolacademico entity.
      *
-     * @Route("/{id}", name="rolacademico_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="rolacademico_update", methods={"PUT"})
      * @Template("AdminMedBundle:Rolacademico:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -206,8 +199,7 @@ class RolacademicoController extends Controller
     /**
      * Deletes a Rolacademico entity.
      *
-     * @Route("/{id}", name="rolacademico_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="rolacademico_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

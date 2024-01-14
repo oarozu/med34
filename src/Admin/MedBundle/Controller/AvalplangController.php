@@ -5,8 +5,7 @@ namespace Admin\MedBundle\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Admin\MedBundle\Entity\Avalplang;
@@ -25,9 +24,8 @@ class AvalplangController extends Controller
     /**
      * Lists all Avalplang entities.
      *
-     * @Route("/", name="avalplang")
-     * @Method("GET")
-     * @Template()
+     * @Route("/", name="avalplang", methods={"GET"})
+     * @Template("AdminMedBundle:Avalplang:index.html.twig")
      */
     public function indexAction()
     {
@@ -43,9 +41,8 @@ class AvalplangController extends Controller
     /**
      * Lists all Avalplang entities.
      *
-     * @Route("/lista", name="aval_lista")
-     * @Method("GET")
-     * @Template()
+     * @Route("/lista", name="aval_lista", methods={"GET"})
+     * @Template("AdminMedBundle:Avalplang:lista.html.twig")
      */
     public function listaAction()
     {
@@ -67,9 +64,8 @@ class AvalplangController extends Controller
     /**
      * Lists all Avalplang por escuela.
      *
-     * @Route("/planesg", name="aval_porescuela")
-     * @Method("GET")
-     * @Template()
+     * @Route("/planesg", name="aval_porescuela", methods={"GET"})
+     * @Template("AdminMedBundle:Avalplang:porescuela.html.twig")
      */
     public function porescuelaAction(Request $request)
     {
@@ -111,9 +107,8 @@ class AvalplangController extends Controller
     /**
      * Avalar plang
      *
-     * @Route("/planesg/{id}", name="aval_plangestion")
-     * @Method("GET")
-     * @Template()
+     * @Route("/planesg/{id}", name="aval_plangestion", methods={"GET"})
+     * @Template("AdminMedBundle:Avalplang:plangestion.html.twig")
      */
     public function plangestionAction($id)
     {
@@ -135,8 +130,7 @@ class AvalplangController extends Controller
     /**
      * Creates a new Avalplang entity.
      *
-     * @Route("/", name="avalplang_create")
-     * @Method("POST")
+     * @Route("/", name="avalplang_create", methods={"POST"})
      * @Template("AdminMedBundle:Avalplang:new.html.twig")
      */
     public function createAction(Request $request)
@@ -181,9 +175,8 @@ class AvalplangController extends Controller
     /**
      * Displays a form to create a new Avalplang entity.
      *
-     * @Route("/new", name="avalplang_new")
-     * @Method("GET")
-     * @Template()
+     * @Route("/new", name="avalplang_new", methods={"GET"})
+     * @Template("AdminMedBundle:Avalplang:new.html.twig")
      */
     public function newAction()
     {
@@ -199,9 +192,8 @@ class AvalplangController extends Controller
     /**
      * Finds and displays a Avalplang entity.
      *
-     * @Route("/{id}", name="avalplang_show")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}", name="avalplang_show", methods={"GET"})
+     * @Template("AdminMedBundle:Avalplang:show.html.twig")
      */
     public function showAction($id)
     {
@@ -224,9 +216,8 @@ class AvalplangController extends Controller
     /**
      * Displays a form to edit an existing Avalplang entity.
      *
-     * @Route("/{id}/edit", name="avalplang_edit")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}/edit", name="avalplang_edit", methods={"GET"})
+     * @Template("AdminMedBundle:Avalplang:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -269,8 +260,7 @@ class AvalplangController extends Controller
     /**
      * Edits an existing Avalplang entity.
      *
-     * @Route("/{id}", name="avalplang_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="avalplang_update", methods={"PUT"})
      * @Template("AdminMedBundle:Avalplang:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -320,8 +310,7 @@ class AvalplangController extends Controller
     /**
      * Deletes a Avalplang entity.
      *
-     * @Route("/{id}", name="avalplang_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="avalplang_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

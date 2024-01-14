@@ -5,8 +5,7 @@ namespace Admin\MedBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\MedBundle\Entity\Archivo;
 use Admin\MedBundle\Form\ArchivoType;
@@ -22,9 +21,8 @@ class ArchivoController extends Controller
      /**
      * Lists all Archivo entities.
      *
-     * @Route("/doc/{ced}", name="archivo_pordoc")
-     * @Method("GET")
-     * @Template()
+     * @Route("/doc/{ced}", name="archivo_pordoc", methods={"GET"})
+     * @Template("AdminMedBundle:Archivo:pordoc.html.twig")
      */
     public function pordocAction($ced)
     {
@@ -38,12 +36,11 @@ class ArchivoController extends Controller
     }
 
 
-         /**
+    /**
      * Lists all Archivo entities.
      *
-     * @Route("/per/{id}", name="archivo_pordoc")
-     * @Method("GET")
-     * @Template()
+     * @Route("/per/{id}", name="archivo_pordoc", methods={"GET"})
+     * @Template("AdminMedBundle:Archivo:porperiodo.html.twig")
      */
     public function porperiodoAction($id)
     {
@@ -59,10 +56,9 @@ class ArchivoController extends Controller
 
 
      /**
-     * Lists all Archivo entities.
-        * @Route("/docente", name="archivo_docente")
-     * @Method("GET")
-     * @Template("AdminMedBundle:Archivo:pordoc.html.twig")
+      * Lists all Archivo entities.
+      * @Route("/docente", name="archivo_docente", methods={"GET"}
+      * @Template("AdminMedBundle:Archivo:pordoc.html.twig")
      */
     public function docenteAction()
     {
@@ -78,8 +74,7 @@ class ArchivoController extends Controller
     /**
      * Creates a new Archivo entity.
      *
-     * @Route("/", name="archivo_create")
-     * @Method("POST")
+     * @Route("/", name="archivo_create", methods={"POST"})
      * @Template("AdminMedBundle:Archivo:new.html.twig")
      */
     public function createAction(Request $request)
@@ -124,9 +119,8 @@ class ArchivoController extends Controller
     /**
      * Displays a form to create a new Archivo entity.
      *
-     * @Route("/new", name="archivo_new")
-     * @Method("GET")
-     * @Template()
+     * @Route("/new", name="archivo_new", methods={"GET"})
+     * @Template("AdminMedBundle:Archivo:new.html.twig")
      */
     public function newAction()
     {
@@ -142,9 +136,8 @@ class ArchivoController extends Controller
     /**
      * Finds and displays a Archivo entity.
      *
-     * @Route("/{id}", name="archivo_show")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}", name="archivo_show", methods={"GET"})
+     * @Template("AdminMedBundle:Archivo:show.html.twig")
      */
     public function showAction($id)
     {
@@ -168,18 +161,13 @@ class ArchivoController extends Controller
         $urlauto = $urlserver.'/archivo/'.$entity->getPeriodo().'/auto/'.$entity->getCedula().'-'.$entity->getPeriodo().'-auto.pdf';
         $urlcoeval = $urlserver.'/archivo/'.$entity->getPeriodo().'/coeval/'.$entity->getCedula().'-'.$entity->getPeriodo().'-co.pdf';
 
-       // if ($this->is_url_exist($urlplan)){
         $plan = $urlplan;
-       // }
-       // if ($this->is_url_exist($urlhetero)){
+
         $hetero = $urlhetero;
-        //}
-       // if ($this->is_url_exist($urlauto)){
+
         $auto = $urlauto;
-        //}
-        //if ($this->is_url_exist($urlcoeval)){
+
         $coeval = $urlcoeval;
-        //}
 
         return array(
             'entity'  => $entity,
@@ -193,9 +181,8 @@ class ArchivoController extends Controller
     /**
      * Displays a form to edit an existing Archivo entity.
      *
-     * @Route("/{id}/edit", name="archivo_edit")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}/edit", name="archivo_edit", methods={"GET"})
+     * @Template("AdminMedBundle:Archivo:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -238,8 +225,7 @@ class ArchivoController extends Controller
     /**
      * Edits an existing Archivo entity.
      *
-     * @Route("/{id}", name="archivo_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="archivo_update", methods={"PUT"})
      * @Template("AdminMedBundle:Archivo:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -271,8 +257,7 @@ class ArchivoController extends Controller
     /**
      * Deletes a Archivo entity.
      *
-     * @Route("/{id}", name="archivo_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="archivo_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

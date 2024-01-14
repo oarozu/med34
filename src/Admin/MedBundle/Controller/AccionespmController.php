@@ -4,8 +4,7 @@ namespace Admin\MedBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\MedBundle\Entity\Accionespm;
 use Admin\MedBundle\Form\AccionespmType;
@@ -22,9 +21,8 @@ class AccionespmController extends Controller
     /**
      * Lists all Accionespm entities.
      *
-     * @Route("/", name="accionespm")
-     * @Method("GET")
-     * @Template()
+     * @Route("/", name="accionespm", methods={"GET"})
+     * @Template("AdminMedBundle:Accionespm:index.html.twig")
      */
     public function indexAction()
     {
@@ -39,8 +37,7 @@ class AccionespmController extends Controller
     /**
      * Creates a new Accionespm entity.
      *
-     * @Route("/", name="accionespm_create")
-     * @Method("POST")
+     * @Route("/", name="accionespm_create",  methods={"POST"})
      * @Template("AdminMedBundle:Accionespm:new.html.twig")
      */
     public function createAction(Request $request)
@@ -76,8 +73,8 @@ class AccionespmController extends Controller
         $form->add('submit', SubmitType::class, array('label' => 'Agregar'));
         return $form;
     }
-    
-    
+
+
     /**
     * Creates a form to create a Accionespm entity.
     * @param Accionespm $entity The entity
@@ -97,9 +94,8 @@ class AccionespmController extends Controller
     /**
      * Displays a form to create a new Accionespm entity.
      *
-     * @Route("/new/{id}", name="accionespm_new")
-     * @Method("GET")
-     * @Template()
+     * @Route("/new/{id}", name="accionespm_new",  methods={"GET"})
+     * @Template("AdminMedBundle:Accionespm:new.html.twig")
      */
     public function newAction($id)
     {
@@ -121,9 +117,8 @@ class AccionespmController extends Controller
     /**
      * Finds and displays a Accionespm entity.
      *
-     * @Route("/{id}", name="accionespm_show")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}", name="accionespm_show",  methods={"GET"})
+     * @Template("AdminMedBundle:Accionespm:show.html.twig")
      */
     public function showAction($id)
     {
@@ -146,9 +141,8 @@ class AccionespmController extends Controller
     /**
      * Displays a form to edit an existing Accionespm entity.
      *
-     * @Route("/{id}/edit", name="accionespm_edit")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}/edit", name="accionespm_edit",  methods={"GET"})
+     * @Template("AdminMedBundle:Accionespm:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -172,8 +166,8 @@ class AccionespmController extends Controller
 
        /**
      * Displays a form to edit an existing Accionespm entity.
-     * @Route("/{id}/editar", name="accionespm_editar")
-     * @Template()
+     * @Route("/{id}/editar", name="accionespm_editar",  methods={"GET"})
+     * @Template("AdminMedBundle:Accionespm:editar.html.twig")
      */
     public function editarAction(Request $request, $id)
     {
@@ -185,12 +179,12 @@ class AccionespmController extends Controller
         ->add('estado', ChoiceType::class, array(
         'placeholder' => 'Cumplio?',
         'label' => 'Tipo ',
-        'attr' => array('class' => 'input-lg'),   
+        'attr' => array('class' => 'input-lg'),
         'choices'   => array(
-        '1' => 'SI', 
+        '1' => 'SI',
         '0' => 'NO'
             ),
-        'required'  => true,))      
+        'required'  => true,))
         ->add('submit', SubmitType::class, array('label' => 'Actualizar'))
         ->getForm();
          if ($request->isMethod('POST')) {
@@ -199,13 +193,13 @@ class AccionespmController extends Controller
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('planmejoramiento_show', array('id' => $idplan)));
-        }        
+        }
         return array(
             'entity'      => $entity,
             'edit_form'   => $form->createView(),
         );
-    } 
-    
+    }
+
       /**
      * Docente Actualiza Accion
      * @Template()
@@ -217,24 +211,24 @@ class AccionespmController extends Controller
 
         $idplan = $entity->getPlan()->getId();
         $form = $this->crearDocenteForm($entity);
-        
+
          if ($request->isMethod('POST')) {
             $form->bind($request);
             //$data = $form->getData();
             $entity->setObservaciones($form->get('observaciones')->getData());
-            
+
             $fecha = new \DateTime();
             $entity->setFechaCierre($fecha);
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('planmejoramiento_doc', array('id' => $idplan)));
-        }        
+        }
         return array(
             'entity'      => $entity,
             'edit_form'   => $form->createView(),
         );
-    } 
-    
+    }
+
     /**
     * Creates a form to edit a Accionespm entity.
     *
@@ -256,8 +250,7 @@ class AccionespmController extends Controller
     /**
      * Edits an existing Accionespm entity.
      *
-     * @Route("/{id}", name="accionespm_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="accionespm_update",  methods={"PUT"})
      * @Template("AdminMedBundle:Accionespm:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -289,8 +282,7 @@ class AccionespmController extends Controller
     /**
      * Deletes a Accionespm entity.
      *
-     * @Route("/{id}", name="accionespm_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="accionespm_delete",  methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {
