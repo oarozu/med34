@@ -103,7 +103,7 @@ class ActividadrolController extends Controller
      * Displays a form to create a new Actividadrol entity.
      *
      * @Route("/new", name="actividadrol_new", methods={"GET"})
-     * @Template()
+     * @Template("AdminMedBundle:Actividadrol:new.html.twig")
      */
     public function newAction()
     {
@@ -120,7 +120,7 @@ class ActividadrolController extends Controller
      * Finds and displays a Actividadrol entity.
      *
      * @Route("/{id}", name="actividadrol_show", methods={"GET"})
-     * @Template()
+     * @Template("AdminMedBundle:Actividadrol:show.html.twig")
      */
     public function showAction($id)
     {
@@ -144,7 +144,7 @@ class ActividadrolController extends Controller
      * Displays a form to edit an existing Actividadrol entity.
      *
      * @Route("/{id}/edit", name="actividadrol_edit", methods={"GET"})
-     * @Template()
+     * @Template("AdminMedBundle:Actividadrol:edit.html.twig")
      */
     public function editAction($id)
     {
