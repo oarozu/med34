@@ -5,8 +5,7 @@ namespace Admin\MedBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\MedBundle\Entity\Rolplang;
 use Admin\MedBundle\Form\RolplangType;
@@ -19,29 +18,11 @@ use Admin\MedBundle\Form\RolplangType;
 class RolplangController extends Controller
 {
 
-    /**
-     * Lists all Rolplang entities.
-     *
-     * @Route("/", name="rolplang")
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('AdminMedBundle:Rolplang')->findAll();
-
-        return array(
-            'entities' => $entities,
-        );
-    }
 
     /**
      * Creates a new Rolplang entity.
      *
-     * @Route("/{id}", name="rolplang_create")
-     * @Method("POST")
+     * @Route("/{id}", name="rolplang_create", methods={"POST"})
      * @Template("AdminMedBundle:Rolplang:new.html.twig")
      */
     public function createAction(Request $request, $id)
@@ -102,9 +83,8 @@ class RolplangController extends Controller
     /**
      * Displays a form to create a new Rolplang entity.
      *
-     * @Route("/new/{id}/{idr}", name="rolplang_new")
-     * @Method("GET")
-     * @Template()
+     * @Route("/new/{id}/{idr}", name="rolplang_new", methods={"GET"})
+     * @Template("AdminMedBundle:Rolplang:new.html.twig")
      */
     public function newAction($id, $idr)
     {
@@ -133,9 +113,8 @@ class RolplangController extends Controller
     /**
      * Finds and displays a Rolplang entity.
      *
-     * @Route("/{id}", name="rolplang_show")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}", name="rolplang_show", methods={"GET"})
+     * @Template("AdminMedBundle:Rolplang:show.html.twig")
      */
     public function showAction($id)
     {
@@ -158,9 +137,8 @@ class RolplangController extends Controller
     /**
      * Displays a form to edit an existing Rolplang entity.
      *
-     * @Route("/{id}/edit", name="rolplang_edit")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}/edit", name="rolplang_edit", methods={"GET"})
+     * @Template("AdminMedBundle:Rolplang:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -204,8 +182,7 @@ class RolplangController extends Controller
     /**
      * Edits an existing Rolplang entity.
      *
-     * @Route("/{id}", name="rolplang_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="rolplang_update", methods={"PUT"})
      * @Template("AdminMedBundle:Rolplang:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -238,8 +215,7 @@ class RolplangController extends Controller
     /**
      * Deletes a Rolplang entity.
      *
-     * @Route("/{id}", name="rolplang_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="rolplang_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

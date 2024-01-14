@@ -5,8 +5,7 @@ namespace Admin\MedBundle\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\MedBundle\Entity\pdfPlang;
 use Admin\MedBundle\Form\pdfPlangType;
@@ -22,8 +21,7 @@ class pdfPlangController extends Controller
     /**
      * Lists all formatoPlang entities.
      *
-     * @Route("/", name="pdfplang")
-     * @Method("GET")
+     * @Route("/", name="pdfplang", methods={"GET"})
      * @Template()
      */
     public function indexAction()
@@ -39,8 +37,7 @@ class pdfPlangController extends Controller
     /**
      * Creates a new formatoPlang entity.
      *
-     * @Route("/crear/{id}", name="pdfplang_create")
-     * @Method("POST")
+     * @Route("/crear/{id}", name="pdfplang_create", methods={"POST"})
      * @Template("AdminMedBundle:pdfPlang:new.html.twig")
      */
     public function createAction(Request $request, $id)
@@ -90,17 +87,16 @@ class pdfPlangController extends Controller
     /**
      * Displays a form to create a new pdfPlang entity.
      *
-     * @Route("/new/{id}", name="pdfplang_new")
-     * @Method("GET")
-     * @Template()
+     * @Route("/new/{id}", name="pdfplang_new", methods={"GET"})
+     * @Template("AdminMedBundle:formatoPlang:new.html.twig")
      */
     public function newAction($id)
     {
-        
+
         $em = $this->getDoctrine()->getManager();
         $docente = $em->getRepository('AdminUnadBundle:Docente')->find($id);
         $entity = new pdfPlang($id,$docente->getPeriodo());
-        
+
         $form   = $this->createCreateForm($entity,$id);
 
         return array(
@@ -114,9 +110,8 @@ class pdfPlangController extends Controller
     /**
      * Displays a form to edit an existing formatoPlang entity.
      *
-     * @Route("/{id}/edit", name="pdfplang_edit")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}/edit", name="pdfplang_edit", methods={"GET"})
+     * @Template("AdminMedBundle:formatoPlang:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -159,8 +154,7 @@ class pdfPlangController extends Controller
     /**
      * Edits an existing formatoPlang entity.
      *
-     * @Route("/{id}", name="formatoplang_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="formatoplang_update", methods={"PUT"})
      * @Template("AdminMedBundle:formatoPlang:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -192,8 +186,7 @@ class pdfPlangController extends Controller
     /**
      * Deletes a formatoPlang entity.
      *
-     * @Route("/{id}", name="formatoplang_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="formatoplang_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

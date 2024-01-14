@@ -6,8 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\MedBundle\Entity\Instrumento;
 use Admin\MedBundle\Form\InstrumentoType;
@@ -23,9 +22,8 @@ class InstrumentoController extends Controller
     /**
      * Lists all Instrumento entities.
      *
-     * @Route("/", name="admin_instrumento")
-     * @Method("GET")
-     * @Template()
+     * @Route("/", name="admin_instrumento", methods={"GET"})
+     * @Template("AdminMedBundle:Instrumento:index.html.twig")
      */
     public function indexAction()
     {
@@ -40,8 +38,7 @@ class InstrumentoController extends Controller
     /**
      * Creates a new Instrumento entity.
      *
-     * @Route("/", name="admin_instrumento_create")
-     * @Method("POST")
+     * @Route("/", name="admin_instrumento_create", methods={"POST"})
      * @Template("AdminMedBundle:Instrumento:new.html.twig")
      */
     public function createAction(Request $request)
@@ -86,9 +83,8 @@ class InstrumentoController extends Controller
     /**
      * Displays a form to create a new Instrumento entity.
      *
-     * @Route("/new", name="admin_instrumento_new")
-     * @Method("GET")
-     * @Template()
+     * @Route("/new", name="admin_instrumento_new", methods={"GET"})
+     * @Template("AdminMedBundle:Instrumento:new.html.twig")
      */
     public function newAction()
     {
@@ -104,8 +100,7 @@ class InstrumentoController extends Controller
     /**
      * Finds and displays a Instrumento entity.
      *
-     * @Route("/{id}", name="admin_instrumento_show")
-     * @Method("GET")
+     * @Route("/{id}", name="admin_instrumento_show", methods={"GET"})
      * @Template()
      */
     public function showAction($id)
@@ -129,9 +124,8 @@ class InstrumentoController extends Controller
     /**
      * Displays a form to edit an existing Instrumento entity.
      *
-     * @Route("/{id}/edit", name="admin_instrumento_edit")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}/edit", name="admin_instrumento_edit", methods={"GET"})
+     * @Template("AdminMedBundle:Instrumento:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -171,8 +165,7 @@ class InstrumentoController extends Controller
  /**
      * Edits an existing Instrumento entity.
      *
-     * @Route("/{id}", name="admin_instrumento_update")
-     * @Method("POST")
+     * @Route("/{id}", name="admin_instrumento_update", methods={"POST"})
      * @Template("AdminMedBundle:Instrumento:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -187,9 +180,9 @@ class InstrumentoController extends Controller
             throw $this->createNotFoundException('Unable to find Instrumento entity.');
         }
         $editForm = $this->createEditForm($entity);
-       
+
         $editForm->handleRequest($request);
-        
+
         if ($editForm->isValid()) {
         $em->persist($entity);
         $em->flush();
@@ -202,7 +195,7 @@ class InstrumentoController extends Controller
             'entity' => $entity,
             'form' => $editForm->createView(),
              ))), 200);
-            return $response;        
+            return $response;
         }
 
         $response = new JsonResponse(
@@ -219,8 +212,7 @@ class InstrumentoController extends Controller
     /**
      * Deletes a Instrumento entity.
      *
-     * @Route("/{id}", name="admin_instrumento_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="admin_instrumento_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {

@@ -213,7 +213,7 @@ class PlangestionController extends Controller
     }
 
     /**
-     * @Template()
+     * @Template("AdminMedBundle:Plangestion:info.html.twig")
      */
     public function infoAction($id)
     {

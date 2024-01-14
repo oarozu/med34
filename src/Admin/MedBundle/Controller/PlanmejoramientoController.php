@@ -5,8 +5,7 @@ namespace Admin\MedBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\MedBundle\Entity\Planmejoramiento;
 use Admin\MedBundle\Form\PlanmejoramientoType;
@@ -22,9 +21,8 @@ class PlanmejoramientoController extends Controller
     /**
      * Lists all Planmejoramiento entities.
      *
-     * @Route("/", name="planmejoramiento")
-     * @Method("GET")
-     * @Template()
+     * @Route("/", name="planmejoramiento", methods={"GET"})
+     * @Template("AdminMedBundle:Planmejoramiento:index.html.twig")
      */
     public function indexAction(Request $request)
     {
@@ -40,11 +38,11 @@ class PlanmejoramientoController extends Controller
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Planmejoramiento entity.
      *
-     * @Route("/", name="planmejoramiento_create")
-     * @Method("POST")
+     * @Route("/", name="planmejoramiento_create", methods={"POST"})
      * @Template("AdminMedBundle:Planmejoramiento:new.html.twig")
      */
     public function createAction(Request $request)
@@ -63,17 +61,17 @@ class PlanmejoramientoController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-    * Creates a form to create a Planmejoramiento entity.
-    *
-    * @param Planmejoramiento $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to create a Planmejoramiento entity.
+     *
+     * @param Planmejoramiento $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(Planmejoramiento $entity)
     {
         $form = $this->createForm(PlanmejoramientoType::class, $entity, array(
@@ -89,60 +87,56 @@ class PlanmejoramientoController extends Controller
     /**
      * Displays a form to create a new Planmejoramiento entity.
      *
-     * @Route("/new", name="planmejoramiento_new")
-     * @Method("GET")
-     * @Template()
+     * @Route("/new", name="planmejoramiento_new", methods={"GET"})
+     * @Template("AdminMedBundle:Planmejoramiento:new.html.twig")
      */
     public function newAction()
     {
         $entity = new Planmejoramiento();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
 
-        /**
+    /**
      * Seleccionar docente
-     *
-     * @Route("/add", name="planmejoramiento_add")
-     * @Method("GET")
-     * @Template()
+     * @Route("/add", name="planmejoramiento_add", methods={"GET"})
+     * @Template("AdminMedBundle:Planmejoramiento:edit.html.twig")
      */
     public function addAction(Request $request)
     {
-       $em = $this->getDoctrine()->getManager();
-       $session = $request->getSession();
-       $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
-       $entities = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('escuela' => $escuela));
+        $em = $this->getDoctrine()->getManager();
+        $session = $request->getSession();
+        $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
+        $entities = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('escuela' => $escuela));
         return array(
-        'entities' => $entities,
+            'entities' => $entities,
         );
     }
 
-     /**
+    /**
      * Agregar Plan Mejoramiento a Docente
      *
-     * @Route("/add/{id}", name="planmejoramiento_agregar")
-     * @Method("GET")
-     * @Template()
+     * @Route("/add/{id}", name="planmejoramiento_agregar", methods={"GET"})
+     * @Template("AdminMedBundle:Planmejoramiento:agregar.html.twig")
      */
     public function agregarAction(Request $request, $id)
     {
-       $planm = new Planmejoramiento();
-       $em = $this->getDoctrine()->getManager();
-       $session = $request->getSession();
-       $docente = $em->getRepository('AdminUnadBundle:Docente')->findOneBy(array('id' => $id));
-       $planm->setDocente($docente);
-       $planm->setFechaCreacion(new \DateTime());
-       $planm->setAutorid($session->get('escuelaid'));
-       $em->persist($planm);
-       $em->flush();
+        $planm = new Planmejoramiento();
+        $em = $this->getDoctrine()->getManager();
+        $session = $request->getSession();
+        $docente = $em->getRepository('AdminUnadBundle:Docente')->findOneBy(array('id' => $id));
+        $planm->setDocente($docente);
+        $planm->setFechaCreacion(new \DateTime());
+        $planm->setAutorid($session->get('escuelaid'));
+        $em->persist($planm);
+        $em->flush();
 
-      return $this->redirect($this->generateUrl('planmejoramiento'));
+        return $this->redirect($this->generateUrl('planmejoramiento'));
 
     }
 
@@ -150,9 +144,8 @@ class PlanmejoramientoController extends Controller
     /**
      * Finds and displays a Planmejoramiento entity.
      *
-     * @Route("/{id}", name="planmejoramiento_show")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}", name="planmejoramiento_show", methods={"GET"})
+     * @Template("AdminMedBundle:Planmejoramiento:show.html.twig")
      */
     public function showAction($id)
     {
@@ -167,16 +160,15 @@ class PlanmejoramientoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
 
 
-     /**
+    /**
      * Finds and displays a Planmejoramiento entity.
      *
-     * @Method("GET")
      * @Template()
      */
     public function docAction($id)
@@ -189,16 +181,15 @@ class PlanmejoramientoController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
         );
     }
 
     /**
      * Displays a form to edit an existing Planmejoramiento entity.
      *
-     * @Route("/{id}/edit", name="planmejoramiento_edit")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}/edit", name="planmejoramiento_edit", methods={"GET"})
+     * @Template("AdminMedBundle:Planmejoramiento:edit.html.twig")
      */
     public function editAction($id)
     {
@@ -213,18 +204,18 @@ class PlanmejoramientoController extends Controller
         $editForm = $this->createEditForm($entity);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Planmejoramiento entity.
-    *
-    * @param Planmejoramiento $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Planmejoramiento entity.
+     *
+     * @param Planmejoramiento $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Planmejoramiento $entity)
     {
         $form = $this->createForm(PlanmejoramientoType::class, $entity, array(
@@ -236,11 +227,11 @@ class PlanmejoramientoController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Planmejoramiento entity.
      *
-     * @Route("/{id}", name="planmejoramiento_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="planmejoramiento_update", methods={"PUT"})
      * @Template("AdminMedBundle:Planmejoramiento:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -264,16 +255,16 @@ class PlanmejoramientoController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Planmejoramiento entity.
      *
-     * @Route("/{id}", name="planmejoramiento_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="planmejoramiento_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {
@@ -308,7 +299,6 @@ class PlanmejoramientoController extends Controller
             ->setAction($this->generateUrl('planmejoramiento_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', SubmitType::class, array('label' => 'Borrar Plan'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 }
