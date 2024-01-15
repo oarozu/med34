@@ -8,9 +8,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Parabuscar;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
@@ -28,9 +27,8 @@ class UserController extends Controller
 
     /**
      * Lists all Usuarios entities.
-     * @Route("/", name="admin_user")
-     * @Method("GET")
-     * @Template()
+     * @Route("/", name="admin_user", methods={"GET"})
+     * @Template("AppBundle:User:index.html.twig")
      */
     public function indexAction(Request $request)
     {
@@ -71,7 +69,6 @@ class UserController extends Controller
 
     /**
      * Lists all Usuarios entities.
-     * @Method("GET")
      * @Template()
      */
     public function infoAction()
@@ -118,8 +115,7 @@ class UserController extends Controller
 
     /**
      * Lists all Usuarios entities.
-     * @Route("/create", name="admin_user_create")
-     * @Method("POST")
+     * @Route("/create", name="admin_user_create", methods={"POST"})
      * @Template()
      */
     public function createAction(Request $request)
@@ -145,8 +141,7 @@ class UserController extends Controller
 
     /**
      * Lists all Usuarios entities.
-     * @Route("/new", name="admin_user_new")
-     * @Method("GET")
+     * @Route("/new", name="admin_user_new", methods={"GET"})
      * @Template()
      */
     public function newAction()
@@ -162,7 +157,6 @@ class UserController extends Controller
 
     /**
      * Lists all Usuarios entities.
-     * @Method("GET")
      * @Template()
      */
     public function showAction($id)
@@ -196,8 +190,7 @@ class UserController extends Controller
 
     /**
      * Lists all Usuarios entities.
-     * @Route("/{id}/edit", name="admin_user_edit")
-     * @Method("GET")
+     * @Route("/{id}/edit", name="admin_user_edit", methods={"GET"})
      * @Template("AppBundle:User:edit.html.twig")
      */
     public function editAction($id)
@@ -216,8 +209,7 @@ class UserController extends Controller
 
     /**
      * Lists all Usuarios entities.
-     * @Route("/{id}/update", name="admin_user_update")
-     * @Method("PUT")
+     * @Route("/{id}/update", name="admin_user_update", methods={"PUT"})
      * @Template("AppBundle:User:edit.html.twig")
      * @param Request $request
      * @param $id
@@ -262,8 +254,7 @@ class UserController extends Controller
 
     /**
      * Lists all Usuarios entities.
-     * @Route("/{id}/newpass", name="admin_user_newpass")
-     * @Method("POST")
+     * @Route("/{id}/newpass", name="admin_user_newpass", methods={"POST"})
      * @Template("AppBundle:User:show.html.twig")
      */
     public function newpassAction(Request $request, $id)
@@ -301,9 +292,8 @@ class UserController extends Controller
 
     /**
      * Lists all Usuarios entities.
-     * @Route("/{id}/delete", name="admin_user_delete")
-     * @Method("DELETE")
-     * @Template()
+     * @Route("/{id}/delete", name="admin_user_delete", methods={"DELETE"})
+     * @Template("AppBundle:User:delete.html.twig")
      */
     public function deleteAction(Request $request, $id)
     {

@@ -6,8 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\UnadBundle\Entity\Docente;
 use Admin\UnadBundle\Entity\Escuela;
@@ -26,8 +25,7 @@ class DocenteController extends Controller
     /**
      * Lists all Docente entities.
      *
-     * @Route("/pe/{periodo}", name="docente")
-     * @Method("GET")
+     * @Route("/pe/{periodo}", name="docente", methods={"GET"})
      * @Template("Docente/porperiodo.html.twig")
      */
     public function indexAction($periodo)
@@ -42,8 +40,7 @@ class DocenteController extends Controller
 
     /**
      * Home de Docentes
-     * @Route("/home/{periodo}", name="docente_home")
-     * @Method("GET")
+     * @Route("/home/{periodo}", name="docente_home", methods={"GET"})
      * @Template("Docente/home.html.twig")
      */
     public function homeAction($periodo)
@@ -63,8 +60,7 @@ class DocenteController extends Controller
     /**
      * Lists all Docente entities por escuela y periodo
      *
-     * @Route("/esc/{id}/{periodo}", name="docente_escuela")
-     * @Method("GET")
+     * @Route("/esc/{id}/{periodo}", name="docente_escuela", methods={"GET"})
      * @Template("Docente/porescuela.html.twig")
      */
     public function indexEscuelaAction($id, $periodo)
@@ -88,8 +84,7 @@ class DocenteController extends Controller
     /**
      * Lists all Docente entities por escuela y periodo
      *
-     * @Route("/esc/{id}/{periodo}/csv", name="docente_escuela_csv")
-     * @Method("GET")
+     * @Route("/esc/{id}/{periodo}/csv", name="docente_escuela_csv", methods={"GET"})
      * @Template("Docente/porescuela.html.twig")
      */
     public function indexResultadosCsvAction($id, $periodo)
@@ -128,16 +123,13 @@ class DocenteController extends Controller
     /**
      * Lists all Docente entities.
      *
-     * @Route("/vinc/{id}", name="docente_vinculacion")
-     * @Method("GET")
+     * @Route("/vinc/{id}", name="docente_vinculacion", methods={"GET"})
      * @Template("Docente/porvinculacion.html.twig")
      */
     public function indexVinculacionAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('vinculacion' => $id, 'periodo' => $this->container->getParameter('appmed.periodo')));
-        // $periodo= $this->container->getParameter('appmed.periodo');
-        // $entities = $em->getRepository('AdminUnadBundle:Docente')->porVinculacion($id,$periodo);
 
         $total = count($entities);
         return array(
@@ -150,8 +142,7 @@ class DocenteController extends Controller
     /**
      * Listado de docentes carrera por escuela.
      *
-     * @Route("/dc", name="docente_dc")
-     * @Method("GET")
+     * @Route("/dc", name="docente_dc", methods={"GET"})
      * @Template("Docente/dc.html.twig")
      */
     public function indexDcAction()
@@ -168,8 +159,7 @@ class DocenteController extends Controller
     /**
      * Listado de docentes carrera por escuela.
      *
-     * @Route("/dc", name="docente_dcescuela")
-     * @Method("GET")
+     * @Route("/dc", name="docente_dcescuela", methods={"GET"})
      * @Template("Docente/porescueladc.html.twig")
      */
     public function indexDcescuelaAction(Request $request)
@@ -190,8 +180,7 @@ class DocenteController extends Controller
     /**
      * Listado de docentes carrera por zona.
      *
-     * @Route("/zn", name="docente_dczona")
-     * @Method("GET")
+     * @Route("/zn", name="docente_dczona", methods={"GET"})
      * @Template("Docente/porzonadc.html.twig")
      */
     public function indexZonaAction(Request $request)
@@ -211,8 +200,7 @@ class DocenteController extends Controller
     /**
      * Creates a new Docente entity.
      *
-     * @Route("/", name="docente_create")
-     * @Method("POST")
+     * @Route("/", name="docente_create",  methods={"POST"})
      * @Template("Docente/new.html.twig")
      */
     public function createAction(Request $request)
@@ -257,8 +245,7 @@ class DocenteController extends Controller
     /**
      * Displays a form to create a new Docente entity.
      *
-     * @Route("/new", name="docente_new")
-     * @Method("GET")
+     * @Route("/new", name="docente_new", methods={"GET"})
      * @Template()
      */
     public function newAction()
@@ -274,8 +261,7 @@ class DocenteController extends Controller
 
     /**
      * Finds and displays a Docente entity
-     * @Route("/{id}", name="docente_show")
-     * @Method("GET")
+     * @Route("/{id}", name="docente_show", methods={"GET"})
      * @Template("Docente/show.html.twig")
      */
     public function showAction(Request $request, $id)
@@ -304,9 +290,8 @@ class DocenteController extends Controller
 
     /**
      * Finds and displays a Docente entity
-     * @Route("/inicio/", name="docente_inicio")
-     * @Method("GET")
-     * @Template()
+     * @Route("/inicio/", name="docente_inicio", methods={"GET"})
+     * @Template("Docente/inicio.html.twig")
      */
     public function inicioAction(Request $request)
     {
@@ -352,8 +337,7 @@ class DocenteController extends Controller
 
     /**
      * Finds and displays a Docente entity
-     * @Route("/{id}/info", name="docente_info")
-     * @Method("GET")
+     * @Route("/{id}/info", name="docente_info", methods={"GET"})
      * @Template("Docente/info.html.twig")
      */
     public function infoAction(Request $request, $id)
@@ -383,9 +367,8 @@ class DocenteController extends Controller
 
     /**
      * Finds and displays a Docente entity
-     * @Route("/{id}/final", name="docente_final_anual")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}/final", name="docente_final_anual", methods={"GET"})
+     * @Template("Docente/finalanual.html.twig")
      */
     public function finalAnual(Request $request, $id)
     {
@@ -413,8 +396,7 @@ class DocenteController extends Controller
     /**
      * Displays a form to edit an existing Docente entity.
      *
-     * @Route("/{id}/edit", name="docente_edit")
-     * @Method("GET")
+     * @Route("/{id}/edit", name="docente_edit", methods={"GET"})
      * @Template("Docente/edit.html.twig")
      */
     public function editAction($id)
@@ -459,8 +441,7 @@ class DocenteController extends Controller
     /**
      * Edits an existing Docente entity.
      *
-     * @Route("/{id}", name="docente_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="docente_update", methods={"PUT"})
      * @Template("Docente/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -493,8 +474,7 @@ class DocenteController extends Controller
     /**
      * Deletes a Docente entity.
      *
-     * @Route("/{id}", name="docente_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="docente_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {
@@ -533,7 +513,6 @@ class DocenteController extends Controller
     }
 
     /**
-     * @Method("GET")
      * @Template("Docente/coevaltutor.html.twig")
      */
     public function coevaltutorAction(Request $request)
@@ -554,7 +533,6 @@ class DocenteController extends Controller
 
 
     /**
-     * @Method("GET")
      * @Template("Docente/coevalinfo.html.twig")
      */
     public function coevalinfoAction($id)
@@ -567,8 +545,7 @@ class DocenteController extends Controller
     }
 
     /**
-     * @Route("/final/{id}", name="docente_final")
-     * @Method("GET")
+     * @Route("/final/{id}", name="docente_final", methods={"GET"})
      * @Template("Docente/final.html.twig")
      */
     public function finalAction($id)
@@ -604,8 +581,7 @@ class DocenteController extends Controller
     }
 
     /**
-     * @Route("/observ/{id}", name="docente_observ")
-     * @Method("GET")
+     * @Route("/observ/{id}", name="docente_observ", methods={"GET"})
      * @Template("Docente/observ.html.twig")
      */
     public function observAction($id)
@@ -622,8 +598,7 @@ class DocenteController extends Controller
     }
 
     /**
-     * @Route("/observaciones/{id}", name="docente_observaciones")
-     * @Method("PUT")
+     * @Route("/observaciones/{id}", name="docente_observaciones", methods={"PUT"})
      * @Template("Docente/info.html.twig")
      */
     public function observacionesAction(Request $request, $id)

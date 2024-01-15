@@ -6,8 +6,7 @@ use Admin\MedBundle\Entity\Rolplang;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\UnadBundle\Entity\Curso;
 use Admin\MedBundle\Entity\Oferta;
@@ -29,8 +28,7 @@ class CursoController extends Controller
     /**
      * Lists all Curso entities.
      *
-     * @Route("/", name="curso")
-     * @Method("GET")
+     * @Route("/", name="curso", methods={"GET"})
      * @Template("Curso/index.html.twig")
      */
     public function indexAction()
@@ -47,8 +45,7 @@ class CursoController extends Controller
     /**
      * Lists all Curso entities.
      *
-     * @Route("/pe/{id}", name="curso_escuela")
-     * @Method("GET")
+     * @Route("/pe/{id}", name="curso_escuela", methods={"GET"})
      * @Template("Curso/index.html.twig")
      *
      */
@@ -69,8 +66,7 @@ class CursoController extends Controller
     /**
      * Creates a new Curso entity.
      *
-     * @Route("/", name="curso_create")
-     * @Method("POST")
+     * @Route("/", name="curso_create", methods={"POST"})
      * @Template("Curso/new.html.twig")
      */
     public function createAction(Request $request)
@@ -114,8 +110,7 @@ class CursoController extends Controller
     /**
      * Displays a form to create a new Curso entity.
      *
-     * @Route("/new", name="curso_new")
-     * @Method("GET")
+     * @Route("/new", name="curso_new", methods={"GET"})
      * @Template("Curso/new.html.twig")
      */
     public function newAction()
@@ -131,8 +126,7 @@ class CursoController extends Controller
 
     /**
      * Finds and displays a Curso entity
-     * @Route("/{id}", name="curso_show")
-     * @Method("GET")
+     * @Route("/{id}", name="curso_show", methods={"GET"})
      * @Template("Curso/show.html.twig")
      */
     public function showAction($id)
@@ -165,8 +159,7 @@ class CursoController extends Controller
 
     /**
      * Docentes de un curso por oferta
-     * @Route("/{id}/oferta", name="oferta")
-     * @Method("GET")
+     * @Route("/{id}/oferta", name="oferta", methods={"GET"})
      * @Template("Curso/oferta.html.twig")
      */
 
@@ -192,9 +185,7 @@ class CursoController extends Controller
 
     /**
      * Finds and displays a Curso entity
-     * @Route("/{id}/addoferta", name="oferta_curso")
-     * @Method("POST")
-     * @Template()
+     * @Route("/{id}/addoferta", name="oferta_curso", methods={"POST"})
      */
     public function ofertaCursoAction(Request $request, $id)
     {
@@ -233,9 +224,7 @@ class CursoController extends Controller
 
     /**
      * Finds and displays a Curso entity
-     * @Route("/{id}/tutor", name="oferta_tutor")
-     * @Method("POST")
-     * @Template()
+     * @Route("/{id}/tutor", name="oferta_tutor", methods={"POST"})
      */
     public function ofertaTutorAction(Request $request, $id)
     {
@@ -291,8 +280,7 @@ class CursoController extends Controller
 
 
     /** en modal
-     * @Route("/{id}/modal", name="curso_modal")
-     * @Method("GET")
+     * @Route("/{id}/modal", name="curso_modal", methods={"GET"})
      * @Template("Curso/modal.html.twig")
      */
     public function modalAction($id)
@@ -317,8 +305,7 @@ class CursoController extends Controller
     /**
      * Displays a form to edit an existing Curso entity.
      *
-     * @Route("/{id}/edit", name="curso_edit")
-     * @Method("GET")
+     * @Route("/{id}/edit", name="curso_edit", methods={"GET"})
      * @Template("Curso/edit.html.twig")
      */
     public function editAction($id, Request $request)
@@ -353,8 +340,7 @@ class CursoController extends Controller
 
     /**
      * Displays a form to edit an existing Curso entity.
-     * @Route("/{id}/ofertaedit", name="oferta_edit")
-     * @Method("GET")
+     * @Route("/{id}/ofertaedit", name="oferta_edit", methods={"GET"})
      * @Template("Curso/ofertaedit.html.twig")
      */
     public function ofertaeditAction($id)
@@ -415,8 +401,7 @@ class CursoController extends Controller
 
     /**
      * Edits an existing Curso entity.
-     * @Route("/{id}/ofertaupdate", name="oferta_update")
-     * @Method("GET")
+     * @Route("/{id}/ofertaupdate", name="oferta_update", methods={"GET"})
      * @Template("Curso/ofertaedit.html.twig")
      */
     public function ofertaupdateAction(Request $request, $id)
@@ -455,8 +440,7 @@ class CursoController extends Controller
     /**
      * Edits an existing Curso entity.
      *
-     * @Route("/{id}", name="curso_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="curso_update", methods={"PUT"})
      * @Template("Curso/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -489,8 +473,7 @@ class CursoController extends Controller
     /**
      * Deletes a Curso entity.
      *
-     * @Route("/{id}", name="curso_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="curso_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {
@@ -531,8 +514,7 @@ class CursoController extends Controller
     /**
      * Borrar Tutor.
      *
-     * @Route("/tutor/{id}/del", name="tutor_delete")
-     * @Method("GET")
+     * @Route("/tutor/{id}/del", name="tutor_delete", methods={"GET"})
      */
     public function borrartutorAction(Request $request, $id)
     {

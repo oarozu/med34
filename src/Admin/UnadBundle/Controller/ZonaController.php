@@ -6,8 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\UnadBundle\Entity\Zona;
 use Admin\UnadBundle\Form\ZonaType;
@@ -23,8 +22,7 @@ class ZonaController extends Controller
     /**
      * Lists all Zona entities.
      *
-     * @Route("/", name="zona")
-     * @Method("GET")
+     * @Route("/", name="zona", methods={"GET"})
      * @Template("Zona/index.html.twig")
      */
     public function indexAction()
@@ -41,8 +39,7 @@ class ZonaController extends Controller
     /**
      * Creates a new Zona entity.
      *
-     * @Route("/", name="zona_create")
-     * @Method("POST")
+     * @Route("/", name="zona_create", methods={"POST"})
      * @Template("Zona/new.html.twig")
      */
     public function createAction(Request $request)
@@ -87,8 +84,7 @@ class ZonaController extends Controller
     /**
      * Displays a form to create a new Zona entity.
      *
-     * @Route("/new", name="zona_new")
-     * @Method("GET")
+     * @Route("/new", name="zona_new", methods={"GET"})
      * @Template("Zona/new.html.twig")
      */
     public function newAction()
@@ -105,8 +101,7 @@ class ZonaController extends Controller
     /**
      * Finds and displays a Zona entity.
      *
-     * @Route("/{id}", name="zona_show")
-     * @Method("GET")
+     * @Route("/{id}", name="zona_show", methods={"GET"})
      * @Template("Zona/show.html.twig")
      */
     public function showAction($id)
@@ -130,8 +125,7 @@ class ZonaController extends Controller
     /**
      * Displays a form to edit an existing Zona entity.
      *
-     * @Route("/{id}/edit", name="zona_edit")
-     * @Method("GET")
+     * @Route("/{id}/edit", name="zona_edit", methods={"GET"})
      * @Template("Zona/edit.html.twig")
      */
     public function editAction($id)
@@ -176,8 +170,7 @@ class ZonaController extends Controller
     /**
      * Edits an existing Zona entity.
      *
-     * @Route("/{id}", name="zona_update")
-     * @Method("POST")
+     * @Route("/{id}", name="zona_update", methods={"POST"})
      * @Template("Zona/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -239,8 +232,7 @@ class ZonaController extends Controller
     /**
      * Deletes a Zona entity.
      *
-     * @Route("/{id}", name="zona_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="zona_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {
@@ -280,8 +272,7 @@ class ZonaController extends Controller
 
 
     /**
-     * @Route("/docs/{id}", name="zona_index")
-     * @Method("GET")
+     * @Route("/docs/{id}", name="zona_index", methods={"GET"})
      * @Template("Zona/docs.html.twig")
      */
     public function listaAction($id)

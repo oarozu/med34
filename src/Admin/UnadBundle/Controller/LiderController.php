@@ -5,8 +5,7 @@ namespace Admin\UnadBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
@@ -20,8 +19,7 @@ class LiderController extends Controller
     /**
      * Lists all cursos entities por escuela.
      *
-     * @Route("/cursos/{id}", name="lider_cursos")
-     * @Method("GET")
+     * @Route("/cursos/{id}", name="lider_cursos", methods={"GET"})
      * @Template("Curso/index.html.twig")
      *
      */
@@ -41,8 +39,7 @@ class LiderController extends Controller
     /**
      * Lists all cursos entities por escuela.
      *
-     * @Route("/programas", name="lider_programas")
-     * @Method("GET")
+     * @Route("/programas", name="lider_programas", methods={"GET"})
      * @Template("Curso/lider.html.twig")
      *
      */

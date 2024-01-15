@@ -5,8 +5,7 @@ namespace Admin\UnadBundle\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\UnadBundle\Entity\Centro;
 use Admin\UnadBundle\Form\CentroType;
@@ -22,24 +21,23 @@ class CentroController extends Controller
     /**
      * Lists all Centro entities.
      *
-     * @Route("/", name="centro")
-     * @Method("GET")
+     * @Route("/", name="centro", methods={"GET"})
      * @Template("Centro/index.html.twig")
      */
     public function indexAction()
     {
-       $em = $this->getDoctrine()->getManager();
-      // $entities = $em->getRepository('AdminUnadBundle:Centro')->findAll();
-      $entities = $em->getRepository('AdminUnadBundle:Centro')->ordenZona();
-       return array(
-       'entities' => $entities,
-       );
+        $em = $this->getDoctrine()->getManager();
+        // $entities = $em->getRepository('AdminUnadBundle:Centro')->findAll();
+        $entities = $em->getRepository('AdminUnadBundle:Centro')->ordenZona();
+        return array(
+            'entities' => $entities,
+        );
     }
+
     /**
      * Creates a new Centro entity.
      *
-     * @Route("/", name="centro_create")
-     * @Method("POST")
+     * @Route("/", name="centro_create", methods={"POST"})
      * @Template("Centro/new.html.twig")
      */
     public function createAction(Request $request)
@@ -58,17 +56,17 @@ class CentroController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-    * Creates a form to create a Centro entity.
-    *
-    * @param Centro $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to create a Centro entity.
+     *
+     * @param Centro $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(Centro $entity)
     {
         $form = $this->createForm(CentroType::class, $entity, array(
@@ -84,27 +82,25 @@ class CentroController extends Controller
     /**
      * Displays a form to create a new Centro entity.
      *
-     * @Route("/new", name="centro_new")
-     * @Method("GET")
+     * @Route("/new", name="centro_new", methods={"GET"})
      * @Template("Centro/new.html.twig")
      */
     public function newAction()
     {
         $entity = new Centro();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
      * Finds and displays a Centro entity.
      *
-     * @Route("/{id}", name="centro_show")
-     * @Method("GET")
-     * @Template()
+     * @Route("/{id}", name="centro_show", methods={"GET"})
+     * @Template("Centro/show.html.twig")
      */
     public function showAction($id)
     {
@@ -119,7 +115,7 @@ class CentroController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -127,8 +123,7 @@ class CentroController extends Controller
     /**
      * Displays a form to edit an existing Centro entity.
      *
-     * @Route("/{id}/edit", name="centro_edit")
-     * @Method("GET")
+     * @Route("/{id}/edit", name="centro_edit", methods={"GET"})
      * @Template("Centro/edit.html.twig")
      */
     public function editAction($id)
@@ -145,19 +140,19 @@ class CentroController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Centro entity.
-    *
-    * @param Centro $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Centro entity.
+     *
+     * @param Centro $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Centro $entity)
     {
         $form = $this->createForm(CentroType::class, $entity, array(
@@ -169,11 +164,11 @@ class CentroController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Centro entity.
      *
-     * @Route("/{id}", name="centro_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="centro_update", methods={"PUT"})
      * @Template("Centro/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -190,7 +185,7 @@ class CentroController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
-        $cedulaDirector =  $editForm["cedulaDirector"]->getData();
+        $cedulaDirector = $editForm["cedulaDirector"]->getData();
         $director = $em->getRepository('AppBundle:User')->find($cedulaDirector);
         $entity->setDirector($director);
 
@@ -201,16 +196,16 @@ class CentroController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Centro entity.
      *
-     * @Route("/{id}", name="centro_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="centro_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {
@@ -245,13 +240,11 @@ class CentroController extends Controller
             ->setAction($this->generateUrl('centro_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', SubmitType::class, array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 
-     /**
-     * @Route("/docs/{id}/pc", name="centro_docs")
-     * @Method("GET")
+    /**
+     * @Route("/docs/{id}/pc", name="centro_docs", methods={"GET"})
      * @Template("Centro/docs.html.twig")
      */
     public function docsAction($id)
@@ -263,16 +256,15 @@ class CentroController extends Controller
         $docentes = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('centro' => $centro));
 
         return array(
-            'docentes'      => $docentes,
-            'centro'    => $centros[0],
-            'user'   => $user,
+            'docentes' => $docentes,
+            'centro' => $centros[0],
+            'user' => $user,
         );
     }
 
 
     /**
-     * @Route("/docs/index", name="centro_index")
-     * @Method("GET")
+     * @Route("/docs/index", name="centro_index", methods={"GET"})
      * @Template("Centro/lista.html.twig")
      */
     public function listaAction()
@@ -282,10 +274,8 @@ class CentroController extends Controller
         $zonas = $user->getDirectorzona();
 
         return array(
-            'centros'    => $centros,
-            'zonas'    => $zonas,
+            'centros' => $centros,
+            'zonas' => $zonas,
         );
     }
-
-
 }

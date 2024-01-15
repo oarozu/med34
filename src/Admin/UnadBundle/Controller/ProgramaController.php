@@ -5,8 +5,7 @@ namespace Admin\UnadBundle\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\UnadBundle\Entity\Programa;
 use Admin\UnadBundle\Form\ProgramaType;
@@ -22,8 +21,7 @@ class ProgramaController extends Controller
     /**
      * Lists all Programa entities.
      *
-     * @Route("/", name="programa")
-     * @Method("GET")
+     * @Route("/", name="programa", methods={"GET"})
      * @Template("Programa/index.html.twig")
      */
     public function indexAction(Request $request)
@@ -46,8 +44,7 @@ class ProgramaController extends Controller
     /**
      * Lists all Programa entities.
      *
-     * @Route("/pe/{id}", name="programa_periodo")
-     * @Method("GET")
+     * @Route("/pe/{id}", name="programa_periodo", methods={"GET"})
      * @Template("Programa/porperiodo.html.twig")
      */
     public function porperiodoAction($id)
@@ -65,8 +62,7 @@ class ProgramaController extends Controller
     /**
      * Creates a new Programa entity.
      *
-     * @Route("/", name="programa_create")
-     * @Method("POST")
+     * @Route("/", name="programa_create", methods={"POST"})
      * @Template("AdminUnadBundle:Programa:new.html.twig")
      */
     public function createAction(Request $request)
@@ -111,8 +107,7 @@ class ProgramaController extends Controller
     /**
      * Displays a form to create a new Programa entity.
      *
-     * @Route("/new", name="programa_new")
-     * @Method("GET")
+     * @Route("/new", name="programa_new", methods={"GET"})
      * @Template("Programa/new.html.twig")
      */
     public function newAction()
@@ -129,8 +124,7 @@ class ProgramaController extends Controller
     /**
      * Finds and displays a Programa entity.
      *
-     * @Route("/{id}", name="programa_show")
-     * @Method("GET")
+     * @Route("/{id}", name="programa_show", methods={"GET"})
      * @Template("Programa/show.html.twig")
      */
     public function showAction(Request $request, $id)
@@ -158,8 +152,7 @@ class ProgramaController extends Controller
 
     /**
      * Finds and displays a Programa entity.
-     * @Route("/{id}/modal", name="programa_modal")
-     * @Method("GET")
+     * @Route("/{id}/modal", name="programa_modal", methods={"GET"})
      * @Template("Programa/modal.html.twig")
      */
     public function modalAction($id)
@@ -182,8 +175,7 @@ class ProgramaController extends Controller
 
     /**
      * Finds and displays a Programa entity.
-     * @Route("/{id}/cursos", name="programa_cursos")
-     * @Method("GET")
+     * @Route("/{id}/cursos", name="programa_cursos", methods={"GET"})
      * @Template("Programa/modal.html.twig")
      */
     public function programacursos($id)
@@ -206,8 +198,7 @@ class ProgramaController extends Controller
     /**
      * Displays a form to edit an existing Programa entity.
      *
-     * @Route("/{id}/edit", name="programa_edit")
-     * @Method("GET")
+     * @Route("/{id}/edit", name="programa_edit", methods={"GET"})
      * @Template("Programa/edit.html.twig")
      */
     public function editAction($id)
@@ -252,8 +243,7 @@ class ProgramaController extends Controller
     /**
      * Edits an existing Programa entity.
      *
-     * @Route("/{id}", name="programa_update")
-     * @Method("PUT")
+     * @Route("/{id}", name="programa_update", methods={"PUT"})
      * @Template("Programa/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -292,8 +282,7 @@ class ProgramaController extends Controller
     /**
      * Deletes a Programa entity.
      *
-     * @Route("/{id}", name="programa_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="programa_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, $id)
     {
@@ -334,8 +323,7 @@ class ProgramaController extends Controller
 
     /**
      * Seleccionar docente
-     * @Route("/add/lider", name="programa_addlider")
-     * @Method("GET")
+     * @Route("/add/lider", name="programa_addlider", methods={"GET"})
      * @Template("Programa/addlider.html.twig")
      */
     public function addliderAction(Request $request)
