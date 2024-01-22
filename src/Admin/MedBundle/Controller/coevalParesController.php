@@ -81,7 +81,7 @@ class coevalParesController extends Controller {
      * Finds and displays a coevalPares entity.
      *
      * @Route("/{id}", name="coevalpares_show", methods={"GET"})
-     * @Template()
+     * @Template("AdminMedBundle:coevalPares:show.html.twig")
      */
     public function showAction($id) {
         $em = $this->getDoctrine()->getManager();

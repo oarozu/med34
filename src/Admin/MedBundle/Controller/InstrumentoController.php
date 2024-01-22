@@ -101,7 +101,7 @@ class InstrumentoController extends Controller
      * Finds and displays a Instrumento entity.
      *
      * @Route("/{id}", name="admin_instrumento_show", methods={"GET"})
-     * @Template()
+     * @Template("AdminMedBundle:Instrumento:show.html.twig")
      */
     public function showAction($id)
     {

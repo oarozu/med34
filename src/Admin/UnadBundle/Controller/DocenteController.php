@@ -246,7 +246,7 @@ class DocenteController extends Controller
      * Displays a form to create a new Docente entity.
      *
      * @Route("/new", name="docente_new", methods={"GET"})
-     * @Template()
+     * @Template("Docente/new.html.twig")
      */
     public function newAction()
     {

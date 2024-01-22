@@ -21,23 +21,6 @@ class ActividadplangController extends Controller
 {
 
     /**
-     * Lists all Actividadplang entities.
-     *
-     * @Route("/", name="actividadplang", methods={"GET"})
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('AdminMedBundle:Actividadplang')->findAll();
-
-        return array(
-            'entities' => $entities,
-        );
-    }
-
-    /**
      * Creates a new Actividadplang entity.
      * @Route("/", name="actividadplang_create",  methods={"POST"})
      * @Template("AdminMedBundle:Actividadplang:new.html.twig")
