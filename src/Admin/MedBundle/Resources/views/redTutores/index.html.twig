@@ -29,7 +29,7 @@
             <td>
                 {% if tutoria.oferta.director.id != 100 %}
                     {% if app.session.get('docenteid') == tutoria.oferta.director.id %}
-                        No aplica<sub>1</sub>
+                        No aplica<sup>1</sup>
                     {% else %}
                         {% if tutoria.coevaldirector %}
                             {% if tutoria.coevaldirector.f0 %}
@@ -42,14 +42,14 @@
                         {% endif %}
                     {% endif %}
                 {% else %}
-                    Asignar<sub>2</sub>
+                    Asignar<sup>2</sup>
                 {% endif %}
             </td>
             {% endfor %}
         </tbody>
     </table>
-    <p><sub>1</sub> Si el usted es el director de curso este instrumento no aplica</p>
-    <p><sub>2</sub> Si el director de curso está "Sin definir" debe solicitar al Líder de programa que lo asigne para
+    <p><sup>1</sup> Si el usted es el director de curso este instrumento no aplica</p>
+    <p><sup>2</sup> Si el director de curso está "Sin definir" debe solicitar al Líder de programa que lo asigne para
         evaluarlo y el a usted, en caso que el director no tenga vinculación para el mismo periodo la coevaluación no
         aplica.</p>
     {% endblock %}
