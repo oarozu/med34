@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 {% block body -%}
-    <h4><a href="{{ path('docente_show', {'id': app.session.get('docenteid') }) }}"> << Regresar</a>
+<h4><a href="{{ path('docente_show', {'id': app.session.get('docenteid') }) }}"> << Regresar</a>
     <h1>Evaluación de la Red de Tutores</h1>
 
     <p>
@@ -27,23 +27,29 @@
             <td>{{ tutoria.oferta.curso.nombre }}</td>
             <td>{{ tutoria.oferta.director.user.nombres }} {{ tutoria.oferta.director.user.apellidos }}</td>
             <td>
-                {% if app.session.get('docenteid') == tutoria.oferta.director.id %}
-                    No aplica *
-                {% else %}
-                    {% if tutoria.coevaldirector %}
-                        {% if tutoria.coevaldirector.f0 %}
-                            Evaluado ({{ tutoria.coevaldirector.f0 }})
+                {% if tutoria.oferta.director.id != 100 %}
+                    {% if app.session.get('docenteid') == tutoria.oferta.director.id %}
+                        No aplica<sub>1</sub>
+                    {% else %}
+                        {% if tutoria.coevaldirector %}
+                            {% if tutoria.coevaldirector.f0 %}
+                                Evaluado ({{ tutoria.coevaldirector.f0 }})
+                            {% else %}
+                                <a href="{{ path('redtutores_edit', { 'id': tutoria.id }) }}">Evaluar...</a>
+                            {% endif %}
                         {% else %}
                             <a href="{{ path('redtutores_edit', { 'id': tutoria.id }) }}">Evaluar...</a>
                         {% endif %}
-                    {% else %}
-                        <a href="{{ path('redtutores_edit', { 'id': tutoria.id }) }}">Evaluar...</a>
                     {% endif %}
+                {% else %}
+                    Asignar<sub>2</sub>
                 {% endif %}
             </td>
             {% endfor %}
         </tbody>
     </table>
-
-    <p>* Si el usted es el director de curso este instrumento no aplica</p>
-{% endblock %}
+    <p><sub>1</sub> Si el usted es el director de curso este instrumento no aplica</p>
+    <p><sub>2</sub> Si el director de curso está "Sin definir" debe solicitar al Líder de programa que lo asigne para
+        evaluarlo y el a usted, en caso que el director no tenga vinculación para el mismo periodo la coevaluación no
+        aplica.</p>
+    {% endblock %}
