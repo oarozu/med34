@@ -105,6 +105,7 @@ class PlangestionController extends Controller
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $docente = $em->getRepository('AdminUnadBundle:Docente')->findOneBy(array('user' => $user, 'periodo' => $periodoe_id));
         $entity = $em->getRepository('AdminMedBundle:Plangestion')->findOneBy(array('docente' => $docente));
+        $this->checkActividades($entity, 2);
 
         if (!$entity) {
             throw $this->createNotFoundException('Entidad no encontrada');
@@ -113,6 +114,30 @@ class PlangestionController extends Controller
             'entity' => $entity,
             'periodo' => $periodoe
         );
+    }
+
+    public function checkActividades($plang, $rolId){
+        $em = $this->getDoctrine()->getManager();
+        $rolAc = $em->getRepository('AdminMedBundle:Rolacademico')->findOneBy(array('id' => $rolId));
+        $roles = $em->getRepository('AdminMedBundle:Rolplang')->findBy(array('plang' => $plang, 'rol' => $rolAc));
+        if (count($roles) > 0){
+        $actRol = $em->getRepository('AdminMedBundle:Actividadrol')->findBy(array('rol' => $rolAc));
+        $actPlan = $em->getRepository('AdminMedBundle:Actividadplang')->findBy(array('plang' => $plang, 'actividad' => $actRol));
+         if (count($actPlan) == 0){
+            $this->addActividades($plang, $rolAc);
+         }
+        }
+    }
+
+    public function addActividades($plang, $rolAc){
+        $em = $this->getDoctrine()->getManager();
+        foreach ($rolAc->getActividades() as $actividad) {
+            $actividadplan = new Actividadplang();
+            $actividadplan->setPlang($plang);
+            $actividadplan->setActividad($actividad);
+            $em->persist($actividadplan);
+        }
+        $em->flush();
     }
 
     /**
