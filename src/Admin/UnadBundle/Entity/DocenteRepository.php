@@ -48,6 +48,23 @@ class DocenteRepository extends EntityRepository
         return $stmt->fetchAllAssociative();
     }
 
+    public function selecionarLider($escuela)
+    {
+        #$connection = $this->getEntityManager()->getConnection();
+        #$q = "SELECT d.* FROM docente d
+        #      WHERE d.escuela_id = " . $escuela . " AND d.vinculacion != 'HC'
+        #      ORDER BY d.id DESC LIMIT 750";
+        #$stmt = $connection->executeQuery($q);
+        #return $stmt->fetchAllAssociative();
+
+        return $this->createQueryBuilder('docente')
+            ->where('docente.escuela = :escuela')
+           # ->where('docente.vinculacion != "HC"')
+            ->setParameter('escuela', $escuela)
+            ->orderBy('docente.id', 'DESC')
+            ->setMaxResults(750);
+    }
+
 
     public function evalAnual($year, $docente)
     {

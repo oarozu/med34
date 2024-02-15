@@ -24,7 +24,7 @@ class ProductividadController extends Controller
      * Displays a form to create a new Actividadplang entity.
      *
      * @Route("/new/{tipo}", name="productividad_new", methods={"GET"})
-     * @Template("AdminMedBundle:productividad:new.html.twig")
+     * @Template("Productividad/new.html.twig")
      */
     public function newAction(Request $request, $tipo)
     {
@@ -62,7 +62,7 @@ class ProductividadController extends Controller
      * Displays a form to create a new proyectoi entity.
      *
      * @Route("/project/new", name="productividad_projectnew", methods={"GET"})
-     * @Template("AdminMedBundle:productividad:newproject.html.twig")
+     * @Template("Productividad/newproject.html.twig")
      */
     public function newprojectAction()
     {
@@ -94,7 +94,7 @@ class ProductividadController extends Controller
     /**
      * Guarda productividad
      * @Route("/add/{id}", name="productividad_add", methods={"POST"})
-     * @Template("AdminMedBundle:productividad:new.html.twig")
+     * @Template("Productividad/new.html.twig")
      */
     public function addAction(Request $request, $id)
     {
@@ -126,7 +126,7 @@ class ProductividadController extends Controller
     /**
      * Guarda productividad
      * @Route("/project/add", name="productividad_projectadd", methods={"POST"})
-     * @Template("AdminMedBundle:productividad:newproject.html.twig")
+     * @Template("Productividad/newproject.html.twig")
      */
     public function addprojectAction(Request $request)
     {
@@ -198,7 +198,7 @@ class ProductividadController extends Controller
      * Finds and displays a productividad entity.
      *
      * @Route("/{id}", name="productividad_show", methods={"GET"})
-     * @Template("AdminMedBundle:productividad:show.html.twig")
+     * @Template("Productividad/show.html.twig")
      */
     public function showAction($id)
     {

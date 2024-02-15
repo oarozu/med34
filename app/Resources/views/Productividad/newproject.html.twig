@@ -1,0 +1,38 @@
+{% block body -%}
+
+     <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+    
+            <h4 class="modal-title">Registrar proyecto de investigación</h4>
+       
+            </div>			<!-- /modal-header -->
+            <div class="modal-body">          
+   <form action="{{ path('productividad_projectadd' ) }}" method="POST" {{ form_start(form) }}
+   <table class="table table-bordered table-striped hidden-mobile">
+   <input type="hidden" name="_method" value="POST" />
+     {{ form_errors(form) }}
+
+     <tr>
+    <td>Nombre del Proyecto de Investigación</td>
+    <td> {{ form_widget(form.nombre) }}<br>
+    Registre el proyecto que cuente con aval institucional.
+
+    </td>
+  </tr>
+     <tr>
+    <td>Linea de investigación de Escuela</td>
+    <td> {{ form_widget(form.linea) }}<br>
+    Consulte las lineas de investigación vigentes con su Escuela.
+    </td>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td><button type="hidden" class="btn btn-sm btn-primary">Agregar</button></td>
+  </tr>
+  {{ form_widget(form._token) }}
+  </table>
+     
+   </form>
+   </div>
+    {% endblock %}

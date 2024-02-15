@@ -332,7 +332,15 @@ class ProgramaController extends Controller
         $session = $request->getSession();
         $periodo = $em->getRepository('AdminMedBundle:Periodoe')->find($session->get('periodoe'));
         $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
-        $entities = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('escuela' => $escuela, 'periodo' => $session->get('periodoe')));
+        #$entities = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('escuela' => $escuela, 'periodo' => $session->get('periodoe')));
+        #$entities = $em->getRepository('AdminUnadBundle:Docente')->selecionarLider($escuela);
+
+        $dql = "SELECT d FROM AdminUnadBundle:Docente d WHERE d.escuela = :escuela AND d.vinculacion != 'HC'";
+        $query = $em->createQuery($dql);
+        $query->setParameter('escuela', $escuela)->orderBy('d.id', 'DESC')->setMaxResults(500);
+        $entities = $query->getResult();
+
+
         return array(
             'entities' => $entities,
             'periodo' => $periodo
