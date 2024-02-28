@@ -11,14 +11,14 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity(repositoryClass="Admin\MedBundle\Entity\PlanmejoramientoRepository")
  */
 class Planmejoramiento{
-    
+
 /**
  * @ORM\Id
  * @ORM\Column(name="id", type="integer", nullable=false)
  * @ORM\GeneratedValue(strategy="AUTO")
      */
- protected $id;  
- 
+ protected $id;
+
  /**
   * @ORM\Column(type="datetime", nullable=true)
   */
@@ -44,9 +44,9 @@ protected $calificacion;
   */
 protected $autorid;
 
-/** 
+/**
      * @var Docente
-     * @ORM\ManyToOne(targetEntity="Admin\UnadBundle\Entity\Docente", inversedBy="planmejoramiento")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Docente", inversedBy="planmejoramiento")
      * @ORM\JoinColumn(name="docente_id", referencedColumnName="id",
      * nullable=false
      * )
@@ -62,7 +62,7 @@ protected $docente;
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -85,7 +85,7 @@ protected $docente;
     /**
      * Get fecha_creacion
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaCreacion()
     {
@@ -108,7 +108,7 @@ protected $docente;
     /**
      * Get fecha_cierre
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaCierre()
     {
@@ -131,7 +131,7 @@ protected $docente;
     /**
      * Get observaciones
      *
-     * @return string 
+     * @return string
      */
     public function getObservaciones()
     {
@@ -154,7 +154,7 @@ protected $docente;
     /**
      * Get calificacion
      *
-     * @return float 
+     * @return float
      */
     public function getCalificacion()
     {
@@ -164,10 +164,10 @@ protected $docente;
     /**
      * Set docente
      *
-     * @param \Admin\UnadBundle\Entity\Docente $docente
+     * @param \AppBundle\Entity\Docente $docente
      * @return Planmejoramiento
      */
-    public function setDocente(\Admin\UnadBundle\Entity\Docente $docente)
+    public function setDocente(\AppBundle\Entity\Docente $docente)
     {
         $this->docente = $docente;
 
@@ -177,7 +177,7 @@ protected $docente;
     /**
      * Get docente
      *
-     * @return \Admin\UnadBundle\Entity\Docente 
+     * @return \AppBundle\Entity\Docente
      */
     public function getDocente()
     {
@@ -217,7 +217,7 @@ protected $docente;
     /**
      * Get acciones
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getAcciones()
     {
@@ -240,7 +240,7 @@ protected $docente;
     /**
      * Get autorid
      *
-     * @return integer 
+     * @return integer
      */
     public function getAutorid()
     {

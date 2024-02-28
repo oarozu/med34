@@ -79,8 +79,8 @@ class AvalplangController extends Controller
         }
 
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
-            $docentes = $em->getRepository('AdminUnadBundle:Docente')
+            $escuela = $em->getRepository('AppBundle:Escuela')->find($session->get('escuelaid'));
+            $docentes = $em->getRepository('AppBundle:Docente')
                 ->findBy(
                     array('periodo' => $semestre,
                         'vinculacion' => 'DC', 'escuela' => $escuela));
@@ -91,7 +91,7 @@ class AvalplangController extends Controller
             );
         } else {
             $escuela = null;
-            $docentes = $em->getRepository('AdminUnadBundle:Docente')->findBy(
+            $docentes = $em->getRepository('AppBundle:Docente')->findBy(
                 array('periodo' => $semestre,
                     'vinculacion' => 'DC'));
             return array(
@@ -115,7 +115,7 @@ class AvalplangController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $docente = $em->getRepository('AdminUnadBundle:Docente')->find($id);
+        $docente = $em->getRepository('AppBundle:Docente')->find($id);
         $periodoe = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $docente->getPeriodo()));
         $entity = $docente->getPlangestion();
 
@@ -366,7 +366,7 @@ class AvalplangController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $semestre = $this->container->getParameter('appmed.semestre');
-        $docentes = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('periodo' => $semestre, 'vinculacion' => 'DC'));
+        $docentes = $em->getRepository('AppBundle:Docente')->findBy(array('periodo' => $semestre, 'vinculacion' => 'DC'));
 
         foreach ($docentes as $docente) {
             //agregar avalador Decano N

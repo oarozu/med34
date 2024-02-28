@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity(repositoryClass="Admin\MedBundle\Entity\coevalLiderRepository")
  */
 class coevalLider{
-    
+
 /**
  * @ORM\Id
  * @ORM\Column(name="id", type="integer", nullable=false)
@@ -26,7 +26,7 @@ protected $f0;
  /**
   * @ORM\Column(type="smallint", nullable=true)
   */
-protected $f1; 
+protected $f1;
  /**
   * @ORM\Column(type="smallint", nullable=true)
   */
@@ -92,17 +92,17 @@ protected $fecha;
 protected $observaciones;
 
 /**
- * @var Programa 
- * @ORM\OneToOne(targetEntity="Admin\UnadBundle\Entity\Programa")
- * @ORM\JoinColumn(name="programa_id",referencedColumnName="id") 
+ * @var Programa
+ * @ORM\OneToOne(targetEntity="AppBundle\Entity\Programa")
+ * @ORM\JoinColumn(name="programa_id",referencedColumnName="id")
  */
- protected $programa;  
+ protected $programa;
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -125,7 +125,7 @@ protected $observaciones;
     /**
      * Get f0
      *
-     * @return string 
+     * @return string
      */
     public function getF0()
     {
@@ -148,7 +148,7 @@ protected $observaciones;
     /**
      * Get f1
      *
-     * @return integer 
+     * @return integer
      */
     public function getF1()
     {
@@ -171,7 +171,7 @@ protected $observaciones;
     /**
      * Get f2
      *
-     * @return integer 
+     * @return integer
      */
     public function getF2()
     {
@@ -194,7 +194,7 @@ protected $observaciones;
     /**
      * Get f3
      *
-     * @return integer 
+     * @return integer
      */
     public function getF3()
     {
@@ -217,7 +217,7 @@ protected $observaciones;
     /**
      * Get f4
      *
-     * @return integer 
+     * @return integer
      */
     public function getF4()
     {
@@ -240,7 +240,7 @@ protected $observaciones;
     /**
      * Get f5
      *
-     * @return integer 
+     * @return integer
      */
     public function getF5()
     {
@@ -263,7 +263,7 @@ protected $observaciones;
     /**
      * Get f6
      *
-     * @return integer 
+     * @return integer
      */
     public function getF6()
     {
@@ -286,7 +286,7 @@ protected $observaciones;
     /**
      * Get f7
      *
-     * @return integer 
+     * @return integer
      */
     public function getF7()
     {
@@ -309,7 +309,7 @@ protected $observaciones;
     /**
      * Get f8
      *
-     * @return integer 
+     * @return integer
      */
     public function getF8()
     {
@@ -332,7 +332,7 @@ protected $observaciones;
     /**
      * Get f9
      *
-     * @return integer 
+     * @return integer
      */
     public function getF9()
     {
@@ -355,7 +355,7 @@ protected $observaciones;
     /**
      * Get f10
      *
-     * @return integer 
+     * @return integer
      */
     public function getF10()
     {
@@ -378,7 +378,7 @@ protected $observaciones;
     /**
      * Get f11
      *
-     * @return integer 
+     * @return integer
      */
     public function getF11()
     {
@@ -401,7 +401,7 @@ protected $observaciones;
     /**
      * Get f12
      *
-     * @return integer 
+     * @return integer
      */
     public function getF12()
     {
@@ -424,7 +424,7 @@ protected $observaciones;
     /**
      * Get f13
      *
-     * @return integer 
+     * @return integer
      */
     public function getF13()
     {
@@ -447,7 +447,7 @@ protected $observaciones;
     /**
      * Get f14
      *
-     * @return integer 
+     * @return integer
      */
     public function getF14()
     {
@@ -470,7 +470,7 @@ protected $observaciones;
     /**
      * Get fecha
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFecha()
     {
@@ -493,7 +493,7 @@ protected $observaciones;
     /**
      * Get observaciones
      *
-     * @return string 
+     * @return string
      */
     public function getObservaciones()
     {
@@ -504,10 +504,10 @@ protected $observaciones;
     /**
      * Set programa
      *
-     * @param \Admin\UnadBundle\Entity\Programa $programa
+     * @param \AppBundle\Entity\Programa $programa
      * @return coevalLider
      */
-    public function setPrograma(\Admin\UnadBundle\Entity\Programa $programa = null)
+    public function setPrograma(\AppBundle\Entity\Programa $programa = null)
     {
         $this->programa = $programa;
 
@@ -517,7 +517,7 @@ protected $observaciones;
     /**
      * Get programa
      *
-     * @return \Admin\UnadBundle\Entity\Programa 
+     * @return \AppBundle\Entity\Programa
      */
     public function getPrograma()
     {

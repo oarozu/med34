@@ -9,14 +9,14 @@ use Doctrine\ORM\EntityRepository;
   * @ORM\Entity(repositoryClass="Admin\MedBundle\Entity\HeteroevalRepository")
   */
 class Heteroeval{
-    
+
 /**
  * @ORM\Id
  * @ORM\Column(name="id", type="integer", nullable=false)
  */
  private $id;
- 
- 
+
+
 /**
   * @ORM\Column(type="decimal", scale=1, nullable=true)
   */
@@ -60,16 +60,16 @@ protected $fecha;
 
 /**
  * @var Docente
- * @ORM\OneToOne(targetEntity="Admin\UnadBundle\Entity\Docente", inversedBy="heteroeval")
- * @ORM\JoinColumn(name="id",referencedColumnName="id") 
+ * @ORM\OneToOne(targetEntity="AppBundle\Entity\Docente", inversedBy="heteroeval")
+ * @ORM\JoinColumn(name="id",referencedColumnName="id")
 */
  protected $docente;
 
- 
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -92,7 +92,7 @@ protected $fecha;
     /**
      * Get competencia1
      *
-     * @return string 
+     * @return string
      */
     public function getCompetencia1()
     {
@@ -115,7 +115,7 @@ protected $fecha;
     /**
      * Get competencia2
      *
-     * @return string 
+     * @return string
      */
     public function getCompetencia2()
     {
@@ -138,7 +138,7 @@ protected $fecha;
     /**
      * Get competencia3
      *
-     * @return string 
+     * @return string
      */
     public function getCompetencia3()
     {
@@ -161,7 +161,7 @@ protected $fecha;
     /**
      * Get competencia4
      *
-     * @return string 
+     * @return string
      */
     public function getCompetencia4()
     {
@@ -184,7 +184,7 @@ protected $fecha;
     /**
      * Get competencia5
      *
-     * @return string 
+     * @return string
      */
     public function getCompetencia5()
     {
@@ -207,7 +207,7 @@ protected $fecha;
     /**
      * Get competencia6
      *
-     * @return string 
+     * @return string
      */
     public function getCompetencia6()
     {
@@ -230,7 +230,7 @@ protected $fecha;
     /**
      * Get calificacion
      *
-     * @return string 
+     * @return string
      */
     public function getCalificacion()
     {
@@ -253,7 +253,7 @@ protected $fecha;
     /**
      * Get fecha
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFecha()
     {
@@ -263,10 +263,10 @@ protected $fecha;
     /**
      * Set docente
      *
-     * @param \Admin\UnadBundle\Entity\Docente $docente
+     * @param \AppBundle\Entity\Docente $docente
      * @return Heteroeval
      */
-    public function setDocente(\Admin\UnadBundle\Entity\Docente $docente = null)
+    public function setDocente(\AppBundle\Entity\Docente $docente = null)
     {
         $this->docente = $docente;
 
@@ -276,7 +276,7 @@ protected $fecha;
     /**
      * Get docente
      *
-     * @return \Admin\UnadBundle\Entity\Docente 
+     * @return \AppBundle\Entity\Docente
      */
     public function getDocente()
     {

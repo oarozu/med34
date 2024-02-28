@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity(repositoryClass="Admin\MedBundle\Entity\coevalParesRepository")
  */
 class coevalPares{
-    
+
 /**
  * @ORM\Id
  * @ORM\Column(name="id", type="integer", nullable=false)
@@ -28,7 +28,7 @@ protected $f0;
 /**
   * @ORM\Column(type="smallint", nullable=true)
   */
-protected $f1; 
+protected $f1;
  /**
   * @ORM\Column(type="smallint", nullable=true)
   */
@@ -92,7 +92,7 @@ protected $f15;
  /**
   * @ORM\Column(type="smallint", nullable=true)
   */
-protected $f16; 
+protected $f16;
  /**
   * @ORM\Column(type="smallint", nullable=true)
   */
@@ -162,18 +162,18 @@ protected $fecha;
   */
 protected $observaciones;
 
- /** 
-    * @var Evaluado 
-    * @ORM\ManyToOne(targetEntity="Admin\UnadBundle\Entity\Docente", inversedBy="coevaldepar")
+ /**
+    * @var Evaluado
+    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Docente", inversedBy="coevaldepar")
     * @ORM\JoinColumn(name="evaluado_id", referencedColumnName="id",
     * nullable=false
     * )
     */
 protected $evaluado;
 
- /** 
-    * @var Evaluador 
-    * @ORM\ManyToOne(targetEntity="Admin\UnadBundle\Entity\Terna", inversedBy="evaluacion")
+ /**
+    * @var Evaluador
+    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Terna", inversedBy="evaluacion")
     * @ORM\JoinColumn(name="evaluador_id", referencedColumnName="id",
     * nullable=false
     * )
@@ -183,7 +183,7 @@ protected $evaluador;
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -206,7 +206,7 @@ protected $evaluador;
     /**
      * Get f0
      *
-     * @return string 
+     * @return string
      */
     public function getF0()
     {
@@ -229,7 +229,7 @@ protected $evaluador;
     /**
      * Get f1
      *
-     * @return integer 
+     * @return integer
      */
     public function getF1()
     {
@@ -252,7 +252,7 @@ protected $evaluador;
     /**
      * Get f2
      *
-     * @return integer 
+     * @return integer
      */
     public function getF2()
     {
@@ -275,7 +275,7 @@ protected $evaluador;
     /**
      * Get f3
      *
-     * @return integer 
+     * @return integer
      */
     public function getF3()
     {
@@ -298,7 +298,7 @@ protected $evaluador;
     /**
      * Get f4
      *
-     * @return integer 
+     * @return integer
      */
     public function getF4()
     {
@@ -321,7 +321,7 @@ protected $evaluador;
     /**
      * Get f5
      *
-     * @return integer 
+     * @return integer
      */
     public function getF5()
     {
@@ -344,7 +344,7 @@ protected $evaluador;
     /**
      * Get f6
      *
-     * @return integer 
+     * @return integer
      */
     public function getF6()
     {
@@ -367,7 +367,7 @@ protected $evaluador;
     /**
      * Get f7
      *
-     * @return integer 
+     * @return integer
      */
     public function getF7()
     {
@@ -390,7 +390,7 @@ protected $evaluador;
     /**
      * Get f8
      *
-     * @return integer 
+     * @return integer
      */
     public function getF8()
     {
@@ -413,7 +413,7 @@ protected $evaluador;
     /**
      * Get f9
      *
-     * @return integer 
+     * @return integer
      */
     public function getF9()
     {
@@ -436,7 +436,7 @@ protected $evaluador;
     /**
      * Get f10
      *
-     * @return integer 
+     * @return integer
      */
     public function getF10()
     {
@@ -459,7 +459,7 @@ protected $evaluador;
     /**
      * Get f11
      *
-     * @return integer 
+     * @return integer
      */
     public function getF11()
     {
@@ -482,7 +482,7 @@ protected $evaluador;
     /**
      * Get f12
      *
-     * @return integer 
+     * @return integer
      */
     public function getF12()
     {
@@ -505,7 +505,7 @@ protected $evaluador;
     /**
      * Get f13
      *
-     * @return integer 
+     * @return integer
      */
     public function getF13()
     {
@@ -528,7 +528,7 @@ protected $evaluador;
     /**
      * Get f14
      *
-     * @return integer 
+     * @return integer
      */
     public function getF14()
     {
@@ -551,7 +551,7 @@ protected $evaluador;
     /**
      * Get f15
      *
-     * @return integer 
+     * @return integer
      */
     public function getF15()
     {
@@ -574,7 +574,7 @@ protected $evaluador;
     /**
      * Get f16
      *
-     * @return integer 
+     * @return integer
      */
     public function getF16()
     {
@@ -597,7 +597,7 @@ protected $evaluador;
     /**
      * Get f17
      *
-     * @return integer 
+     * @return integer
      */
     public function getF17()
     {
@@ -620,7 +620,7 @@ protected $evaluador;
     /**
      * Get f18
      *
-     * @return integer 
+     * @return integer
      */
     public function getF18()
     {
@@ -643,7 +643,7 @@ protected $evaluador;
     /**
      * Get f19
      *
-     * @return integer 
+     * @return integer
      */
     public function getF19()
     {
@@ -666,7 +666,7 @@ protected $evaluador;
     /**
      * Get f20
      *
-     * @return integer 
+     * @return integer
      */
     public function getF20()
     {
@@ -689,7 +689,7 @@ protected $evaluador;
     /**
      * Get f21
      *
-     * @return integer 
+     * @return integer
      */
     public function getF21()
     {
@@ -712,7 +712,7 @@ protected $evaluador;
     /**
      * Get f22
      *
-     * @return integer 
+     * @return integer
      */
     public function getF22()
     {
@@ -735,7 +735,7 @@ protected $evaluador;
     /**
      * Get f23
      *
-     * @return integer 
+     * @return integer
      */
     public function getF23()
     {
@@ -758,7 +758,7 @@ protected $evaluador;
     /**
      * Get f24
      *
-     * @return integer 
+     * @return integer
      */
     public function getF24()
     {
@@ -781,7 +781,7 @@ protected $evaluador;
     /**
      * Get f25
      *
-     * @return integer 
+     * @return integer
      */
     public function getF25()
     {
@@ -804,7 +804,7 @@ protected $evaluador;
     /**
      * Get f26
      *
-     * @return integer 
+     * @return integer
      */
     public function getF26()
     {
@@ -827,7 +827,7 @@ protected $evaluador;
     /**
      * Get f27
      *
-     * @return integer 
+     * @return integer
      */
     public function getF27()
     {
@@ -850,7 +850,7 @@ protected $evaluador;
     /**
      * Get f28
      *
-     * @return integer 
+     * @return integer
      */
     public function getF28()
     {
@@ -873,7 +873,7 @@ protected $evaluador;
     /**
      * Get f29
      *
-     * @return integer 
+     * @return integer
      */
     public function getF29()
     {
@@ -896,7 +896,7 @@ protected $evaluador;
     /**
      * Get f30
      *
-     * @return integer 
+     * @return integer
      */
     public function getF30()
     {
@@ -919,7 +919,7 @@ protected $evaluador;
     /**
      * Get fecha
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFecha()
     {
@@ -942,7 +942,7 @@ protected $evaluador;
     /**
      * Get observaciones
      *
-     * @return string 
+     * @return string
      */
     public function getObservaciones()
     {
@@ -952,10 +952,10 @@ protected $evaluador;
     /**
      * Set evaluado
      *
-     * @param \Admin\UnadBundle\Entity\Docente $evaluado
+     * @param \AppBundle\Entity\Docente $evaluado
      * @return coevalPares
      */
-    public function setEvaluado(\Admin\UnadBundle\Entity\Docente $evaluado)
+    public function setEvaluado(\AppBundle\Entity\Docente $evaluado)
     {
         $this->evaluado = $evaluado;
 
@@ -965,7 +965,7 @@ protected $evaluador;
     /**
      * Get evaluado
      *
-     * @return \Admin\UnadBundle\Entity\Docente 
+     * @return \AppBundle\Entity\Docente
      */
     public function getEvaluado()
     {
@@ -975,10 +975,10 @@ protected $evaluador;
     /**
      * Set evaluador
      *
-     * @param \Admin\UnadBundle\Entity\Terna $evaluador
+     * @param \AppBundle\Entity\Terna $evaluador
      * @return coevalPares
      */
-    public function setEvaluador(\Admin\UnadBundle\Entity\Terna $evaluador)
+    public function setEvaluador(\AppBundle\Entity\Terna $evaluador)
     {
         $this->evaluador = $evaluador;
 
@@ -988,7 +988,7 @@ protected $evaluador;
     /**
      * Get evaluador
      *
-     * @return \Admin\UnadBundle\Entity\Terna 
+     * @return \AppBundle\Entity\Terna
      */
     public function getEvaluador()
     {

@@ -106,11 +106,11 @@ plangestion_autoeval:
 
 redtutores_info:
     path:  /unad/doc/{id}/redtutor
-    defaults: { _controller: "AdminUnadBundle:Docente:redtutoresinfo" }
+    defaults: { _controller: "AppBundle:Docente:redtutoresinfo" }
 
 coeval_info:
     path:  /unad/doc/{id}/coeval
-    defaults: { _controller: "AdminUnadBundle:Docente:coevalinfo" }
+    defaults: { _controller: "AppBundle:Docente:coevalinfo" }
 
 user_info:
     path:  /unad/user/{id}/info

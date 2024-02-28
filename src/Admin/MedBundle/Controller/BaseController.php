@@ -24,7 +24,7 @@ class BaseController extends Controller
     public function heteroevalAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AdminUnadBundle:Docente')->find($id);
+        $entity = $em->getRepository('AppBundle:Docente')->find($id);
         $evaluaciones = $em->getRepository('AdminMedBundle:Heterocursos')->findBy(array('cedula' => $entity->getUser()->getId(), 'semestre' => $entity->getPeriodo()));
 
         if ($entity->getVinculacion() == 'DOFE') {

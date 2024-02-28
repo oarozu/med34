@@ -13,15 +13,15 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @ORM\HasLifecycleCallbacks
  */
 class Accionespm{
-    
+
  /**
  * @ORM\Id
  * @ORM\Column(name="id", type="integer", nullable=false)
  * @ORM\GeneratedValue(strategy="AUTO")
      */
- protected $id;  
+ protected $id;
 
- 
+
  /**
      * @ORM\Column(type="string", length=512)
      */
@@ -30,19 +30,19 @@ protected $oportunidad;
  /**
      * @ORM\Column(type="string", length=512, nullable=true)
      */
-protected $causas; 
+protected $causas;
 
 
  /**
      * @ORM\Column(type="string", length=512)
      */
 protected $accion;
-    
+
 /**
   * @ORM\Column(type="date", nullable=true)
   */
 protected $fecha_proyectada;
- 
+
  /**
      * @ORM\Column(type="string", length=512, nullable=true)
      */
@@ -64,7 +64,7 @@ protected $estado;
      * @ORM\Column(type="string", nullable=true)
      * @Assert\Length( max = "255" )
      */
-    
+
 protected $path;
 
     /**
@@ -77,7 +77,7 @@ protected $path;
  private $file;
 
 
-/** 
+/**
      * @var Plan
      * @ORM\ManyToOne(targetEntity="Admin\MedBundle\Entity\Planmejoramiento", inversedBy="acciones")
      * @ORM\JoinColumn(name="plan_id", referencedColumnName="id",
@@ -91,7 +91,7 @@ protected $plan;
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -114,7 +114,7 @@ protected $plan;
     /**
      * Get oportunidad
      *
-     * @return string 
+     * @return string
      */
     public function getOportunidad()
     {
@@ -137,7 +137,7 @@ protected $plan;
     /**
      * Get causas
      *
-     * @return string 
+     * @return string
      */
     public function getCausas()
     {
@@ -160,7 +160,7 @@ protected $plan;
     /**
      * Get accion
      *
-     * @return string 
+     * @return string
      */
     public function getAccion()
     {
@@ -183,7 +183,7 @@ protected $plan;
     /**
      * Get fecha_proyectada
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaProyectada()
     {
@@ -206,7 +206,7 @@ protected $plan;
     /**
      * Get observaciones
      *
-     * @return string 
+     * @return string
      */
     public function getObservaciones()
     {
@@ -229,7 +229,7 @@ protected $plan;
     /**
      * Get fecha_cierre
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaCierre()
     {
@@ -239,7 +239,7 @@ protected $plan;
     /**
      * Set plan
      *
-     * @param \Admin\UnadBundle\Entity\Planmejoramiento $plan
+     * @param \AppBundle\Entity\Planmejoramiento $plan
      * @return Accionespm
      */
     public function setPlan(\Admin\MedBundle\Entity\Planmejoramiento $plan)
@@ -252,7 +252,7 @@ protected $plan;
     /**
      * Get plan
      *
-     * @return \Admin\MedBundle\Entity\Planmejoramiento 
+     * @return \Admin\MedBundle\Entity\Planmejoramiento
      */
     public function getPlan()
     {
@@ -275,24 +275,24 @@ protected $plan;
     /**
      * Get estado
      *
-     * @return integer 
+     * @return integer
      */
     public function getEstado()
     {
         return $this->estado;
     }
-    
+
    /******* Logica Archivos**/
-    
+
      public function getAbsolutePath() {
-        return null === $this->path 
-                ? null 
+        return null === $this->path
+                ? null
                 : $this->getUploadRootDir() . '/' . $this->path;
     }
 
     public function getWebPath() {
-        return null === $this->path 
-                ? null 
+        return null === $this->path
+                ? null
                 : $this->getUploadDir() . '/' . $this->path;
     }
 
@@ -376,7 +376,7 @@ protected $plan;
             unlink($file);
         }
     }
-    
+
 
     /**
      * Set path
@@ -394,7 +394,7 @@ protected $plan;
     /**
      * Get path
      *
-     * @return string 
+     * @return string
      */
     public function getPath()
     {

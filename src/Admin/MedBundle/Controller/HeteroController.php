@@ -61,9 +61,9 @@ class HeteroController extends Controller {
 
 
         $em = $this->getDoctrine()->getManager();
-        $docentes = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('periodo' => $pe, 'escuela' => $esc));
+        $docentes = $em->getRepository('AppBundle:Docente')->findBy(array('periodo' => $pe, 'escuela' => $esc));
         $hetero = $em->getRepository('AdminMedBundle:Heteroeval')->findBy(array('docente' => $docentes));
-        $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($esc);
+        $escuela = $em->getRepository('AppBundle:Escuela')->find($esc);
         return array(
             'hetero' => $hetero,
             'escuela' => $escuela,

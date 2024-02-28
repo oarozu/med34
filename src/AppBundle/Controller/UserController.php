@@ -165,9 +165,9 @@ class UserController extends Controller
 
         $archivo = $em->getRepository('AdminMedBundle:Archivo')->findBy(array('cedula' => $id));
 
-        $porSemestre = $em->getRepository('AdminUnadBundle:Docente')->porSemestres($id,"'s'");
-        $porAnual = $em->getRepository('AdminUnadBundle:Docente')->porSemestres($id,"'a'");
-        $porPeriodo = $em->getRepository('AdminUnadBundle:Docente')->porSemestres($id,"'p'");
+        $porSemestre = $em->getRepository('AppBundle:Docente')->porSemestres($id,"'s'");
+        $porAnual = $em->getRepository('AppBundle:Docente')->porSemestres($id,"'a'");
+        $porPeriodo = $em->getRepository('AppBundle:Docente')->porSemestres($id,"'p'");
 
 
         $entity = $em->getRepository('AppBundle:User')->find($id);
@@ -412,7 +412,7 @@ class UserController extends Controller
 
 
             $user = $em->getRepository('AppBundle:User')->find($username);
-            $docente = $em->getRepository('AdminUnadBundle:Docente')->findOneBy(array('user' => $user, 'periodo' => $this->container->getParameter('appmed.periodo')));
+            $docente = $em->getRepository('AppBundle:Docente')->findOneBy(array('user' => $user, 'periodo' => $this->container->getParameter('appmed.periodo')));
             $escuela_id = $docente->getEscuela()->getId();
             $docente_vinculacion = $docente->getVinculacion();
 

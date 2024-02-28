@@ -26,8 +26,8 @@ class coevalParesController extends Controller {
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
-        $terna = $em->getRepository('AdminUnadBundle:Terna')->findOneBy(array('docente' => $docente));
+        $docente = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
+        $terna = $em->getRepository('AppBundle:Terna')->findOneBy(array('docente' => $docente));
 
         return array(
             'terna' => $terna
@@ -228,10 +228,10 @@ class coevalParesController extends Controller {
     public function crearAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
-        $ternado = $em->getRepository('AdminUnadBundle:Terna')->findOneBy(array('docente' => $docente));
-        $ternados = $em->getRepository('AdminUnadBundle:Terna')->findBy(array('escuela' => $ternado->getEscuela(), 'principal' => 1,'periodo' => $session->get('periodoe')));
-        $pares = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('vinculacion' => 'DC', 'escuela' => $ternado->getEscuela(), 'periodo' => $session->get('periodoe')));
+        $docente = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
+        $ternado = $em->getRepository('AppBundle:Terna')->findOneBy(array('docente' => $docente));
+        $ternados = $em->getRepository('AppBundle:Terna')->findBy(array('escuela' => $ternado->getEscuela(), 'principal' => 1,'periodo' => $session->get('periodoe')));
+        $pares = $em->getRepository('AppBundle:Docente')->findBy(array('vinculacion' => 'DC', 'escuela' => $ternado->getEscuela(), 'periodo' => $session->get('periodoe')));
 
         if ($ternado->getPrincipal()) {
             foreach ($pares as $par) {

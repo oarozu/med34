@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Admin\MedBundle\Entity\coevalDirector;
-use Admin\UnadBundle\Entity\Programa;
+use AppBundle\Entity\Programa;
 use Admin\MedBundle\Form\coevalDirectorType;
 
 /**
@@ -29,8 +29,8 @@ class coevalDirectorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $programas = $em->getRepository('AdminUnadBundle:Programa')->findBy(array('lider' => $user));
-        $cursos = $em->getRepository('AdminUnadBundle:Curso')->findBy(array('programa' => $programas));
+        $programas = $em->getRepository('AppBundle:Programa')->findBy(array('lider' => $user));
+        $cursos = $em->getRepository('AppBundle:Curso')->findBy(array('programa' => $programas));
         $periodoe = $em->getRepository('AdminMedBundle:Periodoe')->findBy(array('id' => $id));
         $periodoa = $em->getRepository('AdminMedBundle:Periodoa')->findBy(array('periodoe' => $periodoe));
         $ofertas = $em->getRepository('AdminMedBundle:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa),array('director' => 'ASC'));

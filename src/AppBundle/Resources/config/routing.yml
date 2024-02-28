@@ -46,3 +46,41 @@ home_pass2:
     path:  /setpass
     defaults: { _controller: "AppBundle:User:setpass" }
     methods: [POST]
+
+#unadbundle
+
+_escuela_unad:
+    resource: "@AppBundle/Controller/EscuelaController.php"
+    type:     annotation
+
+_zona_unad:
+    resource: "@AppBundle/Controller/ZonaController.php"
+    type:     annotation
+
+_centro_unad:
+    resource: "@AppBundle/Controller/CentroController.php"
+    type:     annotation
+
+_programa_unad:
+    resource: "@AppBundle/Controller/ProgramaController.php"
+    type:     annotation
+
+_docente_unad:
+    resource: "@AppBundle/Controller/DocenteController.php"
+    type:     annotation
+
+_curso_unad:
+    resource: "@AppBundle/Controller/CursoController.php"
+    type:     annotation
+
+_lider_unad:
+    resource: "@AppBundle/Controller/LiderController.php"
+    type:     annotation
+
+docente_coevaltutor:
+    path:  /doc/coevaltutor
+    defaults: { _controller: "AppBundle:Docente:coevaltutor" }
+
+decano_coevallider:
+    path:  /dec/coevallider
+    defaults: { _controller: "AppBundle:Escuela:coevallider" }

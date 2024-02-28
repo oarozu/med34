@@ -344,7 +344,7 @@ class ActividadplangController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AdminMedBundle:Actividadplang')->find($id);
         $session = $request->getSession();
-        $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
+        $docente = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
         if ($docente->getPlangestion() == $entity->getPlang()) {
             $em->remove($entity);
             $em->flush();
@@ -366,7 +366,7 @@ class ActividadplangController extends Controller
             $em = $this->getDoctrine()->getManager();
             $session = $request->getSession();
             $entity = $em->getRepository('AdminMedBundle:Actividadplang')->find($id);
-            $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
+            $docente = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Actividadplang entity.');

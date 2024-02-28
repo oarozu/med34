@@ -74,7 +74,7 @@ class PlangestionController extends Controller
         $entity = new Plangestion();
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
+        $docente = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
         if (!$docente) {
             throw $this->createNotFoundException('Docente no encontrado');
         }
@@ -103,7 +103,7 @@ class PlangestionController extends Controller
         $periodoe_id = $session->get('periodoe');
         $periodoe = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $periodoe_id));
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $docente = $em->getRepository('AdminUnadBundle:Docente')->findOneBy(array('user' => $user, 'periodo' => $periodoe_id));
+        $docente = $em->getRepository('AppBundle:Docente')->findOneBy(array('user' => $user, 'periodo' => $periodoe_id));
         $entity = $em->getRepository('AdminMedBundle:Plangestion')->findOneBy(array('docente' => $docente));
         $this->checkActividades($entity, 2);
 
@@ -167,7 +167,7 @@ class PlangestionController extends Controller
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
         $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $this->container->getParameter('appmed.periodo')));
-        $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
+        $docente = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
         $entity = $em->getRepository('AdminMedBundle:Plangestion')->findOneBy(array('docente' => $docente));
         $rol_tutor = $em->getRepository('AdminMedBundle:Rolacademico')->findBy(array('id' => 1));
         $estutor = $em->getRepository('AdminMedBundle:Rolplang')->findOneBy(array('rol' => $rol_tutor,'plang'=> $entity));
@@ -197,7 +197,7 @@ class PlangestionController extends Controller
     {
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
-        $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
+        $docente = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
         $plang = $em->getRepository('AdminMedBundle:Plangestion')->findOneBy(array('docente' => $docente));
         $rol_a = $em->getRepository('AdminMedBundle:Rolacademico')->findOneBy(array('id' => $id));
         $rol_plang = $em->getRepository('AdminMedBundle:Rolplang')->findOneBy(array('rol' => $rol_a, 'plang' => $plang));
@@ -220,7 +220,7 @@ class PlangestionController extends Controller
     {
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
-        $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
+        $docente = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
         $periodoe = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $docente->getPeriodo()));
         $entity = $em->getRepository('AdminMedBundle:Plangestion')->findOneBy(array('docente' => $docente));
         $actividades = $em->getRepository('AdminMedBundle:Actividadplang')->findBy(array('plang' => $entity), array('actividad' => 'ASC'));
@@ -243,7 +243,7 @@ class PlangestionController extends Controller
     public function infoAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $docente = $em->getRepository('AdminUnadBundle:Docente')->find($id);
+        $docente = $em->getRepository('AppBundle:Docente')->find($id);
         $entity = $docente->getPlangestion();
         $periodoe = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $docente->getPeriodo()));
         $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $this->container->getParameter('appmed.periodo')));
@@ -275,7 +275,7 @@ class PlangestionController extends Controller
     public function autoevalAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $docente = $em->getRepository('AdminUnadBundle:Docente')->find($id);
+        $docente = $em->getRepository('AppBundle:Docente')->find($id);
         if (!$docente) {
             throw $this->createNotFoundException('No se encuentra docente entity.');
         }
@@ -376,7 +376,7 @@ class PlangestionController extends Controller
         if ($docenteid == null) {
             return $this->redirect($this->generateUrl('home_user_inicio'));
         }
-        $docente = $em->getRepository('AdminUnadBundle:Docente')->find($docenteid);
+        $docente = $em->getRepository('AppBundle:Docente')->find($docenteid);
         $eval = $em->getRepository('AdminMedBundle:Evaluacion')->findOneBy(array('docente' => $docente));
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Plangestion entity.');
@@ -427,7 +427,7 @@ class PlangestionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
         $entity = $em->getRepository('AdminMedBundle:Plangestion')->find($id);
-        $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
+        $docente = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Plangestion entity.');
         }
@@ -548,7 +548,7 @@ class PlangestionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $docente = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
+        $docente = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
         //agregar avalador Decano N
         $aval = new Avalplang();
         $aval->setPlan($docente->getPlangestion());

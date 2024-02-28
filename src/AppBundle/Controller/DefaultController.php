@@ -36,7 +36,7 @@ class DefaultController extends Controller {
         }
 
         if (true === $this->container->get('security.authorization_checker')->isGranted('ROLE_LP')) {
-            $entities = $em->getRepository('AdminUnadBundle:Programa')->findBy(array('lider' => $this->getUser()));
+            $entities = $em->getRepository('AppBundle:Programa')->findBy(array('lider' => $this->getUser()));
             $escuela = $entities[0]->getEscuela();
             $escuelaid = ($escuela != null)? $escuela->getId() : 65000;
             $session->set('escuelaid', $escuelaid );
@@ -65,7 +65,7 @@ class DefaultController extends Controller {
 
         if (true === $this->container->get('security.authorization_checker')->isGranted('ROLE_USER')) {
 
-            $docente = $em->getRepository('AdminUnadBundle:Docente')->findOneBy(array('user' => $this->getUser(), 'periodo' => $this->container->getParameter('appmed.periodo')));
+            $docente = $em->getRepository('AppBundle:Docente')->findOneBy(array('user' => $this->getUser(), 'periodo' => $this->container->getParameter('appmed.periodo')));
 
             if (!$docente) {
                 $this->get('session')->getFlashBag()->add('warning', 'Sin activar en el periodo actual');
@@ -114,7 +114,7 @@ class DefaultController extends Controller {
         $session->set('periodoe', $id);
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-        $docente = $em->getRepository('AdminUnadBundle:Docente')->findOneBy(array('user' => $user, 'periodo' => $id));
+        $docente = $em->getRepository('AppBundle:Docente')->findOneBy(array('user' => $user, 'periodo' => $id));
         if (!$docente) {
             $this->get('session')->getFlashBag()->add('warning', 'Sin activar en el periodo actual');
             return $this->redirect($this->generateUrl('home_user_periodo'));

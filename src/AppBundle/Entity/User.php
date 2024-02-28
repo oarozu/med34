@@ -87,30 +87,30 @@ class User implements UserInterface, \Serializable
 
 
     /**
-     * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\Escuela", mappedBy="decano")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Escuela", mappedBy="decano")
      */
 
     protected $decano;
 
 
     /**
-     * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\Escuela", mappedBy="secretaria")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Escuela", mappedBy="secretaria")
      */
 
     protected $secretaria;
 
     /**
-     * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\Zona", mappedBy="director")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Zona", mappedBy="director")
      */
     protected $directorzona;
 
     /**
-     * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\Centro", mappedBy="director")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Centro", mappedBy="director")
      */
     protected $directorcentro;
 
     /**
-     * @ORM\OneToMany(targetEntity="Admin\UnadBundle\Entity\Docente", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Docente", mappedBy="user")
      */
     protected $docente;
 
@@ -393,10 +393,10 @@ class User implements UserInterface, \Serializable
     /**
      * Add decano
      *
-     * @param \Admin\UnadBundle\Entity\Escuela $decano
+     * @param \AppBundle\Entity\Escuela $decano
      * @return User
      */
-    public function addDecano(\Admin\UnadBundle\Entity\Escuela $decano)
+    public function addDecano(\AppBundle\Entity\Escuela $decano)
     {
         $this->decano[] = $decano;
 
@@ -406,9 +406,9 @@ class User implements UserInterface, \Serializable
     /**
      * Remove decano
      *
-     * @param \Admin\UnadBundle\Entity\Escuela $decano
+     * @param \AppBundle\Entity\Escuela $decano
      */
-    public function removeDecano(\Admin\UnadBundle\Entity\Escuela $decano)
+    public function removeDecano(\AppBundle\Entity\Escuela $decano)
     {
         $this->decano->removeElement($decano);
     }
@@ -426,10 +426,10 @@ class User implements UserInterface, \Serializable
     /**
      * Add secretaria
      *
-     * @param \Admin\UnadBundle\Entity\Escuela $secretaria
+     * @param \AppBundle\Entity\Escuela $secretaria
      * @return User
      */
-    public function addSecretarium(\Admin\UnadBundle\Entity\Escuela $secretaria)
+    public function addSecretarium(\AppBundle\Entity\Escuela $secretaria)
     {
         $this->secretaria[] = $secretaria;
 
@@ -439,9 +439,9 @@ class User implements UserInterface, \Serializable
     /**
      * Remove secretaria
      *
-     * @param \Admin\UnadBundle\Entity\Escuela $secretaria
+     * @param \AppBundle\Entity\Escuela $secretaria
      */
-    public function removeSecretarium(\Admin\UnadBundle\Entity\Escuela $secretaria)
+    public function removeSecretarium(\AppBundle\Entity\Escuela $secretaria)
     {
         $this->secretaria->removeElement($secretaria);
     }
@@ -459,10 +459,10 @@ class User implements UserInterface, \Serializable
     /**
      * Add directorzona
      *
-     * @param \Admin\UnadBundle\Entity\Zona $directorzona
+     * @param \AppBundle\Entity\Zona $directorzona
      * @return User
      */
-    public function addDirectorzona(\Admin\UnadBundle\Entity\Zona $directorzona)
+    public function addDirectorzona(\AppBundle\Entity\Zona $directorzona)
     {
         $this->directorzona[] = $directorzona;
 
@@ -472,9 +472,9 @@ class User implements UserInterface, \Serializable
     /**
      * Remove directorzona
      *
-     * @param \Admin\UnadBundle\Entity\Zona $directorzona
+     * @param \AppBundle\Entity\Zona $directorzona
      */
-    public function removeDirectorzona(\Admin\UnadBundle\Entity\Zona $directorzona)
+    public function removeDirectorzona(\AppBundle\Entity\Zona $directorzona)
     {
         $this->directorzona->removeElement($directorzona);
     }
@@ -492,10 +492,10 @@ class User implements UserInterface, \Serializable
     /**
      * Add directorcentro
      *
-     * @param \Admin\UnadBundle\Entity\Centro $directorcentro
+     * @param \AppBundle\Entity\Centro $directorcentro
      * @return User
      */
-    public function addDirectorcentro(\Admin\UnadBundle\Entity\Centro $directorcentro)
+    public function addDirectorcentro(\AppBundle\Entity\Centro $directorcentro)
     {
         $this->directorcentro[] = $directorcentro;
 
@@ -505,9 +505,9 @@ class User implements UserInterface, \Serializable
     /**
      * Remove directorcentro
      *
-     * @param \Admin\UnadBundle\Entity\Centro $directorcentro
+     * @param \AppBundle\Entity\Centro $directorcentro
      */
-    public function removeDirectorcentro(\Admin\UnadBundle\Entity\Centro $directorcentro)
+    public function removeDirectorcentro(\AppBundle\Entity\Centro $directorcentro)
     {
         $this->directorcentro->removeElement($directorcentro);
     }
@@ -525,10 +525,10 @@ class User implements UserInterface, \Serializable
     /**
      * Add docente
      *
-     * @param \Admin\UnadBundle\Entity\Docente $docente
+     * @param \AppBundle\Entity\Docente $docente
      * @return User
      */
-    public function addDocente(\Admin\UnadBundle\Entity\Docente $docente)
+    public function addDocente(\AppBundle\Entity\Docente $docente)
     {
         $this->docente[] = $docente;
 
@@ -538,9 +538,9 @@ class User implements UserInterface, \Serializable
     /**
      * Remove docente
      *
-     * @param \Admin\UnadBundle\Entity\Docente $docente
+     * @param \AppBundle\Entity\Docente $docente
      */
-    public function removeDocente(\Admin\UnadBundle\Entity\Docente $docente)
+    public function removeDocente(\AppBundle\Entity\Docente $docente)
     {
         $this->docente->removeElement($docente);
     }
