@@ -27,7 +27,7 @@ class formatoPlangController extends Controller
     public function createAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $docente = $em->getRepository('AdminUnadBundle:Docente')->find($id);
+        $docente = $em->getRepository('AppBundle:Docente')->find($id);
         $plan = $em->getRepository('AdminMedBundle:Plangestion')->findOneBy(array('docente' => $docente));
         $entity = new formatoPlang();
         $entity->setPlan($plan);

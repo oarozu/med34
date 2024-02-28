@@ -23,7 +23,7 @@ class RedDofe {
     protected $id;
     /**
      * @var Docente
-     * @ORM\ManyToOne(targetEntity="Admin\UnadBundle\Entity\Docente")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Docente")
      * @ORM\JoinColumn(name="docente_id", referencedColumnName="id", nullable=false)
      */
     protected $docente;
@@ -37,21 +37,21 @@ class RedDofe {
 
     /**
      * @var Escuela
-     * @ORM\ManyToOne(targetEntity="Admin\UnadBundle\Entity\Escuela")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Escuela")
      * @ORM\JoinColumn(name="escuela_id", referencedColumnName="id", nullable=false)
      */
     protected $escuela;
 
     /**
      * @var Zona
-     * @ORM\ManyToOne(targetEntity="Admin\UnadBundle\Entity\Zona")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Zona")
      * @ORM\JoinColumn(name="zona_id", referencedColumnName="id", nullable=false)
      */
     protected $zona;
 
     /**
      * @var Programa
-     * @ORM\ManyToOne(targetEntity="Admin\UnadBundle\Entity\Programa")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Programa")
      * @ORM\JoinColumn(name="programa_id", referencedColumnName="id", nullable=true)
      */
     protected $programa;
@@ -168,10 +168,10 @@ class RedDofe {
     /**
      * Set docente
      *
-     * @param \Admin\UnadBundle\Entity\Docente $docente
+     * @param \AppBundle\Entity\Docente $docente
      * @return RedDofe
      */
-    public function setDocente(\Admin\UnadBundle\Entity\Docente $docente)
+    public function setDocente(\AppBundle\Entity\Docente $docente)
     {
         $this->docente = $docente;
 
@@ -181,7 +181,7 @@ class RedDofe {
     /**
      * Get docente
      *
-     * @return \Admin\UnadBundle\Entity\Docente
+     * @return \AppBundle\Entity\Docente
      */
     public function getDocente()
     {
@@ -214,10 +214,10 @@ class RedDofe {
     /**
      * Set escuela
      *
-     * @param \Admin\UnadBundle\Entity\Escuela $escuela
+     * @param \AppBundle\Entity\Escuela $escuela
      * @return RedDofe
      */
-    public function setEscuela(\Admin\UnadBundle\Entity\Escuela $escuela)
+    public function setEscuela(\AppBundle\Entity\Escuela $escuela)
     {
         $this->escuela = $escuela;
 
@@ -227,7 +227,7 @@ class RedDofe {
     /**
      * Get escuela
      *
-     * @return \Admin\UnadBundle\Entity\Escuela
+     * @return \AppBundle\Entity\Escuela
      */
     public function getEscuela()
     {
@@ -237,10 +237,10 @@ class RedDofe {
     /**
      * Set zona
      *
-     * @param \Admin\UnadBundle\Entity\Zona $zona
+     * @param \AppBundle\Entity\Zona $zona
      * @return RedDofe
      */
-    public function setZona(\Admin\UnadBundle\Entity\Zona $zona)
+    public function setZona(\AppBundle\Entity\Zona $zona)
     {
         $this->zona = $zona;
 
@@ -250,7 +250,7 @@ class RedDofe {
     /**
      * Get zona
      *
-     * @return \Admin\UnadBundle\Entity\Zona
+     * @return \AppBundle\Entity\Zona
      */
     public function getZona()
     {
@@ -260,10 +260,10 @@ class RedDofe {
     /**
      * Set programa
      *
-     * @param \Admin\UnadBundle\Entity\Programa $programa
+     * @param \AppBundle\Entity\Programa $programa
      * @return RedDofe
      */
-    public function setPrograma(\Admin\UnadBundle\Entity\Programa $programa = null)
+    public function setPrograma(\AppBundle\Entity\Programa $programa = null)
     {
         $this->programa = $programa;
 
@@ -273,7 +273,7 @@ class RedDofe {
     /**
      * Get programa
      *
-     * @return \Admin\UnadBundle\Entity\Programa
+     * @return \AppBundle\Entity\Programa
      */
     public function getPrograma()
     {

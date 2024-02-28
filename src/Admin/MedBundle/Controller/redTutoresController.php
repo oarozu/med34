@@ -27,7 +27,7 @@ class redTutoresController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $entity = $em->getRepository('AdminUnadBundle:Docente')->find($session->get('docenteid'));
+        $entity = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
         $tutorias = $em->getRepository('AdminMedBundle:Tutor')->findBy(array('docente' => $entity));
 
         return array(

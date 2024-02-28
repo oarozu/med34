@@ -111,8 +111,8 @@ class PlanmejoramientoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $escuela = $em->getRepository('AdminUnadBundle:Escuela')->find($session->get('escuelaid'));
-        $entities = $em->getRepository('AdminUnadBundle:Docente')->findBy(array('escuela' => $escuela));
+        $escuela = $em->getRepository('AppBundle:Escuela')->find($session->get('escuelaid'));
+        $entities = $em->getRepository('AppBundle:Docente')->findBy(array('escuela' => $escuela));
         return array(
             'entities' => $entities,
         );
@@ -129,7 +129,7 @@ class PlanmejoramientoController extends Controller
         $planm = new Planmejoramiento();
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $docente = $em->getRepository('AdminUnadBundle:Docente')->findOneBy(array('id' => $id));
+        $docente = $em->getRepository('AppBundle:Docente')->findOneBy(array('id' => $id));
         $planm->setDocente($docente);
         $planm->setFechaCreacion(new \DateTime());
         $planm->setAutorid($session->get('escuelaid'));

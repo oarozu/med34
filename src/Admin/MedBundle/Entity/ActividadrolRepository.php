@@ -13,11 +13,11 @@ use Doctrine\ORM\EntityRepository;
 class ActividadrolRepository extends EntityRepository
 {
     public function decarrera(){
-     $em = $this->getEntityManager(); 
-    // $centros = $em->getRepository('AdminUnadBundle:Centro')->findAll();
+     $em = $this->getEntityManager();
+    // $centros = $em->getRepository('AppBundle:Centro')->findAll();
      $query = $em->createQuery('SELECT a FROM AdminMedBundle:Actividadrol a WHERE a.id < 500 ORDER BY a.rol, a.id ASC');
-     $actividades = $query->getResult(); 
-     return $actividades;        
+     $actividades = $query->getResult();
+     return $actividades;
   }
-    
+
 }

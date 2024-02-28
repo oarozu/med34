@@ -25,14 +25,14 @@ class Tutor{
 protected $estudiantes;
 
 
-/** 
+/**
 * @var Docente
-* @ORM\ManyToOne(targetEntity="Admin\UnadBundle\Entity\Docente", inversedBy="tutoria")
+* @ORM\ManyToOne(targetEntity="AppBundle\Entity\Docente", inversedBy="tutoria")
 * @ORM\JoinColumn(name="docente_id", referencedColumnName="id", nullable=false)
 */
 protected $docente;
 
-/** 
+/**
 * @var Oferta
 * @ORM\ManyToOne(targetEntity="Admin\MedBundle\Entity\Oferta", inversedBy="tutores")
 * @ORM\JoinColumn(name="oferta_id", referencedColumnName="id", nullable=false)
@@ -40,13 +40,13 @@ protected $docente;
 protected $oferta;
 
 /**
- * @ORM\OneToOne(targetEntity="Admin\MedBundle\Entity\redTutores", mappedBy="id") 
+ * @ORM\OneToOne(targetEntity="Admin\MedBundle\Entity\redTutores", mappedBy="id")
  */
 protected $coevaldirector;
 
 
 /**
- * @ORM\OneToOne(targetEntity="Admin\MedBundle\Entity\coevalTutor", mappedBy="tutor") 
+ * @ORM\OneToOne(targetEntity="Admin\MedBundle\Entity\coevalTutor", mappedBy="tutor")
  */
 protected $coevaltutor;
 
@@ -54,7 +54,7 @@ protected $coevaltutor;
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -77,7 +77,7 @@ protected $coevaltutor;
     /**
      * Get estudiantes
      *
-     * @return integer 
+     * @return integer
      */
     public function getEstudiantes()
     {
@@ -100,7 +100,7 @@ protected $coevaltutor;
     /**
      * Get observaciones
      *
-     * @return string 
+     * @return string
      */
     public function getObservaciones()
     {
@@ -110,10 +110,10 @@ protected $coevaltutor;
     /**
      * Set docente
      *
-     * @param \Admin\UnadBundle\Entity\Docente $docente
+     * @param \AppBundle\Entity\Docente $docente
      * @return Tutor
      */
-    public function setDocente(\Admin\UnadBundle\Entity\Docente $docente)
+    public function setDocente(\AppBundle\Entity\Docente $docente)
     {
         $this->docente = $docente;
 
@@ -123,7 +123,7 @@ protected $coevaltutor;
     /**
      * Get docente
      *
-     * @return \Admin\UnadBundle\Entity\Docente 
+     * @return \AppBundle\Entity\Docente
      */
     public function getDocente()
     {
@@ -147,7 +147,7 @@ protected $coevaltutor;
     /**
      * Get coevaldirector
      *
-     * @return \Admin\MedBundle\Entity\redTutores 
+     * @return \Admin\MedBundle\Entity\redTutores
      */
     public function getCoevaldirector()
     {
@@ -170,7 +170,7 @@ protected $coevaltutor;
     /**
      * Get coevaltutor
      *
-     * @return \Admin\MedBundle\Entity\coevalTutor 
+     * @return \Admin\MedBundle\Entity\coevalTutor
      */
     public function getCoevaltutor()
     {
@@ -193,7 +193,7 @@ protected $coevaltutor;
     /**
      * Get oferta
      *
-     * @return \Admin\MedBundle\Entity\Oferta 
+     * @return \Admin\MedBundle\Entity\Oferta
      */
     public function getOferta()
     {

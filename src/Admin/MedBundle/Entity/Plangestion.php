@@ -24,8 +24,8 @@ class Plangestion {
 
     /**
      * @var Docente
-     * @ORM\OneToOne(targetEntity="Admin\UnadBundle\Entity\Docente", inversedBy="plangestion")
-     * @ORM\JoinColumn(name="docente_id",referencedColumnName="id") 
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Docente", inversedBy="plangestion")
+     * @ORM\JoinColumn(name="docente_id",referencedColumnName="id")
      */
     protected $docente;
 
@@ -48,7 +48,7 @@ class Plangestion {
      * @ORM\Column(type="integer", nullable=false)
      */
     protected $dias;
-    
+
     /**
      * @ORM\Column(type="string", length=512, nullable=true)
      */
@@ -78,21 +78,21 @@ class Plangestion {
      * @ORM\OneToMany(targetEntity="Admin\MedBundle\Entity\Avalplang", mappedBy="plan")
      */
     protected $avales;
-    
-    
+
+
         /**
      * @ORM\OneToMany(targetEntity="Admin\MedBundle\Entity\Productividad", mappedBy="plang")
      */
     protected $productos;
 
-            
+
     /**
     * @ORM\OneToOne(targetEntity="Admin\MedBundle\Entity\pdfPlang", cascade={"persist", "merge", "remove"})
     * @ORM\JoinColumn(name="pdf_id", referencedColumnName="id")
     */
     private $pdf;
-    
-    
+
+
 
     /**
      * Set fecha_creacion
@@ -109,7 +109,7 @@ class Plangestion {
     /**
      * Get fecha_creacion
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaCreacion() {
         return $this->fecha_creacion;
@@ -130,7 +130,7 @@ class Plangestion {
     /**
      * Get fecha_cierre
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaCierre() {
         return $this->fecha_cierre;
@@ -151,7 +151,7 @@ class Plangestion {
     /**
      * Get fecha_autoevaluacion
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaAutoevaluacion() {
         return $this->fecha_autoevaluacion;
@@ -172,7 +172,7 @@ class Plangestion {
     /**
      * Get observaciones
      *
-     * @return string 
+     * @return string
      */
     public function getObservaciones() {
         return $this->observaciones;
@@ -193,7 +193,7 @@ class Plangestion {
     /**
      * Get autoevaluacion
      *
-     * @return float 
+     * @return float
      */
     public function getAutoevaluacion() {
         return $this->autoevaluacion;
@@ -214,7 +214,7 @@ class Plangestion {
     /**
      * Get estado
      *
-     * @return integer 
+     * @return integer
      */
     public function getEstado() {
         if ($this->estado == 0)
@@ -232,10 +232,10 @@ class Plangestion {
     /**
      * Set id
      *
-     * @param \Admin\UnadBundle\Entity\Docente $id
+     * @param \AppBundle\Entity\Docente $id
      * @return Plangestion
      */
-    public function setId(\Admin\UnadBundle\Entity\Docente $id) {
+    public function setId(\AppBundle\Entity\Docente $id) {
         $this->id = $id;
 
         return $this;
@@ -272,7 +272,7 @@ class Plangestion {
     /**
      * Get actividades
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getActividades() {
         return $this->actividades;
@@ -302,7 +302,7 @@ class Plangestion {
     /**
      * Get avales
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getAvales() {
         return $this->avales;
@@ -332,7 +332,7 @@ class Plangestion {
     /**
      * Get roles
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getRoles() {
         return $this->roles;
@@ -343,10 +343,10 @@ class Plangestion {
     /**
      * Set docente
      *
-     * @param \Admin\UnadBundle\Entity\Docente $docente
+     * @param \AppBundle\Entity\Docente $docente
      * @return Plangestion
      */
-    public function setDocente(\Admin\UnadBundle\Entity\Docente $docente) {
+    public function setDocente(\AppBundle\Entity\Docente $docente) {
         $this->docente = $docente;
 
         return $this;
@@ -355,7 +355,7 @@ class Plangestion {
     /**
      * Get docente
      *
-     * @return \Admin\UnadBundle\Entity\Docente 
+     * @return \AppBundle\Entity\Docente
      */
     public function getDocente() {
         return $this->docente;
@@ -364,7 +364,7 @@ class Plangestion {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId() {
         return $this->id;
@@ -385,7 +385,7 @@ class Plangestion {
     /**
      * Get pdf
      *
-     * @return \Admin\MedBundle\Entity\pdfPlang 
+     * @return \Admin\MedBundle\Entity\pdfPlang
      */
     public function getPdf() {
         return $this->pdf;
@@ -408,7 +408,7 @@ class Plangestion {
     /**
      * Get dias
      *
-     * @return integer 
+     * @return integer
      */
     public function getDias()
     {
@@ -441,7 +441,7 @@ class Plangestion {
     /**
      * Get productos
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getProductos()
     {

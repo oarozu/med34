@@ -18,15 +18,15 @@ class PlanmejoramientoType extends AbstractType
         $builder
             ->add('observaciones', TextareaType::class, array('required'  => true, 'attr' => array('cols' => '60')))
             ->add('docente', EntityType::class, array(
-                 'class' =>  'AdminUnadBundle:Docente',
+                 'class' =>  'AppBundle:Docente',
                 'choice_label' => 'user.nombres',
                  ))
             ->add('calificacion', ChoiceType::class, array(
             'choices'   => array('1' => 'NO', '5' => 'SI'),
-            'required'  => true,))   
+            'required'  => true,))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

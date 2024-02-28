@@ -43,7 +43,7 @@ class pdfPlangController extends Controller
     public function createAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $docente = $em->getRepository('AdminUnadBundle:Docente')->find($id);
+        $docente = $em->getRepository('AppBundle:Docente')->find($id);
         $plan = $em->getRepository('AdminMedBundle:Plangestion')->findOneBy(array('docente' => $docente));
         $entity = new pdfPlang($id,$docente->getPeriodo());
         $plan->setPdf($entity);
@@ -94,7 +94,7 @@ class pdfPlangController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
-        $docente = $em->getRepository('AdminUnadBundle:Docente')->find($id);
+        $docente = $em->getRepository('AppBundle:Docente')->find($id);
         $entity = new pdfPlang($id,$docente->getPeriodo());
 
         $form   = $this->createCreateForm($entity,$id);

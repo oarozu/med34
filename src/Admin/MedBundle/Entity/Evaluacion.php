@@ -10,19 +10,19 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="evaluacion")
  * @ORM\Entity(repositoryClass="Admin\MedBundle\Entity\EvaluacionRepository")
  */
-class Evaluacion{   
-    
+class Evaluacion{
+
 /**
  * @ORM\Id
  * @ORM\Column(name="id", type="integer", nullable=false)
  */
  private $id;
- 
+
  /**
  * @ORM\Column(type="decimal", scale=1, nullable=true)
  */
 protected $final;
- 
+
  /**
   * @ORM\Column(type="decimal", scale=1, nullable=true)
   */
@@ -51,7 +51,7 @@ protected $hetero1;
  /**
   * @ORM\Column(type="decimal", scale=1, nullable=true)
   */
-protected $hetero2;    
+protected $hetero2;
 
  /**
   * @ORM\Column(type="decimal", scale=1, nullable=true)
@@ -93,7 +93,7 @@ protected $co5;
   * @ORM\Column(type="datetime", nullable=true)
   */
 protected $fecha;
- 
+
 /**
 * @ORM\Column(type="string", length=512, nullable=true)
 */
@@ -106,8 +106,8 @@ protected $aclaraciones;
 
 /**
  * @var Docente
- * @ORM\OneToOne(targetEntity="Admin\UnadBundle\Entity\Docente", inversedBy="evaluacion")
- * @ORM\JoinColumn(name="id",referencedColumnName="id") 
+ * @ORM\OneToOne(targetEntity="AppBundle\Entity\Docente", inversedBy="evaluacion")
+ * @ORM\JoinColumn(name="id",referencedColumnName="id")
 */
  protected $docente;
 
@@ -127,7 +127,7 @@ protected $aclaraciones;
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -150,7 +150,7 @@ protected $aclaraciones;
     /**
      * Get final
      *
-     * @return string 
+     * @return string
      */
     public function getFinal()
     {
@@ -173,7 +173,7 @@ protected $aclaraciones;
     /**
      * Get auto
      *
-     * @return string 
+     * @return string
      */
     public function getAuto()
     {
@@ -196,7 +196,7 @@ protected $aclaraciones;
     /**
      * Get auto1
      *
-     * @return string 
+     * @return string
      */
     public function getAuto1()
     {
@@ -219,7 +219,7 @@ protected $aclaraciones;
     /**
      * Get auto2
      *
-     * @return string 
+     * @return string
      */
     public function getAuto2()
     {
@@ -242,7 +242,7 @@ protected $aclaraciones;
     /**
      * Get hetero
      *
-     * @return string 
+     * @return string
      */
     public function getHetero()
     {
@@ -265,7 +265,7 @@ protected $aclaraciones;
     /**
      * Get hetero1
      *
-     * @return string 
+     * @return string
      */
     public function getHetero1()
     {
@@ -288,7 +288,7 @@ protected $aclaraciones;
     /**
      * Get hetero2
      *
-     * @return string 
+     * @return string
      */
     public function getHetero2()
     {
@@ -311,7 +311,7 @@ protected $aclaraciones;
     /**
      * Get hetero3
      *
-     * @return string 
+     * @return string
      */
     public function getHetero3()
     {
@@ -335,7 +335,7 @@ protected $aclaraciones;
     /**
      * Get co
      *
-     * @return string 
+     * @return string
      */
     public function getCo()
     {
@@ -358,7 +358,7 @@ protected $aclaraciones;
     /**
      * Get co1
      *
-     * @return string 
+     * @return string
      */
     public function getCo1()
     {
@@ -381,7 +381,7 @@ protected $aclaraciones;
     /**
      * Get co2
      *
-     * @return string 
+     * @return string
      */
     public function getCo2()
     {
@@ -404,7 +404,7 @@ protected $aclaraciones;
     /**
      * Get co3
      *
-     * @return string 
+     * @return string
      */
     public function getCo3()
     {
@@ -427,7 +427,7 @@ protected $aclaraciones;
     /**
      * Get co4
      *
-     * @return string 
+     * @return string
      */
     public function getCo4()
     {
@@ -450,7 +450,7 @@ protected $aclaraciones;
     /**
      * Get fecha
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFecha()
     {
@@ -473,7 +473,7 @@ protected $aclaraciones;
     /**
      * Get observaciones
      *
-     * @return string 
+     * @return string
      */
     public function getObservaciones()
     {
@@ -496,7 +496,7 @@ protected $aclaraciones;
     /**
      * Get aclaraciones
      *
-     * @return string 
+     * @return string
      */
     public function getAclaraciones()
     {
@@ -506,10 +506,10 @@ protected $aclaraciones;
     /**
      * Set docente
      *
-     * @param \Admin\UnadBundle\Entity\Docente $docente
+     * @param \AppBundle\Entity\Docente $docente
      * @return Evaluacion
      */
-    public function setDocente(\Admin\UnadBundle\Entity\Docente $docente = null)
+    public function setDocente(\AppBundle\Entity\Docente $docente = null)
     {
         $this->docente = $docente;
 
@@ -519,7 +519,7 @@ protected $aclaraciones;
     /**
      * Get docente
      *
-     * @return \Admin\UnadBundle\Entity\Docente 
+     * @return \AppBundle\Entity\Docente
      */
     public function getDocente()
     {
@@ -542,7 +542,7 @@ protected $aclaraciones;
     /**
      * Get co5
      *
-     * @return string 
+     * @return string
      */
     public function getCo5()
     {

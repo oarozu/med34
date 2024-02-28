@@ -18,17 +18,17 @@ class Oferta{
  * @ORM\GeneratedValue(strategy="AUTO")
  */
  protected $id;
- 
-/** 
+
+/**
 * @var Curso
-* @ORM\ManyToOne(targetEntity="Admin\UnadBundle\Entity\Curso", inversedBy="oferta")
+* @ORM\ManyToOne(targetEntity="AppBundle\Entity\Curso", inversedBy="oferta")
 * @ORM\JoinColumn(name="curso_id", referencedColumnName="id", nullable=false)
 */
 protected $curso;
- 
-/** 
+
+/**
 * @var Director
-* @ORM\ManyToOne(targetEntity="Admin\UnadBundle\Entity\Docente", inversedBy="director")
+* @ORM\ManyToOne(targetEntity="AppBundle\Entity\Docente", inversedBy="director")
 * @ORM\JoinColumn(name="director_id", referencedColumnName="id", nullable=false)
 */
 protected $director;
@@ -46,14 +46,14 @@ protected $periodo;
 protected $tutores;
 
     /**
-    * @ORM\OneToOne(targetEntity="Admin\MedBundle\Entity\coevalDirector", mappedBy="oferta") 
+    * @ORM\OneToOne(targetEntity="Admin\MedBundle\Entity\coevalDirector", mappedBy="oferta")
     */
    protected $coeval;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -76,7 +76,7 @@ protected $tutores;
     /**
      * Get periodo
      *
-     * @return string 
+     * @return string
      */
     public function getPeriodo()
     {
@@ -86,10 +86,10 @@ protected $tutores;
     /**
      * Set curso
      *
-     * @param \Admin\UnadBundle\Entity\Curso $curso
+     * @param \AppBundle\Entity\Curso $curso
      * @return Oferta
      */
-    public function setCurso(\Admin\UnadBundle\Entity\Curso $curso)
+    public function setCurso(\AppBundle\Entity\Curso $curso)
     {
         $this->curso = $curso;
 
@@ -99,7 +99,7 @@ protected $tutores;
     /**
      * Get curso
      *
-     * @return \Admin\UnadBundle\Entity\Curso 
+     * @return \AppBundle\Entity\Curso
      */
     public function getCurso()
     {
@@ -109,10 +109,10 @@ protected $tutores;
     /**
      * Set director
      *
-     * @param \Admin\UnadBundle\Entity\Docente $director
+     * @param \AppBundle\Entity\Docente $director
      * @return Oferta
      */
-    public function setDirector(\Admin\UnadBundle\Entity\Docente $director)
+    public function setDirector(\AppBundle\Entity\Docente $director)
     {
         $this->director = $director;
 
@@ -122,7 +122,7 @@ protected $tutores;
     /**
      * Get director
      *
-     * @return \Admin\UnadBundle\Entity\Docente 
+     * @return \AppBundle\Entity\Docente
      */
     public function getDirector()
     {
@@ -162,7 +162,7 @@ protected $tutores;
     /**
      * Get tutores
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTutores()
     {
@@ -198,7 +198,7 @@ protected $tutores;
     /**
      * Get coeval
      *
-     * @return \Admin\MedBundle\Entity\coevalDirector 
+     * @return \Admin\MedBundle\Entity\coevalDirector
      */
     public function getCoeval()
     {
