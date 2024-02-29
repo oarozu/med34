@@ -88,7 +88,7 @@ class pdfPlangController extends Controller
      * Displays a form to create a new pdfPlang entity.
      *
      * @Route("/new/{id}", name="pdfplang_new", methods={"GET"})
-     * @Template("AdminMedBundle:formatoPlang:new.html.twig")
+     * @Template("AdminMedBundle:pdfPlang:new.html.twig")
      */
     public function newAction($id)
     {
