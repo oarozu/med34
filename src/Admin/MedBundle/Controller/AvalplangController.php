@@ -291,7 +291,7 @@ class AvalplangController extends Controller
         }
         if ($editForm->get('avalado')->getData() == 2) {
             $plan->setEstado(0);
-            $this->enviarMail($entity);
+    //        $this->enviarMail($entity);
         }
 
         if ($editForm->isValid()) {
