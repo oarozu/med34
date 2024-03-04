@@ -21,7 +21,7 @@ class ActividadrolController extends Controller
     /**
      * Lists all Actividadrol entities.
      * @Route("/", name="actividadrol", methods={"GET"})
-     * @Template("AdminMedBundle:Actividadrol:index.html.twig")
+     * @Template("Actividadrol/index.html.twig")
      */
     public function indexAction()
     {
@@ -37,7 +37,7 @@ class ActividadrolController extends Controller
         /**
      * Lists all Actividadrol entities.
      * @Route("/select/{id}", name="actividadrol_select", methods={"GET"})
-     * @Template("AdminMedBundle:Actividadrol:select.html.twig")
+     * @Template("Actividadrol/select.html.twig")
      */
     public function selectAction($id)
     {
@@ -58,7 +58,7 @@ class ActividadrolController extends Controller
      * Creates a new Actividadrol entity.
      *
      * @Route("/", name="actividadrol_create", methods={"POST"})
-     * @Template("AdminMedBundle:Actividadrol:new.html.twig")
+     * @Template("Actividadrol/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -103,7 +103,7 @@ class ActividadrolController extends Controller
      * Displays a form to create a new Actividadrol entity.
      *
      * @Route("/new", name="actividadrol_new", methods={"GET"})
-     * @Template("AdminMedBundle:Actividadrol:new.html.twig")
+     * @Template("Actividadrol/new.html.twig")
      */
     public function newAction()
     {
@@ -120,7 +120,7 @@ class ActividadrolController extends Controller
      * Finds and displays a Actividadrol entity.
      *
      * @Route("/{id}", name="actividadrol_show", methods={"GET"})
-     * @Template("AdminMedBundle:Actividadrol:show.html.twig")
+     * @Template("Actividadrol/show.html.twig")
      */
     public function showAction($id)
     {
@@ -144,7 +144,7 @@ class ActividadrolController extends Controller
      * Displays a form to edit an existing Actividadrol entity.
      *
      * @Route("/{id}/edit", name="actividadrol_edit", methods={"GET"})
-     * @Template("AdminMedBundle:Actividadrol:edit.html.twig")
+     * @Template("Actividadrol/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -188,7 +188,7 @@ class ActividadrolController extends Controller
      * Edits an existing Actividadrol entity.
      *
      * @Route("/{id}", name="actividadrol_update", methods={"PUT"})
-     * @Template("AdminMedBundle:Actividadrol:edit.html.twig")
+     * @Template("Actividadrol/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {

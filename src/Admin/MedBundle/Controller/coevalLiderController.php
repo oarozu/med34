@@ -21,7 +21,7 @@ class coevalLiderController extends Controller
      * Creates a new coevalLider entity.
      *
      * @Route("/", name="coevallider_create", methods={"POST"})
-     * @Template("AdminMedBundle:coevalLider:new.html.twig")
+     * @Template("coevalLider/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -67,7 +67,7 @@ class coevalLiderController extends Controller
      * Finds and displays a coevalLider entity.
      *
      * @Route("/{id}", name="coevallider_show", methods={"GET"})
-     * @Template("AdminMedBundle:coevalLider:show.html.twig")
+     * @Template("coevalLider/show.html.twig")
      */
     public function showAction($id)
     {
@@ -91,7 +91,7 @@ class coevalLiderController extends Controller
      * Displays a form to edit an existing coevalLider entity.
      *
      * @Route("/{id}/edit", name="coevallider_edit", methods={"GET"})
-     * @Template("AdminMedBundle:coevalLider:edit.html.twig")
+     * @Template("coevalLider/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -135,7 +135,7 @@ class coevalLiderController extends Controller
      * Edits an existing coevalLider entity.
      *
      * @Route("/{id}", name="coevallider_update", methods={"PUT"})
-     * @Template("AdminMedBundle:coevalLider:edit.html.twig")
+     * @Template("coevalLider/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {

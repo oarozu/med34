@@ -22,7 +22,7 @@ class RolacademicoController extends Controller
      * Lists all Rolacademico entities.
      *
      * @Route("/", name="rolacademico", methods={"GET"})
-     * @Template("AdminMedBundle:Rolacademico:index.html.twig")
+     * @Template("Rolacademico/index.html.twig")
      */
     public function indexAction()
     {
@@ -38,7 +38,7 @@ class RolacademicoController extends Controller
      * Creates a new Rolacademico entity.
      *
      * @Route("/", name="rolacademico_create", methods={"POST"})
-     * @Template("AdminMedBundle:Rolacademico:new.html.twig")
+     * @Template("Rolacademico/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -83,7 +83,7 @@ class RolacademicoController extends Controller
      * Displays a form to create a new Rolacademico entity.
      *
      * @Route("/new", name="rolacademico_new", methods={"GET"})
-     * @Template("AdminMedBundle:Rolacademico:new.html.twig")
+     * @Template("Rolacademico/new.html.twig")
      */
     public function newAction()
     {
@@ -100,7 +100,7 @@ class RolacademicoController extends Controller
      * Finds and displays a Rolacademico entity.
      *
      * @Route("/{id}", name="rolacademico_show", methods={"GET"})
-     * @Template("AdminMedBundle:Rolacademico:show.html.twig")
+     * @Template("Rolacademico/show.html.twig")
      */
     public function showAction($id)
     {
@@ -124,7 +124,7 @@ class RolacademicoController extends Controller
      * Displays a form to edit an existing Rolacademico entity.
      *
      * @Route("/{id}/edit", name="rolacademico_edit", methods={"GET"})
-     * @Template("AdminMedBundle:Rolacademico:edit.html.twig")
+     * @Template("Rolacademico:/dit.html.twig")
      */
     public function editAction($id)
     {
@@ -168,7 +168,7 @@ class RolacademicoController extends Controller
      * Edits an existing Rolacademico entity.
      *
      * @Route("/{id}", name="rolacademico_update", methods={"PUT"})
-     * @Template("AdminMedBundle:Rolacademico:edit.html.twig")
+     * @Template("Rolacademico/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {

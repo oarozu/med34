@@ -22,7 +22,7 @@ class coevalTutorController extends Controller
      * Creates a new coevalTutor entity.
      *
      * @Route("/", name="coevaltutor_create", methods={"POST"})
-     * @Template("AdminMedBundle:coevalTutor:new.html.twig")
+     * @Template("coevalTutor/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -67,7 +67,7 @@ class coevalTutorController extends Controller
      * Displays a form to create a new coevalTutor entity.
      *
      * @Route("/new", name="coevaltutor_new", methods={"GET"})
-     * @Template("AdminMedBundle:coevalTutor:new.html.twig")
+     * @Template("coevalTutor/new.html.twig")
      */
     public function newAction()
     {
@@ -84,7 +84,7 @@ class coevalTutorController extends Controller
      * Finds and displays a coevalTutor entity.
      *
      * @Route("/{id}", name="coevaltutor_show", methods={"POST"})
-     * @Template("AdminMedBundle:coevalTutor:show.html.twig")
+     * @Template("coevalTutor/show.html.twig")
      */
     public function showAction($id)
     {
@@ -108,7 +108,7 @@ class coevalTutorController extends Controller
      * Displays a form to edit an existing coevalTutor entity.
      *
      * @Route("/{id}/edit", name="coevaltutor_edit", methods={"GET"})
-     * @Template("AdminMedBundle:coevalTutor:edit.html.twig")
+     * @Template("coevalTutor/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -158,7 +158,7 @@ class coevalTutorController extends Controller
      * Edits an existing coevalTutor entity.
      *
      * @Route("/{id}", name="coevaltutor_update", methods={"PUT"})
-     * @Template("AdminMedBundle:coevalTutor:edit.html.twig")
+     * @Template("coevalTutor/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {

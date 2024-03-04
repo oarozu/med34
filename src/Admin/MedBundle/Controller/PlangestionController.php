@@ -25,7 +25,7 @@ class PlangestionController extends Controller
      * Creates a new Plangestion entity.
      *
      * @Route("/", name="plangestion_create", methods={"POST"})
-     * @Template("AdminMedBundle:Plangestion:new.html.twig")
+     * @Template("Plangestion/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -94,7 +94,7 @@ class PlangestionController extends Controller
 
     /**
      * @Route("/auto", name="plangestion_show", methods={"GET"})
-     * @Template("AdminMedBundle:Plangestion:show.html.twig")
+     * @Template("Plangestion/show.html.twig")
      */
     public function showAction(Request $request)
     {
@@ -142,7 +142,7 @@ class PlangestionController extends Controller
 
     /**
      * @Route("/{id}/dofe", name="plangestion_dofe", methods={"GET"})
-     * @Template("AdminMedBundle:Plangestion:dofe.html.twig")
+     * @Template("Plangestion/dofe.html.twig")
      */
     public function dofeAction($id)
     {
@@ -160,7 +160,7 @@ class PlangestionController extends Controller
 
     /**
      * @Route("/conf/plan", name="plangestion_conf", methods={"GET"})
-     * @Template("AdminMedBundle:Plangestion:conf.html.twig")
+     * @Template("Plangestion/conf.html.twig")
      */
     public function confAction(Request $request)
     {
@@ -214,7 +214,7 @@ class PlangestionController extends Controller
 
     /**
      * @Route("/agregar/roles", name="plangestion_crear", methods={"GET"})
-     * @Template("AdminMedBundle:Plangestion:crear.html.twig")
+     * @Template("Plangestion/crear.html.twig")
      */
     public function crearAction(Request $request)
     {
@@ -238,7 +238,7 @@ class PlangestionController extends Controller
     }
 
     /**
-     * @Template("AdminMedBundle:Plangestion:info.html.twig")
+     * @Template("Plangestion/info.html.twig")
      */
     public function infoAction($id)
     {
@@ -252,25 +252,25 @@ class PlangestionController extends Controller
         }
 
         if ($docente->getVinculacion() == 'De Carrera') {
-            return $this->render('AdminMedBundle:Plangestion:info.html.twig', array(
+            return $this->render('Plangestion/info.html.twig', array(
                 'entity' => $entity,
                 'docente' => $docente,
                 'periodo' => $periodoe
             ));
         } elseif ($docente->getVinculacion() == 'DOFE') {
-            return $this->render('AdminMedBundle:Plangestion:plandofe.html.twig', array(
+            return $this->render('Plangestion/plandofe.html.twig', array(
                 'entity' => $entity,
                 'docente' => $docente
             ));
         } else {
-            return $this->render('AdminMedBundle:Plangestion:planactividades.html.twig', array('docente' => $docente,
+            return $this->render('Plangestion/planactividades.html.twig', array('docente' => $docente,
                 'entity' => $entity,
                 'periodo' => $periodo));
         }
     }
 
     /**
-     * @Template("AdminMedBundle:Plangestion:autoeval.html.twig")
+     * @Template("Plangestion/autoeval.html.twig")
      */
     public function autoevalAction($id)
     {
@@ -280,7 +280,7 @@ class PlangestionController extends Controller
             throw $this->createNotFoundException('No se encuentra docente entity.');
         }
         if ($docente->getVinculacion() == 'DOFE') {
-            return $this->render('AdminMedBundle:Plangestion:registrodofe.html.twig', array(
+            return $this->render('Plangestion/registrodofe.html.twig', array(
                 'entity' => $docente,
             ));
         } else {
@@ -294,7 +294,7 @@ class PlangestionController extends Controller
      * Displays a form to edit an existing Plangestion entity.
      *
      * @Route("/{id}/edit", name="plangestion_edit", methods={"GET"})
-     * @Template("AdminMedBundle:Plangestion:edit.html.twig")
+     * @Template("Plangestion/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -320,7 +320,7 @@ class PlangestionController extends Controller
      * Displays a form to edit an existing Plangestion entity.
      *
      * @Route("/{id}/abrir", name="plangestion_abrir", methods={"GET"})
-     * @Template("AdminMedBundle:Plangestion:abrir.html.twig")
+     * @Template("Plangestion/abrir.html.twig")
      */
     public function abrirAction($id)
     {
@@ -365,7 +365,7 @@ class PlangestionController extends Controller
      * Edits an existing Plangestion entity.
      *
      * @Route("/{id}", name="plangestion_update", methods={"PUT"})
-     * @Template("AdminMedBundle:Plangestion:edit.html.twig")
+     * @Template("Plangestion/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -420,7 +420,7 @@ class PlangestionController extends Controller
      * Abrir an existing Plangestion entity.
      *
      * @Route("/{id}/abrir", name="plangestion_abrir_registro", methods={"PUT"})
-     * @Template("AdminMedBundle:Plangestion:edit.html.twig")
+     * @Template("Plangestion/edit.html.twig")
      */
     public function abrirRegistroAction(Request $request, $id)
     {

@@ -23,7 +23,7 @@ class InstrumentoController extends Controller
      * Lists all Instrumento entities.
      *
      * @Route("/", name="admin_instrumento", methods={"GET"})
-     * @Template("AdminMedBundle:Instrumento:index.html.twig")
+     * @Template("Instrumento/index.html.twig")
      */
     public function indexAction()
     {
@@ -39,7 +39,7 @@ class InstrumentoController extends Controller
      * Creates a new Instrumento entity.
      *
      * @Route("/", name="admin_instrumento_create", methods={"POST"})
-     * @Template("AdminMedBundle:Instrumento:new.html.twig")
+     * @Template("Instrumento/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -84,7 +84,7 @@ class InstrumentoController extends Controller
      * Displays a form to create a new Instrumento entity.
      *
      * @Route("/new", name="admin_instrumento_new", methods={"GET"})
-     * @Template("AdminMedBundle:Instrumento:new.html.twig")
+     * @Template("Instrumento/new.html.twig")
      */
     public function newAction()
     {
@@ -101,7 +101,7 @@ class InstrumentoController extends Controller
      * Finds and displays a Instrumento entity.
      *
      * @Route("/{id}", name="admin_instrumento_show", methods={"GET"})
-     * @Template("AdminMedBundle:Instrumento:show.html.twig")
+     * @Template("Instrumento/show.html.twig")
      */
     public function showAction($id)
     {
@@ -125,7 +125,7 @@ class InstrumentoController extends Controller
      * Displays a form to edit an existing Instrumento entity.
      *
      * @Route("/{id}/edit", name="admin_instrumento_edit", methods={"GET"})
-     * @Template("AdminMedBundle:Instrumento:edit.html.twig")
+     * @Template("Instrumento/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -166,7 +166,7 @@ class InstrumentoController extends Controller
      * Edits an existing Instrumento entity.
      *
      * @Route("/{id}", name="admin_instrumento_update", methods={"POST"})
-     * @Template("AdminMedBundle:Instrumento:edit.html.twig")
+     * @Template("Instrumento/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {

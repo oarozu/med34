@@ -22,7 +22,7 @@ class ArchivoController extends Controller
      * Lists all Archivo entities.
      *
      * @Route("/doc/{ced}", name="archivo_pordoc", methods={"GET"})
-     * @Template("AdminMedBundle:Archivo:pordoc.html.twig")
+     * @Template("Archivo/pordoc.html.twig")
      */
     public function pordocAction($ced)
     {
@@ -40,7 +40,7 @@ class ArchivoController extends Controller
      * Lists all Archivo entities.
      *
      * @Route("/per/{id}", name="archivo_pordoc", methods={"GET"})
-     * @Template("AdminMedBundle:Archivo:porperiodo.html.twig")
+     * @Template("Archivo/porperiodo.html.twig")
      */
     public function porperiodoAction($id)
     {
@@ -58,7 +58,7 @@ class ArchivoController extends Controller
      /**
       * Lists all Archivo entities.
       * @Route("/docente", name="archivo_docente", methods={"GET"})
-      * @Template("AdminMedBundle:Archivo:pordoc.html.twig")
+      * @Template("Archivo/pordoc.html.twig")
      */
     public function docenteAction()
     {
@@ -75,7 +75,7 @@ class ArchivoController extends Controller
      * Creates a new Archivo entity.
      *
      * @Route("/", name="archivo_create", methods={"POST"})
-     * @Template("AdminMedBundle:Archivo:new.html.twig")
+     * @Template("Archivo/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -120,7 +120,7 @@ class ArchivoController extends Controller
      * Displays a form to create a new Archivo entity.
      *
      * @Route("/new", name="archivo_new", methods={"GET"})
-     * @Template("AdminMedBundle:Archivo:new.html.twig")
+     * @Template("Archivo/new.html.twig")
      */
     public function newAction()
     {
@@ -137,7 +137,7 @@ class ArchivoController extends Controller
      * Finds and displays a Archivo entity.
      *
      * @Route("/{id}", name="archivo_show", methods={"GET"})
-     * @Template("AdminMedBundle:Archivo:show.html.twig")
+     * @Template("Archivo/show.html.twig")
      */
     public function showAction($id)
     {
@@ -182,7 +182,7 @@ class ArchivoController extends Controller
      * Displays a form to edit an existing Archivo entity.
      *
      * @Route("/{id}/edit", name="archivo_edit", methods={"GET"})
-     * @Template("AdminMedBundle:Archivo:edit.html.twig")
+     * @Template("Archivo/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -226,7 +226,7 @@ class ArchivoController extends Controller
      * Edits an existing Archivo entity.
      *
      * @Route("/{id}", name="archivo_update", methods={"PUT"})
-     * @Template("AdminMedBundle:Archivo:edit.html.twig")
+     * @Template("Archivo/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {

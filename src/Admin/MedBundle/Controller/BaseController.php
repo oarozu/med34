@@ -19,7 +19,7 @@ class BaseController extends Controller
     /**
      * Mostrar heteroevaluaciones
      * @Route("/{id}/heteroeval", name="heteroeval_info",  methods={"GET"})
-     * @Template("AdminMedBundle:Base:heteroeval.html.twig")
+     * @Template("Base/heteroeval.html.twig")
      */
     public function heteroevalAction($id)
     {

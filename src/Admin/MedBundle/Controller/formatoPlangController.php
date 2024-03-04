@@ -22,7 +22,7 @@ class formatoPlangController extends Controller
      * Creates a new formatoPlang entity.
      *
      * @Route("/crear/{id}", name="formatoplang_create", methods={"POST"})
-     * @Template("AdminMedBundle:formatoPlang:new.html.twig")
+     * @Template("formatoPlang/new.html.twig")
      */
     public function createAction(Request $request, $id)
     {
@@ -71,7 +71,7 @@ class formatoPlangController extends Controller
      * Displays a form to create a new formatoPlang entity.
      *
      * @Route("/new/{id}", name="formatoplang_new", methods={"GET"})
-     * @Template("AdminMedBundle:formatoPlang:new.html.twig")
+     * @Template("formatoPlang/new.html.twig")
      */
     public function newAction($id)
     {
@@ -91,7 +91,7 @@ class formatoPlangController extends Controller
      * Finds and displays a formatoPlang entity.
      *
      * @Route("/{id}", name="formatoplang_show", methods={"GET"})
-     * @Template("AdminMedBundle:formatoPlang:show.html.twig")
+     * @Template("formatoPlang/show.html.twig")
      */
     public function showAction($id)
     {
@@ -115,7 +115,7 @@ class formatoPlangController extends Controller
      * Displays a form to edit an existing formatoPlang entity.
      *
      * @Route("/{id}/edit", name="formatoplang_edit", methods={"GET"})
-     * @Template("AdminMedBundle:formatoPlang:edit.html.twig")
+     * @Template("formatoPlang/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -159,7 +159,7 @@ class formatoPlangController extends Controller
      * Edits an existing formatoPlang entity.
      *
      * @Route("/{id}", name="formatoplang_update", methods={"PUT"})
-     * @Template("AdminMedBundle:formatoPlang:edit.html.twig")
+     * @Template("formatoPlang/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
