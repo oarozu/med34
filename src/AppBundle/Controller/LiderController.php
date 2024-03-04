@@ -51,7 +51,7 @@ class LiderController extends Controller
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $programas = $em->getRepository('AppBundle:Programa')->findBy(array('lider' => $user));
         $cursos = $em->getRepository('AppBundle:Curso')->findBy(array('programa' => $programas));
-        $periodoe = $em->getRepository('AdminMedBundle:Periodoe')->findBy(array('id' => $session->get('periodoe')));
+        $periodoe = $em->getRepository('AppBundle:Periodoe')->findBy(array('id' => $session->get('periodoe')));
         $periodoa = $em->getRepository('AdminMedBundle:Periodoa')->findOneBy(array('periodoe' => $periodoe));
         $ofertas = $em->getRepository('AdminMedBundle:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa),array('director' => 'ASC'));
 

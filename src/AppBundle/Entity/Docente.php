@@ -100,7 +100,7 @@ protected $centro;
 
 
     /**
-     * @ORM\OneToMany(targetEntity="Admin\MedBundle\Entity\Planmejoramiento", mappedBy="docente")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Planmejoramiento", mappedBy="docente")
      */
     protected $planmejoramiento;
 
@@ -112,36 +112,36 @@ protected $centro;
 
 
     /**
-     * @ORM\OneToMany(targetEntity="Admin\MedBundle\Entity\Oferta", mappedBy="director")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Oferta", mappedBy="director")
      */
     protected $director;
 
 
    /**
-    * @ORM\OneToOne(targetEntity="Admin\MedBundle\Entity\Plangestion", mappedBy="docente")
+    * @ORM\OneToOne(targetEntity="AppBundle\Entity\Plangestion", mappedBy="docente")
     */
    protected $plangestion;
 
 
     /**
-    * @ORM\OneToMany(targetEntity="Admin\MedBundle\Entity\Tutor", mappedBy="docente")
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\Tutor", mappedBy="docente")
     */
     protected $tutoria;
 
 
     /**
-    * @ORM\OneToMany(targetEntity="Admin\MedBundle\Entity\coevalPares", mappedBy="evaluado")
+    * @ORM\OneToMany(targetEntity="AppBundle\Entity\coevalPares", mappedBy="evaluado")
     */
    protected $coevaldepar;
 
 
     /**
-    * @ORM\OneToOne(targetEntity="Admin\MedBundle\Entity\Heteroeval", mappedBy="docente")
+    * @ORM\OneToOne(targetEntity="AppBundle\Entity\Heteroeval", mappedBy="docente")
     */
    protected $heteroeval;
 
     /**
-    * @ORM\OneToOne(targetEntity="Admin\MedBundle\Entity\Evaluacion", mappedBy="docente")
+    * @ORM\OneToOne(targetEntity="AppBundle\Entity\Evaluacion", mappedBy="docente")
     */
    protected $evaluacion;
 
@@ -412,10 +412,10 @@ protected $centro;
     /**
      * Add planmejoramiento
      *
-     * @param \Admin\MedBundle\Entity\Planmejoramiento $planmejoramiento
+     * @param \AppBundle\Entity\Planmejoramiento $planmejoramiento
      * @return Docente
      */
-    public function addPlanmejoramiento(\Admin\MedBundle\Entity\Planmejoramiento $planmejoramiento)
+    public function addPlanmejoramiento(\AppBundle\Entity\Planmejoramiento $planmejoramiento)
     {
         $this->planmejoramiento[] = $planmejoramiento;
 
@@ -425,9 +425,9 @@ protected $centro;
     /**
      * Remove planmejoramiento
      *
-     * @param \Admin\MedBundle\Entity\Planmejoramiento $planmejoramiento
+     * @param \AppBundle\Entity\Planmejoramiento $planmejoramiento
      */
-    public function removePlanmejoramiento(\Admin\MedBundle\Entity\Planmejoramiento $planmejoramiento)
+    public function removePlanmejoramiento(\AppBundle\Entity\Planmejoramiento $planmejoramiento)
     {
         $this->planmejoramiento->removeElement($planmejoramiento);
     }
@@ -446,10 +446,10 @@ protected $centro;
     /**
      * Add director
      *
-     * @param \Admin\MedBundle\Entity\Oferta $director
+     * @param \AppBundle\Entity\Oferta $director
      * @return Docente
      */
-    public function addDirector(\Admin\MedBundle\Entity\Oferta $director)
+    public function addDirector(\AppBundle\Entity\Oferta $director)
     {
         $this->director[] = $director;
 
@@ -459,9 +459,9 @@ protected $centro;
     /**
      * Remove director
      *
-     * @param \Admin\MedBundle\Entity\Oferta $director
+     * @param \AppBundle\Entity\Oferta $director
      */
-    public function removeDirector(\Admin\MedBundle\Entity\Oferta $director)
+    public function removeDirector(\AppBundle\Entity\Oferta $director)
     {
         $this->director->removeElement($director);
     }
@@ -493,10 +493,10 @@ protected $centro;
     /**
      * Set plangestion
      *
-     * @param \Admin\MedBundle\Entity\Plangestion $plangestion
+     * @param \AppBundle\Entity\Plangestion $plangestion
      * @return Docente
      */
-    public function setPlangestion(\Admin\MedBundle\Entity\Plangestion $plangestion = null)
+    public function setPlangestion(\AppBundle\Entity\Plangestion $plangestion = null)
     {
         $this->plangestion = $plangestion;
 
@@ -506,7 +506,7 @@ protected $centro;
     /**
      * Get plangestion
      *
-     * @return \Admin\MedBundle\Entity\Plangestion
+     * @return \AppBundle\Entity\Plangestion
      */
     public function getPlangestion()
     {
@@ -517,10 +517,10 @@ protected $centro;
     /**
      * Add coevaldepar
      *
-     * @param \Admin\MedBundle\Entity\coevalPares $coevaldepar
+     * @param \AppBundle\Entity\coevalPares $coevaldepar
      * @return Docente
      */
-    public function addCoevaldepar(\Admin\MedBundle\Entity\coevalPares $coevaldepar)
+    public function addCoevaldepar(\AppBundle\Entity\coevalPares $coevaldepar)
     {
         $this->coevaldepar[] = $coevaldepar;
 
@@ -530,9 +530,9 @@ protected $centro;
     /**
      * Remove coevaldepar
      *
-     * @param \Admin\MedBundle\Entity\coevalPares $coevaldepar
+     * @param \AppBundle\Entity\coevalPares $coevaldepar
      */
-    public function removeCoevaldepar(\Admin\MedBundle\Entity\coevalPares $coevaldepar)
+    public function removeCoevaldepar(\AppBundle\Entity\coevalPares $coevaldepar)
     {
         $this->coevaldepar->removeElement($coevaldepar);
     }
@@ -551,10 +551,10 @@ protected $centro;
     /**
      * Set heteroeval
      *
-     * @param \Admin\MedBundle\Entity\Heteroeval $heteroeval
+     * @param \AppBundle\Entity\Heteroeval $heteroeval
      * @return Docente
      */
-    public function setHeteroeval(\Admin\MedBundle\Entity\Heteroeval $heteroeval = null)
+    public function setHeteroeval(\AppBundle\Entity\Heteroeval $heteroeval = null)
     {
         $this->heteroeval = $heteroeval;
 
@@ -564,7 +564,7 @@ protected $centro;
     /**
      * Get heteroeval
      *
-     * @return \Admin\MedBundle\Entity\Heteroeval
+     * @return \AppBundle\Entity\Heteroeval
      */
     public function getHeteroeval()
     {
@@ -574,10 +574,10 @@ protected $centro;
     /**
      * Set evaluacion
      *
-     * @param \Admin\MedBundle\Entity\Evaluacion $evaluacion
+     * @param \AppBundle\Entity\Evaluacion $evaluacion
      * @return Docente
      */
-    public function setEvaluacion(\Admin\MedBundle\Entity\Evaluacion $evaluacion = null)
+    public function setEvaluacion(\AppBundle\Entity\Evaluacion $evaluacion = null)
     {
         $this->evaluacion = $evaluacion;
 
@@ -587,7 +587,7 @@ protected $centro;
     /**
      * Get evaluacion
      *
-     * @return \Admin\MedBundle\Entity\Evaluacion
+     * @return \AppBundle\Entity\Evaluacion
      */
     public function getEvaluacion()
     {
@@ -620,9 +620,9 @@ protected $centro;
     /**
      * Remove tutoria
      *
-     * @param \Admin\MedBundle\Entity\Tutor $tutoria
+     * @param \AppBundle\Entity\Tutor $tutoria
      */
-    public function removeTutorium(\Admin\MedBundle\Entity\Tutor $tutoria)
+    public function removeTutorium(\AppBundle\Entity\Tutor $tutoria)
     {
         $this->tutoria->removeElement($tutoria);
     }

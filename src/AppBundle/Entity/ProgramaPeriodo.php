@@ -32,7 +32,7 @@ class ProgramaPeriodo {
 
     /**
      * @var Periodo
-     * @ORM\ManyToOne(targetEntity="Admin\MedBundle\Entity\Periodoe")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Periodoe")
      * @ORM\JoinColumn(name="periodo_id", referencedColumnName="id",
      * nullable=false
      * )
@@ -113,10 +113,10 @@ class ProgramaPeriodo {
     /**
      * Set periodo
      *
-     * @param \Admin\MedBundle\Entity\Periodoe $periodo
+     * @param \AppBundle\Entity\Periodoe $periodo
      * @return ProgramaPeriodo
      */
-    public function setPeriodo(\Admin\MedBundle\Entity\Periodoe $periodo)
+    public function setPeriodo(\AppBundle\Entity\Periodoe $periodo)
     {
         $this->periodo = $periodo;
 
@@ -126,7 +126,7 @@ class ProgramaPeriodo {
     /**
      * Get periodo
      *
-     * @return \Admin\MedBundle\Entity\Periodoe
+     * @return \AppBundle\Entity\Periodoe
      */
     public function getPeriodo()
     {

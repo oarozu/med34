@@ -6,8 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Admin\MedBundle\Entity\Instrumento;
-use Admin\MedBundle\Entity\Periodoe;
+use AppBundle\Entity\Instrumento;
+use AppBundle\Entity\Periodoe;
 use Admin\UnadBundle\Entity\Docente;
 
 
@@ -15,9 +15,9 @@ class DefaultController extends Controller {
 
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $periodos = $em->getRepository('AdminMedBundle:Periodoe')->findby(array('type' => 'p', 'year' => $this->container->getParameter('appmed.year')), array('id' => 'DESC'));
-        $periodoe = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $this->container->getParameter('appmed.periodo')));
-        $instrumentos = $em->getRepository('AdminMedBundle:Instrumentos')->findBy(array('periodoe' => $periodoe));
+        $periodos = $em->getRepository('AppBundle:Periodoe')->findby(array('type' => 'p', 'year' => $this->container->getParameter('appmed.year')), array('id' => 'DESC'));
+        $periodoe = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $this->container->getParameter('appmed.periodo')));
+        $instrumentos = $em->getRepository('AppBundle:Instrumentos')->findBy(array('periodoe' => $periodoe));
 
         $diff = date_diff($periodoe->getFechainicio(), $periodoe->getFechafin());
         $diff2 = date_diff($periodoe->getFechainicio(), new \DateTime('now'));
@@ -101,7 +101,7 @@ class DefaultController extends Controller {
             }
         }
         $periodos_on = $this->container->getParameter('appmed.periodos');
-        $periodos = $em->getRepository('AdminMedBundle:Periodoe')->findBy(array('id' => $periodos_on));
+        $periodos = $em->getRepository('AppBundle:Periodoe')->findBy(array('id' => $periodos_on));
         return $this->render('AppBundle:Default:periods.html.twig', array(
             'year' => $year,
             'periodos' => $periodos,
@@ -128,9 +128,9 @@ class DefaultController extends Controller {
     public function homeAction(Request $request) {
 
         $em = $this->getDoctrine()->getManager();
-        $instrumentos = $em->getRepository('AdminMedBundle:Instrumento')->findAll();
-        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $this->container->getParameter('appmed.periodo')));
-        $periodos = $em->getRepository('AdminMedBundle:Periodoe')->findby(array('year' => $this->container->getParameter('appmed.year')));
+        $instrumentos = $em->getRepository('AppBundle:Instrumento')->findAll();
+        $periodo = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $this->container->getParameter('appmed.periodo')));
+        $periodos = $em->getRepository('AppBundle:Periodoe')->findby(array('year' => $this->container->getParameter('appmed.year')));
 
         $session = $request->getSession();
 

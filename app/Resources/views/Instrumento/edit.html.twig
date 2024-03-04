@@ -7,7 +7,7 @@
             <header>
                     <span class="widget-icon"> <i class="fa fa-table"></i> </span>
                     <h2>Editar Instrumento</h2>
-            </header>     
+            </header>
                 <!-- widget div-->
                 <div>
 
@@ -24,23 +24,23 @@
         <div class="form_error"></div>
         <form method="POST" id="checkout-form" class="smart-form" novalidate="novalidate" method="POST" action="{{path('admin_instrumento_update', { 'id': entity.id })}}" {{ form_start(form) }}
         <div id="form_body">
-        {% include 'AdminMedBundle:Instrumento:form.html.twig' with {'form': form} %}
+        {% include 'AppBundle:Instrumento:form.html.twig' with {'form': form} %}
         </div>
         <footer>
         <button type="submit" class="btn btn-primary">Editar</button>
         </footer>
-        
+
         {{form_rest(form)}}
-        
+
         </form>
-    
+
              </div>
               <!-- end widget content -->
                 </div>
             </div>
             <!-- end widget div -->
         </div>
-        <!-- end widget -->                                                           
+        <!-- end widget -->
         </article>
 {{ form(delete_form) }}
 

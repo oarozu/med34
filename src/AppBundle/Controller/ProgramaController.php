@@ -33,7 +33,7 @@ class ProgramaController extends Controller
 
             $entities = $em->getRepository('AppBundle:Programa')->getPorEscuela($session->get('escuelaid'));
         } else {
-            $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findBy(array('id' => $session->get('periodoe')));
+            $periodo = $em->getRepository('AppBundle:Periodoe')->findBy(array('id' => $session->get('periodoe')));
             $entities = $em->getRepository('AppBundle:Programa')->findAll();
         }
         return array(
@@ -133,8 +133,8 @@ class ProgramaController extends Controller
         $session = $request->getSession();
         $programa = $em->getRepository('AppBundle:Programa')->find($id);
         $cursos = $em->getRepository('AppBundle:Curso')->findBy(array('programa' => $id));
-        $periodoa = $em->getRepository('AdminMedBundle:Periodoa')->findBy(array('periodoe' => $session->get('periodoe')));
-        $oferta = $em->getRepository('AdminMedBundle:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa));
+        $periodoa = $em->getRepository('AppBundle:Periodoa')->findBy(array('periodoe' => $session->get('periodoe')));
+        $oferta = $em->getRepository('AppBundle:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa));
 
         if (!$programa) {
             throw $this->createNotFoundException('Unable to find Programa entity.');
@@ -160,8 +160,8 @@ class ProgramaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AppBundle:ProgramaPeriodo')->find($id);
         $cursos = $em->getRepository('AppBundle:Curso')->findBy(array('programa' => $entity->getPrograma()));
-        $periodoa = $em->getRepository('AdminMedBundle:Periodoa')->findBy(array('periodoe' => $entity->getPeriodo()->getId()));
-        $oferta = $em->getRepository('AdminMedBundle:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa));
+        $periodoa = $em->getRepository('AppBundle:Periodoa')->findBy(array('periodoe' => $entity->getPeriodo()->getId()));
+        $oferta = $em->getRepository('AppBundle:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Programa entity.');
@@ -183,8 +183,8 @@ class ProgramaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AppBundle:ProgramaPeriodo')->find($id);
         $cursos = $em->getRepository('AppBundle:Curso')->findBy(array('programa' => $entity->getPrograma()));
-        $periodoa = $em->getRepository('AdminMedBundle:Periodoa')->findBy(array('periodoe' => $entity->getPeriodo()->getId()));
-        $oferta = $em->getRepository('AdminMedBundle:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa));
+        $periodoa = $em->getRepository('AppBundle:Periodoa')->findBy(array('periodoe' => $entity->getPeriodo()->getId()));
+        $oferta = $em->getRepository('AppBundle:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Programa entity.');
@@ -251,7 +251,7 @@ class ProgramaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
         $entity = $em->getRepository('AppBundle:Programa')->find($id);
-        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->find($session->get('periodoe'));
+        $periodo = $em->getRepository('AppBundle:Periodoe')->find($session->get('periodoe'));
         $programa = $em->getRepository('AppBundle:ProgramaPeriodo')->findOneBy(array('programa' => $entity, 'periodo' => $periodo));
 
         if (!$entity) {
@@ -330,7 +330,7 @@ class ProgramaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->find($session->get('periodoe'));
+        $periodo = $em->getRepository('AppBundle:Periodoe')->find($session->get('periodoe'));
         $escuela = $em->getRepository('AppBundle:Escuela')->find($session->get('escuelaid'));
         #$entities = $em->getRepository('AppBundle:Docente')->findBy(array('escuela' => $escuela, 'periodo' => $session->get('periodoe')));
         #$entities = $em->getRepository('AppBundle:Docente')->selecionarLider($escuela);

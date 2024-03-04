@@ -281,15 +281,15 @@ class ZonaController extends Controller
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $zona = $user->getDirectorzona();
         $year = $this->container->getParameter('appmed.year');
-        $periodoss = $em->getRepository('AdminMedBundle:Periodoe')->findby(array('type' => 's'), array('id' => 'DESC'), 10);
-        $periodosa = $em->getRepository('AdminMedBundle:Periodoe')->findby(array('type' => 'a'), array('id' => 'DESC'), 5);
-        $periodosp = $em->getRepository('AdminMedBundle:Periodoe')->findby(array('type' => 'p', 'year' => $year), array('id' => 'DESC'));
+        $periodoss = $em->getRepository('AppBundle:Periodoe')->findby(array('type' => 's'), array('id' => 'DESC'), 10);
+        $periodosa = $em->getRepository('AppBundle:Periodoe')->findby(array('type' => 'a'), array('id' => 'DESC'), 5);
+        $periodosp = $em->getRepository('AppBundle:Periodoe')->findby(array('type' => 'p', 'year' => $year), array('id' => 'DESC'));
         if ($id == 1) {
             $id = $this->container->getParameter('appmed.periodo');
         }
         $centros = $em->getRepository('AppBundle:Centro')->findBy(array('zona' => $zona[0]));
         $docentes = $em->getRepository('AppBundle:Docente')->findBy(array('centro' => $centros, 'periodo' => $id));
-        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $id));
+        $periodo = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $id));
 
 
         return array(

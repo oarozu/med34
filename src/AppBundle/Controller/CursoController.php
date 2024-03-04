@@ -2,19 +2,19 @@
 
 namespace AppBundle\Controller;
 
-use Admin\MedBundle\Entity\Rolplang;
+use AppBundle\Entity\Rolplang;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Curso;
-use Admin\MedBundle\Entity\Oferta;
-use Admin\MedBundle\Entity\Cedula;
-use Admin\MedBundle\Entity\Tutor;
+use AppBundle\Entity\Oferta;
+use AppBundle\Entity\Cedula;
+use AppBundle\Entity\Tutor;
 use AppBundle\Form\CursoType;
-use Admin\MedBundle\Form\ofertaType;
-use Admin\MedBundle\Form\CedulaType;
+use AppBundle\Form\ofertaType;
+use AppBundle\Form\CedulaTypeMed;
 use AppBundle\Form\CursoprogType;
 
 /**
@@ -134,16 +134,16 @@ class CursoController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Curso')->find($id);
-        $peracas = $em->getRepository('AdminMedBundle:Periodoe')->findLastThree();
+        $peracas = $em->getRepository('AppBundle:Periodoe')->findLastThree();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Curso entity.');
         }
 
-        $periodos = $em->getRepository('AdminMedBundle:Periodoa')->findby(array('periodoe' => $this->container->getParameter('appmed.periodo')));
-        $cursooferta = $em->getRepository('AdminMedBundle:Oferta')->findby(array('periodo' => $periodos, 'curso' => $entity));
+        $periodos = $em->getRepository('AppBundle:Periodoa')->findby(array('periodoe' => $this->container->getParameter('appmed.periodo')));
+        $cursooferta = $em->getRepository('AppBundle:Oferta')->findby(array('periodo' => $periodos, 'curso' => $entity));
 
-        $datos = new \Admin\MedBundle\Entity\OfertaDatos();
+        $datos = new \AppBundle\Entity\OfertaDatos();
         $Form = $this->createForm(ofertaType::class, $datos, array(
             'action' => $this->generateUrl('oferta_curso', array('id' => $entity->getId())),
             'method' => 'POST',
@@ -166,13 +166,13 @@ class CursoController extends Controller
     public function ofertaAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AdminMedBundle:Oferta')->find($id);
+        $entity = $em->getRepository('AppBundle:Oferta')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Oferta entity.');
         }
         $cedula = new Cedula();
-        $Form = $this->createForm(CedulaType::class, $cedula, array(
+        $Form = $this->createForm(CedulaTypeMed::class, $cedula, array(
             'action' => $this->generateUrl('oferta_tutor', array('id' => $entity->getId())),
             'method' => 'POST',
         ));
@@ -229,9 +229,9 @@ class CursoController extends Controller
     public function ofertaTutorAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $oferta = $em->getRepository('AdminMedBundle:Oferta')->find($id);
+        $oferta = $em->getRepository('AppBundle:Oferta')->find($id);
         $data = new Cedula();
-        $form = $this->createForm(CedulaType::class, $data);
+        $form = $this->createForm(CedulaTypeMed::class, $data);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -286,13 +286,13 @@ class CursoController extends Controller
     public function modalAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AdminMedBundle:Oferta')->find($id);
+        $entity = $em->getRepository('AppBundle:Oferta')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Curso entity.');
         }
 
         $cedula = new Cedula();
-        $Form = $this->createForm(CedulaType::class, $cedula, array(
+        $Form = $this->createForm(CedulaTypeMed::class, $cedula, array(
             'action' => $this->generateUrl('oferta_tutor', array('id' => $id)),
             'method' => 'GET',
         ));
@@ -346,12 +346,12 @@ class CursoController extends Controller
     public function ofertaeditAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AdminMedBundle:Oferta')->find($id);
+        $entity = $em->getRepository('AppBundle:Oferta')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('NO se encontro oferta');
         }
         $cedula = new Cedula();
-        $Form = $this->createForm(CedulaType::class, $cedula, array(
+        $Form = $this->createForm(CedulaTypeMed::class, $cedula, array(
             'action' => $this->generateUrl('oferta_update', array('id' => $entity->getId())),
             'method' => 'GET',
         ));
@@ -407,9 +407,9 @@ class CursoController extends Controller
     public function ofertaupdateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $oferta = $em->getRepository('AdminMedBundle:Oferta')->find($id);
+        $oferta = $em->getRepository('AppBundle:Oferta')->find($id);
         $cedula = new Cedula();
-        $Form = $this->createForm(CedulaType::class, $cedula, array(
+        $Form = $this->createForm(CedulaTypeMed::class, $cedula, array(
             'action' => $this->generateUrl('oferta_update', array('id' => $id)),
             'method' => 'GET',
         ));
@@ -422,9 +422,9 @@ class CursoController extends Controller
             $this->get('session')->getFlashBag()->add('error', 'El número no corresponde a un docente');
             return $this->redirect($this->generateUrl('oferta_edit', array('id' => $id)));
         }
-        $plang = $em->getRepository('AdminMedBundle:Plangestion')->findOneBy(array('docente' => $docente));
-        $rolAcademico = $em->getRepository('AdminMedBundle:Rolacademico')->findOneBy(array('id' => 2));
-        $esDirector = $em->getRepository('AdminMedBundle:Rolplang')->findOneBy(array('rol' => $rolAcademico, 'plang' => $plang));
+        $plang = $em->getRepository('AppBundle:Plangestion')->findOneBy(array('docente' => $docente));
+        $rolAcademico = $em->getRepository('AppBundle:Rolacademico')->findOneBy(array('id' => 2));
+        $esDirector = $em->getRepository('AppBundle:Rolplang')->findOneBy(array('rol' => $rolAcademico, 'plang' => $plang));
         if ($esDirector == null){
             $rolDirector = new Rolplang();
             $rolDirector->setPlang($plang);
@@ -519,7 +519,7 @@ class CursoController extends Controller
     public function borrartutorAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AdminMedBundle:Tutor')->find($id);
+        $entity = $em->getRepository('AppBundle:Tutor')->find($id);
         $oferta = $entity->getOferta();
         $director = $oferta->getDirector();
         $session = $request->getSession();
