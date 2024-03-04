@@ -59,7 +59,7 @@ protected $programa;
 
 
    /**
-* @ORM\OneToMany(targetEntity="Admin\MedBundle\Entity\Oferta", mappedBy="curso")
+* @ORM\OneToMany(targetEntity="AppBundle\Entity\Oferta", mappedBy="curso")
 */
 protected $oferta;
 
@@ -222,10 +222,10 @@ protected $oferta;
     /**
      * Add oferta
      *
-     * @param \Admin\MedBundle\Entity\Oferta $oferta
+     * @param \AppBundle\Entity\Oferta $oferta
      * @return Curso
      */
-    public function addOfertum(\Admin\MedBundle\Entity\Oferta $oferta)
+    public function addOfertum(\AppBundle\Entity\Oferta $oferta)
     {
         $this->oferta[] = $oferta;
 
@@ -235,9 +235,9 @@ protected $oferta;
     /**
      * Remove oferta
      *
-     * @param \Admin\MedBundle\Entity\Oferta $oferta
+     * @param \AppBundle\Entity\Oferta $oferta
      */
-    public function removeOfertum(\Admin\MedBundle\Entity\Oferta $oferta)
+    public function removeOfertum(\AppBundle\Entity\Oferta $oferta)
     {
         $this->oferta->removeElement($oferta);
     }

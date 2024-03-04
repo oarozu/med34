@@ -1,7 +1,0 @@
-parameters:
-#    admin_med.example.class: Admin\MedBundle\Example
-
-services:
-#    admin_med.example:
-#        class: %admin_med.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]

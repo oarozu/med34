@@ -77,6 +77,93 @@ _lider_unad:
     resource: "@AppBundle/Controller/LiderController.php"
     type:     annotation
 
+_planmejoramiento:
+    resource: "@AppBundle/Controller/PlanmejoramientoController.php"
+    type:     annotation
+_accionespm:
+    resource: "@AppBundle/Controller/AccionespmController.php"
+    type:     annotation
+
+_redtutores:
+    resource: "@AppBundle/Controller/redTutoresController.php"
+    type:     annotation
+
+_plangestion:
+    resource: "@AppBundle/Controller/PlangestionController.php"
+    type:     annotation
+
+_actividadesrol:
+    resource: "@AppBundle/Controller/ActividadrolController.php"
+    type:     annotation
+
+_rolacedemico:
+    resource: "@AppBundle/Controller/RolacademicoController.php"
+    type:     annotation
+
+_actividadplang:
+    resource: "@AppBundle/Controller/ActividadplangController.php"
+    type:     annotation
+
+_rolplang:
+    resource: "@AppBundle/Controller/RolplangController.php"
+    type:     annotation
+
+_coevaltutor:
+    resource: "@AppBundle/Controller/coevalTutorController.php"
+    type:     annotation
+
+_coevalpares:
+    resource: "@AppBundle/Controller/coevalParesController.php"
+    type:     annotation
+
+_coevaldirector:
+    resource: "@AppBundle/Controller/coevalDirectorController.php"
+    type:     annotation
+
+_coevallider:
+    resource: "@AppBundle/Controller/coevalLiderController.php"
+    type:     annotation
+
+_avales:
+    resource: "@AppBundle/Controller/AvalplangController.php"
+    type:     annotation
+
+_archivo:
+    resource: "@AppBundle/Controller/ArchivoController.php"
+    type:     annotation
+
+_instrumento:
+    resource: "@AppBundle/Controller/InstrumentoController.php"
+    type:     annotation
+
+_formato:
+    resource: "@AppBundle/Controller/formatoPlangController.php"
+    type:     annotation
+
+_plangpdf:
+    resource: "@AppBundle/Controller/pdfPlangController.php"
+    type:     annotation
+
+_base:
+    resource: "@AppBundle/Controller/BaseController.php"
+    type:     annotation
+
+_consolidar:
+    resource: "@AppBundle/Controller/ConsolidarController.php"
+    type:     annotation
+
+_hetero:
+    resource: "@AppBundle/Controller/HeteroController.php"
+    type:     annotation
+
+_dofe:
+    resource: "@AppBundle/Controller/DofeController.php"
+    type:     annotation
+
+_productividad:
+    resource: "@AppBundle/Controller/ProductividadController.php"
+    type:     annotation
+
 docente_coevaltutor:
     path:  /doc/coevaltutor
     defaults: { _controller: "AppBundle:Docente:coevaltutor" }
@@ -84,3 +171,35 @@ docente_coevaltutor:
 decano_coevallider:
     path:  /dec/coevallider
     defaults: { _controller: "AppBundle:Escuela:coevallider" }
+
+
+accionespm_editdoc:
+    path:  /doc/planm/acc/{id}/edit
+    defaults: { _controller: "AppBundle:Accionespm:editdoc" }
+
+planmejoramiento_doc:
+    path: /doc/planm/{id}
+    defaults: { _controller: "AppBundle:Planmejoramiento:doc" }
+
+plangestion_info:
+    path:  /unad/doc/{id}/plan
+    defaults: { _controller: "AppBundle:Plangestion:info" }
+    methods: GET
+
+plangestion_autoeval:
+    path:  /unad/doc/{id}/autoeval
+    defaults: { _controller: "AppBundle:Plangestion:autoeval" }
+    methods: GET
+
+
+redtutores_info:
+    path:  /unad/doc/{id}/redtutor
+    defaults: { _controller: "AppBundle:Docente:redtutoresinfo" }
+
+coeval_info:
+    path:  /unad/doc/{id}/coeval
+    defaults: { _controller: "AppBundle:Docente:coevalinfo" }
+
+user_info:
+    path:  /unad/user/{id}/info
+    defaults: { _controller: "AppBundle:User:show" }

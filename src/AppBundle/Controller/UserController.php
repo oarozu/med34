@@ -163,7 +163,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $archivo = $em->getRepository('AdminMedBundle:Archivo')->findBy(array('cedula' => $id));
+        $archivo = $em->getRepository('AppBundle:Archivo')->findBy(array('cedula' => $id));
 
         $porSemestre = $em->getRepository('AppBundle:Docente')->porSemestres($id,"'s'");
         $porAnual = $em->getRepository('AppBundle:Docente')->porSemestres($id,"'a'");

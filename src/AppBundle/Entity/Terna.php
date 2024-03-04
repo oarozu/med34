@@ -36,14 +36,14 @@ protected $escuela;
 
 /**
 * @var Periodoe
-* @ORM\ManyToOne(targetEntity="Admin\MedBundle\Entity\Periodoe")
+* @ORM\ManyToOne(targetEntity="AppBundle\Entity\Periodoe")
 * @ORM\JoinColumn(name="periodo_id", referencedColumnName="id")
 */
 protected $periodo;
 
 
 /**
-* @ORM\OneToMany(targetEntity="Admin\MedBundle\Entity\coevalPares", mappedBy="evaluador")
+* @ORM\OneToMany(targetEntity="AppBundle\Entity\coevalPares", mappedBy="evaluador")
 */
 protected $evaluacion;
 
@@ -142,10 +142,10 @@ protected $principal;
     /**
      * Add evaluados
      *
-     * @param \Admin\MedBundle\Entity\coevalPares $evaluados
+     * @param \AppBundle\Entity\coevalPares $evaluados
      * @return Terna
      */
-    public function addEvaluado(\Admin\MedBundle\Entity\coevalPares $evaluados)
+    public function addEvaluado(\AppBundle\Entity\coevalPares $evaluados)
     {
         $this->evaluados[] = $evaluados;
 
@@ -156,10 +156,10 @@ protected $principal;
     /**
      * Add evaluacion
      *
-     * @param \Admin\MedBundle\Entity\coevalPares $evaluacion
+     * @param \AppBundle\Entity\coevalPares $evaluacion
      * @return Terna
      */
-    public function addEvaluacion(\Admin\MedBundle\Entity\coevalPares $evaluacion)
+    public function addEvaluacion(\AppBundle\Entity\coevalPares $evaluacion)
     {
         $this->evaluacion[] = $evaluacion;
 
@@ -169,9 +169,9 @@ protected $principal;
     /**
      * Remove evaluacion
      *
-     * @param \Admin\MedBundle\Entity\coevalPares $evaluacion
+     * @param \AppBundle\Entity\coevalPares $evaluacion
      */
-    public function removeEvaluacion(\Admin\MedBundle\Entity\coevalPares $evaluacion)
+    public function removeEvaluacion(\AppBundle\Entity\coevalPares $evaluacion)
     {
         $this->evaluacion->removeElement($evaluacion);
     }
@@ -189,10 +189,10 @@ protected $principal;
     /**
      * Set periodo
      *
-     * @param \Admin\MedBundle\Entity\Periodoe $periodo
+     * @param \AppBundle\Entity\Periodoe $periodo
      * @return Terna
      */
-    public function setPeriodo(\Admin\MedBundle\Entity\Periodoe $periodo = null)
+    public function setPeriodo(\AppBundle\Entity\Periodoe $periodo = null)
     {
         $this->periodo = $periodo;
 
@@ -202,7 +202,7 @@ protected $principal;
     /**
      * Get periodo
      *
-     * @return \Admin\MedBundle\Entity\Periodoe
+     * @return \AppBundle\Entity\Periodoe
      */
     public function getPeriodo()
     {

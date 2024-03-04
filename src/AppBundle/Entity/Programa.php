@@ -282,10 +282,10 @@ protected $escuela;
     /**
      * Set coeval
      *
-     * @param \Admin\MedBundle\Entity\coevalLider $coeval
+     * @param \AppBundle\Entity\coevalLider $coeval
      * @return Programa
      */
-    public function setCoeval(\Admin\MedBundle\Entity\coevalLider $coeval = null)
+    public function setCoeval(\AppBundle\Entity\coevalLider $coeval = null)
     {
         $this->coeval = $coeval;
 
@@ -295,7 +295,7 @@ protected $escuela;
     /**
      * Get coeval
      *
-     * @return \Admin\MedBundle\Entity\coevalLider
+     * @return \AppBundle\Entity\coevalLider
      */
     public function getCoeval()
     {

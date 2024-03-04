@@ -149,11 +149,11 @@ class EscuelaController extends Controller
             return $this->redirect($this->generateUrl('home_user_inicio'));
         }
 
-        $periodoss = $em->getRepository('AdminMedBundle:Periodoe')->findby(array('type' => 's'), array('id' => 'DESC'), 10);
-        $periodosa = $em->getRepository('AdminMedBundle:Periodoe')->findby(array('type' => 'a'), array('id' => 'DESC'), 5);
-        $periodosp = $em->getRepository('AdminMedBundle:Periodoe')->findby(array('type' => 'p', 'year' => $year), array('id' => 'DESC'));
+        $periodoss = $em->getRepository('AppBundle:Periodoe')->findby(array('type' => 's'), array('id' => 'DESC'), 10);
+        $periodosa = $em->getRepository('AppBundle:Periodoe')->findby(array('type' => 'a'), array('id' => 'DESC'), 5);
+        $periodosp = $em->getRepository('AppBundle:Periodoe')->findby(array('type' => 'p', 'year' => $year), array('id' => 'DESC'));
         $programas = $em->getRepository('AppBundle:Programa')->findBy(array('escuela' => $escuela), array('nivel' => 'DESC'));
-        $periodo = $em->getRepository('AdminMedBundle:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
+        $periodo = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
 
         $ofertado = $em->getRepository('AppBundle:ProgramaPeriodo')->findby(array('programa' => $programas, 'periodo' => $session->get('periodoe')));
 
