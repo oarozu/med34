@@ -21,7 +21,7 @@ class coevalParesController extends Controller {
      * Lists all coevalPares entities.
      *
      * @Route("/", name="docente_coevalpares", methods={"GET"})
-     * @Template("AdminMedBundle:coevalPares:index.html.twig")
+     * @Template("coevalPares/index.html.twig")
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -38,7 +38,7 @@ class coevalParesController extends Controller {
      * Creates a new coevalPares entity.
      *
      * @Route("/", name="coevalpares_create", methods={"POST"})
-     * @Template("AdminMedBundle:coevalPares:new.html.twig")
+     * @Template("coevalPares/new.html.twig")
      */
     public function createAction(Request $request) {
         $entity = new coevalPares();
@@ -81,7 +81,7 @@ class coevalParesController extends Controller {
      * Finds and displays a coevalPares entity.
      *
      * @Route("/{id}", name="coevalpares_show", methods={"GET"})
-     * @Template("AdminMedBundle:coevalPares:show.html.twig")
+     * @Template("coevalPares/show.html.twig")
      */
     public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -104,7 +104,7 @@ class coevalParesController extends Controller {
      * Displays a form to edit an existing coevalPares entity.
      *
      * @Route("/send/{id}", name="coevalpares_edit", methods={"GET"})
-     * @Template("AdminMedBundle:coevalPares:edit.html.twig")
+     * @Template("coevalPares/edit.html.twig")
      */
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -141,7 +141,7 @@ class coevalParesController extends Controller {
      * Edits an existing coevalPares entity.
      *
      * @Route("/{id}", name="coevalpares_update", methods={"PUT"})
-     * @Template("AdminMedBundle:coevalPares:edit.html.twig")
+     * @Template("coevalPares/edit.html.twig")
      */
     public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
@@ -223,7 +223,7 @@ class coevalParesController extends Controller {
     /**
      * Crear Evaluaciones
      * @Route("/crear/eval", name="coevalpares_crear", methods={"GET"})
-     * @Template("AdminMedBundle:coevalPares:crear.html.twig")
+     * @Template("coevalPares/crear.html.twig")
      */
     public function crearAction(Request $request) {
         $em = $this->getDoctrine()->getManager();

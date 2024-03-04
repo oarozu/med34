@@ -21,7 +21,7 @@ class redTutoresController extends Controller
      * Lists all redTutores entities.
      *
      * @Route("/", name="redtutores", methods={"GET"})
-     * @Template("AdminMedBundle:redTutores:index.html.twig")
+     * @Template("redTutores/index.html.twig")
      */
     public function indexAction(Request $request)
     {
@@ -38,7 +38,7 @@ class redTutoresController extends Controller
 
     /**
      * @Route("/", name="redtutores_create", methods={"POST"})
-     * @Template("AdminMedBundle:redTutores:new.html.twig")
+     * @Template("redTutores/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -83,7 +83,7 @@ class redTutoresController extends Controller
      * Displays a form to create a new redTutores entity.
      *
      * @Route("/new", name="redtutores_new", methods={"GET"})
-     * @Template("AdminMedBundle:redTutores:new.html.twig")
+     * @Template("redTutores/new.html.twig")
      */
     public function newAction()
     {
@@ -100,7 +100,7 @@ class redTutoresController extends Controller
      * Finds and displays a redTutores entity.
      *
      * @Route("/{id}", name="redtutores_show", methods={"GET"})
-     * @Template("AdminMedBundle:redTutores:show.html.twig")
+     * @Template("redTutores/show.html.twig")
      */
     public function showAction($id)
     {
@@ -124,7 +124,7 @@ class redTutoresController extends Controller
      * Displays a form to edit an existing redTutores entity.
      *
      * @Route("/{id}/edit", name="redtutores_edit", methods={"GET"})
-     * @Template("AdminMedBundle:redTutores:edit.html.twig")
+     * @Template("redTutores/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -174,7 +174,7 @@ class redTutoresController extends Controller
      * Edits an existing redTutores entity.
      *
      * @Route("/{id}", name="redtutores_update", methods={"PUT"})
-     * @Template("AdminMedBundle:redTutores:edit.html.twig")
+     * @Template("redTutores/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {

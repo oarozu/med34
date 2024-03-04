@@ -23,7 +23,7 @@ class RolplangController extends Controller
      * Creates a new Rolplang entity.
      *
      * @Route("/{id}", name="rolplang_create", methods={"POST"})
-     * @Template("AdminMedBundle:Rolplang:new.html.twig")
+     * @Template("Rolplang/new.html.twig")
      */
     public function createAction(Request $request, $id)
     {
@@ -84,7 +84,7 @@ class RolplangController extends Controller
      * Displays a form to create a new Rolplang entity.
      *
      * @Route("/new/{id}/{idr}", name="rolplang_new", methods={"GET"})
-     * @Template("AdminMedBundle:Rolplang:new.html.twig")
+     * @Template("Rolplang/new.html.twig")
      */
     public function newAction($id, $idr)
     {
@@ -114,7 +114,7 @@ class RolplangController extends Controller
      * Finds and displays a Rolplang entity.
      *
      * @Route("/{id}", name="rolplang_show", methods={"GET"})
-     * @Template("AdminMedBundle:Rolplang:show.html.twig")
+     * @Template("Rolplang/show.html.twig")
      */
     public function showAction($id)
     {
@@ -138,7 +138,7 @@ class RolplangController extends Controller
      * Displays a form to edit an existing Rolplang entity.
      *
      * @Route("/{id}/edit", name="rolplang_edit", methods={"GET"})
-     * @Template("AdminMedBundle:Rolplang:edit.html.twig")
+     * @Template("Rolplang/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -183,7 +183,7 @@ class RolplangController extends Controller
      * Edits an existing Rolplang entity.
      *
      * @Route("/{id}", name="rolplang_update", methods={"PUT"})
-     * @Template("AdminMedBundle:Rolplang:edit.html.twig")
+     * @Template("Rolplang/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {

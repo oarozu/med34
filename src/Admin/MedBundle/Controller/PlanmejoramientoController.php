@@ -22,7 +22,7 @@ class PlanmejoramientoController extends Controller
      * Lists all Planmejoramiento entities.
      *
      * @Route("/", name="planmejoramiento", methods={"GET"})
-     * @Template("AdminMedBundle:Planmejoramiento:index.html.twig")
+     * @Template("Planmejoramiento/index.html.twig")
      */
     public function indexAction(Request $request)
     {
@@ -43,7 +43,7 @@ class PlanmejoramientoController extends Controller
      * Creates a new Planmejoramiento entity.
      *
      * @Route("/", name="planmejoramiento_create", methods={"POST"})
-     * @Template("AdminMedBundle:Planmejoramiento:new.html.twig")
+     * @Template("Planmejoramiento/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -88,7 +88,7 @@ class PlanmejoramientoController extends Controller
      * Displays a form to create a new Planmejoramiento entity.
      *
      * @Route("/new", name="planmejoramiento_new", methods={"GET"})
-     * @Template("AdminMedBundle:Planmejoramiento:new.html.twig")
+     * @Template("Planmejoramiento/new.html.twig")
      */
     public function newAction()
     {
@@ -105,7 +105,7 @@ class PlanmejoramientoController extends Controller
     /**
      * Seleccionar docente
      * @Route("/add", name="planmejoramiento_add", methods={"GET"})
-     * @Template("AdminMedBundle:Planmejoramiento:edit.html.twig")
+     * @Template("Planmejoramiento/edit.html.twig")
      */
     public function addAction(Request $request)
     {
@@ -122,7 +122,7 @@ class PlanmejoramientoController extends Controller
      * Agregar Plan Mejoramiento a Docente
      *
      * @Route("/add/{id}", name="planmejoramiento_agregar", methods={"GET"})
-     * @Template("AdminMedBundle:Planmejoramiento:agregar.html.twig")
+     * @Template("Planmejoramiento/agregar.html.twig")
      */
     public function agregarAction(Request $request, $id)
     {
@@ -145,7 +145,7 @@ class PlanmejoramientoController extends Controller
      * Finds and displays a Planmejoramiento entity.
      *
      * @Route("/{id}", name="planmejoramiento_show", methods={"GET"})
-     * @Template("AdminMedBundle:Planmejoramiento:show.html.twig")
+     * @Template("Planmejoramiento/show.html.twig")
      */
     public function showAction($id)
     {
@@ -189,7 +189,7 @@ class PlanmejoramientoController extends Controller
      * Displays a form to edit an existing Planmejoramiento entity.
      *
      * @Route("/{id}/edit", name="planmejoramiento_edit", methods={"GET"})
-     * @Template("AdminMedBundle:Planmejoramiento:edit.html.twig")
+     * @Template("Planmejoramiento/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -232,7 +232,7 @@ class PlanmejoramientoController extends Controller
      * Edits an existing Planmejoramiento entity.
      *
      * @Route("/{id}", name="planmejoramiento_update", methods={"PUT"})
-     * @Template("AdminMedBundle:Planmejoramiento:edit.html.twig")
+     * @Template("Planmejoramiento/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {

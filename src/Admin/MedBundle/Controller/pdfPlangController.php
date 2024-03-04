@@ -38,7 +38,7 @@ class pdfPlangController extends Controller
      * Creates a new formatoPlang entity.
      *
      * @Route("/crear/{id}", name="pdfplang_create", methods={"POST"})
-     * @Template("AdminMedBundle:pdfPlang:new.html.twig")
+     * @Template("pdfPlang/new.html.twig")
      */
     public function createAction(Request $request, $id)
     {
@@ -88,7 +88,7 @@ class pdfPlangController extends Controller
      * Displays a form to create a new pdfPlang entity.
      *
      * @Route("/new/{id}", name="pdfplang_new", methods={"GET"})
-     * @Template("AdminMedBundle:pdfPlang:new.html.twig")
+     * @Template("pdfPlang/new.html.twig")
      */
     public function newAction($id)
     {
@@ -111,7 +111,7 @@ class pdfPlangController extends Controller
      * Displays a form to edit an existing formatoPlang entity.
      *
      * @Route("/{id}/edit", name="pdfplang_edit", methods={"GET"})
-     * @Template("AdminMedBundle:formatoPlang:edit.html.twig")
+     * @Template("formatoPlang/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -155,7 +155,7 @@ class pdfPlangController extends Controller
      * Edits an existing formatoPlang entity.
      *
      * @Route("/{id}", name="formatoplang_update", methods={"PUT"})
-     * @Template("AdminMedBundle:formatoPlang:edit.html.twig")
+     * @Template("formatoPlang/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {

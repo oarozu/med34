@@ -22,7 +22,7 @@ class AccionespmController extends Controller
      * Lists all Accionespm entities.
      *
      * @Route("/", name="accionespm", methods={"GET"})
-     * @Template("AdminMedBundle:Accionespm:index.html.twig")
+     * @Template("Accionespm/index.html.twig")
      */
     public function indexAction()
     {
@@ -38,7 +38,7 @@ class AccionespmController extends Controller
      * Creates a new Accionespm entity.
      *
      * @Route("/", name="accionespm_create",  methods={"POST"})
-     * @Template("AdminMedBundle:Accionespm:new.html.twig")
+     * @Template("Accionespm/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -95,7 +95,7 @@ class AccionespmController extends Controller
      * Displays a form to create a new Accionespm entity.
      *
      * @Route("/new/{id}", name="accionespm_new",  methods={"GET"})
-     * @Template("AdminMedBundle:Accionespm:new.html.twig")
+     * @Template("Accionespm/new.html.twig")
      */
     public function newAction($id)
     {
@@ -118,7 +118,7 @@ class AccionespmController extends Controller
      * Finds and displays a Accionespm entity.
      *
      * @Route("/{id}", name="accionespm_show",  methods={"GET"})
-     * @Template("AdminMedBundle:Accionespm:show.html.twig")
+     * @Template("Accionespm/show.html.twig")
      */
     public function showAction($id)
     {
@@ -142,7 +142,7 @@ class AccionespmController extends Controller
      * Displays a form to edit an existing Accionespm entity.
      *
      * @Route("/{id}/edit", name="accionespm_edit",  methods={"GET"})
-     * @Template("AdminMedBundle:Accionespm:edit.html.twig")
+     * @Template("Accionespm/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -167,7 +167,7 @@ class AccionespmController extends Controller
        /**
      * Displays a form to edit an existing Accionespm entity.
      * @Route("/{id}/editar", name="accionespm_editar",  methods={"GET"})
-     * @Template("AdminMedBundle:Accionespm:editar.html.twig")
+     * @Template("Accionespm/editar.html.twig")
      */
     public function editarAction(Request $request, $id)
     {
@@ -251,7 +251,7 @@ class AccionespmController extends Controller
      * Edits an existing Accionespm entity.
      *
      * @Route("/{id}", name="accionespm_update",  methods={"PUT"})
-     * @Template("AdminMedBundle:Accionespm:edit.html.twig")
+     * @Template("Accionespm/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {

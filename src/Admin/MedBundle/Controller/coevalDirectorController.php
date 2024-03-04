@@ -23,7 +23,7 @@ class coevalDirectorController extends Controller
      * Lists all coevalDirector entities.
      *
      * @Route("/{id}", name="docente_coevaldirector",  methods={"GET"})
-     * @Template("AdminMedBundle:coevalDirector:index.html.twig")
+     * @Template("coevalDirector/index.html.twig")
      */
     public function indexAction(Request $request, $id)
     {
@@ -47,7 +47,7 @@ class coevalDirectorController extends Controller
      * Creates a new coevalDirector entity.
      *
      * @Route("/", name="coevaldirector_create",  methods={"POST"})
-     * @Template("AdminMedBundle:coevalDirector:new.html.twig")
+     * @Template("coevalDirector/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -93,7 +93,7 @@ class coevalDirectorController extends Controller
      * Finds and displays a coevalDirector entity.
      *
      * @Route("/{id}", name="coevaldirector_show",  methods={"GET"})
-     * @Template("AdminMedBundle:coevalDirector:show.html.twig")
+     * @Template("coevalDirector/show.html.twig")
      */
     public function showAction($id)
     {
@@ -117,7 +117,7 @@ class coevalDirectorController extends Controller
      * Displays a form to edit an existing coevalDirector entity.
      *
      * @Route("/{id}/edit", name="coevaldirector_edit",  methods={"GET"})
-     * @Template("AdminMedBundle:coevalDirector:edit.html.twig")
+     * @Template("coevalDirector/edit.html.twig")
      */
     public function editAction(Request $request, $id)
     {
@@ -168,7 +168,7 @@ class coevalDirectorController extends Controller
      * Edits an existing coevalDirector entity.
      *
      * @Route("/{id}", name="coevaldirector_update",  methods={"PUT"})
-     * @Template("AdminMedBundle:coevalDirector:edit.html.twig")
+     * @Template("coevalDirector/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
