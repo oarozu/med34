@@ -73,7 +73,7 @@ protected $path;
     }
 
     protected function getUploadDir() {
-        return 'uploads/'.$this->periodo.'/pdfplang';
+        return 'repo/'.$this->periodo.'/pdfplang';
     }
       /**
      * Sets file.
@@ -109,8 +109,6 @@ protected $path;
      */
     public function preUpload()     {
         if (null !== $this->getFile()) {
-            // haz lo que quieras para generar un nombre único
-            //$filename = sha1(uniqid(mt_rand(), true));
             $filename = 'pdfplang-'.$this->plan_id;
             $this->path = $filename . '.' . $this->getFile()->guessExtension();
         }

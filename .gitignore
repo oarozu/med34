@@ -1,6 +1,7 @@
 /web/archivo/
 /web/bundles/
 /web/uploads/
+/web/repo/
 
 !/var/cache
 /var/cache/*
