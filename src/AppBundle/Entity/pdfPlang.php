@@ -73,7 +73,7 @@ protected $path;
     }
 
     protected function getUploadDir() {
-        return 'repo/pdfplang'.$this->periodo;
+        return 'uploads/pdfplang/'.$this->periodo;
     }
       /**
      * Sets file.
