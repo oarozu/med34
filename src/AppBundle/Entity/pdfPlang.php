@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * @ORM\Entity
  * @ORM\Table(name="plangestion_pdf")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\formatoPlangRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\pdfPlangRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class pdfPlang{
@@ -73,7 +73,7 @@ protected $path;
     }
 
     protected function getUploadDir() {
-        return 'repo/'.$this->periodo.'/pdfplang';
+        return 'repo/pdfplang'.$this->periodo;
     }
       /**
      * Sets file.
@@ -83,7 +83,6 @@ protected $path;
     public function setFile(UploadedFile $file = null)     {
         $this->file = $file;
      //   $this->descripcion = 'adjunto';
-
         if (isset($this->path)) {
             // store the old name to delete after the update
             $this->temp = $this->path;
@@ -153,7 +152,7 @@ protected $path;
      * Set path
      *
      * @param string $path
-     * @return formatoPlang
+     * @return pdfPlang
      */
     public function setPath($path)
     {
@@ -175,7 +174,7 @@ protected $path;
     /**
      * Set id
      * @param integer $id
-     * @return formatoPlang
+     * @return pdfPlang
      */
     public function SetId($id)
     {

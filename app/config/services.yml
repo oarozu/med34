@@ -1,0 +1,5 @@
+services:
+
+  AppBundle\Service\FileUploader:
+    arguments:
+      $targetDirectory: '%pdfplan_directory%'
