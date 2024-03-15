@@ -79,3 +79,6 @@ swiftmailer:
     host:       smtp.gmail.com
     username:   'siga@unad.edu.co'
     password:   'Unad152715*'
+parameters:
+    uploads_directory: '%kernel.project_dir%/web/'
+
