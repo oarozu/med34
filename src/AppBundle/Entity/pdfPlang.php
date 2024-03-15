@@ -72,13 +72,9 @@ class pdfPlang
 
     protected function getUploadRootDir()
     {
-        return $this->getRootDir() . '/web/' . $this->getUploadDir();
+        return __DIR__ . '/../../web/' . $this->getUploadDir();
     }
 
-    protected function getRootDir()
-    {
-        return realpath(parent::getRootDir().'/../');
-    }
 
     protected function getUploadDir()
     {
