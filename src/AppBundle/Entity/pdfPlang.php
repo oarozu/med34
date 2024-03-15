@@ -1,29 +1,33 @@
 <?php
+
 namespace AppBundle\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="plangestion_pdf")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\pdfPlangRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class pdfPlang{
+class pdfPlang
+{
+    protected static $defaultName = 'app:project-dir';
     private $projectDir;
-  protected $plan_id = 0;
-  protected $periodo = 0;
+    protected $plan_id = 0;
+    protected $periodo = 0;
 
     /**
-   * @var integer $id
-   * @ORM\Id
-   * @ORM\Column(type="integer")
-   * @ORM\GeneratedValue(strategy="IDENTITY")
-   */
-  protected $id;
-
+     * @var integer $id
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    protected $id;
 
 
     /**
@@ -31,7 +35,7 @@ class pdfPlang{
      * @Assert\Length( max = "255" )
      */
 
-protected $path;
+    protected $path;
 
 
     /**
@@ -42,48 +46,52 @@ protected $path;
      *     mimeTypesMessage = "Tipo de archivo no válido, Solo se permite en formato PDF"
      * )
      */
- private $file;
+    private $file;
 
 
-
-     public function __construct($id,$periodo, $projectDir)
+    public function __construct($id, $periodo, $projectDir)
     {
         $this->plan_id = $id;
         $this->id = $id;
         $this->periodo = $periodo;
         $this->projectDir = $projectDir;
-        parent::__construct();
     }
 
-         /******* Logica Archivos**/
+    /******* Logica Archivos**/
 
-     public function getAbsolutePath() {
+    public function getAbsolutePath()
+    {
         return null === $this->path
-                ? null
-                : $this->getUploadRootDir() . '/' . $this->path;
+            ? null
+            : $this->getUploadRootDir() . '/' . $this->path;
     }
 
-    public function getWebPath() {
+    public function getWebPath()
+    {
         return null === $this->path
-                ? null
-                : '/pdfplang/' . $this->path;
+            ? null
+            : '/pdfplang/' . $this->path;
     }
 
-    protected function getUploadRootDir() {
-        return $this->projectDir. '/web/' . $this->getUploadDir();
+    protected function getUploadRootDir()
+    {
+        return $this->projectDir . '/web/' . $this->getUploadDir();
     }
 
-    protected function getUploadDir() {
-        return 'uploads/pdfplang/'.$this->periodo;
+    protected function getUploadDir()
+    {
+        return 'uploads/pdfplang/' . $this->periodo;
     }
-      /**
+
+    /**
      * Sets file.
      *
      * @param UploadedFile $file
      */
-    public function setFile(UploadedFile $file = null)     {
+    public function setFile(UploadedFile $file = null)
+    {
         $this->file = $file;
-     //   $this->descripcion = 'adjunto';
+        //   $this->descripcion = 'adjunto';
         if (isset($this->path)) {
             // store the old name to delete after the update
             $this->temp = $this->path;
@@ -98,7 +106,8 @@ protected $path;
      *
      * @return UploadedFile
      */
-    public function getFile()     {
+    public function getFile()
+    {
         return $this->file;
     }
 
@@ -107,9 +116,10 @@ protected $path;
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
-    public function preUpload()     {
+    public function preUpload()
+    {
         if (null !== $this->getFile()) {
-            $filename = 'pdfplang-'.$this->plan_id;
+            $filename = 'pdfplang-' . $this->plan_id;
             $this->path = $filename . '.' . $this->getFile()->guessExtension();
         }
     }
@@ -118,7 +128,8 @@ protected $path;
      * @ORM\PostPersist()
      * @ORM\PostUpdate()
      */
-    public function upload()     {
+    public function upload()
+    {
         if (null === $this->getFile()) {
             return;
         }
@@ -138,15 +149,15 @@ protected $path;
         $this->file = null;
     }
 
-        /**
+    /**
      * @ORM\PostRemove()
      */
-    public function removeUpload() {
+    public function removeUpload()
+    {
         if ($file = $this->getAbsolutePath()) {
             unlink($file);
         }
     }
-
 
 
     /**
