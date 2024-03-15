@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @ORM\HasLifecycleCallbacks
  */
 class pdfPlang{
-
+    private $projectDir;
   protected $plan_id = 0;
   protected $periodo = 0;
 
@@ -46,13 +46,14 @@ protected $path;
 
 
 
-     public function __construct($id,$periodo)
+     public function __construct($id,$periodo, $projectDir)
     {
         $this->plan_id = $id;
         $this->id = $id;
         $this->periodo = $periodo;
+        $this->projectDir = $projectDir;
+        parent::__construct();
     }
-
 
          /******* Logica Archivos**/
 
@@ -69,7 +70,7 @@ protected $path;
     }
 
     protected function getUploadRootDir() {
-        return $this->container->getParameter('uploads_directory') . $this->getUploadDir();
+        return $this->projectDir. '/web/' . $this->getUploadDir();
     }
 
     protected function getUploadDir() {
