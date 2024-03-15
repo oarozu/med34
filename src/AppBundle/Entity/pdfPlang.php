@@ -69,7 +69,7 @@ protected $path;
     }
 
     protected function getUploadRootDir() {
-        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
+        return '%kernel.project_dir%/web/' . $this->getUploadDir();
     }
 
     protected function getUploadDir() {
