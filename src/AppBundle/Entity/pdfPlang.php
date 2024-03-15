@@ -72,13 +72,13 @@ class pdfPlang
 
     protected function getUploadRootDir()
     {
-        return __DIR__ .'/web/' . $this->getUploadDir();
+        return '/home/evaluacion.docente/public_html/releases/appmed/web/' . $this->getUploadDir();
     }
 
 
     protected function getUploadDir()
     {
-        return 'uploads/pdfplang/' . $this->periodo;
+        return 'repo/'. $this->periodo.'/pdfplang';
     }
 
     /**
