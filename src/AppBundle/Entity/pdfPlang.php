@@ -16,8 +16,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class pdfPlang
 {
-    protected static $defaultName = 'app:project-dir';
-    private $projectDir;
     protected $plan_id = 0;
     protected $periodo = 0;
 
@@ -49,12 +47,11 @@ class pdfPlang
     private $file;
 
 
-    public function __construct($id, $periodo, $projectDir)
+    public function __construct($id, $periodo)
     {
         $this->plan_id = $id;
         $this->id = $id;
         $this->periodo = $periodo;
-        $this->projectDir = $projectDir;
     }
 
     /******* Logica Archivos**/
@@ -75,7 +72,12 @@ class pdfPlang
 
     protected function getUploadRootDir()
     {
-        return $this->projectDir . '/web/' . $this->getUploadDir();
+        return $this->getRootDir() . '/web/' . $this->getUploadDir();
+    }
+
+    protected function getRootDir()
+    {
+        return realpath(parent::getRootDir().'/../');
     }
 
     protected function getUploadDir()
