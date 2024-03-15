@@ -100,7 +100,7 @@ class pdfPlangController extends Controller
 
         $form   = $this->createCreateForm($entity,$id);
 
-        $pathproyect =  __DIR__ .'/web/';
+        $pathproyect =  __DIR__ .'../../../web/';
 
         return array(
             'entity' => $entity,
