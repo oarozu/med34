@@ -62,7 +62,7 @@ protected $descripcion;
         return $this->getName();
     }
 
-    public function __toString() {
+    public function __toString() : string {
         return $this->getRole();
     }
       /**
