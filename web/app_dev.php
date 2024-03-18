@@ -1,7 +1,7 @@
 <?php
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Debug\Debug;
+use Symfony\Component\ErrorHandler\DebugClassLoader;
 
 // If you don't want to setup permissions the proper way, just uncomment the following PHP line
 // read http://symfony.com/doc/current/book/installation.html#configuration-and-setup for more information
@@ -19,7 +19,7 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
 
 require __DIR__.'/../vendor/autoload.php';
 
-Debug::enable();
+DebugClassLoader::enable();
 
 $kernel = new AppKernel('dev', true);
 $request = Request::createFromGlobals();

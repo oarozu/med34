@@ -261,7 +261,7 @@ class DocenteController extends Controller
 
     /**
      * Finds and displays a Docente entity
-     * @Route("/{id}", name="docente_show", methods={"GET"})
+     * @Route("/{id}/show", name="docente_show", methods={"GET"})
      * @Template("Docente/show.html.twig")
      */
     public function showAction(Request $request, $id)
@@ -290,7 +290,7 @@ class DocenteController extends Controller
 
     /**
      * Finds and displays a Docente entity
-     * @Route("/inicio/", name="docente_inicio", methods={"GET"})
+     * @Route("/inicio", name="docente_inicio", methods={"GET"})
      * @Template("Docente/inicio.html.twig")
      */
     public function inicioAction(Request $request)
