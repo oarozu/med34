@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -11,7 +11,7 @@ use AppBundle\Entity\Periodoe;
 use Admin\UnadBundle\Entity\Docente;
 
 
-class DefaultController extends Controller {
+class DefaultController extends AbstractController {
 
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -78,7 +78,7 @@ class DefaultController extends Controller {
             $docente = null;
         }
 
-        return $this->render('AppBundle:Default:index.html.twig', array(
+        return $this->render('Default/index.html.twig', array(
                     'escuela' => $escuela,
                     'user' => $user,
                     'periodo' => $periodoe,
@@ -102,7 +102,7 @@ class DefaultController extends Controller {
         }
         $periodos_on = $this->container->getParameter('appmed.periodos');
         $periodos = $em->getRepository('AppBundle:Periodoe')->findBy(array('id' => $periodos_on));
-        return $this->render('AppBundle:Default:periods.html.twig', array(
+        return $this->render('Default/periods.html.twig', array(
             'year' => $year,
             'periodos' => $periodos,
             'isdc' => $isdc
@@ -165,7 +165,7 @@ class DefaultController extends Controller {
             $this->ingresoAction($cedula_usuario, $request);
         } else {
             # $this->ingresoAction($cedula_usuario);
-            return $this->render('AppBundle:Default:home.html.twig', array(
+            return $this->render('Default/home.html.twig', array(
                         // el último nombre de usuario ingresado por el usuario
                         'cedula_usuario' => $cedula_usuario,
                         'nombres_usuario' => $nombres_usuario,

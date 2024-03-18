@@ -8,31 +8,20 @@ sensio_framework_extra:
         annotations: false
 
 framework:
-    #esi:             ~
-    #translator:      { fallback: "%locale%" }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
-    form:            ~
     csrf_protection: ~
-    validation:      { enable_annotations: true }
     templating:
         engines: ['twig']
         #assets_version: SomeVersionScheme
-    default_locale:  en
     trusted_hosts:   ~
     session:
         # handler_id set to null will use default session handler from php.ini
         handler_id:  ~
     fragments:       ~
     http_method_override: true
-
-# Twig Configuration
-twig:
-    debug:            "%kernel.debug%"
-    strict_variables: "%kernel.debug%"
-
 
 # Assetic Configuration
 #assetic:
@@ -79,6 +68,4 @@ swiftmailer:
     host:       smtp.gmail.com
     username:   'siga@unad.edu.co'
     password:   'Unad152715*'
-parameters:
-    uploads_directory: '%kernel.project_dir%/web/'
 

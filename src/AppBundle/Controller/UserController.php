@@ -7,7 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Parabuscar;
@@ -22,13 +22,13 @@ use AppBundle\Entity\Newpass;
  *
  * @Route("/admin/user")
  */
-class UserController extends Controller
+class UserController extends AbstractController
 {
 
     /**
      * Lists all Usuarios entities.
      * @Route("/", name="admin_user", methods={"GET"})
-     * @Template("AppBundle:User:index.html.twig")
+     * @Template("User/index.html.twig")
      */
     public function indexAction(Request $request)
     {
@@ -60,7 +60,7 @@ class UserController extends Controller
             $entities = $this->buscarDocenteAction($valores->getTexto(), $valores->getParametro());
         }
 
-        return $this->render('AppBundle:User:index.html.twig', array(
+        return $this->render('User/index.html.twig', array(
             'entities' => $entities,
             'form' => $Form->createView(),
             'newform' => $newform->createView()
@@ -73,7 +73,7 @@ class UserController extends Controller
      */
     public function infoAction()
     {
-        return $this->render('AppBundle:User:info.html.twig');
+        return $this->render('User/info.html.twig');
     }
 
     /**
@@ -133,7 +133,7 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('admin_user_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('AppBundle:User:new.html.twig', array(
+        return $this->render('User/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
         ));
@@ -149,7 +149,7 @@ class UserController extends Controller
         $entity = new User();
         $form = $this->createForm(UserType::class, $entity);
 
-        return $this->render('AppBundle:User:new.html.twig', array(
+        return $this->render('User/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
         ));
@@ -178,7 +178,7 @@ class UserController extends Controller
 
         $passForm = $this->createCedulaForm($entity);
 
-        return $this->render('AppBundle:User:show.html.twig', array(
+        return $this->render('User/show.html.twig', array(
             'entity' => $entity,
             'newpass_form' => $passForm->createView(),
             'archivo' => $archivo,
@@ -191,7 +191,7 @@ class UserController extends Controller
     /**
      * Lists all Usuarios entities.
      * @Route("/{id}/edit", name="admin_user_edit", methods={"GET"})
-     * @Template("AppBundle:User:edit.html.twig")
+     * @Template("User/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -201,7 +201,7 @@ class UserController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
         $editForm = $this->createEditForm($entity);
-        return $this->render('AppBundle:User:edit.html.twig', array(
+        return $this->render('User/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
         ));
@@ -210,7 +210,7 @@ class UserController extends Controller
     /**
      * Lists all Usuarios entities.
      * @Route("/{id}/update", name="admin_user_update", methods={"PUT"})
-     * @Template("AppBundle:User:edit.html.twig")
+     * @Template("User/edit.html.twig")
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
@@ -255,7 +255,7 @@ class UserController extends Controller
     /**
      * Lists all Usuarios entities.
      * @Route("/{id}/newpass", name="admin_user_newpass", methods={"POST"})
-     * @Template("AppBundle:User:show.html.twig")
+     * @Template("User/show.html.twig")
      */
     public function newpassAction(Request $request, $id)
     {
@@ -293,7 +293,7 @@ class UserController extends Controller
     /**
      * Lists all Usuarios entities.
      * @Route("/{id}/delete", name="admin_user_delete", methods={"DELETE"})
-     * @Template("AppBundle:User:delete.html.twig")
+     * @Template("User/delete.html.twig")
      */
     public function deleteAction(Request $request, $id)
     {
@@ -372,7 +372,7 @@ class UserController extends Controller
             ->setTo(array($user->getEmail() => $user->getNombres() . ' ' . $user->getApellidos()))
             ->setBody(
                 $this->renderView(
-                    'AppBundle:User:newpass.txt.twig',
+                    'User/newpass.txt.twig',
                     array('user' => $user,
                         'newpass' => $newpass
                     )
@@ -388,7 +388,7 @@ class UserController extends Controller
     {
         $valores = new Newpass();
         $Form = $this->createForm(PassType::class, $valores);
-        return $this->render('AppBundle:Default:passmed.html.twig', array(
+        return $this->render('Default/passmed.html.twig', array(
             'form' => $Form->createView(),
         ));
     }
@@ -432,7 +432,7 @@ class UserController extends Controller
                         $response = new JsonResponse(
                             array(
                                 'message' => '<div class="alert alert-warning fade in"><i class="fa-fw fa fa-check"></i><strong>Error !</strong> Error al enviar el correo. Se restablecio su ingreso mediante intranet<a href="http://intranet.unad.edu.co/"> Continuar..</a></div>',
-                                'form' => $this->renderView('AppBundle:Default:passmed.html.twig', array(
+                                'form' => $this->renderView('Default/passmed.html.twig', array(
                                     'form' => $Form->createView(),
                                 ))),
                             200
@@ -446,7 +446,7 @@ class UserController extends Controller
                     $response = new JsonResponse(
                         array(
                             'message' => '<div class="alert alert-success fade in"><i class="fa-fw fa fa-check"></i><strong>Hecho !</strong> Se genero una nueva contraseña de ingreso al MED y se envio a su correo institucional con las instrucciones. <a href="../login">Continuar..</a></div>',
-                            'form' => $this->renderView('AppBundle:Default:passmed.html.twig', array(
+                            'form' => $this->renderView('Default/passmed.html.twig', array(
                                 'form' => $Form->createView(),
                             ))),
                         200
@@ -457,7 +457,7 @@ class UserController extends Controller
                     $response = new JsonResponse(
                         array(
                             'message' => '<div class="alert alert-danger fade in"><i class="fa-fw fa fa-times"></i><strong>Error !</strong> La información suministrada no coincide con la información registrada.</div>',
-                            'form' => $this->renderView('AppBundle:Default:passform.html.twig', array(
+                            'form' => $this->renderView('Default/passform.html.twig', array(
                                 'form' => $Form->createView(),
                             ))),
                         400
@@ -469,7 +469,7 @@ class UserController extends Controller
                 $response = new JsonResponse(
                     array(
                         'message' => '<div class="alert alert-danger fade in"><i class="fa-fw fa fa-times"></i><strong>Error !</strong> La información suministrada no coincide con la información registrada.</div>',
-                        'form' => $this->renderView('AppBundle:Default:passform.html.twig', array(
+                        'form' => $this->renderView('Default/passform.html.twig', array(
                             'form' => $Form->createView(),
                         ))),
                     400
@@ -479,7 +479,7 @@ class UserController extends Controller
         }
         $response = new JsonResponse(
             array(
-                'form' => $this->renderView('AppBundle:Default:passform.html.twig', array(
+                'form' => $this->renderView('Default/passform.html.twig', array(
                     'form' => $Form->createView(),
                 ))),
             400

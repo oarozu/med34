@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\coevalPares;
@@ -15,7 +15,7 @@ use AppBundle\Form\coevalParesType;
  *
  * @Route("/doc/coevalpares")
  */
-class coevalParesController extends Controller {
+class coevalParesController extends AbstractController {
 
     /**
      * Lists all coevalPares entities.

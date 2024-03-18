@@ -7,7 +7,7 @@
  */
 
 namespace AppBundle\Controller;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -16,7 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * Base controller
  * @Route("/admin/panel")
  */
-class ConsolidarController extends Controller {
+class ConsolidarController extends AbstractController {
 
 
      /**

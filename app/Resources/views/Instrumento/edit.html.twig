@@ -24,7 +24,7 @@
         <div class="form_error"></div>
         <form method="POST" id="checkout-form" class="smart-form" novalidate="novalidate" method="POST" action="{{path('admin_instrumento_update', { 'id': entity.id })}}" {{ form_start(form) }}
         <div id="form_body">
-        {% include 'AppBundle:Instrumento:form.html.twig' with {'form': form} %}
+        {% include 'Instrumento/form.html.twig' with {'form': form} %}
         </div>
         <footer>
         <button type="submit" class="btn btn-primary">Editar</button>

@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Rolplang;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Plangestion;
@@ -18,7 +18,7 @@ use AppBundle\Form\PlangestionType;
  *
  * @Route("/doc/plangestion")
  */
-class PlangestionController extends Controller
+class PlangestionController extends AbstractController
 {
 
     /**

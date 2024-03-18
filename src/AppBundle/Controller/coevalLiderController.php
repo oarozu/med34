@@ -3,7 +3,7 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\coevalLider;
@@ -14,7 +14,7 @@ use AppBundle\Form\coevalLiderType;
  *
  * @Route("/dec/coevallider")
  */
-class coevalLiderController extends Controller
+class coevalLiderController extends AbstractController
 {
 
     /**

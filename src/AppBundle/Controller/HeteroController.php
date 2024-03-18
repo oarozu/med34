@@ -3,7 +3,7 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Heteroeval;
@@ -14,7 +14,7 @@ use AppBundle\Entity\Heterocursos;
  *
  * @Route("/unad/hetero")
  */
-class HeteroController extends Controller {
+class HeteroController extends AbstractController {
 
     /**
      * Lists all hetero semestre actual

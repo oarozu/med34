@@ -4,6 +4,30 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    database_driver: pdo_mysql
+    database_host: mysqlweb.unad.edu.co
+    database_port: 3306
+    database_name: evaluacion_docente
+    database_user: evaluacion.docen
+    database_password: '$&.!3V4l84c10N#D0c3Nt3.!&'
+    mailer_transport: gmail
+    mailer_host: smtp.gmail.com
+    mailer_user: siga@unad.edu.co
+    locale: en
+    secret: ThisTokenIsNotSoSecretChangeIt
+    appmed.periodo: '20241'
+    appmed.year: '2024'
+    appmed.semestre: '20241'
+    appmed.periodos:
+        - '20231'
+        - '20232'
+        - '20233'
+        - '20234'
+        - '20235'
+        - '20236'
+        - '20237'
+        - '20241'
+    mailer_password: q
 
 services:
     # default configuration for services in *this* file

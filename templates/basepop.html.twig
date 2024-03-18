@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta lang="es">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        
+        <title>{% block title %}Unad MED 2014  V2{% endblock %}</title>
+        {% block stylesheets %}
+                <!-- Basic Styles -->
+		<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/bootstrap.min.css') }}">
+		<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/font-awesome.min.css') }}">
+		<!-- SmartAdmin Styles : Please note (smartadmin-production.css) was created using LESS variables -->
+		<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/smartadmin-production.css') }}">
+		<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/smartadmin-skins.css') }}">
+		<!-- SmartAdmin RTL Support is under construction
+		<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/smartadmin-rtl.css') }}"> -->
+		<!-- We recommend you use "your_style.css" to override SmartAdmin
+		     specific styles this will also ensure you retrain your customization with each SmartAdmin update.
+		<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/your_style.css"') }}> -->
+		<!-- GOOGLE FONT
+		<link rel="stylesheet" href="{{ asset('http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700') }}">-->
+
+        {% endblock %}
+                
+        <!-- FAVICONS -->
+	<link rel="shortcut icon" href="{{ asset('img/favicon/favicon.ico') }}" type="image/x-icon">     
+        <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon/favicon.ico') }}" />
+    </head>
+	<body>
+
+
+
+
+	
+		
+
+                                        {% block body %}
+                                        {% endblock %}
+                      
+
+{% block javascripts %}
+		<!-- END SHORTCUT AREA -->
+		<!--================================================== -->
+		<!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
+		<script data-pace-options='{ "restartOnRequestAfter": true }' src="{{ asset('js/plugin/pace/pace.min.js') }}"></script>
+
+		<!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+
+		<script src="{{ asset('js/libs/jquery-2.0.2.min.js') }}"></script>
+		<script src="{{ asset('js/libs/jquery-ui-1.10.3.min.js') }}"></script>
+
+		<!-- JS TOUCH : include this plugin for mobile drag / drop touch events
+		<script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> -->
+
+		<!-- BOOTSTRAP JS -->
+		<script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
+
+		<!-- CUSTOM NOTIFICATION -->
+		<script src="{{ asset('js/notification/SmartNotification.min.js') }}"></script>
+
+		<!-- JARVIS WIDGETS -->
+		<script src="{{ asset('js/smartwidgets/jarvis.widget.min.js') }}"></script>
+
+		<!-- EASY PIE CHARTS -->
+		<script src="{{ asset('js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js') }}"></script>
+
+		<!-- SPARKLINES -->
+		<script src="{{ asset('js/plugin/sparkline/jquery.sparkline.min.js') }}"></script>
+
+		<!-- JQUERY VALIDATE -->
+		<script src="{{ asset('js/plugin/jquery-validate/jquery.validate.min.js') }}"></script>
+
+		<!-- JQUERY MASKED INPUT -->
+		<script src="{{ asset('js/plugin/masked-input/jquery.maskedinput.min.js') }}"></script>
+
+		<!-- JQUERY SELECT2 INPUT -->
+		<script src="{{ asset('js/plugin/select2/select2.min.js') }}"></script>
+
+		<!-- JQUERY UI + Bootstrap Slider -->
+		<script src="{{ asset('js/plugin/bootstrap-slider/bootstrap-slider.min.js') }}"></script>
+
+		<!-- browser msie issue fix -->
+		<script src="{{ asset('js/plugin/msie-fix/jquery.mb.browser.min.js') }}"></script>
+
+		<!-- FastClick: For mobile devices -->
+		<script src="{{ asset('js/plugin/fastclick/fastclick.js') }}"></script>
+
+		<!--[if IE 7]>
+
+		<h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
+
+		<![endif]-->
+
+		<!-- MAIN APP JS FILE -->
+		<script src="{{ asset('js/app.js') }}"></script>
+
+		<!-- PAGE RELATED PLUGIN(S) -->
+		<script src="{{ asset('js/plugin/datatables/jquery.dataTables-cust.min.js') }}"></script>
+		<script src="{{ asset('js/plugin/datatables/ColReorder.min.js') }}"></script>
+		<script src="{{ asset('js/plugin/datatables/FixedColumns.min.js') }}"></script>
+		<script src="{{ asset('js/plugin/datatables/ColVis.min.js') }}"></script>
+		<script src="{{ asset('js/plugin/datatables/ZeroClipboard.js') }}"></script>
+		<script src="{{ asset('js/plugin/datatables/media/js/TableTools.min.js') }}"></script>
+		<script src="{{ asset('js/plugin/datatables/DT_bootstrap.js') }}"></script>
+		
+		<script type="text/javascript">
+		
+		// DO NOT REMOVE : GLOBAL FUNCTIONS!
+		
+		$(document).ready(function() {
+			
+			pageSetUp();
+			
+			/*
+			 * BASIC
+			 */
+			$('#dt_basic').dataTable({
+				"sPaginationType" : "bootstrap_full"
+			});
+	
+			/* END BASIC */
+	
+			/* Add the events etc before DataTables hides a column */
+			$("#datatable_fixed_column thead input").keyup(function() {
+				oTable.fnFilter(this.value, oTable.oApi._fnVisibleToColumnIndex(oTable.fnSettings(), $("thead input").index(this)));
+			});
+	
+			$("#datatable_fixed_column thead input").each(function(i) {
+				this.initVal = this.value;
+			});
+			$("#datatable_fixed_column thead input").focus(function() {
+				if (this.className == "search_init") {
+					this.className = "";
+					this.value = "";
+				}
+			});
+			$("#datatable_fixed_column thead input").blur(function(i) {
+				if (this.value == "") {
+					this.className = "search_init";
+					this.value = this.initVal;
+				}
+			});		
+			
+	
+			var oTable = $('#datatable_fixed_column').dataTable({
+				"sDom" : "<'dt-top-row'><'dt-wrapper't><'dt-row dt-bottom-row'<'row'<'col-sm-6'i><'col-sm-6 text-right'p>>",
+				//"sDom" : "t<'row dt-wrapper'<'col-sm-6'i><'dt-row dt-bottom-row'<'row'<'col-sm-6'i><'col-sm-6 text-right'>>",
+				"oLanguage" : {
+					"sSearch" : "Search all columns:"
+				},
+				"bSortCellsTop" : true
+			});		
+			
+	
+	
+			/*
+			 * COL ORDER
+			 */
+			$('#datatable_col_reorder').dataTable({
+				"sPaginationType" : "bootstrap",
+				"sDom" : "R<'dt-top-row'Clf>r<'dt-wrapper't><'dt-row dt-bottom-row'<'row'<'col-sm-6'i><'col-sm-6 text-right'p>>",
+				"fnInitComplete" : function(oSettings, json) {
+					$('.ColVis_Button').addClass('btn btn-default btn-sm').html('Columns <i class="icon-arrow-down"></i>');
+				}
+			});
+			
+			/* END COL ORDER */
+	
+			/* TABLE TOOLS */
+			$('#datatable_tabletools').dataTable({
+				"sDom" : "<'dt-top-row'Tlf>r<'dt-wrapper't><'dt-row dt-bottom-row'<'row'<'col-sm-6'i><'col-sm-6 text-right'p>>",
+				"oTableTools" : {
+					"aButtons" : ["copy", "print", {
+						"sExtends" : "collection",
+						"sButtonText" : 'Save <span class="caret" />',
+						"aButtons" : ["csv", "xls", "pdf"]
+					}],
+					"sSwfPath" : "/js/plugin/datatables/media/swf/copy_csv_xls_pdf.swf"
+				},
+				"fnInitComplete" : function(oSettings, json) {
+					$(this).closest('#dt_table_tools_wrapper').find('.DTTT.btn-group').addClass('table_tools_group').children('a.btn').each(function() {
+						$(this).addClass('btn-sm btn-default');
+					});
+				}
+			});
+		
+		/* END TABLE TOOLS */
+                    $(document).on('hidden.bs.modal', function (e) {
+                    if ($(e.target).attr('data-refresh') == 'true') {
+                    // Remove modal data
+                    $(e.target).removeData('bs.modal');
+                    // Empty the HTML of modal
+                    //$(e.target).html('');
+                    }
+                    });
+		})
+
+                </script>
+{% endblock %}
+    </body>
+</html>
