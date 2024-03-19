@@ -10,9 +10,6 @@ security:
             anonymous: lazy
             provider: users_in_memory
 
-            remember_me:
-                secret: '%kernel.secret%'
-
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 
