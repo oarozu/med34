@@ -1,0 +1,113 @@
+{% extends '/base.html.twig' %}
+
+{% block body -%}
+
+
+    <!-- widget grid -->
+    <section id="widget-grid" class="avales">
+        <!-- row -->
+        <div class="row">
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" id="wid-id-1" data-widget-editbutton="false" role="widget" style="position: relative; opacity: 1; left: 0px; top: 0px;">
+                    <!-- widget options:
+                    <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3" data-widget-editbutton="false">
+                    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                   data-widget-colorbutton="false"
+                   data-widget-editbutton="false"
+                   data-widget-togglebutton="false"
+                   data-widget-deletebutton="false"
+                   data-widget-fullscreenbutton="false"
+                   data-widget-custombutton="false"
+                   data-widget-collapsed="true"
+                   data-widget-sortable="false"
+                    -->
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                        <h2>Aval Planes de Gestión</h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+                            <div class="widget-body-toolbar">
+                            </div>
+                            <table id="datatable_tabletools" class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Cédula</th>
+                                        <th>Nombre</th>
+                                        <th>Escuela</th>
+                                        <th>Centro</th>
+                                        <th>Rol</th>
+                                        <th>Avalador</th>
+                                        <th>Roles</th>
+                                        <th>Estado Aval</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for entity in entities %}
+                                        <tr>
+                                            <th>
+                                                {{ entity.plan.docente.user.id }}
+                                            </th>
+                                            <td>{{ entity.plan.docente.user.nombres }} {{ entity.plan.docente.user.apellidos }}</td>
+                                            <td>{{entity.plan.docente.escuela.sigla}}</td>
+                                            <td>{{entity.plan.docente.centro.nombre}}</td>
+
+
+                                            <td>
+                                                {{entity.perfil}}
+                                            </td>
+                                             <td>
+                                             {{entity.user.nombres}} {{entity.user.apellidos}}
+                                            </td>
+                                            <td>
+                                                {%if entity.plan.estado != 'Sin Cerrar' %}
+                                                    <a href="javascript:popUp('{{ path('plangestion_info', { 'id': entity.plan.docente.id }) }}')" class="btn btn-primary btn-xs">Ver Roles <i class="fa fa-sign-in"></i></a>
+                                                    {%else%}
+                                                    Sin Registro
+                                                {%endif%}
+                                            </td>
+                                            <td>{{ entity.estado }}</td>
+                                        </tr>
+
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- end widget content -->
+                    </div>
+                    <!-- end widget div -->
+                </div>
+                <!-- end widget -->
+            </article>
+            <!-- WIDGET END -->
+        </div>
+        <!-- end row -->
+    </section>
+    <!-- end widget grid -->
+
+
+    <script>
+
+        function popUp(URL) {
+
+            if (typeof (popupWin) != "object" || popupWin.closed) {
+                popupWin = window.open(URL, 'popupWin', 'scrollbars=auto,toolbar=no,menubar=no,status=no,width=1000,height=600, left=100,top=100');
+            } else {
+                popupWin.location.href = URL;
+            }
+
+            popupWin.focus();
+        }
+
+    </script>
+{% endblock %}

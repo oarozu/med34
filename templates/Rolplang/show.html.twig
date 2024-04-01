@@ -1,0 +1,20 @@
+{% extends '/base.html.twig' %}
+{% block body -%}
+ <div class="modal-header">
+    <a href="{{ path('plangestion_crear', { 'id': entity.plang.id }) }}" class="btn btn-labeled btn-success"><span class="btn-label"><i class="fa fa-mail-reply-all"></i></span></i>Regresar</a>
+                <h4 class="modal-title">Confirmar Borrar Rol</h4>
+                </div>			<!-- /modal-header -->
+                <div class="modal-body">
+                Rol:
+               {{ entity.rol.nombre }}
+
+          <br>
+                Horas
+                {{ entity.horas }}
+
+                </div>
+                <div class="modal-footer">
+                {{ form(delete_form) }}
+
+                </div>
+{% endblock %}

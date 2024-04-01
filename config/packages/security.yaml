@@ -1,23 +1,52 @@
 security:
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        AppBundle\Entity\User:
+            algorithm: sha512
+            encode-as-base64: true
+            iterations: 10
+
     providers:
-        users_in_memory: { memory: null }
+        user_db:
+            entity: { class: AppBundle\Entity\User, property: username }
+
     firewalls:
+
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            #           pattern:  ^/
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
-            anonymous: lazy
-            provider: users_in_memory
 
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#firewalls-authentication
+        login:
+            pattern:  ^/login$
+            anonymous:  ~
+            security: false
 
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
+        home:
+            pattern: ^/home$
+            anonymous: ~
+            security: false
 
-    # Easy way to control access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
+        secured_area:
+            switch_user: { role: ROLE_ADMIN, parameter: _quieroser }
+            pattern:    ^/
+            anonymous: ~
+            #            http_basic:
+            #                realm: "Introduzca Usuario y Contraseña"
+            form_login:
+                login_path: /login
+                check_path: /login_check
+                default_target_path: /home/periodo
+
+            logout:
+                path: /logout
+                target: /
+
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/home, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admon, roles: [ROLE_ADMIN, ROLE_ADMON] }
+        - { path: ^/doc, roles: [ROLE_DOC, ROLE_ADMIN] }
+        - { path: ^/dec, roles: ROLE_DEC }
+        - { path: ^/unad, roles: [ROLE_DEC, ROLE_ADMIN, ROLE_DOC, ROLE_SECA, ROLE_ADMON, ROLE_AVAL] }
+        - { path: ^/aval, roles: [ROLE_DEC, ROLE_DIRZ, ROLE_ADMON] }
+        - { path: ^/lider, roles: ROLE_LP }

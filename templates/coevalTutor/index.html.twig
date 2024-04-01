@@ -1,0 +1,73 @@
+{% extends '/base.html.twig' %}
+
+{% block body -%}
+    <h1>coevalTutor list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>F0</th>
+                <th>F1</th>
+                <th>F2</th>
+                <th>F3</th>
+                <th>F4</th>
+                <th>F5</th>
+                <th>F6</th>
+                <th>F7</th>
+                <th>F8</th>
+                <th>F9</th>
+                <th>F10</th>
+                <th>F11</th>
+                <th>F12</th>
+                <th>F13</th>
+                <th>F14</th>
+                <th>F15</th>
+                <th>Observaciones</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('coevaltutor_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.f0 }}</td>
+                <td>{{ entity.f1 }}</td>
+                <td>{{ entity.f2 }}</td>
+                <td>{{ entity.f3 }}</td>
+                <td>{{ entity.f4 }}</td>
+                <td>{{ entity.f5 }}</td>
+                <td>{{ entity.f6 }}</td>
+                <td>{{ entity.f7 }}</td>
+                <td>{{ entity.f8 }}</td>
+                <td>{{ entity.f9 }}</td>
+                <td>{{ entity.f10 }}</td>
+                <td>{{ entity.f11 }}</td>
+                <td>{{ entity.f12 }}</td>
+                <td>{{ entity.f13 }}</td>
+                <td>{{ entity.f14 }}</td>
+                <td>{{ entity.f15 }}</td>
+                <td>{{ entity.observaciones }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('coevaltutor_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('coevaltutor_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('coevaltutor_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

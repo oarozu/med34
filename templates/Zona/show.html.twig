@@ -1,0 +1,44 @@
+{% extends '/base.html.twig' %}
+
+{% block body -%}
+    <h1>Zona</h1>
+
+    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ entity.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Director</th>
+                <td>{{ entity.director.nombres }} {{ entity.director.apellidos }}</td>
+            </tr>
+                <tr>
+                <th>Centros</th>
+                <td>
+                {%for centro in entity.centros %}
+                    {{centro.tipo}} - {{centro.nombre}}<br>
+                    {%endfor%}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('zona') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('zona_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

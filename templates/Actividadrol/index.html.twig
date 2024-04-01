@@ -1,0 +1,35 @@
+{% extends '/base.html.twig' %}
+{% block body -%}
+ <h1>Actividades Roles</h1>
+  <table class="table table-bordered hidden-mobile" style="width: 95%">
+        <thead>
+            <tr>
+                <th>Actividad</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% set temp = 'temp' %} {% set num = 0 %} {% set totalhoras = 0 %}
+        {% for actividad in entities %}
+           <tr>
+                    {%if temp != actividad.rol.nombre %}
+                <td>
+                    <b>ROL:
+                    {{actividad.rol.nombre}}
+                    {% set temp = actividad.rol.nombre %}
+                    </b>
+                    </td>
+                    <td></td>
+                    {%endif%}
+               </tr>
+            <tr>
+                {% set num = num+1 %}
+                <td>{{num}}.
+                {{ actividad.descripcion }}
+                </td>
+                <td>act</td>
+               </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}

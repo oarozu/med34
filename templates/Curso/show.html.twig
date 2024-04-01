@@ -1,0 +1,29 @@
+{% extends '/base.html.twig' %}
+
+{% block body -%}
+        {{ include(
+            'Curso/info.html.twig',
+            {'entity': entity}, {'cursooferta':cursooferta}
+        ) }}
+
+    <h4>Agregar oferta al curso: {{entity.id}}</h4>
+<table class="table table-bordered table-striped hidden-mobile" style="width: 50%">
+<form action="{{ path('oferta_curso', { 'id': entity.id }) }}" method="POST" {{ form_start(form) }}
+    <tr>
+        <td>
+             {{ form_label(form.cedula,  'Cédula del Director') }}
+    {{ form_widget(form.cedula) }}
+    {{ form_errors(form.cedula) }}
+        </td>
+        <td>
+             {{ form_label(form.periodo,  'Periodo') }}
+    {{ form_widget(form.periodo) }}
+    {{ form_errors(form.periodo) }}
+        </td>
+        <td>
+           <input type="submit" label="Agregar" />
+        </td>
+    </tr>
+</form>
+</table>
+{% endblock %}

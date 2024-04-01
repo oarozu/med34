@@ -1,0 +1,170 @@
+{% extends '/base.html.twig' %}
+{% block body -%}
+<table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+    <tr>
+        <td><a href="{{path('docente_coevaltutor')}}"><< Regresar...</a></td>
+        <td>Curso: [{{coeval.tutor.oferta.curso.id}}] {{coeval.tutor.oferta.curso.nombre}} {{coeval.tutor.oferta.periodo}}</td>
+        <td>Tutor: {{coeval.tutor.docente.user.nombres}} {{coeval.tutor.docente.user.apellidos}}</td>
+        <td></td>
+    </tr>
+</table>
+     <form action="{{ path('coevaltutor_update', { 'id': coeval.tutor.id }) }}" method="post" {{ form_start(edit_form) }}
+<table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+     <input type="hidden" name="_method" value="PUT" />
+     {{ form_errors(edit_form) }}
+        <thead>
+            <tr class="data">
+                <th>Item</th>
+                <th>Factor</th>
+                <th>Descripción</th>
+                <th>Evaluación</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+    <td rowspan="2"><b>1</b></td>
+    <td><b>Desarrollo de la acción formativa</b></td>
+    <td>Interactúa formativamente con el estudiante haciendo seguimiento permanente del aprendizaje individual y en grupos colaborativos.</td>
+    <td rowspan="2">{{ form_row(edit_form.f1)}}</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Variable: Pedagógico-Didáctico</i></td>
+  </tr>
+
+            <tr>
+    <td rowspan="2"><b>2</b></td>
+    <td><b>Desarrollo de la acción formativa</b></td>
+    <td>Retroalimenta permanentemente al estudiante dándole a conocer los avances y dificultades que presenta en su proceso de aprendizaje.</td>
+    <td rowspan="2">{{ form_row(edit_form.f2)}}</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Variable: Pedagógico-Didáctico</i></td>
+  </tr>
+
+            <tr>
+    <td rowspan="2"><b>3</b></td>
+    <td><b>Desarrollo de la acción formativa</b></td>
+    <td>Evalúa los logros del aprendizaje y el desarrollo de las competencias logradas por el estudiante en dicho curso.</td>
+    <td rowspan="2">{{ form_row(edit_form.f3)}}</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Variable: Pedagógico-Didáctico</i></td>
+  </tr>
+
+            <tr>
+    <td rowspan="2"><b>4</b></td>
+    <td><b>Peticiones, quejas y reclamos</b></td>
+    <td>Atiende, como primera instancia,  las solicitudes, peticiones, quejas y reclamos relacionados con el proceso formativo del estudiante.</td>
+    <td rowspan="2">{{ form_row(edit_form.f4)}}</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Variable: Pedagógico-Didáctico</i></td>
+  </tr>
+
+            <tr>
+    <td rowspan="2"><b>5</b></td>
+    <td><b>Investigador</b></td>
+    <td>Desarrolla investigación con resultados y productos evidenciables acorde con el plan de trabajo establecido</td>
+    <td rowspan="2">{{ form_row(edit_form.f5)}}</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Variable: Pedagógico-Didáctico</i></td>
+  </tr>
+
+            <tr>
+    <td rowspan="2"><b>6</b></td>
+    <td><b>Desarrollo de la acción formativa </b></td>
+    <td>Realimenta las actividades académicas de los estudiantes de los grupos de curso asignados a su rol </td>
+    <td rowspan="2">{{ form_row(edit_form.f6)}}</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Variable: Pedagógico-Didáctico</i></td>
+  </tr>
+
+            <tr>
+    <td rowspan="2"><b>7</b></td>
+    <td><b>Desarrollo de la acción formativa</b></td>
+    <td> Acompaña las actividades académicas y evalúa los aprendizajes de estudiantes de seminarios, diplomados y cursos cortos de la Escuela Académica a la cual se encuentra adscrito</td>
+    <td rowspan="2">{{ form_row(edit_form.f7)}}</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Variable: Pedagógico-Didáctico</i></td>
+  </tr>
+
+            <tr>
+    <td rowspan="2"><b>8</b></td>
+    <td><b>Desarrollo de la acción formativa</b></td>
+    <td>Evaluar los aprendizajes de los estudiantes de los grupos de curso asignados a su rol. </td>
+    <td rowspan="2">{{ form_row(edit_form.f8)}}</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Variable: Pedagógico-Didáctico</i></td>
+  </tr>
+
+            <tr>
+    <td rowspan="2"><b>9</b></td>
+    <td><b>Desarrollo de la acción formativa</b></td>
+    <td>Registra las notas de los estudiantes a su cargo a tiempo, en coherencia con las fechas establecidas institucionalmente </td>
+    <td rowspan="2">{{ form_row(edit_form.f9)}}</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Variable: Pedagógico-Didáctico</i></td>
+  </tr>
+
+            <tr>
+    <td rowspan="2"><b>10</b></td>
+    <td><b>Respeto</b></td>
+    <td> Da tratamiento respetuoso a los integrantes de la comunidad universitaria, y a todas aquellas personas con quienes tenga relación en el desempeño de su vinculación.</td>
+    <td rowspan="2">{{ form_row(edit_form.f10)}}</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Variable: Actitudes y Comportamientos - Relaciones Inter-personales</i></td>
+  </tr>
+
+            <tr>
+    <td rowspan="2"><b>11</b></td>
+    <td><b>Trabajo en Equipo</b></td>
+    <td>promueve y mantiene el trabajo en equipo con los tutores y promueve esfuerzos orientados al logro de objetivos comunes.</td>
+    <td rowspan="2">{{ form_row(edit_form.f11)}}</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Variable: Actitudes y Comportamientos - Relaciones Inter-personales</i></td>
+  </tr>
+
+            <tr>
+    <td rowspan="2"><b>12</b></td>
+    <td><b>Compromiso</b></td>
+    <td>Motiva con su ejemplo y acción pedagógica, procesos de mejoramiento que redundan en el logro de los propósitos institucionales.</td>
+    <td rowspan="2">{{ form_row(edit_form.f12)}}</td>
+  </tr>
+  <tr>
+    <td colspan="2"><i>Variable: Actitudes y Comportamientos - Relaciones Inter-personales</i></td>
+  </tr>
+  <tr>
+     <td colspan="2">Observaciones: </td>
+    <td>{{ form_widget(edit_form.observaciones)}}</td>
+    <td>
+      {%if not coeval.f0%}
+        <button type="submit">Enviar</button>
+    </td>
+    {%endif%}
+  </tr>
+    </tbody>
+    </table>
+ {{ form_widget(edit_form._token) }}
+  </form>
+
+   <script>
+
+function popUp(URL) {
+    if(typeof(popupWin) != "object" || popupWin.closed)  {
+        popupWin = window.open(URL, 'popupWin', 'scrollbars=auto,toolbar=no,menubar=no,status=no,width=1000,height=600, left=100,top=100');
+    }
+    else{
+        popupWin.location.href = URL;
+    }
+    popupWin.focus();
+ }
+</script>
+  {% endblock %}

@@ -1,0 +1,100 @@
+{% extends '/base.html.twig' %}
+
+{% block body -%}
+    <h1>coevalDirector</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>F0</th>
+                <td>{{ entity.f0 }}</td>
+            </tr>
+            <tr>
+                <th>F1</th>
+                <td>{{ entity.f1 }}</td>
+            </tr>
+            <tr>
+                <th>F2</th>
+                <td>{{ entity.f2 }}</td>
+            </tr>
+            <tr>
+                <th>F3</th>
+                <td>{{ entity.f3 }}</td>
+            </tr>
+            <tr>
+                <th>F4</th>
+                <td>{{ entity.f4 }}</td>
+            </tr>
+            <tr>
+                <th>F5</th>
+                <td>{{ entity.f5 }}</td>
+            </tr>
+            <tr>
+                <th>F6</th>
+                <td>{{ entity.f6 }}</td>
+            </tr>
+            <tr>
+                <th>F7</th>
+                <td>{{ entity.f7 }}</td>
+            </tr>
+            <tr>
+                <th>F8</th>
+                <td>{{ entity.f8 }}</td>
+            </tr>
+            <tr>
+                <th>F9</th>
+                <td>{{ entity.f9 }}</td>
+            </tr>
+            <tr>
+                <th>F10</th>
+                <td>{{ entity.f10 }}</td>
+            </tr>
+            <tr>
+                <th>F11</th>
+                <td>{{ entity.f11 }}</td>
+            </tr>
+            <tr>
+                <th>F12</th>
+                <td>{{ entity.f12 }}</td>
+            </tr>
+            <tr>
+                <th>F13</th>
+                <td>{{ entity.f13 }}</td>
+            </tr>
+            <tr>
+                <th>F14</th>
+                <td>{{ entity.f14 }}</td>
+            </tr>
+            <tr>
+                <th>F15</th>
+                <td>{{ entity.f15 }}</td>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <td>{{ entity.fecha|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Observaciones</th>
+                <td>{{ entity.observaciones }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('coevaldirector') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('coevaldirector_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

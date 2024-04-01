@@ -1,0 +1,53 @@
+{% extends '/base.html.twig' %}
+
+{% block body -%}
+        <article class="col-sm-12 col-md-12 col-lg-6 sortable-grid ui-sortable">
+        <!-- Widget ID (each widget will need unique ID)-->
+        <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-0" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+            <header>
+                    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                    <h2>Cargar Formato Plan de Gestión</h2>
+            </header>
+                <!-- widget div-->
+                <div>
+
+            <!-- widget edit box -->
+            <div class="jarviswidget-editbox">
+            <!-- This area used as dropdown edit box -->
+
+                </div>
+                <!-- end widget edit box -->
+
+                <!-- widget content -->
+                <div class="content">
+                <div class="widget-body no-padding" id="bodyform">
+        <div class="form_error"></div>
+        <form id="checkout-form" class="smart-form" novalidate="novalidate" method="POST" action="{{path('formatoplang_create', { 'id': entity.id })}}" {{ form_start(form) }}
+        <input type="hidden" name="_method" value="POST" />
+        <div id="form_body">
+    <fieldset>
+<section>
+<label class="label">Archivo</label>
+    <label class="input"> <i class="icon-append fa fa-tag"></i>
+{{ form_widget(form.file) }}
+</label>
+ <em for="name" class="invalid">{{ form_errors(form.file) }}</em>
+</section>
+    </fieldset>
+        </div>
+        <footer>
+        <button type="submit" class="btn btn-primary">Cargar</button>
+        </footer>
+        {{form_rest(form)}}
+        </form>
+
+             </div>
+              <!-- end widget content -->
+                </div>
+            </div>
+            <!-- end widget div -->
+        </div>
+        <!-- end widget -->
+        </article>
+
+{% endblock %}

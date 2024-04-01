@@ -1,0 +1,48 @@
+{% extends '/base.html.twig' %}
+
+{% block body -%}
+    <h1>Actividad plangestion</h1>
+    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        <tbody>
+
+        <tr>
+                <th>ID</th>
+                <td>{{ entity.plang.id.id }}</td>
+            </tr>
+            <tr>
+                <th>Rol</th>
+                <td>{{ entity.actividad.rol.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Actividad</th>
+                <td>{{ entity.actividad.descripcion }}</td>
+            </tr>
+            <tr>
+                <th>Horas</th>
+                <td>{{ entity.horas }}</td>
+            </tr>
+            <tr>
+                <th>Observaciones</th>
+                <td>{{ entity.observaciones }}</td>
+            </tr>
+            <tr>
+                <th>Autoevaluacion</th>
+                <td>{{ entity.autoevaluacion }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('actividadplang') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('actividadplang_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

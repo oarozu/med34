@@ -1,0 +1,155 @@
+{% extends '/base.html.twig' %}
+{% block body -%}
+<a href="{{ path('plangestion_crear', { 'id': id }) }}" class="btn btn-labeled btn-success"><span class="btn-label"><i class="fa fa-mail-reply-all"></i></span></i>Regresar</a>
+        <h1>Agregar Rol al Plan de Gestión</h1>
+
+ <div class="widget-body" style="margin-right: 80px;">
+
+<div class="panel-group smart-accordion-default" id="accordion">
+    <div class="panel panel-default">
+         <div class="panel-heading">
+             <h1 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse100" class="collapsed"> <i class="fa fa-lg fa-angle-down pull-right"></i> <i class="fa fa-lg fa-angle-up pull-right"></i>Roles de Formación</a></h1>
+         </div>
+             <div id="collapse100" class="panel-collapse collapse" style="height: 0px;">
+                        <div class="panel-body no-padding">
+                       <table class="table table-bordered hidden-mobile">
+                        <thead>
+                        <tr><th>Rol</th>
+                         <th></th></tr>
+                        </thead>
+                        <tbody>
+                        {% for rol in roles %}
+                        {% if rol.categoria =='FORMACIÓN'%}
+                        <tr>
+                         <td>{{rol.nombre}}
+                         </td>
+                        <td>
+                         <a data-toggle="modal" href="{{ path('rolplang_new', { 'id': id , 'idr' : rol.id }) }}" data-target="#myModal" class="btn btn-labeled btn-group-sm btn-success"><span class="btn-label"><i class="fa fa-plus"></i></span></i>Agregar</a>
+                         </td>
+                        </tr>
+                        {%endif%}
+                        {% endfor %}
+                        </tbody>
+                        </table>
+                        </div>
+             </div>
+        </div>
+
+        <div class="panel panel-default">
+         <div class="panel-heading">
+             <h1 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse101" class="collapsed"> <i class="fa fa-lg fa-angle-down pull-right"></i> <i class="fa fa-lg fa-angle-up pull-right"></i>Roles de Investigación</a></h1>
+         </div>
+             <div id="collapse101" class="panel-collapse collapse" style="height: 0px;">
+                        <div class="panel-body no-padding">
+                       <table class="table table-bordered hidden-mobile">
+                        <thead>
+                        <tr><th>Rol</th>
+                         <th></th></tr>
+                        </thead>
+                        <tbody>
+                        {% for rol in roles %}
+                        {% if rol.categoria =='INVESTIGACIÓN'%}
+                        <tr>
+                         <td>{{rol.nombre}}
+                         </td>
+                        <td>
+                         <a data-toggle="modal" href="{{ path('rolplang_new', { 'id': id , 'idr' : rol.id }) }}" data-target="#myModal" class="btn btn-labeled btn-group-sm btn-success"><span class="btn-label"><i class="fa fa-plus"></i></span></i>Agregar</a>
+                         </td>
+                        </tr>
+                        {%endif%}
+                        {% endfor %}
+                        </tbody>
+                        </table>
+                        </div>
+             </div>
+        </div>
+
+        <div class="panel panel-default">
+         <div class="panel-heading">
+             <h1 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse103" class="collapsed"> <i class="fa fa-lg fa-angle-down pull-right"></i> <i class="fa fa-lg fa-angle-up pull-right"></i>Otros Roles y Actividades</a></h1>
+         </div>
+             <div id="collapse103" class="panel-collapse collapse" style="height: 0px;">
+                        <div class="panel-body no-padding">
+                       <table class="table table-bordered hidden-mobile">
+                        <thead>
+                        <tr><th>Rol</th>
+                         <th></th></tr>
+                        </thead>
+                        <tbody>
+                        {% for rol in roles %}
+                        {% if rol.categoria =='Otros'%}
+                        <tr>
+                         <td>{{rol.nombre}}
+                         </td>
+                        <td>
+                         <a data-toggle="modal" href="{{ path('rolplang_new', { 'id': id , 'idr' : rol.id }) }}" data-target="#myModal" class="btn btn-labeled btn-group-sm btn-success"><span class="btn-label"><i class="fa fa-plus"></i></span></i>Agregar</a>
+                         </td>
+                        </tr>
+                        {%endif%}
+                        {% endfor %}
+                        </tbody>
+                        </table>
+                        </div>
+             </div>
+        </div>
+</div>
+<br>
+Consulta listado de Actividades por Rol (Predeterminadas)
+<br>
+<div class="panel-group smart-accordion-default" id="accordion">
+            {% for rol in roles %}
+    <div class="panel panel-default">
+         <div class="panel-heading">
+             <h3 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse{{rol.id}}" class="collapsed"> <i class="fa fa-lg fa-angle-down pull-right"></i> <i class="fa fa-lg fa-angle-up pull-right"></i>{{rol.nombre}}</a></h3>
+         </div>
+             <div id="collapse{{rol.id}}" class="panel-collapse collapse" style="height: 0px;">
+                        <div class="panel-body no-padding">
+                       <table class="table table-bordered hidden-mobile">
+                        <thead>
+                        <tr>
+                            <th></th>
+                         <th>{{rol.descripcion}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% set num = 0 %}
+                         {% for actividad in rol.actividades %}
+
+                        <tr>
+                         {% set num = num+1 %}
+                         <td>{{num}}</td>
+                         <td>
+                         {{ actividad.descripcion }}
+                         </td>
+
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                        </table>
+                        </div>
+             </div>
+        </div>
+    {%endfor%}
+</div>
+
+ <br>
+ <br>
+ <br>
+ .
+
+</div>
+
+<div class="modal fade" data-refresh="true" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+</div></div></div>
+
+
+        <script>
+function calculo() {
+  var horas = document.getElementById('rolplang_horas');
+  var semanas = document.getElementById('rolplang_semanas');
+  $('#porperiodo').text(horas.value+' horas para '+semanas.value+' semanas corresponden a '+(horas.value/semanas.value).toFixed(1)+' horas por semana.');
+    }
+    </script>
+{% endblock %}

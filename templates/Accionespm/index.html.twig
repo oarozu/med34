@@ -1,0 +1,51 @@
+{% extends '/base.html.twig' %}
+
+{% block body -%}
+    <h1>Accionespm list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Oportunidad</th>
+                <th>Causas</th>
+                <th>Accion</th>
+                <th>Fecha_proyectada</th>
+                <th>Observaciones</th>
+                <th>Fecha_cierre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('accionespm_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.oportunidad }}</td>
+                <td>{{ entity.causas }}</td>
+                <td>{{ entity.accion }}</td>
+                <td>{% if entity.fechaproyectada %}{{ entity.fechaproyectada|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.observaciones }}</td>
+                <td>{% if entity.fechacierre %}{{ entity.fechacierre|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('accionespm_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('accionespm_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('accionespm_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}
