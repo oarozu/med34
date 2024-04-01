@@ -8,20 +8,12 @@ sensio_framework_extra:
         annotations: false
 
 framework:
-    secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
-    csrf_protection: ~
-    templating:
-        engines: ['twig']
-        #assets_version: SomeVersionScheme
-    trusted_hosts:   ~
     session:
         # handler_id set to null will use default session handler from php.ini
         handler_id:  ~
-    fragments:       ~
-    http_method_override: true
 
 # Assetic Configuration
 #assetic:

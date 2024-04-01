@@ -1,0 +1,161 @@
+{% extends '/base.html.twig' %}
+{% block body -%}
+    <body>
+    <h1>Plan de Gestión de Docente de {{ docente.user.nombres }} {{ docente.user.apellidos }}</h1>
+    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+
+        <tr>
+            <td><b>Cédula:</b></td>
+            <td>{{ docente.user.id }}</td>
+            <td><b>Periodo de Ejecución:</b>
+                {{ periodo.observaciones }} - Dias Habiles: {{ docente.plangestion.dias }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><b>Programa:</b> {{ docente.programa.nombre }}</td>
+            <td><b>Cargo:</b>
+                {{ docente.cargo }} - <b>Perfil:</b> {{ docente.perfil }}</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <b>Zona:</b> {{ docente.centro.zona.nombre }} - <b>Director:</b>
+                {% if docente.centro.zona.director %}
+                    {{ docente.centro.zona.director.nombres }} {{ docente.centro.zona.director.apellidos }}
+                {% endif %}
+            </td>
+            <td colspan="2">
+                <b>CEAD:</b> {{ docente.centro.nombre }}
+
+            </td>
+        </tr>
+    </table>
+    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        <thead>
+        <tr>
+            <th>Rol</th>
+            <th>Descripción de la Actividad</th>
+            <th>Horas/Semana</th>
+            <th>Semanas</th>
+            <th>Horas Periodo</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set num = 0 %} {% set totalhoras = 0 %}
+
+        {% for rol in entity.roles %}
+            <tr>
+                {% set num = num+1 %}
+                <td>{{ num }}.
+                    {{ rol.rol.nombre }}
+                </td>
+                <td>
+                    <font color="#a57225">{{ rol.descripcion }}</font>
+                </td>
+                <td>{{ (rol.horas/rol.semanas)|number_format(1, '.', ',') }}
+                    {% set totalhoras = totalhoras + rol.horas %}
+                </td>
+                <td>{{ rol.semanas|number_format(1, '.', ',') }}
+                </td>
+                <td>
+                    {{ rol.horas }}
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td align="right">Total:</td>
+
+            <td>{{ totalhoras }}</td>
+        </tr>
+        <tr>
+            <td colspan="5" align="center">Fecha
+                Registro: {{ entity.fechacierre? entity.fechacierre|date('Y-m-d H:i') : 'Sin Cerrar' }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        <thead>
+        <tr>
+            <th colspan="4"><b>Productividad</b></th>
+        </tr>
+        <tr>
+            <th>No</th>
+            <th>Tipo</th>
+            <th>Descripción</th>
+            <th>Vinculado a:</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for key, producto in entity.productos %}
+            <tr>
+                <td>{{ key+1 }}</td>
+                <td>
+                    {{ producto.tipo }}
+                </td>
+                <td>
+                    {{ producto.descripcion }}
+                </td>
+                <td>
+                    {% if producto.proyecto %}
+                        Proyecto: {{ producto.proyecto.nombre }} ({{ producto.proyecto.linea }})
+                    {% else %}
+                        Responsabilidad Sustantiva: {{ producto.articulacion }}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        <tr>
+            <th>Avalador</th>
+            <th>Perfil</th>
+            <th>Fecha de Aval</th>
+            <th>Estado</th>
+        </tr>
+        {% for aval in entity.avales %}
+            <tr>
+                <td>{{ aval.user.nombres }} {{ aval.user.apellidos }}</td>
+                <td>{{ aval.perfil }}</td>
+                <td>{{ aval.fechaAval? aval.fechaAval|date('Y-m-d H:i') : '' }}</td>
+                <td>
+                    {% if aval.perfil == 'DECN' and entity.fechacierre and is_granted('ROLE_DEC') %}
+                        {% if aval.avalado == 1 %}
+                            Aprobado
+                        {% else %}
+                            <a data-toggle="modal" data-target="#myModal"
+                               href="{{ path('avalplang_edit', { 'id': aval.id }) }}" class="btn btn-primary btn-xs">Avalar
+                                <i class="fa fa-sign-in"></i></a>
+                        {% endif %}
+                    {% else %}
+
+                    {% endif %}
+
+                    {% if aval.perfil == 'DIRZ' and entity.fechacierre and is_granted('ROLE_DIRZ') %}
+                        {% if aval.avalado == 1 %}
+                            Aprobado
+                        {% else %}
+                            <a data-toggle="modal" data-target="#myModal"
+                               href="{{ path('avalplang_edit', { 'id': aval.id }) }}" class="btn btn-primary btn-xs">Avalar
+                                <i class="fa fa-sign-in"></i></a>
+                        {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5"><b>Observaciones Generales:</b><br>
+                    {% set texto = aval.observaciones|split('|') %}
+                    {% for obs in texto %}
+                        {{ obs }}<br>
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+        </tr>
+    </table>
+    </body>
+{% endblock %}

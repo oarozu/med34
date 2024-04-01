@@ -1,0 +1,272 @@
+{% extends '/base.html.twig' %}
+{% block body -%}
+    {{ include(
+        'Docente/detalle.html.twig',
+        {'entity': entity, 'periodo': periodo }
+    ) }}
+    {% if is_granted('ROLE_ADMIN') %}
+        <ul class="record_actions">
+            <li>
+                <a href="{{ path('docente_edit', { 'id': entity.id }) }}">
+                    Edit
+                </a></li>
+        </ul>
+    {% endif %}
+
+    <h4>3. Instrumentos de Evaluación DOFE</h4>
+    <table class="table table-bordered hidden-mobile" style="width: 95%">
+        <tr>
+            <th>Instrumento</th>
+            <th>Acción</th>
+            <th>Evaluadores DOFE</th>
+            <th>Evaluación</th>
+        </tr>
+        <tr>
+            <th>Plan de Trabajo SOCA
+                <a href="javascript:popUp('{{ path('plangestion_info', { 'id': entity.id }) }}')">(Ver Plan...)</a>
+            </th>
+            <td>
+                {% if entity.plangestion.autoevaluacion is null %}
+                    <a href="{{ path('plangestion_dofe', { 'id': entity.id }) }}" class="btn btn-primary btn-xs">Registrar
+                        cumplimiento <i class="fa fa-sign-in"></i></a>
+
+                {% else %}
+                    <i>Ver Resultados</i>
+                {% endif %}
+            </td>
+            <td>
+                {% for eval in red %}
+                    {{ eval.perfil }}: {{ eval.evaluador.nombres }} {{ eval.evaluador.apellidos }} <br>
+                {% endfor %}
+            </td>
+            <td>
+                {% for eval in red %}
+
+
+                    {% if eval.calificacion is not null %}
+                        {% if eval.calificacion >= 25 %}
+                            <span class="center-block padding-5 label label-success">Superior</span>
+                        {% elseif eval.calificacion < 25 and eval.calificacion > 15 %}
+                            <span class="center-block padding-5 label label-warning">Medio</span>
+                        {% elseif eval.calificacion <= 15 and eval.calificacion > 0 %}
+                            <span class="center-block padding-5 label label-default">Bajo</span>
+                        {% else %}
+                        {% endif %}
+
+                    {% else %}
+                        -
+                    {% endif %}
+
+
+
+                {% endfor %}
+            </td>
+        </tr>
+        {% if entity.tutoria|length > 0 %}
+            <tr>
+                <th>
+                    Coevaluación - Red de tutores
+                </th>
+                <td>Evaluación del tutor al director de curso</td>
+                <td>
+                    {% if instrumentos[2].estado %}
+                        <a href="{{ path('redtutores') }}" class="btn btn-primary btn-xs">Ingresar <i
+                                    class="fa fa-sign-in"></i></a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endif %}
+        {% if entity.director|length > 0 %}
+            <tr>
+                <th>
+                    Coevaluación - Director de curso a tutores
+                </th>
+                <td>Evaluación del director a los tutores de curso</td>
+                <td>
+                    {% if instrumentos[3].estado %}
+                        <a href="{{ path('docente_coevaltutor') }}" class="btn btn-primary btn-xs">Ingresar <i
+                                    class="fa fa-sign-in"></i></a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endif %}
+        {% if entity.lider|length > 0 %}
+            <tr>
+                <th>
+                    Coevaluación - Lider o Cordinador Nacional a Directores de Curso
+                </th>
+                <td>Evaluación del lider a los directores de curso</td>
+                <td>
+                    {% if instrumentos[4].estado %}
+                        <a href="{{ path('docente_coevaldirector', { 'id': periodo.id }) }}"
+                           class="btn btn-primary btn-xs">Ingresar <i class="fa fa-sign-in"></i></a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endif %}
+
+        {% if entity.ternado|length != 0 %}
+            <tr>
+                <th>
+                    Coevaluación - Terna de Pares
+                </th>
+                <td>Evaluación de la terna a los pares acádemicos</td>
+                <td>
+                    {% if instrumentos[6].estado %}
+                        <a href="{{ path('docente_coevalpares') }}" class="btn btn-primary btn-xs">Ingresar <i
+                                    class="fa fa-sign-in"></i></a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endif %}
+
+    </table>
+
+    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        {% for plan in entity.planmejoramiento %}
+            <tr>
+                <th>Plan de Mejoramiento</th>
+                <td>
+                    <a href="{{ path('planmejoramiento_doc', { 'id': plan.id }) }}" class="btn btn-primary btn-xs">Ingresar
+                        <i class="fa fa-sign-in"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h4>4. Resultados</h4>
+    <table class="table table-bordered hidden-mobile" style="width: 95%">
+        <tr>
+            <th>
+                1. Plan de Trabajo (Cumplimiento)
+            </th>
+            <td>
+            </td>
+            <td>
+                {% if entity.plangestion.autoevaluacion is not null %}
+                    <a href="javascript:popUp('{{ path('plangestion_autoeval', { 'id': entity.id }) }}')"
+                       class="btn btn-primary btn-xs">Ver registro <i class="fa fa-sign-in"></i></a>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                2. Evaluación de estudiantes (Heteroevaluación)
+            </th>
+            <td>
+                {% if entity.heteroeval %}
+                    <a href="javascript:popUp('{{ path('heteroeval_info', {'id': entity.id }) }}')"
+                       class="btn btn-primary btn-xs">Ver Calificaciones <i class="fa fa-sign-in"></i></a>
+                {% else %}  {% endif %}
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>
+                3. Coevaluaciones
+            </th>
+            <td>
+                {% if entity.evaluacion %}
+                    <a href="javascript:popUp('{{ path('coeval_info', {'id': entity.id }) }}')"
+                       class="btn btn-primary btn-xs">Ver Calificaciones <i class="fa fa-sign-in"></i></a>
+                {% endif %}
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>
+                4. Informe de Evaluación DOFE
+            </th>
+            <td>
+                {% if entity.evaluacion %}
+                    <a href="javascript:popUp('{{ path('docente_final', {'id': entity.id }) }}')"
+                       class="btn btn-primary btn-xs">Ver Informe <i class="fa fa-sign-in"></i></a>
+                {% endif %}
+            </td>
+            <td></td>
+        </tr>
+
+    </table>
+
+    <div class="alert alert-info alert-block">
+
+        <h4 class="alert-heading">Ayuda y Soporte:</h4>
+        Si tiene alguna inquietud o desea reportar alguna inconsistencia en la información por favor escriba a
+        <a href="mailto:omar.rodriguez@unad.edu.co"> omar.rodriguez@unad.edu.co</a>
+    </div>
+
+    <div class="modal fade" data-refresh="true" id="ModalTutor" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+                    <h4 class="modal-title">Red de Tutores</h4>
+                </div>            <!-- /modal-header -->
+                <div class="modal-body">
+                    <ul>
+                        <li>
+                            Si usted fue tutor y este no se encuentra en la lista de cursos de tutoría, solicite al
+                            director del curso que lo incluya en el curso enviándole su numero de cedula, esto le
+                            permitirá evaluar al director y recibir evaluación del director.
+                        </li>
+                        <li>
+                            Si usted aparece como tutor de un curso del cual no lo fue ninguno de los periodos
+                            académicos del segundo semestre del presente año, solicite al director de curso que lo borre
+                            de la red.
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" data-refresh="true" id="ModalDirector" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+                    <h4 class="modal-title">Director de Curso</h4>
+                </div>            <!-- /modal-header -->
+                <div class="modal-body">
+                    <ul>
+                        <li>
+                            Usted puede modificar la red de tutores haciendo clic sobre el código del curso, para
+                            agregar un tutor requiere únicamente el número de cedula.
+                        </li>
+                        <li>
+                            Si usted fue director de curso y este no aparece en la lista por favor solicite el ajuste
+                            enviando un correo a siga@unad.edu.co especificando:
+                            Nombre del Curso
+                            Código
+                            Periodo Acádemico.
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+
+        function popUp(URL) {
+
+            if (typeof (popupWin) != "object" || popupWin.closed) {
+                popupWin = window.open(URL, 'popupWin', 'scrollbars=yes,toolbar=no,menubar=no,status=no,width=1000,height=600, left=100,top=100');
+            } else {
+                popupWin.location.href = URL;
+            }
+
+            popupWin.focus();
+        }
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends '/base.html.twig' %}
+
+{% block body -%}
+    <h1>Programa o Cadena de Formación</h1>
+        <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        <tbody>
+            <tr>
+                <th>Código</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ entity.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Nivel</th>
+                <td>{{ entity.nivel }}</td>
+            </tr>
+            <tr>
+                <th>Escuela</th>
+                <td>{{ entity.escuela.sigla }}</td>
+            </tr>
+            <tr>
+                <th>Periodo Evaluación</th>
+                <td>{{ periodo }}</td>
+            </tr>
+            <tr>
+                <th>Lider</th>
+                <td>{{ entity.lider? entity.lider.id}}-
+                {{ entity.lider? entity.lider.nombres~' '~ entity.lider.apellidos : 'No registrado'}}</td>
+            </tr>
+        </tbody>
+    </table>
+    {% if is_granted('ROLE_ADMIN') %}
+        <ul class="record_actions">
+        <li>
+        <a href="{{ path('programa_edit', { 'id': entity.id }) }}">Edit</a>
+        </li>
+    <li>{{ form(delete_form) }}</li>
+    </ul>
+    {%endif%}
+
+    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+    <tr>
+    <th>id</th>
+    <th>Curso</th>
+    <th>Periodo</th>
+    <th>Director</th>
+    </tr>
+     {%for curso in oferta %}
+
+     <tr>
+    <td>
+    <a href="{{ path('curso_show', { 'id': curso.curso.id }) }}">{{curso.curso.id}}</a>
+    </td>
+    <td>{{curso.curso.nombre}}</td>
+    <td>{{curso.periodo}}</td>
+    <td>{{ curso.director? curso.director.user.nombres~' '~curso.director.user.apellidos : 'sin'}}</td>
+    </tr>
+
+    {%endfor%}
+
+    </table>
+
+{% endblock %}

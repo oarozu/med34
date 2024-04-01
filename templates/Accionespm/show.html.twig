@@ -1,0 +1,52 @@
+{% extends '/base.html.twig' %}
+
+{% block body -%}
+    <h1>Accionespm</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Oportunidad</th>
+                <td>{{ entity.oportunidad }}</td>
+            </tr>
+            <tr>
+                <th>Causas</th>
+                <td>{{ entity.causas }}</td>
+            </tr>
+            <tr>
+                <th>Accion</th>
+                <td>{{ entity.accion }}</td>
+            </tr>
+            <tr>
+                <th>Fecha_proyectada</th>
+                <td>{{ entity.fechaproyectada|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Observaciones</th>
+                <td>{{ entity.observaciones }}</td>
+            </tr>
+            <tr>
+                <th>Fecha_cierre</th>
+                <td>{{ entity.fechacierre|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('accionespm') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('accionespm_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

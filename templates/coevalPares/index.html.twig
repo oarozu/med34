@@ -1,0 +1,43 @@
+{% extends '/base.html.twig' %}
+{% block body -%}
+<h3><a href="{{ path('docente_show', {'id': app.session.get('docenteid') }) }}"> << Regresar</a></h3>
+<h1>
+ Evaluación de Pares
+</h1>
+Instrumento mediante el cual el Consejo de Escuela se apoya en una terna de docentes de la Universidad para realizar la coevaluación del Liderazgo y la productividad académica del docente evaluado.<br>
+Usted a sido seleccionado como integrante
+{{terna.principal? 'Principal':'Suplente'}} de la terna de su Escuela.<br>
+{%if terna.evaluacion|length == 0 %}
+ <a href="{{ path('coevalpares_crear') }}" class="btn btn-primary btn-xs">Continuar <i class="fa fa-arrow-right"></i></a>
+ {%else%}
+<table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        <thead>
+            <tr>
+                <th>Cédula</th>
+                <th>Docente</th>
+                <th>Centro</th>
+                <th>Evaluar</th>
+            </tr>
+        </thead>
+        <tbody>
+		         {% for evaluacion in terna.evaluacion %}
+                            <tr>
+		                 <td>
+		                 {{evaluacion.evaluado.user.id}}</td>
+		                 <td>{{evaluacion.evaluado.user.nombres}} {{evaluacion.evaluado.user.apellidos}}</td>
+		                 <td>{{evaluacion.evaluado.centro.nombre}}</td>
+                                 <td>
+                                    {%if evaluacion.fecha %}
+                                    Evaluado ({{evaluacion.f0}})
+                                    {%else%}
+                                    <a href="{{ path('coevalpares_edit', { 'id': evaluacion.id }) }}">Evaluar...</a>
+                                    {%endif%}
+		                  </td>
+                             </tr>
+
+		         {% endfor %}
+        </tbody>
+    </table>
+{%endif%}
+
+   {% endblock %}

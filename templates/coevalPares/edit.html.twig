@@ -1,0 +1,174 @@
+{% extends '/base.html.twig' %}
+{% block body -%}
+<h3> {{entity.evaluado.user.nombres}} {{entity.evaluado.user.apellidos}}</h3>
+<table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+  <tr>
+    <th>Centro</th>
+    <td>{{ entity.evaluado.centro.nombre }}</td>
+    <th>Programa</th>
+    <td>{{ entity.evaluado.programa.nombre }}</td>
+  </tr>
+  <tr>
+    <th>Perfil</th>
+    <td>{{ entity.evaluado.perfil }}</td>
+    <th></th>
+    <td>
+    <a href="javascript:popUp('{{path('plangestion_autoeval', { 'id': entity.evaluado.id })}}')">Ver Autoevaluación...</a>
+
+        </td>
+  </tr>
+</table>
+     <form action="{{ path('coevalpares_update', { 'id': entity.id }) }}" method="post" {{ form_start(edit_form) }}
+    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+     <input type="hidden" name="_method" value="PUT"/>
+     {{ form_errors(edit_form) }}
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Evaluación</th>
+            </tr>
+        </thead>
+        <tbody>
+  <tr>
+    <td>1. Transmite con sus acciones la visión, la misión, los objetivos  y los valores Unadistas y de la educación a distancia.</td>
+    <td>{{ form_row(edit_form.f1)}}</td>
+  </tr>
+  <tr>
+    <td>2. Influye positivamente en el comportamiento de los demás y  logra que se comprometan con el logro de metas comunes.</td>
+    <td>{{ form_row(edit_form.f2)}}</td>
+  </tr>
+  <tr>
+    <td>3. Realiza seguimiento de objetivos brindando  retroalimentación a los otros.</td>
+    <td>{{ form_row(edit_form.f3)}}</td>
+  </tr>
+  <tr>
+    <td>4. Plantea orientaciones convincentes, expresa expectativas  positivas de los demás y demuestra interés por el desarrollo de las personas.</td>
+    <td>{{ form_row(edit_form.f4)}}</td>
+  </tr>
+  <tr>
+    <td>5. Promueve cambios y transformaciones que aumenten la capacidad  institucional de la UNAD e impulsen el mejoramiento.</td>
+    <td>{{ form_row(edit_form.f5)}}</td>
+  </tr>
+  <tr>
+    <td>6. Muestra dominio de los lenguajes oral, escrito y gráfico,  con ayuda de las tecnologías de la información y la comunicación.</td>
+    <td>{{ form_row(edit_form.f6)}}</td>
+  </tr>
+  <tr>
+    <td>7. Escucha con atención y comprende puntos de vista de los demás,  demostrando tolerancia frente a diferentes opiniones.</td>
+    <td>{{ form_row(edit_form.f7)}}</td>
+  </tr>
+  <tr>
+    <td>8. Realiza preguntas claras, concretas que permiten aclarar  una idea o situación.</td>
+    <td>{{ form_row(edit_form.f8)}}</td>
+  </tr>
+  <tr>
+    <td>9. Maneja y expresa adecuadamente sus emociones e identifica  y comprende las de otros.</td>
+    <td>{{ form_row(edit_form.f9)}}</td>
+  </tr>
+  <tr>
+    <td>10. Establece relaciones profesionales y de equipo que potencian  su trabajo y el logro de las metas institucionales.</td>
+    <td>{{ form_row(edit_form.f10)}}</td>
+  </tr>
+  <tr>
+    <td>11. Comparte aprendizajes y recursos con diferentes miembros  de la institución y ofrece apoyo para el trabajo de otros.</td>
+    <td>{{ form_row(edit_form.f11)}}</td>
+  </tr>
+  <tr>
+    <td>12.  Considera las contribuciones de los demás en la toma de decisiones.</td>
+    <td>{{ form_row(edit_form.f12)}}</td>
+  </tr>
+  <tr>
+    <td>13. Acepta críticas constructivas y actúa en consecuencia.</td>
+    <td>{{ form_row(edit_form.f13)}}</td>
+  </tr>
+  <tr>
+    <td>14. Identifica y comprende las causas y el contexto de un conflicto,  valorando con imparcialidad los motivos de los implicados.</td>
+    <td>{{ form_row(edit_form.f14)}}</td>
+  </tr>
+  <tr>
+    <td>15. Interviene efectiva y oportunamente ante situaciones de  conflicto.</td>
+    <td>{{ form_row(edit_form.f15)}}</td>
+  </tr>
+  <tr>
+    <td>16. Facilita acuerdos y soluciones multilaterales,  anteponiendo los intereses comunes y generando confianza en el proceso de  mediación.</td>
+    <td>{{ form_row(edit_form.f16)}}</td>
+  </tr>
+  <tr>
+    <td>17. Muestra respeto hacia los estudiantes, el equipo  docente, los directivos, el personal administrativo y la comunidad.</td>
+    <td>{{ form_row(edit_form.f17)}}</td>
+  </tr>
+  <tr>
+    <td>18. Responde con oportunidad, eficiencia y calidad a las  tareas que se le asignan.</td>
+    <td>{{ form_row(edit_form.f18)}}</td>
+  </tr>
+  <tr>
+    <td>19. Cumple eficientemente su jornada laboral.</td>
+    <td>{{ form_row(edit_form.f19)}}</td>
+  </tr>
+  <tr>
+    <td>20. Exhibe un comportamiento ético dentro y fuera de la  Institución y representa adecuadamente a la institución en actividades fuera de  la misma.</td>
+    <td>{{ form_row(edit_form.f20)}}</td>
+  </tr>
+  <tr>
+    <td>21. Demuestra honestidad e integridad en su ejercicio profesional.</td>
+    <td>{{ form_row(edit_form.f21)}}</td>
+  </tr>
+  <tr>
+    <td>22. Reflexiona sistemáticamente sobre su responsabilidad  social como docente en el contexto de la educación abierta y a distancia.</td>
+    <td>{{ form_row(edit_form.f22)}}</td>
+  </tr>
+  <tr>
+    <td>23. Realiza acciones que le facilitan el aprendizaje  permanente y la actualización en su disciplina y en otras áreas del conocimiento.</td>
+    <td>{{ form_row(edit_form.f23)}}</td>
+  </tr>
+  <tr>
+    <td>24. Actúa con autonomía sin necesidad de supervisión y hace  su trabajo con entusiasmo.</td>
+    <td>{{ form_row(edit_form.f24)}}</td>
+  </tr>
+  <tr>
+    <td>25. Demuestra recursividad y flexibilidad y se adapta con rapidez  a diferentes contextos.</td>
+    <td>{{ form_row(edit_form.f25)}}</td>
+  </tr>
+  <tr>
+    <td>26. Anticipa situaciones futuras, identifica tendencias innovadoras  en educación abierta y a distancia y es abierto a nuevas ideas.</td>
+    <td>{{ form_row(edit_form.f26)}}</td>
+  </tr>
+  <tr>
+    <td>27. Propone y desarrolla ideas novedosas, investigaciones,  experiencias o proyectos, para influir positivamente en la institución y la  comunidad.</td>
+    <td>{{ form_row(edit_form.f27)}}</td>
+  </tr>
+  <tr>
+    <td>28. Trabaja con disciplina para cumplir sus funciones con  altos niveles de calidad.</td>
+    <td>{{ form_row(edit_form.f28)}}</td>
+  </tr>
+  <tr>
+    <td>29. Procura que los estudiantes de la institución obtengan  resultados de excelencia en el contexto de la educación abierta y a distancia.
+    </td>
+    <td>{{ form_row(edit_form.f29)}}</td>
+  </tr>
+  <tr>
+    <td>30. Se muestra seguro de sí mismo, aun en situaciones desafiantes.</td>
+    <td>{{ form_row(edit_form.f30)}}</td>
+  </tr>
+  <tr>
+     <td>Observaciones: {{ form_widget(edit_form.observaciones)}}</td>
+  <td><button type="submit">Enviar</button></td>
+  </tr>
+        </tbody>
+</table>
+ {{ form_widget(edit_form._token) }}
+  </form>
+
+    <script>
+
+function popUp(URL) {
+    if(typeof(popupWin) != "object" || popupWin.closed)  {
+        popupWin = window.open(URL, 'popupWin', 'scrollbars=auto,toolbar=no,menubar=no,status=no,width=1000,height=600, left=100,top=100');
+    }
+    else{
+        popupWin.location.href = URL;
+    }
+    popupWin.focus();
+ }
+</script>
+  {% endblock %}

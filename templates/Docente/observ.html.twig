@@ -1,0 +1,195 @@
+{% extends '/base.html.twig' %}
+{% block body -%}
+<link rel="stylesheet" type="text/css" href="{{ asset('css/print.css') }}">
+
+<table class="table table-bordered table-striped hidden-mobile" style="width: 98%">
+  <tr>
+    <td colspan="4" align="center"><img src="/img/logo-med-unad.png" alt="MED">
+        <br>INFORME FINAL DE EVALUACIÓN INDIVIDUAL -    DOCENTES DE CARRERA
+    </td>
+  </tr>
+  <tr>
+    <td>Cédula</td>
+    <td>{{docente.user.id}}</td>
+    <td>Periodo Acádemico</td>
+    <td>{{docente.periodo}}</td>
+  </tr>
+  <tr>
+    <td>Nombres</td>
+    <td>{{docente.user.nombres}}</td>
+    <td>Programa</td>
+    <td>{{docente.programa.nombre}}</td>
+  </tr>
+  <tr>
+    <td>Apellidos</td>
+    <td>{{docente.user.apellidos}}</td>
+    <td>Cargo</td>
+    <td>{{docente.cargo}}</td>
+  </tr>
+  <tr>
+    <td colspan="2">Vinculación: {{docente.vinculacion}} - Modalidad: {{docente.modalidad}}</td>
+    <td colspan="2">Resolución: {{docente.resolucion}} - Perfil: {{docente.perfil}}</td>
+  </tr>
+  <tr>
+    <td colspan="4">Escuela: {{docente.escuela.nombre}}<br>
+                     Decano: {{docente.escuela.decano.nombres}} {{docente.escuela.decano.apellidos}}
+    </td>
+  </tr>
+  <tr>
+      <td colspan="2">Centro: {{docente.centro.nombre}}</td>
+    <td colspan="2">
+      Director:
+    {%if docente.centro.director%}
+{{docente.centro.director.nombres}} {{docente.centro.director.apellidos}}
+    {%endif%}
+    </td>
+  </tr>
+</table>
+  <table class="data" width="100%" border="0">
+    <tr>
+    <td><b>1. Observaciones Plan de Gestión</b></td>
+    <td>Perfil</td>
+    <td>Fecha</td>
+    <td>Estado</td>
+  </tr>
+  {% for avales in docente.plangestion.avales %}
+  <tr>
+    <td>{{avales.user.nombres}} {{avales.user.apellidos}}</td>
+    <td>{{avales.perfil}}</td>
+    <td>{{avales.fechaAval|date('Y-m-d H:i   ')}}</td>
+    <td>
+{%if avales.avalado == 1%}
+Aprobado
+    {%else%} - {%endif%}
+    </td>
+  </tr>
+    <tr>
+        <td colspan="5">{{avales.observaciones}}</td>
+  </tr>
+  {% endfor %}
+    </table>
+{%if docente.heteroeval%}
+<table class="data" width="100%" border="0">
+  <tr>
+    <td class="data" align="center" colspan="7">Heteroevaluación de Estudiantes - Compentencias Evaluadas</td>
+  </tr>
+  <tr>
+    <td class="data">Cognitiva</td>
+    <td class="data">Comunicativa</td>
+    <td class="data">Metodológicas</td>
+    <td class="data">Pedagógico - Didácticas</td>
+    <td class="data">Socioafectiva</td>
+    <td class="data">Tecnológica</td>
+    <td class="data">Calificación Final H1</td>
+  </tr>
+  <tr>
+      <td class="data" align="center">{{(docente.heteroeval.competencia1/20)|number_format(2, '.', ',')}}</td>
+    <td class="data" align="center">{{(docente.heteroeval.competencia2/20)|number_format(2, '.', ',')}}</td>
+    <td class="data" align="center">{{(docente.heteroeval.competencia3/20)|number_format(2, '.', ',')}}</td>
+    <td class="data" align="center">{{(docente.heteroeval.competencia4/20)|number_format(2, '.', ',')}}</td>
+    <td class="data" align="center">{{(docente.heteroeval.competencia5/20)|number_format(2, '.', ',')}}</td>
+    <td class="data" align="center">{{(docente.heteroeval.competencia6/20)|number_format(2, '.', ',')}}</td>
+    <td class="data" align="center">{{(docente.heteroeval.calificacion)|number_format(2, '.', ',')}}</td>
+  </tr>
+</table>
+{%endif%}
+ <table  class="data" widtd="100%" border="0">
+  <tr>
+    <td>Item</td>
+    <td>Instrumento</td>
+    <td>Tipo</td>
+    <td>Evalua</td>
+    <td>Calificación</td>
+  </tr>
+  <tr>
+    <td>A1</td>
+    <td>Plan de Gestión</td>
+    <td>Autoevaluación</td>
+    <td>Docente</td>
+    <td>{{docente.evaluacion.auto? docente.evaluacion.auto : 'Sin Autoevaluación' }}</td>
+  </tr>
+  <tr>
+    <td>H1</td>
+    <td>Evaluación de Estudiantes</td>
+    <td>Heteroevaluación</td>
+    <td>Estudiante</td>
+    <td>{{docente.evaluacion.hetero1? docente.evaluacion.hetero1 : 'Sin registros'}}</td>
+  </tr>
+    <tr>
+    <td>H2</td>
+    <td>Productividad Académica</td>
+    <td>Heteroevaluación</td>
+    <td>CIARP</td>
+    <td>{{docente.evaluacion.hetero2}}</td>
+  </tr>
+    <tr>
+    <td>C1</td>
+    <td>Evaluación de Pares</td>
+    <td>Coevaluación</td>
+    <td>Terna de Pares</td>
+    <td>{{docente.evaluacion.co1}}</td>
+      <tr>
+    <td>C2</td>
+    <td>Evaluación de Red Tutores</td>
+    <td>Heteroevaluación</td>
+    <td>Tutor</td>
+    <td>{{docente.evaluacion.co5? docente.evaluacion.co5: 'n/a' }}</td>
+  </tr>
+  </tr>
+</table>
+
+<table  class="data" widtd="100%" border="0">
+  <tr>
+    <td>Tipo de Evaluación</td>
+    <td>Ponderación:</td>
+    <td>Percentil</td>
+  </tr>
+  <tr>
+    <td>Autoevaluación (A1)</td>
+    <td>25%</td>
+    <td>{{(docente.evaluacion.auto*0.25)|number_format(2, '.', ',')}}</td>
+  </tr>
+  <tr>
+    <td>Heteroevaluación (H1 y H2)</td>
+    <td>50%</td>
+    <td>{{docente.evaluacion.hetero? (docente.evaluacion.hetero*0.50)|number_format(2, '.', ',') : 'sin'}}</td>
+  </tr>
+  <tr>
+    <td>Coevaluación (C1 y C2)</td>
+    <td>25%</td>
+    <td>{{docente.evaluacion.co? (docente.evaluacion.co*0.25)|number_format(2, '.', ','): 'sin'}}</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><h3>Evaluación Final del Desempeño</h3></td>
+    <td><h3>{{docente.evaluacion.final? docente.evaluacion.final|number_format(1, '.', ',') : '*'}}</h3>
+    </td>
+    </tr>
+</table>
+<table>
+  <tr>
+    <td colspan="3">Observaciones Decano de la Escuela: {{docente.evaluacion.observaciones}}
+
+
+   <form  action="{{ path('docente_observaciones', { 'id': docente.id }) }}" method="post" {{ form_start(form) }}
+
+   <input type="hidden" name="_method" value="PUT" />
+     {{ form_errors(form) }}
+   <tr>
+       <td>{{ form_widget(form.observaciones) }}</td>
+
+   </tr>
+   <tr>
+    <td><button type="hidden" class="btn btn-lg btn-primary">Guardar</button></td>
+  </tr>
+  {{ form_widget(form._token) }}
+</form>
+
+
+    </td>
+    </tr>
+    <tr>
+    <td colspan="3" align="center">Evaluación Número:{{docente.id}} -  Fecha y hora de consulta: {{ "now"|date("m/d/Y H:m") }}</td>
+  </tr>
+</table>
+{% endblock %}

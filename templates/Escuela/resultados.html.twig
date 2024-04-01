@@ -1,0 +1,53 @@
+{% extends '/base.html.twig' %}
+
+{% block body -%}
+
+  <h4 class="modal-title">{{ escuela.nombre }}</h4>
+  <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ escuela.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ escuela.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Sigla</th>
+                <td>{{ escuela.sigla }}</td>
+            </tr>
+            <tr>
+                <th>Decano</th>
+                <td>{{ escuela.decano.username }} {{ escuela.decano.nombres }} {{ escuela.decano.apellidos }}</td>
+            </tr>
+            <tr>
+                <th>Secretaria Academica</th>
+                <td>{{ escuela.secretaria ? escuela.secretaria.username~' '~escuela.secretaria.nombres~' '~escuela.secretaria.apellidos  : 'SIN' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+   <h4 class="modal-title">Resultados</h4>
+   <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        <tbody>
+            <tr>
+                <td>Item</td>
+                <td>Instrumento</td>
+                <td>Documento Adjunto</td>
+                <td>Ingresar</td>
+
+            </tr>
+                 <tr>
+                 <td>1</td>
+                <td>Evaluación de estudiantes</td>
+                <td>
+                 <a href="../../../docs/heteroevaluacion.pdf" target="_blank" class="btn btn-primary btn-xs"><i class="fa fa-download"></i></a>
+                </td>
+                <td>
+               <a href="{{path('escuela_heteroeval')}}" class="btn btn-primary btn-xs"><i class="fa fa-sign-in"></i></a>
+                </td>
+            </tr>
+             </table>
+
+{% endblock %}

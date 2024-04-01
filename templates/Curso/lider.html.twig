@@ -1,0 +1,107 @@
+{% extends '/base.html.twig' %}
+
+{% block body -%}
+    <!-- widget grid -->
+
+    <div class="col-sm-12">
+        <div class="well">
+            <h1 class="txt-color-orangeDark login-header-big">Programas asignados: </h1>
+            <table class="table table-bordered hidden-mobile" style="width: 100%">
+                <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Programa</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for programa in programas %}
+                    <tr>
+                        <td>
+                            {{ programa.id }}
+                        </td>
+                        <td>
+                            {{ programa.nombre }}
+                        </td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <section id="widget-grid" class="">
+        <!-- row -->
+        <div class="row">
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-{{ periodoa.id }}"
+                     data-widget-editbutton="false" data-widget-deletebutton="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                            <h2>    Cursos ofertados en el periodo {{ periodoa.nombre }}</h2>
+                    </header>
+
+                    <!-- widget div-->
+                    <div style="font-size: 10px">
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+                            <div class="widget-body-toolbar">
+                            </div>
+                            <table id="datatable_tabletools" class="table table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Curso</th>
+                                    <th>Programa</th>
+                                    <th>Director</th>
+                                    <th>Editar</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for oferta in ofertas %}
+                                    <tr>
+                                        <td>{{ oferta.curso.id }}</a>
+                                        </td>
+                                        <td>{{ oferta.curso.nombre }}</td>
+                                        <td>
+                                            {{ oferta.curso.programa.nombre }}
+                                        </td>
+                                        <td>
+                                            {{ oferta.director.user.nombres~' '~oferta.director.user.apellidos}}
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('oferta_edit', {'id': oferta.id }) }}" class="btn btn-success btn-xs"><i class="fa fa-edit"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- end widget content -->
+                    </div>
+                    <!-- end widget div -->
+                </div>
+                <!-- end widget -->
+            </article>
+            <!-- WIDGET END -->
+        </div>
+        <!-- end row -->
+    </section>
+    <!-- end widget grid -->
+
+    <div class="modal fade" data-refresh="true" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+{% endblock %}

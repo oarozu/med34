@@ -1,0 +1,164 @@
+{% extends '/base.html.twig' %}
+{% block body -%}
+    <h3>Roles para autoevaluación de : {{ entity.docente.user.nombres }} {{ entity.docente.user.apellidos }}
+        : {{ entity.docente.user.id }}</h3>
+
+    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        <tbody>
+        <tr>
+            <td>Fecha creación: {{ entity.fechacreacion? entity.fechacreacion|date('Y-m-d H') :'' }}</td>
+            <td>Fecha cierre: {{ entity.fechacierre? entity.fechacierre|date('Y-m-d H:i') : '' }}</td>
+        </tr>
+        <tr>
+            <td colspan="2">Estado:
+                {{ entity.estado }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <h5>Apreciado Docente Ocasional y Hora Cátedra:</h5>
+                <ul>
+                    <li>Los roles registrados para autoevaluación son suministradados por Talento Humano (SOCA).</li>
+                    <li>Los roles de formación (Tutor / Director de Curso) que no apararezcan en este registro y usted
+                        desempeño puede agregarlos con el bóton "Agregar".
+                    </li>
+                    <li>La autoevaluación se realiza por el desempeño en general de cada rol durante el periodo
+                        académico.
+                    </li>
+                </ul>
+                <h5>Importante antes de confirmar su asignación:</h5>
+                <ul>
+                    <li>Si tiene registradas “Otras Actividades” y estas no corresponden debe aceptar el registro y
+                        luego seleccionar la opción “No Aplica” y escribir una observación.
+                    </li>
+                    <li>Si considera que no tiene registrada alguna actividad para auto evaluación, acepte el registro y
+                        al finalizar el registro indique en observaciones qué actividad no autoavalúo.
+                    </li>
+                </ul>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        <thead>
+        <tr>
+            <th>Roles en el MED para autoevaluación del periodo {{ periodo.observaciones }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set num = 0 %} {% set totalhoras = 0 %}
+        {% set termino = 1 %}
+        {% for rol in entity.roles %}
+
+            <tr>
+                {% set num = num+1 %}
+                <td>{{ num }}.
+                    {{ rol.rol.nombre }}<br>
+                    {% if rol.descripcion %}
+                        {{ rol.descripcion }}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+
+        <tr>
+            <td colspan="3">
+                {% if entity.estado != 'Confirmado' %}
+                    <a data-toggle="modal" data-target="#ModalCerrar" class="btn btn-labeled btn-success"><span
+                                class="btn-label"><i class="glyphicon glyphicon-thumbs-up"></i></span>Confirmar
+                        Asignación</a>
+                {% else %}
+                    <a href="{{ path('plangestion_show') }}"
+                       class="btn btn-primary btn-xs">Autoevaluación<i class="fa fa-sign-in"></i></a>
+                {% endif %}
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <div class="alert alert-info alert-block">
+        <h4 class="alert-heading">IMPORTANTE:</h4>
+        Por disposición de la Gerencia de Talento y la Vicerrectoría académica el proceso de autoevaluación se debe
+        realizar solamente por roles de formación : Tutor, Director, Consejero y Componente Práctico.
+        En caso de no tener ninguno de los roles anteriores se asigna el Rol “Otras Actividades”.
+    </div>
+    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        <thead>
+        <tr>
+            <th colspan="3">Agregar roles de formación <b>SOLAMENTE</b> en caso que no lo tenga asignado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                1. Tutor
+            </td>
+            <td>
+                Agregar Rol de Tutor para autoevaluación <b>SOLAMENTE</b> en caso que usted desempeño el rol y no esta en el anterior listado.
+            </td>
+            <td>
+                {% if estutor %}
+                    Agregado
+                {% else %}
+                    <a href="{{ path('plangestion_conf_add', { 'id': 1 }) }}" class="btn btn-primary btn-xs"><i
+                                class="fa fa-plus"></i> Agregar</a>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                2. Director
+            </td>
+            <td>
+                Si usted fue director(a) de curso debe solicitar al líder de programa que la asigne como director(a) al cursos o cursos que corresponda con esto se habilita:<br>
+                * Rol de director para autoevaluación.<br>
+                * Coevaluación del líder a director.<br>
+                * Coevaluación del director a los tutores.<br>
+                * Coevaluación del tutor al director.<br>
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    </table>
+
+    <br>
+    <div class="modal fade" data-refresh="true" id="ModalCerrar" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+                    <h4 class="modal-title">Confirmar Asignación</h4>
+                </div>            <!-- /modal-header -->
+                <div class="modal-body">
+                    IMPORTANTE:
+                    Confirme su asignación para poder autoevaluarse, luego de confirmar no podrá solicitar ajustes a la
+                    asignación en caso que realmente se requieran.<br>
+                </div>
+                <div class="modal-footer">
+                    <form action="{{ path('plangestion_confirm', { 'id': entity.docente.id }) }}" method="get">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Cancelar
+                        </button>
+                        <td>
+                            <button type="hidden" class="btn btn-primary">Confirmar Asignación</button>
+                        </td>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" data-refresh="true" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-header modal-sm">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

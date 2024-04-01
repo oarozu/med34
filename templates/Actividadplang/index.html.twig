@@ -1,0 +1,46 @@
+{% extends '/base.html.twig' %}
+{% block body -%}
+    <h1>Actividadplang list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Horas</th>
+                <th>Descripcion</th>
+                <th>Observaciones</th>
+                <th>Autoevaluacion</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('actividadplang_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.horas }}</td>
+                <td>{{ entity.descripcion }}</td>
+                <td>{{ entity.observaciones }}</td>
+                <td>{{ entity.autoevaluacion }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('actividadplang_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('actividadplang_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('actividadplang_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

@@ -4,23 +4,23 @@ _admin_usuario:
 
 home_user:
     path:  /home
-    defaults: { _controller: "AppBundle:Default:home" }
+    defaults: { _controller: AppBundle\Controller\DefaultController::homeAction }
 
 home_soporte:
     path:  /soporte
-    defaults: { _controller: "AppBundle:Default:home" }
+    defaults: { _controller: AppBundle\Controller\DefaultController::homeAction }
 
 home_user_send:
     path:  /home/send
-    defaults: { _controller: "AppBundle:Default:send" }
+    defaults: { _controller: AppBundle\Controller\DefaultController::sendAction }
 
 home_user_inicio:
     path:  /home/inicio
-    defaults: { _controller: "AppBundle:Default:index" }
+    defaults: { _controller: AppBundle\Controller\DefaultController::indexAction }
 
 home_user_periodo:
     path:  /home/periodo
-    defaults: { _controller: "AppBundle:Default:period" }
+    defaults: { _controller: AppBundle\Controller\DefaultController::periodAction }
 
 home_user_periodo_select:
     path:  /home/periodo/{id}

@@ -1,0 +1,73 @@
+{% extends '/base.html.twig' %}
+{% block body -%}
+    <!-- MAIN CONTENT -->
+
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="well">
+            <h1 class="txt-color-orangeDark login-header-big">MED Módulo de Evaluación Docente</h1>
+            <p>
+                Desarrollado en coherencia con las directrices emitidas por el Consejo Superior Universitario en el
+                Acuerdo 003 del 28 de enero de 2011, modificado por el Acuerdo 013 del 05 de mayo de 2011.
+            </p>
+            <br>
+            <h1 class="txt-color-orangeDark login-header-big">Periodo de evaluación {{ year }} </h1>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="well">
+            <h1 class="txt-color-orangeDark login-header-big">Periodos académicos activos para evaluación docente: </h1>
+            <table class="table table-bordered hidden-mobile" style="width: 100%">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Periodo Académico</th>
+                    <th>Eventos académicos</th>
+                    <th>
+                        {% if isdc %}
+                            Autoevaluación
+                        {% else %}
+                            Evaluación Docente
+                        {% endif %}
+                    </th>
+                    <th>Seleccionar</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for periodoe in periodos %}
+                <tr>
+                    <td>
+                        {{ periodoe.id }}
+                    </td>
+                    <td>
+                        {% if isdc and periodoe.id == '20221' %}
+                            Primer semestre
+                        {% else %}
+                            {{ periodoe.observaciones }}
+                        {% endif %}
+                    </td>
+                    <td>{{ periodoe.fechainicio | date('Y-m-d') }} al
+                        {{ periodoe.fechafin | date('Y-m-d') }}</td>
+                    <td>
+                        {% if isdc %}
+                            {% if periodoe.dias > 0 %} Si aplica {% else %} No aplica {% endif %}
+                         {% else %}
+                             {{ periodoe.cronograma }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if is_granted('ROLE_DC') and periodoe.type == 's' %}
+                            <a href="{{ path('home_user_periodo_select', {'id':periodoe.id}) }}" class="btn btn-primary btn-xs">Seleccionar <i class="fa fa-sign-in"></i></a>
+                        {% elseif periodoe.type == 'p' %}
+                            <a href="{{ path('home_user_periodo_select', {'id':periodoe.id}) }}" class="btn btn-primary btn-xs">Seleccionar <i class="fa fa-sign-in"></i></a>
+                        {% endif %}
+                    </td>
+                </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

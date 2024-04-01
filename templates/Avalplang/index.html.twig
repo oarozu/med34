@@ -1,0 +1,73 @@
+{% extends '/base.html.twig' %}
+
+{% block body -%}
+    <h1>Aval de Roles para Autoevaluación de Docentes de Carrera</h1>
+
+    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        <thead>
+            <tr>
+                <th>Cédula</th>
+                <th>Nombre</th>
+                <th>Centro</th>
+                <th>Roles</th>
+                <th>Aval</th>
+                <th>Plan Gestión Firmado</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <th>
+                {{ entity.plan.docente.user.id }}
+                </th>
+                <td>{{ entity.plan.docente.user.nombres }} {{ entity.plan.docente.user.apellidos }}</td>
+                <td>{{entity.plan.docente.centro.nombre}}</td>
+
+
+                <td>
+              {%if entity.plan.estado != 'Sin Cerrar' %}
+                    <a href="javascript:popUp('{{ path('plangestion_info', { 'id': entity.plan.docente.id }) }}')" class="btn btn-primary btn-xs">Ver Roles <i class="fa fa-sign-in"></i></a>
+                {%else%}
+                    No cerrado por el docente
+                    {%endif%}
+                </td>
+                <td>
+                {%if entity.plan.estado == 'Cerrado' and entity.avalado != 1 %}
+                 <a data-toggle="modal" data-target="#myModal" href="{{ path('avalplang_edit', { 'id': entity.id }) }}" class="btn btn-primary btn-xs">Avalar <i class="fa fa-sign-in"></i></a>
+                {%else%}
+                {{entity.estado}}
+                {%endif%}
+                </td>
+                                                <td>
+                                {%if entity.plan.pdf%}
+            <a href="../../uploads/{{entity.periodo}}{{entity.plan.pdf.webpath}}" target="_blank"><i class="fa fa-file-o"></i> Ver...</a>
+           {%elseif is_granted('ROLE_DEC') and entity.avalado == 1 %}
+           <a href="{{ path('pdfplang_new', { 'id': entity.plan.docente.id }) }}" class="btn btn-primary btn-xs">Cargar <i class="fa fa-upload"></i></a>
+           {%endif%}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <ul>
+   <li><p><b>Plan G. PDF. </b>Es el plan de gestión aprobado y firmado, debe ser cargado por el Decano de la Escuela.</p></li>
+   <li><p><b>Roles. </b>Son el registro de roles que realiza el docente coherentes al plan de gestión aprobado y con los cuales realizara su auto evaluación al final del periodo acádemico.</p></li>
+   <li><p><b>Aval. </b>Los roles registrados para auto evaluación requieren el aval del Decano y del Director de Zona.</p></li>
+    </ul>
+    <br>
+     <script>
+
+function popUp(URL) {
+
+    if(typeof(popupWin) != "object" || popupWin.closed)  {
+        popupWin = window.open(URL, 'popupWin', 'scrollbars=auto,toolbar=no,menubar=no,status=no,width=1000,height=600, left=100,top=100');
+    }
+    else{
+        popupWin.location.href = URL;
+    }
+
+    popupWin.focus();
+ }
+
+</script>
+    {% endblock %}

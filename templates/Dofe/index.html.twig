@@ -1,0 +1,117 @@
+{% extends '/base.html.twig' %}
+
+{% block body -%}
+
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <!-- Widget ID (each widget will need unique ID)-->
+        <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-0"  data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
+                <!-- widget options:
+                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                data-widget-colorbutton="false"
+                data-widget-editbutton="false"
+                data-widget-togglebutton="false"
+                data-widget-deletebutton="false"
+                data-widget-fullscreenbutton="true"
+                data-widget-custombutton="false"
+                data-widget-collapsed="true"
+                data-widget-sortable="false"
+            -->
+            <header>
+                    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                    <h2>Evaluaciones DOFE</h2>
+            </header>
+<!-- widget div-->
+<div>
+
+            <!-- widget edit box -->
+            <div class="jarviswidget-editbox">
+            <!-- This area used as dropdown edit box -->
+
+                </div>
+                <!-- end widget edit box -->
+
+                <!-- widget content -->
+                <div class="widget-body">
+                <table class="table table-bordered">
+                        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cédula</th>
+                <th>Nombre</th>
+                <th>Rol</th>
+                <th>Escuela</th>
+                <th>Zona</th>
+                <th>Evalua</th>
+                <th>Plan Trab</th>
+                <th>Calificación</th>
+                <th>Evaluación</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>
+                {{ entity.id }}
+                </td>
+                <td>{{ entity.docente.user.id }}</td>
+                <td>{{ entity.docente.user.nombres }} {{ entity.docente.user.apellidos }}</td>
+                <td>{{ entity.rol.nombre }}</td>
+                <td>
+               {{ entity.escuela.sigla }}
+                </td>
+                 <td>
+               {{ entity.zona.nombre }}
+                </td>
+                <td>{{ entity.perfil }}</td>
+                <td>
+                <a href="javascript:popUp('{{ path('plangestion_autoeval', { 'id': entity.docente.id }) }}')">{{ entity.docente.plangestion.fechaautoevaluacion|date("d/m/Y") }}</a>
+
+                </td>
+                <td>{{ entity.calificacion }}</td>
+                <td>
+                {%if entity.calificacion is not null%}
+                 {%if entity.calificacion >= 25%}
+                 <span class="center-block padding-5 label label-success">Superior</span>
+                 {%elseif entity.calificacion < 25 and entity.calificacion > 15 %}
+                    <span class="center-block padding-5 label label-warning">Medio</span>
+                     {%elseif entity.calificacion <= 15 and entity.calificacion > 0%}
+                       <span class="center-block padding-5 label label-default">Bajo</span>
+                       {%else%}
+                          {%endif%}
+
+                {%else%}
+
+                    {%endif%}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+            </div>
+              <!-- end widget content -->
+            </div>
+            <!-- end widget div -->
+        </div>
+        <!-- end widget -->
+        </article>
+<div class="modal fade" data-refresh="true" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+</div></div></div>
+
+
+           <script>
+
+function popUp(URL) {
+
+    if(typeof(popupWin) != "object" || popupWin.closed)  {
+        popupWin = window.open(URL, 'popupWin', 'scrollbars=auto,toolbar=no,menubar=no,status=no,width=1000,height=600, left=100,top=100');
+    }
+    else{
+        popupWin.location.href = URL;
+    }
+    popupWin.focus();
+ }
+</script>
+    {% endblock %}

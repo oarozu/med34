@@ -1,0 +1,53 @@
+
+{% extends '/base.html.twig' %}
+{% block body -%}
+<a href="{{ path('docente_show', {'id': app.session.get('docenteid') }) }}"> << Regresar</a>
+    <h1>Evaluación a Tutores de Curso</h1>
+    {%for oferta in ofertas%}
+    <h1>Curso: {{oferta.curso.id}} - {{oferta.curso.nombre}} - {{oferta.periodo}} </h1>
+    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        <thead>
+            <tr>
+                <th>Cédula</th>
+                <th>Nombre</th>
+                <th>Centro</th>
+                <th>Evaluar</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tutor in oferta.tutores %}
+            <tr>
+                <td>{{tutor.docente.user.id}}</td>
+                <td>{{tutor.docente.user.nombres}} {{tutor.docente.user.apellidos}}</td>
+                <td>{{tutor.docente.centro.nombre}}</td>
+                <td>
+                {%if app.session.get('docenteid') == tutor.docente.id %}
+                    No Aplica
+                    {%else%}
+                   {%if tutor.coevaltutor %}
+                    {%if tutor.coevaltutor.f0 %}
+                    Evaluado ({{tutor.coevaltutor.f0}})
+                    {%else%}
+                     <a href="{{ path('coevaltutor_edit', { 'id': tutor.id }) }}">Evaluar...</a>
+                    {%endif%}
+                {%else%}
+                <a href="{{ path('coevaltutor_edit', { 'id': tutor.id }) }}">Evaluar...</a>
+                 {%endif%}
+                {%endif%}
+                 </td>
+        {% endfor %}
+        </tbody>
+    </table>
+ {%endfor%}
+    <div class="alert alert-info alert-block">
+
+                <h4 class="alert-heading">IMPORTANTE Apreciado Director de Curso:</h4>
+               Si en los anteriores cursos no aparece registrado alguno de los tutores que perteneció a la red, usted puede incluirlo así:<br>
+                1. Regrese a la página anterior<br>
+                2. Clic sobre el curso y periodo<br>
+                3. Clic sobre el botón "Editar Red" (Requiere el número de identificación del docente)<br>
+               <br>
+        En caso contrario, puede quitar el tutor de la red realizando los pasos anteriores y oprimiendo el botón de eliminar que está al lado derecho.
+
+        </div>
+{% endblock %}
