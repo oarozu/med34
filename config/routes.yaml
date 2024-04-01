@@ -1,17 +1,101 @@
 _welcome:
   path:  /
-  defaults: { _controller: AppBundle:Default:home }
+  defaults: { _controller: App\Controller\DefaultController::homeAction }
 
-admin_user:
-  resource: "@AppBundle/Resources/config/routing.yml"
-  prefix:   /
 
 login:
   path: /login
-  defaults: { _controller: AppBundle:Security:login }
+  defaults: { _controller: App\Controller\SecurityController::loginAction }
 
 login_check:
   path: /login_check
 
 logout:
   path: /logout
+
+
+home_user:
+  path:  /home
+  defaults: { _controller: App\Controller\DefaultController::homeAction }
+
+home_soporte:
+  path:  /soporte
+  defaults: { _controller: App\Controller\DefaultController::homeAction }
+
+home_user_send:
+  path:  /home/send
+  defaults: { _controller: App\Controller\DefaultController::sendAction }
+
+home_user_inicio:
+  path:  /home/inicio
+  defaults: { _controller: App\Controller\DefaultController::indexAction }
+
+home_user_periodo:
+  path:  /home/periodo
+  defaults: { _controller: App\Controller\DefaultController::periodAction }
+
+
+home_user_periodo_select:
+  path:  /home/periodo/{id}
+  defaults: { _controller: App\Controller\DefaultController::selectAction }
+
+admin_user_show:
+  path:  /unad/user/{id}/doc
+  defaults: { _controller: App\Controller\UserController::showAction }
+
+admon_user:
+  path:  /admon/user
+  defaults: { _controller: App\Controller\UserController::indexAction }
+
+home_user_info:
+  path:  /home/info
+  defaults: { _controller: App\Controller\UserController::infoAction }
+
+home_pass:
+  path:  /getpass
+  defaults: { _controller: App\Controller\UserController::passmedAction }
+
+home_pass2:
+  path:  /setpass
+  defaults: { _controller: App\Controller\UserController::setpassAction }
+  methods: [POST]
+
+user_info:
+  path: /unad/user/{id}/info
+  defaults: { _controller: App\Controller\UserController::showAction }
+
+decano_coevallider:
+  path:  /dec/coevallider
+  defaults: { _controller: App\Controller\EscuelaController::coevalliderAction }
+
+
+accionespm_editdoc:
+  path:  /doc/planm/acc/{id}/edit
+  defaults: { _controller: App\Controller\AccionespmController::editdocAction" }
+
+planmejoramiento_doc:
+  path: /doc/planm/{id}
+  defaults: { _controller: App\Controller\PlanmejoramientoController::docAction" }
+
+plangestion_info:
+  path:  /unad/doc/{id}/plan
+  defaults: { _controller: App\Controller\PlangestionController::infoAction }
+  methods: GET
+
+plangestion_autoeval:
+  path:  /unad/doc/{id}/autoeval
+  defaults: { _controller: App\Controller\PlangestionController::autoevalAction }
+  methods: GET
+
+
+redtutores_info:
+  path:  /unad/doc/{id}/redtutor
+  defaults: { _controller: App\Controller\DocenteController::redtutoresinfoAction" }
+
+coeval_info:
+  path:  /unad/doc/{id}/coeval
+  defaults: { _controller: App\Controller\DocenteController::coevalinfoAction }
+
+docente_coevaltutor:
+    path: /doc/coevaltutor
+    defaults: { _controller: App\Controller\DocenteController::coevaltutorAction }
