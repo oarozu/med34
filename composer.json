@@ -6,8 +6,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/"
-        },
-        "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
+        }
     },
     "require": {
         "php": "^7.2",
@@ -47,15 +46,7 @@
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
-        },
-        "post-install-cmd": [
-            "@auto-scripts",
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
-        ],
-        "post-update-cmd": [
-            "@auto-scripts",
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
-        ]
+        }
     },
     "config": {
         "allow-plugins": {
@@ -75,9 +66,6 @@
         "symfony": {
             "allow-contrib": false,
             "require": "4.4.*"
-        },
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
         }
     }
 }
