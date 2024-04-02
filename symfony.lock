@@ -26,9 +26,6 @@
             "src/Repository/.gitignore"
         ]
     },
-    "doctrine/doctrine-cache-bundle": {
-        "version": "1.4.0"
-    },
     "sensio/framework-extra-bundle": {
         "version": "5.6",
         "recipe": {
