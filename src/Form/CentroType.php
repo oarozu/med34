@@ -30,11 +30,11 @@ class CentroType extends AbstractType
             'required'  => true,
             ))
             ->add('zona', EntityType::class, array(
-                'class' =>  'AppBundle:Zona',
+                'class' =>  'App:Zona',
                 'choice_label' => 'nombre',
             ))
             ->add('departamento', EntityType::class, array(
-                'class' =>  'AppBundle:Departamento',
+                'class' =>  'App:Departamento',
                 'placeholder' => ' ',
                 'choice_label' => 'nombre',
             ))

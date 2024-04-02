@@ -17,7 +17,7 @@ class AccionespmType extends AbstractType
        {
         $builder
             ->add('plan',EntityType::class, array(
-            'class' =>  'AppBundle:Planmejoramiento',
+            'class' =>  'App:Planmejoramiento',
             'choice_label' => 'id',
                  ))
             ->add('oportunidad', TextareaType::class, array('required'  => true, 'attr' => array('cols' => '60')))

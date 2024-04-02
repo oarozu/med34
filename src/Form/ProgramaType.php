@@ -29,7 +29,7 @@ class ProgramaType extends AbstractType
             ))
             ->add('escuela', EntityType::class, array(
                 'placeholder' => ' ',
-                'class' =>  'AppBundle:Escuela',
+                'class' =>  'App:Escuela',
                 'choice_label' => 'nombre',
             ))
             ->add("lider", TextType::class, array(

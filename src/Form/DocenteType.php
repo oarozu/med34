@@ -30,11 +30,11 @@ class DocenteType extends AbstractType
             ->add('resolucion')
             ->add('perfil')
             ->add('escuela', EntityType::class, array(
-                 'class' =>  'AppBundle:Escuela',
+                 'class' =>  'App:Escuela',
                 'choice_label' => 'sigla',
                  ))
             ->add('centro', EntityType::class   , array(
-                 'class' =>  'AppBundle:Centro',
+                 'class' =>  'App:Centro',
                 'choice_label' => 'nombre',
                  ))
         ;

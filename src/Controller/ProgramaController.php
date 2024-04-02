@@ -63,7 +63,7 @@ class ProgramaController extends AbstractController
      * Creates a new Programa entity.
      *
      * @Route("/", name="programa_create", methods={"POST"})
-     * @Template("AppBundle:Programa:new.html.twig")
+     * @Template("App:Programa:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -335,7 +335,7 @@ class ProgramaController extends AbstractController
         #$entities = $em->getRepository('App:Docente')->findBy(array('escuela' => $escuela, 'periodo' => $session->get('periodoe')));
         #$entities = $em->getRepository('App:Docente')->selecionarLider($escuela);
 
-        $dql = "SELECT d FROM AppBundle:Docente d WHERE d.escuela = :escuela AND d.vinculacion != 'HC'";
+        $dql = "SELECT d FROM App:Docente d WHERE d.escuela = :escuela AND d.vinculacion != 'HC'";
         $query = $em->createQuery($dql);
         $query->setParameter('escuela', $escuela)->orderBy('d.id', 'DESC')->setMaxResults(500);
         $entities = $query->getResult();

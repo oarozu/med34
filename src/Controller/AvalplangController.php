@@ -356,7 +356,7 @@ class AvalplangController extends AbstractController
             ->setFrom(array('siga@unad.edu.co' => 'Módulo de Evaluación Docente MED'))
             ->setTo(array($docente->getUser()->getEmail() => $docente->getUser()->getNombres() . ' ' . $docente->getUser()->getApellidos()))
             ->setBody(
-                $this->renderView('AppBundle:Avalplang:noaprobado.txt.twig', array('aval' => $aval)
+                $this->renderView('App:Avalplang:noaprobado.txt.twig', array('aval' => $aval)
                 )
             );
         $this->get('mailer')->send($message);

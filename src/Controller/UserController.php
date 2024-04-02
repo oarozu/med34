@@ -33,7 +33,7 @@ class UserController extends AbstractController
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $dql = "select a from AppBundle:User a ORDER BY a.updated DESC";
+        $dql = "select a from App:User a ORDER BY a.updated DESC";
         $query = $em->createQuery($dql);
         $query->setMaxResults(200);
         $entities = $query->getResult();
@@ -99,11 +99,11 @@ class UserController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         if ($parametro == 'ced') {
-            $query = $em->createQuery('SELECT a FROM AppBundle:User a WHERE a.id LIKE :text');
+            $query = $em->createQuery('SELECT a FROM App:User a WHERE a.id LIKE :text');
         } elseif ($parametro == 'nom') {
-            $query = $em->createQuery('SELECT a FROM AppBundle:User a WHERE a.nombres LIKE :text');
+            $query = $em->createQuery('SELECT a FROM App:User a WHERE a.nombres LIKE :text');
         } elseif ($parametro == 'apell') {
-            $query = $em->createQuery('SELECT a FROM AppBundle:User a WHERE a.apellidos LIKE :text ');
+            $query = $em->createQuery('SELECT a FROM App:User a WHERE a.apellidos LIKE :text ');
         }
         $query->setMaxResults(200);
         $query->setParameters(array(

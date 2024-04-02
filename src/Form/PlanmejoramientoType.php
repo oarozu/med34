@@ -18,7 +18,7 @@ class PlanmejoramientoType extends AbstractType
         $builder
             ->add('observaciones', TextareaType::class, array('required'  => true, 'attr' => array('cols' => '60')))
             ->add('docente', EntityType::class, array(
-                 'class' =>  'AppBundle:Docente',
+                 'class' =>  'App:Docente',
                 'choice_label' => 'user.nombres',
                  ))
             ->add('calificacion', ChoiceType::class, array(

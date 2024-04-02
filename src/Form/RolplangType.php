@@ -47,7 +47,7 @@ class RolplangType extends AbstractType
             ))
             ->add('descripcion', TextareaType::class, array('attr' => array('cols' => '100')))
             ->add('rol', EntityType::class, array(
-                'class' => 'AppBundle:Rolacademico',
+                'class' => 'App:Rolacademico',
                 'choice_label' => 'id',
             ))
             ->add('semanas', ChoiceType::class, array(

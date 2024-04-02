@@ -42,7 +42,7 @@ class CursoprogType extends AbstractType
             ->add('programa', EntityType::class, array(
                 'required' => true,
                 'placeholder' => 'Programa',
-                'class' => 'AppBundle:Programa',
+                'class' => 'App:Programa',
                 'choice_label' => 'nombre',
                 'query_builder' => function (ProgramaRepository $repo) use ($escuelaid) {
                     return $repo->findByEscuela($escuelaid);

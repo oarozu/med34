@@ -15,14 +15,14 @@ class ProgramaRepository extends EntityRepository
     public function ordenEscuela(){
      $em = $this->getEntityManager();
     // $centros = $em->getRepository('App:Centro')->findAll();
-     $query = $em->createQuery('SELECT a FROM AppBundle:Programa a ORDER BY a.escuela ASC');
+     $query = $em->createQuery('SELECT a FROM App:Programa a ORDER BY a.escuela ASC');
      $centros = $query->getResult();
      return $centros;
   }
 
       public function getPorEscuela($escuelaId){
         $em = $this->getEntityManager();
-        $query = $em->createQuery('SELECT a FROM AppBundle:Programa a WHERE a.escuela = :escuelaid')->setParameter('escuelaid', $escuelaId);
+        $query = $em->createQuery('SELECT a FROM App:Programa a WHERE a.escuela = :escuelaid')->setParameter('escuelaid', $escuelaId);
         $programas = $query->getResult();
         return $programas;
       }
@@ -37,7 +37,7 @@ class ProgramaRepository extends EntityRepository
     public function getPorIds($ids)
     {
         $em = $this->getEntityManager();
-        $query = $em->createQuery('SELECT a FROM AppBundle:Programa a WHERE a.id IN (:ids)')->setParameter('ids', implode(',', $ids));
+        $query = $em->createQuery('SELECT a FROM App:Programa a WHERE a.id IN (:ids)')->setParameter('ids', implode(',', $ids));
         $programas = $query->getResult();
         return $programas;
     }

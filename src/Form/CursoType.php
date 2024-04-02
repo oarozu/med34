@@ -22,7 +22,7 @@ class CursoType extends AbstractType
             ->add('creditos')
             ->add('escuela')
            ->add('Programa', EntityType::class, array(
-            'class' =>  'AppBundle:Programa',
+            'class' =>  'App:Programa',
             'choice_label' => 'nombre',
                  ))
         ;

@@ -47,7 +47,7 @@ class ProductividadType extends AbstractType
             ->add('descripcion', TextareaType::class, array('required' => true, 'attr' => array('cols' => '80', 'rows' => '5')))
             ->add('proyecto', EntityType::class, array(
                 'placeholder' => 'Seleccione un proyecto',
-                'class' => 'AppBundle:Proyectoi',
+                'class' => 'App:Proyectoi',
                 'choice_label' => 'nombre',
                 'query_builder' => function (ProyectoiRepository $repo) {
                     return $repo->porUsuario($this->user);

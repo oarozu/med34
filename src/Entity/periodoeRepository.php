@@ -27,7 +27,7 @@ class periodoeRepository extends EntityRepository
     public function findLastThree()
     {
         $em = $this->getEntityManager();
-        $query = $em->createQuery('SELECT a FROM AppBundle:Periodoe a WHERE a.peraca < 20000 ORDER BY a.id DESC');
+        $query = $em->createQuery('SELECT a FROM App:Periodoe a WHERE a.peraca < 20000 ORDER BY a.id DESC');
         $periodos =  $query->setMaxResults(3)->getResult();
         return $this->getArray($periodos);
     }

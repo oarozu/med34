@@ -15,7 +15,7 @@ class actividadplanglRepository extends EntityRepository
    public function ordenado($id){
     $em = $this->getEntityManager();
     // $centros = $em->getRepository('App:Centro')->findAll();
-    $query = $em->createQuery('SELECT a FROM AppBundle:Actividadplang a JOIN a.actividadrol b WHERE b.plang = :id ORDER BY b.rol, b.id ASC');
+    $query = $em->createQuery('SELECT a FROM App:Actividadplang a JOIN a.actividadrol b WHERE b.plang = :id ORDER BY b.rol, b.id ASC');
     $query->setParameter('id', $id);
     $actividades = $query->getResult();
     return $actividades;

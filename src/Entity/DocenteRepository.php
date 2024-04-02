@@ -82,7 +82,7 @@ class DocenteRepository extends EntityRepository
     public function porVinculacion($sigla, $periodo)
     {
         $em = $this->getEntityManager();
-        $query = $em->createQuery('SELECT a FROM AppBundle:Docente a WHERE a.vinculacion = :sigla and a.periodo = :periodo')->setParameter('sigla', $sigla)->setParameter('periodo', $periodo);
+        $query = $em->createQuery('SELECT a FROM App:Docente a WHERE a.vinculacion = :sigla and a.periodo = :periodo')->setParameter('sigla', $sigla)->setParameter('periodo', $periodo);
         $programas = $query->getResult();
         return $programas;
     }
@@ -91,7 +91,7 @@ class DocenteRepository extends EntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery('SELECT d.id, u.id AS cedula, u.nombres, u.apellidos, d.vinculacion, c.nombre AS centro, p.id AS programa, e.hetero, e.co, e.auto, e.final
-        FROM AppBundle:Docente d  
+        FROM App:Docente d  
         JOIN d.user u
         JOIN d.centro c
         JOIN d.programa p

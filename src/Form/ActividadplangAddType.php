@@ -26,7 +26,7 @@ class ActividadplangAddType extends AbstractType
          ->add('descripcion', TextareaType::class, array('attr' => array('cols' => '60')))
 
          ->add('actividad', EntityType::class, array(
-          'class' =>  'AppBundle:Actividadrol',
+          'class' =>  'App:Actividadrol',
           'choice_label' => 'id',
           ))
         ;

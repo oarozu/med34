@@ -190,7 +190,7 @@ class InstrumentoController extends AbstractController
         $response = new JsonResponse(
         array(
             'message' => '<div class="alert alert-success fade in"><i class="fa-fw fa fa-check"></i><strong>Hecho !</strong> Registro actualizado.</div>',
-            'form' => $this->renderView('AppBundle:Instrumento:form.html.twig',
+            'form' => $this->renderView('App:Instrumento:form.html.twig',
              array(
             'entity' => $entity,
             'form' => $editForm->createView(),
@@ -201,7 +201,7 @@ class InstrumentoController extends AbstractController
         $response = new JsonResponse(
         array(
             'message' => 'Error desde Json',
-            'form' => $this->renderView('AppBundle:Instrumento:form.html.twig',
+            'form' => $this->renderView('App:Instrumento:form.html.twig',
              array(
             'entity' => $entity,
             'form' => $editForm->createView(),
