@@ -31,7 +31,7 @@ class DocenteController extends AbstractController
     public function indexAction($periodo)
     {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('AppBundle:Docente')->docentesPeriodo($periodo);
+        $entities = $em->getRepository('App:Docente')->docentesPeriodo($periodo);
         return array(
             'entities' => $entities,
             'periodo' => $periodo
@@ -46,9 +46,9 @@ class DocenteController extends AbstractController
     public function homeAction($periodo)
     {
         $em = $this->getDoctrine()->getManager();
-        $escuelas = $em->getRepository('AppBundle:Escuela')->findAll();
-        $periodose = $em->getRepository('AppBundle:Periodoe')->findby(array(), array('id' => 'DESC'), 10);
-        $docsdc = $em->getRepository('AppBundle:Docente')->totalEscuelas($periodo);
+        $escuelas = $em->getRepository('App:Escuela')->findAll();
+        $periodose = $em->getRepository('App:Periodoe')->findby(array(), array('id' => 'DESC'), 10);
+        $docsdc = $em->getRepository('App:Docente')->totalEscuelas($periodo);
         return array(
             'escuelas' => $escuelas,
             'periodo' => $periodo,
@@ -66,11 +66,11 @@ class DocenteController extends AbstractController
     public function indexEscuelaAction($id, $periodo)
     {
         $em = $this->getDoctrine()->getManager();
-        $escuela = $em->getRepository('AppBundle:Escuela')->findOneBy(array('id' => $id));
-        $periodoe = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $periodo));
-        $entities = $em->getRepository('AppBundle:Docente')->resultadosEscuelaPeriodo($escuela, $periodo);
+        $escuela = $em->getRepository('App:Escuela')->findOneBy(array('id' => $id));
+        $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $periodo));
+        $entities = $em->getRepository('App:Docente')->resultadosEscuelaPeriodo($escuela, $periodo);
 
-//        $entities = $em->getRepository('AppBundle:Docente')->findBy(array('escuela' => $escuela, 'periodo' => $periodo));
+//        $entities = $em->getRepository('App:Docente')->findBy(array('escuela' => $escuela, 'periodo' => $periodo));
         $total = count($entities);
         return array(
             'entities' => $entities,
@@ -90,11 +90,11 @@ class DocenteController extends AbstractController
     public function indexResultadosCsvAction($id, $periodo)
     {
         $em = $this->getDoctrine()->getManager();
-        $escuela = $em->getRepository('AppBundle:Escuela')->findOneBy(array('id' => $id));
-        $resultados = $em->getRepository('AppBundle:Docente')->resultadosEscuelaPeriodo($escuela, $periodo);
+        $escuela = $em->getRepository('App:Escuela')->findOneBy(array('id' => $id));
+        $resultados = $em->getRepository('App:Docente')->resultadosEscuelaPeriodo($escuela, $periodo);
         $response = new Response();
         $responseString = $this->array2csv($resultados);
-        $periodoe = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $periodo));
+        $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $periodo));
         $response->headers->set('Content-type', 'application/vnd.ms-excel');
         $response->headers->set('Cache-Control', 'private');
         $response->headers->set('Content-Disposition', 'attachment; filename="resultados-' . $escuela->getSigla() .'-'.$periodoe->getYear() .'_'. $periodoe->getObservaciones() . '.xls";');
@@ -129,7 +129,7 @@ class DocenteController extends AbstractController
     public function indexVinculacionAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('AppBundle:Docente')->findBy(array('vinculacion' => $id, 'periodo' => $this->getParameter('appmed.periodo')));
+        $entities = $em->getRepository('App:Docente')->findBy(array('vinculacion' => $id, 'periodo' => $this->getParameter('appmed.periodo')));
 
         $total = count($entities);
         return array(
@@ -148,7 +148,7 @@ class DocenteController extends AbstractController
     public function indexDcAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('AppBundle:Docente')->findBy(array('vinculacion' => 'DC', 'periodo' => $this->getParameter('appmed.periodo')));
+        $entities = $em->getRepository('App:Docente')->findBy(array('vinculacion' => 'DC', 'periodo' => $this->getParameter('appmed.periodo')));
         $total = count($entities);
         return array(
             'entities' => $entities,
@@ -166,9 +166,9 @@ class DocenteController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $id = $em->getRepository('AppBundle:Escuela')->find($session->get('escuelaid'));
-        $escuela = $em->getRepository('AppBundle:Escuela')->findOneBy(array('id' => $id));
-        $entities = $em->getRepository('AppBundle:Docente')->findBy(array('escuela' => $escuela, 'vinculacion' => 'DC', 'periodo' => $this->getParameter('appmed.periodo')));
+        $id = $em->getRepository('App:Escuela')->find($session->get('escuelaid'));
+        $escuela = $em->getRepository('App:Escuela')->findOneBy(array('id' => $id));
+        $entities = $em->getRepository('App:Docente')->findBy(array('escuela' => $escuela, 'vinculacion' => 'DC', 'periodo' => $this->getParameter('appmed.periodo')));
         $total = count($entities);
         return array(
             'entities' => $entities,
@@ -187,9 +187,9 @@ class DocenteController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $zona = $em->getRepository('AppBundle:Zona')->find($session->get('zonaid'));
-        $centro = $em->getRepository('AppBundle:Centro')->findBy(array('zona' => $zona));
-        $entities = $em->getRepository('AppBundle:Docente')->findBy(array('centro' => $centro, 'vinculacion' => 'DC', 'periodo' => $this->getParameter('appmed.periodo')));
+        $zona = $em->getRepository('App:Zona')->find($session->get('zonaid'));
+        $centro = $em->getRepository('App:Centro')->findBy(array('zona' => $zona));
+        $entities = $em->getRepository('App:Docente')->findBy(array('centro' => $centro, 'vinculacion' => 'DC', 'periodo' => $this->getParameter('appmed.periodo')));
         $total = count($entities);
         return array(
             'entities' => $entities,
@@ -268,10 +268,10 @@ class DocenteController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $entity = $em->getRepository('AppBundle:Docente')->find($id);
-        $instrumentos = $em->getRepository('AppBundle:Instrumento')->findAll();
+        $entity = $em->getRepository('App:Docente')->find($id);
+        $instrumentos = $em->getRepository('App:Instrumento')->findAll();
         //$this->get('session')->getFlashBag()->add('warning', 'El plazo para el proceso se extiende hasta el lunes 16 inclusive');
-        $periodo = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
+        $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Docente entity.');
@@ -302,9 +302,9 @@ class DocenteController extends AbstractController
         if ($docenteid == null) {
             return $this->redirect($this->generateUrl('home_user_inicio'));
         }
-        $entity = $em->getRepository('AppBundle:Docente')->find($docenteid);
-        $instrumentos = $em->getRepository('AppBundle:Instrumento')->findAll();
-        $periodo = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
+        $entity = $em->getRepository('App:Docente')->find($docenteid);
+        $instrumentos = $em->getRepository('App:Instrumento')->findAll();
+        $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
         $this->get('session')->getFlashBag()->add('success', 'Periodo de evaluación seleccionado: ' . $periodo->getObservaciones());
 
 
@@ -313,7 +313,7 @@ class DocenteController extends AbstractController
         }
 
         if ($entity->getVinculacion() == 'DOFE') {
-            $red = $em->getRepository('AppBundle:RedDofe')->findBy(array('docente' => $entity));
+            $red = $em->getRepository('App:RedDofe')->findBy(array('docente' => $entity));
             return $this->render('Docente/iniciodofe.html.twig', array(
                 'entity' => $entity,
                 'instrumentos' => $instrumentos,
@@ -344,8 +344,8 @@ class DocenteController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $entity = $em->getRepository('AppBundle:Docente')->find($id);
-        $periodo = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $entity->getPeriodo()));
+        $entity = $em->getRepository('App:Docente')->find($id);
+        $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $entity->getPeriodo()));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Docente entity.');
@@ -374,8 +374,8 @@ class DocenteController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $entity = $em->getRepository('AppBundle:Docente')->find($id);
-        $periodo = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $entity->getPeriodo()));
+        $entity = $em->getRepository('App:Docente')->find($id);
+        $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $entity->getPeriodo()));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Docente entity.');
@@ -403,7 +403,7 @@ class DocenteController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Docente')->find($id);
+        $entity = $em->getRepository('App:Docente')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Docente entity.');
@@ -448,7 +448,7 @@ class DocenteController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Docente')->find($id);
+        $entity = $em->getRepository('App:Docente')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Docente entity.');
@@ -483,7 +483,7 @@ class DocenteController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Docente')->find($id);
+            $entity = $em->getRepository('App:Docente')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Docente entity.');
@@ -520,10 +520,10 @@ class DocenteController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $programas = $em->getRepository('AppBundle:Programa')->findBy(array('lider' => $user));
+        $programas = $em->getRepository('App:Programa')->findBy(array('lider' => $user));
 
-        $entity = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
-        $ofertas = $em->getRepository('AppBundle:Oferta')->findBy(array('director' => $entity));
+        $entity = $em->getRepository('App:Docente')->find($session->get('docenteid'));
+        $ofertas = $em->getRepository('App:Oferta')->findBy(array('director' => $entity));
 
         return array(
             'entity' => $entity,
@@ -538,7 +538,7 @@ class DocenteController extends AbstractController
     public function coevalinfoAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Docente')->find($id);
+        $entity = $em->getRepository('App:Docente')->find($id);
         return array(
             'entity' => $entity,
         );
@@ -551,16 +551,16 @@ class DocenteController extends AbstractController
     public function finalAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Docente')->find($id);
-        $periodo = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $entity->getPeriodo()));
-        $parciales = $em->getRepository('AppBundle:Docente')->evalAnual($periodo->getYear(), $entity->getUser()->getId());
+        $entity = $em->getRepository('App:Docente')->find($id);
+        $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $entity->getPeriodo()));
+        $parciales = $em->getRepository('App:Docente')->evalAnual($periodo->getYear(), $entity->getUser()->getId());
         if ($entity->getVinculacion() == 'De Carrera') {
             return $this->render('Docente/finaldc.html.twig', array(
                 'docente' => $entity,
                 'periodo' => $periodo
             ));
         } else if ($entity->getVinculacion() == 'DOFE') {
-            $red = $em->getRepository('AppBundle:RedDofe')->findBy(array('docente' => $entity));
+            $red = $em->getRepository('App:RedDofe')->findBy(array('docente' => $entity));
             return $this->render('Docente/finaldofe.html.twig', array(
                 'docente' => $entity,
                 'red' => $red
@@ -587,7 +587,7 @@ class DocenteController extends AbstractController
     public function observAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Docente')->find($id);
+        $entity = $em->getRepository('App:Docente')->find($id);
 
         $Form = $this->createForm(ObservType::class);
 
@@ -605,8 +605,8 @@ class DocenteController extends AbstractController
     {
 
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Docente')->find($id);
-        $evaluacion = $em->getRepository('AppBundle:evaluacion')->find($id);
+        $entity = $em->getRepository('App:Docente')->find($id);
+        $evaluacion = $em->getRepository('App:evaluacion')->find($id);
 
         $Form = $this->createForm(ObservType::class);
         $Form->handleRequest($request);

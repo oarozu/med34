@@ -48,9 +48,9 @@ class EscuelaController extends AbstractController
         $form->handleRequest($request);
 
         $em = $this->getDoctrine()->getManager();
-        $decano = $em->getRepository('AppBundle:User')->find($form["decano"]->getData());
+        $decano = $em->getRepository('App:User')->find($form["decano"]->getData());
         $entity->setDecano($decano);
-        $secretaria = $em->getRepository('AppBundle:User')->find($form["secretaria"]->getData());
+        $secretaria = $em->getRepository('App:User')->find($form["secretaria"]->getData());
         $entity->setSecretaria($secretaria);
 
         if ($form->isValid()) {
@@ -113,8 +113,8 @@ class EscuelaController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Escuela')->find($id);
-        $terna = $em->getRepository('AppBundle:Terna')->findBy(array('escuela' => $entity, 'periodo' => $this->getParameter('appmed.periodo')));
+        $entity = $em->getRepository('App:Escuela')->find($id);
+        $terna = $em->getRepository('App:Terna')->findBy(array('escuela' => $entity, 'periodo' => $this->getParameter('appmed.periodo')));
 
 
         if (!$entity) {
@@ -144,18 +144,18 @@ class EscuelaController extends AbstractController
         $session = $request->getSession();
         $escuelaid = $session->get('escuelaid');
         if ($escuelaid != null){
-            $escuela = $em->getRepository('AppBundle:Escuela')->find($escuelaid);
+            $escuela = $em->getRepository('App:Escuela')->find($escuelaid);
         }else{
             return $this->redirect($this->generateUrl('home_user_inicio'));
         }
 
-        $periodoss = $em->getRepository('AppBundle:Periodoe')->findby(array('type' => 's'), array('id' => 'DESC'), 10);
-        $periodosa = $em->getRepository('AppBundle:Periodoe')->findby(array('type' => 'a'), array('id' => 'DESC'), 5);
-        $periodosp = $em->getRepository('AppBundle:Periodoe')->findby(array('type' => 'p', 'year' => $year), array('id' => 'DESC'));
-        $programas = $em->getRepository('AppBundle:Programa')->findBy(array('escuela' => $escuela), array('nivel' => 'DESC'));
-        $periodo = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
+        $periodoss = $em->getRepository('App:Periodoe')->findby(array('type' => 's'), array('id' => 'DESC'), 10);
+        $periodosa = $em->getRepository('App:Periodoe')->findby(array('type' => 'a'), array('id' => 'DESC'), 5);
+        $periodosp = $em->getRepository('App:Periodoe')->findby(array('type' => 'p', 'year' => $year), array('id' => 'DESC'));
+        $programas = $em->getRepository('App:Programa')->findBy(array('escuela' => $escuela), array('nivel' => 'DESC'));
+        $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
 
-        $ofertado = $em->getRepository('AppBundle:ProgramaPeriodo')->findby(array('programa' => $programas, 'periodo' => $session->get('periodoe')));
+        $ofertado = $em->getRepository('App:ProgramaPeriodo')->findby(array('programa' => $programas, 'periodo' => $session->get('periodoe')));
 
 
         if (!$escuela) {
@@ -182,7 +182,7 @@ class EscuelaController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Escuela')->find($id);
+        $entity = $em->getRepository('App:Escuela')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Escuela entity.');
@@ -229,7 +229,7 @@ class EscuelaController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Escuela')->find($id);
+        $entity = $em->getRepository('App:Escuela')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Escuela entity.');
@@ -239,9 +239,9 @@ class EscuelaController extends AbstractController
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
-        $decano = $em->getRepository('AppBundle:User')->find($editForm["decano"]->getData());
+        $decano = $em->getRepository('App:User')->find($editForm["decano"]->getData());
         $entity->setDecano($decano);
-        $secretaria = $em->getRepository('AppBundle:User')->find($editForm["secretaria"]->getData());
+        $secretaria = $em->getRepository('App:User')->find($editForm["secretaria"]->getData());
         $entity->setSecretaria($secretaria);
 
         if ($editForm->isValid() && $secretaria && $decano) {
@@ -269,7 +269,7 @@ class EscuelaController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Escuela')->find($id);
+            $entity = $em->getRepository('App:Escuela')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Escuela entity.');
@@ -307,7 +307,7 @@ class EscuelaController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $escuela = $em->getRepository('AppBundle:Escuela')->find($session->get('escuelaid'));
+        $escuela = $em->getRepository('App:Escuela')->find($session->get('escuelaid'));
         if (!$escuela) {
             throw $this->createNotFoundException('Unable to find Escuela entity.');
         }
@@ -326,8 +326,8 @@ class EscuelaController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $escuela = $em->getRepository('AppBundle:Escuela')->find($session->get('escuelaid'));
-        $docentes = $em->getRepository('AppBundle:Docente')->findby(array('escuela' => $session->get('escuelaid')));
+        $escuela = $em->getRepository('App:Escuela')->find($session->get('escuelaid'));
+        $docentes = $em->getRepository('App:Docente')->findby(array('escuela' => $session->get('escuelaid')));
         if (!$escuela) {
             throw $this->createNotFoundException('Unable to find Escuela entity.');
         }
@@ -346,7 +346,7 @@ class EscuelaController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $escuela = $em->getRepository('AppBundle:Escuela')->find($session->get('escuelaid'));
+        $escuela = $em->getRepository('App:Escuela')->find($session->get('escuelaid'));
         if (!$escuela) {
             throw $this->createNotFoundException('Unable to find Escuela entity.');
         }

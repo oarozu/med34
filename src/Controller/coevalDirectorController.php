@@ -29,11 +29,11 @@ class coevalDirectorController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $programas = $em->getRepository('AppBundle:Programa')->findBy(array('lider' => $user));
-        $cursos = $em->getRepository('AppBundle:Curso')->findBy(array('programa' => $programas));
-        $periodoe = $em->getRepository('AppBundle:Periodoe')->findBy(array('id' => $id));
-        $periodoa = $em->getRepository('AppBundle:Periodoa')->findBy(array('periodoe' => $periodoe));
-        $ofertas = $em->getRepository('AppBundle:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa),array('director' => 'ASC'));
+        $programas = $em->getRepository('App:Programa')->findBy(array('lider' => $user));
+        $cursos = $em->getRepository('App:Curso')->findBy(array('programa' => $programas));
+        $periodoe = $em->getRepository('App:Periodoe')->findBy(array('id' => $id));
+        $periodoa = $em->getRepository('App:Periodoa')->findBy(array('periodoe' => $periodoe));
+        $ofertas = $em->getRepository('App:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa),array('director' => 'ASC'));
 
         return array(
             'programas' => $programas,
@@ -99,7 +99,7 @@ class coevalDirectorController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:coevalDirector')->find($id);
+        $entity = $em->getRepository('App:coevalDirector')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find coevalDirector entity.');
@@ -123,13 +123,13 @@ class coevalDirectorController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $entity = $em->getRepository('AppBundle:coevalDirector')->find($id);
-        $periodo = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
+        $entity = $em->getRepository('App:coevalDirector')->find($id);
+        $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
 
         if (!$entity) {
         $entity = new coevalDirector();
         $em = $this->getDoctrine()->getManager();
-        $oferta = $em->getRepository('AppBundle:Oferta')->find($id);
+        $oferta = $em->getRepository('App:Oferta')->find($id);
         $entity->setOferta($oferta);
         $em->persist($entity);
         $em->flush();
@@ -174,7 +174,7 @@ class coevalDirectorController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $entity = $em->getRepository('AppBundle:coevalDirector')->find($id);
+        $entity = $em->getRepository('App:coevalDirector')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find coevalDirector entity.');
@@ -214,7 +214,7 @@ class coevalDirectorController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:coevalDirector')->find($id);
+            $entity = $em->getRepository('App:coevalDirector')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find coevalDirector entity.');

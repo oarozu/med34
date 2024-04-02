@@ -29,7 +29,7 @@ class ZonaController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Zona')->findAll();
+        $entities = $em->getRepository('App:Zona')->findAll();
 
         return array(
             'entities' => $entities,
@@ -108,7 +108,7 @@ class ZonaController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Zona')->find($id);
+        $entity = $em->getRepository('App:Zona')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Zona entity.');
@@ -132,7 +132,7 @@ class ZonaController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Zona')->find($id);
+        $entity = $em->getRepository('App:Zona')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Zona entity.');
@@ -180,7 +180,7 @@ class ZonaController extends AbstractController
         }
 
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Zona')->find($id);
+        $entity = $em->getRepository('App:Zona')->find($id);
 
         if (!$entity) {
             return new JsonResponse(array('message' => 'Unable to find Zona entity'), 500);
@@ -188,7 +188,7 @@ class ZonaController extends AbstractController
         }
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-        $director = $em->getRepository('AppBundle:User')->find($editForm["director"]->getData());
+        $director = $em->getRepository('App:User')->find($editForm["director"]->getData());
 
         if (count($director) == 0) {
             return new JsonResponse(
@@ -241,7 +241,7 @@ class ZonaController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Zona')->find($id);
+            $entity = $em->getRepository('App:Zona')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Zona entity.');
@@ -281,15 +281,15 @@ class ZonaController extends AbstractController
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $zona = $user->getDirectorzona();
         $year = $this->getParameter('appmed.year');
-        $periodoss = $em->getRepository('AppBundle:Periodoe')->findby(array('type' => 's'), array('id' => 'DESC'), 10);
-        $periodosa = $em->getRepository('AppBundle:Periodoe')->findby(array('type' => 'a'), array('id' => 'DESC'), 5);
-        $periodosp = $em->getRepository('AppBundle:Periodoe')->findby(array('type' => 'p', 'year' => $year), array('id' => 'DESC'));
+        $periodoss = $em->getRepository('App:Periodoe')->findby(array('type' => 's'), array('id' => 'DESC'), 10);
+        $periodosa = $em->getRepository('App:Periodoe')->findby(array('type' => 'a'), array('id' => 'DESC'), 5);
+        $periodosp = $em->getRepository('App:Periodoe')->findby(array('type' => 'p', 'year' => $year), array('id' => 'DESC'));
         if ($id == 1) {
             $id = $this->getParameter('appmed.periodo');
         }
-        $centros = $em->getRepository('AppBundle:Centro')->findBy(array('zona' => $zona[0]));
-        $docentes = $em->getRepository('AppBundle:Docente')->findBy(array('centro' => $centros, 'periodo' => $id));
-        $periodo = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $id));
+        $centros = $em->getRepository('App:Centro')->findBy(array('zona' => $zona[0]));
+        $docentes = $em->getRepository('App:Docente')->findBy(array('centro' => $centros, 'periodo' => $id));
+        $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $id));
 
 
         return array(

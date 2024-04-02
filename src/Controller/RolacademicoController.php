@@ -28,7 +28,7 @@ class RolacademicoController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Rolacademico')->findAll();
+        $entities = $em->getRepository('App:Rolacademico')->findAll();
 
         return array(
             'entities' => $entities,
@@ -106,7 +106,7 @@ class RolacademicoController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Rolacademico')->find($id);
+        $entity = $em->getRepository('App:Rolacademico')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Rolacademico entity.');
@@ -130,7 +130,7 @@ class RolacademicoController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Rolacademico')->find($id);
+        $entity = $em->getRepository('App:Rolacademico')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Rolacademico entity.');
@@ -174,7 +174,7 @@ class RolacademicoController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Rolacademico')->find($id);
+        $entity = $em->getRepository('App:Rolacademico')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Rolacademico entity.');
@@ -208,7 +208,7 @@ class RolacademicoController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Rolacademico')->find($id);
+            $entity = $em->getRepository('App:Rolacademico')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Rolacademico entity.');

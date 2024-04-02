@@ -28,7 +28,7 @@ class DofeController extends AbstractController {
         $em = $this->getDoctrine()->getManager();
 
 
-        $entities = $em->getRepository('AppBundle:RedDofe')->findAll();
+        $entities = $em->getRepository('App:RedDofe')->findAll();
 
         return array(
             'entities' => $entities
@@ -42,7 +42,7 @@ class DofeController extends AbstractController {
      */
     public function evaluarAction() {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('AppBundle:RedDofe')->findBy(array('evaluador' => $this->getUser(), 'periodo'=> $this->getParameter('appmed.periodo')));
+        $entities = $em->getRepository('App:RedDofe')->findBy(array('evaluador' => $this->getUser(), 'periodo'=> $this->getParameter('appmed.periodo')));
         return array(
             'entities' => $entities,
         );
@@ -55,15 +55,15 @@ class DofeController extends AbstractController {
      */
     public function evalAction($id) {
         $em = $this->getDoctrine()->getManager();
-        $evaluacion = $em->getRepository('AppBundle:RedDofe')->findOneBy(array('id' => $id));
-        $actividades = $em->getRepository('AppBundle:evalDofe')->findBy(array('evaluacion' => $evaluacion));
+        $evaluacion = $em->getRepository('App:RedDofe')->findOneBy(array('id' => $id));
+        $actividades = $em->getRepository('App:evalDofe')->findBy(array('evaluacion' => $evaluacion));
         if (count($actividades) == 0){
-            $n_actividades = $em->getRepository('AppBundle:evalDofe')->getActividades($id);
+            $n_actividades = $em->getRepository('App:evalDofe')->getActividades($id);
             foreach ($n_actividades as $actividad){
                 $entity = new evalDofe();
-                $eval = $em->getRepository('AppBundle:RedDofe')->findOneBy(array('id' => $actividad['id']));
+                $eval = $em->getRepository('App:RedDofe')->findOneBy(array('id' => $actividad['id']));
                 $entity->setEvaluacion($eval);
-                $actPlang = $em->getRepository('AppBundle:Actividadrol')->findOneBy(array('id' => $actividad['actividad_id']));
+                $actPlang = $em->getRepository('App:Actividadrol')->findOneBy(array('id' => $actividad['actividad_id']));
                 $entity->setActividad($actPlang);
                 $em->persist($entity);
             }
@@ -84,11 +84,11 @@ class DofeController extends AbstractController {
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:evalDofe')->find($id);
+        $entity = $em->getRepository('App:evalDofe')->find($id);
         $eval = $entity->getEvaluacion();
         $docente = $entity->getEvaluacion()->getDocente();
 
-        $actividad = $em->getRepository('AppBundle:Actividadplang')->findOneBy(array('plang' => $docente->getPlangestion(), 'actividad' => $entity->getActividad()));
+        $actividad = $em->getRepository('App:Actividadplang')->findOneBy(array('plang' => $docente->getPlangestion(), 'actividad' => $entity->getActividad()));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Actividadplang entity.');
@@ -111,7 +111,7 @@ class DofeController extends AbstractController {
      */
     public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:evalDofe')->find($id);
+        $entity = $em->getRepository('App:evalDofe')->find($id);
         $eval = $entity->getEvaluacion();
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Actividadplang entity.');
@@ -153,12 +153,12 @@ class DofeController extends AbstractController {
      */
     public function cerrarAction( $id) {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:RedDofe')->findOneBy(array('id' => $id));
+        $entity = $em->getRepository('App:RedDofe')->findOneBy(array('id' => $id));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Plangestion entity.');
         }
-        $actividades = $em->getRepository('AppBundle:evalDofe')->findBy(array('evaluacion' => $entity));
+        $actividades = $em->getRepository('App:evalDofe')->findBy(array('evaluacion' => $entity));
         $suma = $aux = 0;
         foreach ($actividades as $actividad) {
                 $suma = $suma + $actividad->getCalificacion();

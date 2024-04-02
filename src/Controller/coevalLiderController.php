@@ -73,7 +73,7 @@ class coevalLiderController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:coevalLider')->find($id);
+        $entity = $em->getRepository('App:coevalLider')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find coevalLider entity.');
@@ -97,7 +97,7 @@ class coevalLiderController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:coevalLider')->find($id);
+        $entity = $em->getRepository('App:coevalLider')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find coevalLider entity.');
@@ -141,7 +141,7 @@ class coevalLiderController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:coevalLider')->find($id);
+        $entity = $em->getRepository('App:coevalLider')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find coevalLider entity.');
@@ -182,7 +182,7 @@ class coevalLiderController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:coevalLider')->find($id);
+            $entity = $em->getRepository('App:coevalLider')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find coevalLider entity.');

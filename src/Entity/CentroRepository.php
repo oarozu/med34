@@ -15,7 +15,7 @@ class CentroRepository extends EntityRepository
 
 public function ordenZona(){
      $em = $this->getEntityManager();
-    // $centros = $em->getRepository('AppBundle:Centro')->findAll();
+    // $centros = $em->getRepository('App:Centro')->findAll();
      $query = $em->createQuery('SELECT a FROM AppBundle:Centro a ORDER BY a.zona ASC');
      $centros = $query->getResult();
      return $centros;

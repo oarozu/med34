@@ -34,7 +34,7 @@ class CursoController extends AbstractController
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('AppBundle:Curso')->findAll();
+        $entities = $em->getRepository('App:Curso')->findAll();
         return array(
             'entities' => $entities,
             'sigla' => false
@@ -52,9 +52,9 @@ class CursoController extends AbstractController
     public function porescuelaAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $escuela = $em->getRepository('AppBundle:Escuela')->findOneBy(array('id' => $id));
+        $escuela = $em->getRepository('App:Escuela')->findOneBy(array('id' => $id));
         $sigla = $escuela->getSigla();
-        $entities = $em->getRepository('AppBundle:Curso')->findBy(array('escuela' => $sigla));
+        $entities = $em->getRepository('App:Curso')->findBy(array('escuela' => $sigla));
 
         return array(
             'entities' => $entities,
@@ -133,15 +133,15 @@ class CursoController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Curso')->find($id);
-        $peracas = $em->getRepository('AppBundle:Periodoe')->findLastThree();
+        $entity = $em->getRepository('App:Curso')->find($id);
+        $peracas = $em->getRepository('App:Periodoe')->findLastThree();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Curso entity.');
         }
 
-        $periodos = $em->getRepository('AppBundle:Periodoa')->findby(array('periodoe' => $this->getParameter('appmed.periodo')));
-        $cursooferta = $em->getRepository('AppBundle:Oferta')->findby(array('periodo' => $periodos, 'curso' => $entity));
+        $periodos = $em->getRepository('App:Periodoa')->findby(array('periodoe' => $this->getParameter('appmed.periodo')));
+        $cursooferta = $em->getRepository('App:Oferta')->findby(array('periodo' => $periodos, 'curso' => $entity));
 
         $datos = new \App\Entity\OfertaDatos();
         $Form = $this->createForm(ofertaType::class, $datos, array(
@@ -166,7 +166,7 @@ class CursoController extends AbstractController
     public function ofertaAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Oferta')->find($id);
+        $entity = $em->getRepository('App:Oferta')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Oferta entity.');
@@ -190,16 +190,16 @@ class CursoController extends AbstractController
     public function ofertaCursoAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $curso = $em->getRepository('AppBundle:Curso')->find($id);
+        $curso = $em->getRepository('App:Curso')->find($id);
         $oferta = new Oferta();
         $datos = $request->request->get('oferta');
-        $usuario = $em->getRepository('AppBundle:User')->find($datos['cedula']);
+        $usuario = $em->getRepository('App:User')->find($datos['cedula']);
         if (!$usuario) {
             $this->get('session')->getFlashBag()->add('error', 'Cédula no encontrada');
             return $this->redirect($this->generateUrl('curso_show', array('id' => $id)));
         }
 
-        $docente = $em->getRepository('AppBundle:Docente')->findOneBy(array('user' => $usuario, 'periodo' => $this->getParameter('appmed.periodo')));
+        $docente = $em->getRepository('App:Docente')->findOneBy(array('user' => $usuario, 'periodo' => $this->getParameter('appmed.periodo')));
 
         if (!$docente) {
             $this->get('session')->getFlashBag()->add('error', 'El número no corresponde a un docente');
@@ -229,7 +229,7 @@ class CursoController extends AbstractController
     public function ofertaTutorAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $oferta = $em->getRepository('AppBundle:Oferta')->find($id);
+        $oferta = $em->getRepository('App:Oferta')->find($id);
         $data = new Cedula();
         $form = $this->createForm(CedulaTypeMed::class, $data);
         $form->handleRequest($request);
@@ -239,20 +239,20 @@ class CursoController extends AbstractController
         }
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $director = $em->getRepository('AppBundle:Docente')->findOneBy(array('user' => $user, 'periodo' => $this->getParameter('appmed.periodo')));
+        $director = $em->getRepository('App:Docente')->findOneBy(array('user' => $user, 'periodo' => $this->getParameter('appmed.periodo')));
 
         if ($oferta->getDirector() != $director && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             $this->get('session')->getFlashBag()->add('error', 'No permitido no es director');
             return $this->redirect($this->generateUrl('oferta', array('id' => $id)));
         }
 
-        $usuario = $em->getRepository('AppBundle:User')->find($data->getCedula());
+        $usuario = $em->getRepository('App:User')->find($data->getCedula());
         if (!$usuario) {
             $this->get('session')->getFlashBag()->add('error', 'Cédula no encontrada');
             return $this->redirect($this->generateUrl('oferta', array('id' => $id)));
         }
 
-        $docente = $em->getRepository('AppBundle:Docente')->findOneBy(array('user' => $usuario, 'periodo' => $this->getParameter('appmed.periodo')));
+        $docente = $em->getRepository('App:Docente')->findOneBy(array('user' => $usuario, 'periodo' => $this->getParameter('appmed.periodo')));
 
         if (!$docente) {
             $this->get('session')->getFlashBag()->add('error', 'El número no corresponde a un docente');
@@ -286,7 +286,7 @@ class CursoController extends AbstractController
     public function modalAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Oferta')->find($id);
+        $entity = $em->getRepository('App:Oferta')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Curso entity.');
         }
@@ -313,8 +313,8 @@ class CursoController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
         $escuelaid = $session->get('escuelaid');
-        $entity = $em->getRepository('AppBundle:Curso')->find($id);
-        $siglas = $em->getRepository('AppBundle:Escuela')->findSiglas();
+        $entity = $em->getRepository('App:Curso')->find($id);
+        $siglas = $em->getRepository('App:Escuela')->findSiglas();
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Curso entity.');
         }
@@ -346,7 +346,7 @@ class CursoController extends AbstractController
     public function ofertaeditAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Oferta')->find($id);
+        $entity = $em->getRepository('App:Oferta')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('NO se encontro oferta');
         }
@@ -407,7 +407,7 @@ class CursoController extends AbstractController
     public function ofertaupdateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $oferta = $em->getRepository('AppBundle:Oferta')->find($id);
+        $oferta = $em->getRepository('App:Oferta')->find($id);
         $cedula = new Cedula();
         $Form = $this->createForm(CedulaTypeMed::class, $cedula, array(
             'action' => $this->generateUrl('oferta_update', array('id' => $id)),
@@ -416,15 +416,15 @@ class CursoController extends AbstractController
         $Form->handleRequest($request);
 
         $ncedula = $Form->get('cedula')->getData();
-        $user = $em->getRepository('AppBundle:User')->find($ncedula);
-        $docente = $em->getRepository('AppBundle:Docente')->findOneBy(array('user' => $user, 'periodo' => $this->getParameter('appmed.periodo')));
+        $user = $em->getRepository('App:User')->find($ncedula);
+        $docente = $em->getRepository('App:Docente')->findOneBy(array('user' => $user, 'periodo' => $this->getParameter('appmed.periodo')));
         if (!$docente) {
             $this->get('session')->getFlashBag()->add('error', 'El número no corresponde a un docente');
             return $this->redirect($this->generateUrl('oferta_edit', array('id' => $id)));
         }
-        $plang = $em->getRepository('AppBundle:Plangestion')->findOneBy(array('docente' => $docente));
-        $rolAcademico = $em->getRepository('AppBundle:Rolacademico')->findOneBy(array('id' => 2));
-        $esDirector = $em->getRepository('AppBundle:Rolplang')->findOneBy(array('rol' => $rolAcademico, 'plang' => $plang));
+        $plang = $em->getRepository('App:Plangestion')->findOneBy(array('docente' => $docente));
+        $rolAcademico = $em->getRepository('App:Rolacademico')->findOneBy(array('id' => 2));
+        $esDirector = $em->getRepository('App:Rolplang')->findOneBy(array('rol' => $rolAcademico, 'plang' => $plang));
         if ($esDirector == null){
             $rolDirector = new Rolplang();
             $rolDirector->setPlang($plang);
@@ -448,8 +448,8 @@ class CursoController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
         $escuelaid = $session->get('escuelaid');
-        $entity = $em->getRepository('AppBundle:Curso')->find($id);
-        $siglas = $em->getRepository('AppBundle:Escuela')->findSiglas();
+        $entity = $em->getRepository('App:Curso')->find($id);
+        $siglas = $em->getRepository('App:Escuela')->findSiglas();
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Curso entity.');
         }
@@ -482,7 +482,7 @@ class CursoController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Curso')->find($id);
+            $entity = $em->getRepository('App:Curso')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Curso entity.');
@@ -519,7 +519,7 @@ class CursoController extends AbstractController
     public function borrartutorAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Tutor')->find($id);
+        $entity = $em->getRepository('App:Tutor')->find($id);
         $oferta = $entity->getOferta();
         $director = $oferta->getDirector();
         $session = $request->getSession();

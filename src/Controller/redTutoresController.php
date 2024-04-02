@@ -27,8 +27,8 @@ class redTutoresController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $entity = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
-        $tutorias = $em->getRepository('AppBundle:Tutor')->findBy(array('docente' => $entity));
+        $entity = $em->getRepository('App:Docente')->find($session->get('docenteid'));
+        $tutorias = $em->getRepository('App:Tutor')->findBy(array('docente' => $entity));
 
         return array(
             'entity' => $entity,
@@ -106,7 +106,7 @@ class redTutoresController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:redTutores')->find($id);
+        $entity = $em->getRepository('App:redTutores')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find redTutores entity.');
@@ -130,12 +130,12 @@ class redTutoresController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:redTutores')->find($id);
+        $entity = $em->getRepository('App:redTutores')->find($id);
 
         if (!$entity) {
             $entity = new redTutores();
             $em = $this->getDoctrine()->getManager();
-            $tutor = $em->getRepository('AppBundle:Tutor')->find($id);
+            $tutor = $em->getRepository('App:Tutor')->find($id);
             $entity->setId($tutor);
             $em->persist($entity);
             $em->flush();
@@ -180,7 +180,7 @@ class redTutoresController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:redTutores')->find($id);
+        $entity = $em->getRepository('App:redTutores')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find redTutores entity.');
@@ -219,7 +219,7 @@ class redTutoresController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:redTutores')->find($id);
+            $entity = $em->getRepository('App:redTutores')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find redTutores entity.');

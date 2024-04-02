@@ -90,7 +90,7 @@ class coevalTutorController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:coevalTutor')->find($id);
+        $entity = $em->getRepository('App:coevalTutor')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find coevalTutor entity.');
@@ -114,12 +114,12 @@ class coevalTutorController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:coevalTutor')->find($id);
+        $entity = $em->getRepository('App:coevalTutor')->find($id);
 
         if (!$entity) {
             $entity = new coevalTutor();
             $em = $this->getDoctrine()->getManager();
-            $tutor = $em->getRepository('AppBundle:Tutor')->find($id);
+            $tutor = $em->getRepository('App:Tutor')->find($id);
             $entity->setTutor($tutor);
             $em->persist($entity);
             $em->flush();
@@ -164,7 +164,7 @@ class coevalTutorController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:coevalTutor')->find($id);
+        $entity = $em->getRepository('App:coevalTutor')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find coevalTutor entity.');
@@ -208,7 +208,7 @@ class coevalTutorController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:coevalTutor')->find($id);
+            $entity = $em->getRepository('App:coevalTutor')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find coevalTutor entity.');

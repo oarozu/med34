@@ -26,9 +26,9 @@ class LiderController extends AbstractController
     public function porescuelaAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $escuela = $em->getRepository('AppBundle:Escuela')->findOneBy(array('id' => $id));
+        $escuela = $em->getRepository('App:Escuela')->findOneBy(array('id' => $id));
         $sigla = $escuela->getSigla();
-        $entities = $em->getRepository('AppBundle:Curso')->findBy(array('escuela' => $sigla));
+        $entities = $em->getRepository('App:Curso')->findBy(array('escuela' => $sigla));
 
         return array(
             'entities' => $entities,
@@ -49,9 +49,9 @@ class LiderController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $programas = $em->getRepository('AppBundle:Programa')->findBy(array('lider' => $user));
-        $cursos = $em->getRepository('AppBundle:Curso')->findBy(array('programa' => $programas));
-        $periodoe = $em->getRepository('AppBundle:Periodoe')->findBy(array('id' => $session->get('periodoe')));
+        $programas = $em->getRepository('App:Programa')->findBy(array('lider' => $user));
+        $cursos = $em->getRepository('App:Curso')->findBy(array('programa' => $programas));
+        $periodoe = $em->getRepository('App:Periodoe')->findBy(array('id' => $session->get('periodoe')));
         $periodoa = $em->getRepository('AdminMedBundle:Periodoa')->findOneBy(array('periodoe' => $periodoe));
         $ofertas = $em->getRepository('AdminMedBundle:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa),array('director' => 'ASC'));
 

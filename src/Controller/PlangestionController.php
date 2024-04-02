@@ -74,11 +74,11 @@ class PlangestionController extends AbstractController
         $entity = new Plangestion();
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $docente = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
+        $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));
         if (!$docente) {
             throw $this->createNotFoundException('Docente no encontrado');
         }
-        $plangestion = $em->getRepository('AppBundle:Plangestion')->find($session->get('docenteid'));
+        $plangestion = $em->getRepository('App:Plangestion')->find($session->get('docenteid'));
         if ($plangestion) {
             throw $this->createNotFoundException('Plan ya creado');
         }
@@ -101,10 +101,10 @@ class PlangestionController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
         $periodoe_id = $session->get('periodoe');
-        $periodoe = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $periodoe_id));
+        $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $periodoe_id));
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $docente = $em->getRepository('AppBundle:Docente')->findOneBy(array('user' => $user, 'periodo' => $periodoe_id));
-        $entity = $em->getRepository('AppBundle:Plangestion')->findOneBy(array('docente' => $docente));
+        $docente = $em->getRepository('App:Docente')->findOneBy(array('user' => $user, 'periodo' => $periodoe_id));
+        $entity = $em->getRepository('App:Plangestion')->findOneBy(array('docente' => $docente));
         $this->checkActividades($entity, 2);
 
         if (!$entity) {
@@ -118,11 +118,11 @@ class PlangestionController extends AbstractController
 
     public function checkActividades($plang, $rolId){
         $em = $this->getDoctrine()->getManager();
-        $rolAc = $em->getRepository('AppBundle:Rolacademico')->findOneBy(array('id' => $rolId));
-        $roles = $em->getRepository('AppBundle:Rolplang')->findBy(array('plang' => $plang, 'rol' => $rolAc));
+        $rolAc = $em->getRepository('App:Rolacademico')->findOneBy(array('id' => $rolId));
+        $roles = $em->getRepository('App:Rolplang')->findBy(array('plang' => $plang, 'rol' => $rolAc));
         if (count($roles) > 0){
-        $actRol = $em->getRepository('AppBundle:Actividadrol')->findBy(array('rol' => $rolAc));
-        $actPlan = $em->getRepository('AppBundle:Actividadplang')->findBy(array('plang' => $plang, 'actividad' => $actRol));
+        $actRol = $em->getRepository('App:Actividadrol')->findBy(array('rol' => $rolAc));
+        $actPlan = $em->getRepository('App:Actividadplang')->findBy(array('plang' => $plang, 'actividad' => $actRol));
          if (count($actPlan) == 0){
             $this->addActividades($plang, $rolAc);
          }
@@ -148,7 +148,7 @@ class PlangestionController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Plangestion')->find($id);
+        $entity = $em->getRepository('App:Plangestion')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Entidad no encontrada');
@@ -166,13 +166,13 @@ class PlangestionController extends AbstractController
     {
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
-        $periodo = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $this->getParameter('appmed.periodo')));
-        $docente = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
-        $entity = $em->getRepository('AppBundle:Plangestion')->findOneBy(array('docente' => $docente));
-        $rol_tutor = $em->getRepository('AppBundle:Rolacademico')->findBy(array('id' => 1));
-        $estutor = $em->getRepository('AppBundle:Rolplang')->findOneBy(array('rol' => $rol_tutor,'plang'=> $entity));
-        $rol_director = $em->getRepository('AppBundle:Rolacademico')->findOneBy(array('id' => 2));
-        $esdirector = $em->getRepository('AppBundle:Rolplang')->findOneBy(array('rol' => $rol_director,'plang'=> $entity));
+        $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $this->getParameter('appmed.periodo')));
+        $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));
+        $entity = $em->getRepository('App:Plangestion')->findOneBy(array('docente' => $docente));
+        $rol_tutor = $em->getRepository('App:Rolacademico')->findBy(array('id' => 1));
+        $estutor = $em->getRepository('App:Rolplang')->findOneBy(array('rol' => $rol_tutor,'plang'=> $entity));
+        $rol_director = $em->getRepository('App:Rolacademico')->findOneBy(array('id' => 2));
+        $esdirector = $em->getRepository('App:Rolplang')->findOneBy(array('rol' => $rol_director,'plang'=> $entity));
         if (!$entity) {
             throw $this->createNotFoundException('Plangestion no encontrado');
         }
@@ -197,10 +197,10 @@ class PlangestionController extends AbstractController
     {
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
-        $docente = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
-        $plang = $em->getRepository('AppBundle:Plangestion')->findOneBy(array('docente' => $docente));
-        $rol_a = $em->getRepository('AppBundle:Rolacademico')->findOneBy(array('id' => $id));
-        $rol_plang = $em->getRepository('AppBundle:Rolplang')->findOneBy(array('rol' => $rol_a, 'plang' => $plang));
+        $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));
+        $plang = $em->getRepository('App:Plangestion')->findOneBy(array('docente' => $docente));
+        $rol_a = $em->getRepository('App:Rolacademico')->findOneBy(array('id' => $id));
+        $rol_plang = $em->getRepository('App:Rolplang')->findOneBy(array('rol' => $rol_a, 'plang' => $plang));
         if (!isset($rol_plang)) {
             $rol_plang = new Rolplang();
             $rol_plang->setPlang($plang);
@@ -220,10 +220,10 @@ class PlangestionController extends AbstractController
     {
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
-        $docente = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
-        $periodoe = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $docente->getPeriodo()));
-        $entity = $em->getRepository('AppBundle:Plangestion')->findOneBy(array('docente' => $docente));
-        $actividades = $em->getRepository('AppBundle:Actividadplang')->findBy(array('plang' => $entity), array('actividad' => 'ASC'));
+        $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));
+        $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $docente->getPeriodo()));
+        $entity = $em->getRepository('App:Plangestion')->findOneBy(array('docente' => $docente));
+        $actividades = $em->getRepository('App:Actividadplang')->findBy(array('plang' => $entity), array('actividad' => 'ASC'));
 
         if (!$entity) {
             throw $this->createNotFoundException('Plan gestion no encontrado');
@@ -243,10 +243,10 @@ class PlangestionController extends AbstractController
     public function infoAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $docente = $em->getRepository('AppBundle:Docente')->find($id);
+        $docente = $em->getRepository('App:Docente')->find($id);
         $entity = $docente->getPlangestion();
-        $periodoe = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $docente->getPeriodo()));
-        $periodo = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $this->getParameter('appmed.periodo')));
+        $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $docente->getPeriodo()));
+        $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $this->getParameter('appmed.periodo')));
         if (!$entity) {
             throw $this->createNotFoundException('No se encuentra el plan.');
         }
@@ -275,7 +275,7 @@ class PlangestionController extends AbstractController
     public function autoevalAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $docente = $em->getRepository('AppBundle:Docente')->find($id);
+        $docente = $em->getRepository('App:Docente')->find($id);
         if (!$docente) {
             throw $this->createNotFoundException('No se encuentra docente entity.');
         }
@@ -300,7 +300,7 @@ class PlangestionController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Plangestion')->find($id);
+        $entity = $em->getRepository('App:Plangestion')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Plangestion entity.');
@@ -326,7 +326,7 @@ class PlangestionController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Plangestion')->find($id);
+        $entity = $em->getRepository('App:Plangestion')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Plangestion entity.');
@@ -371,13 +371,13 @@ class PlangestionController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $entity = $em->getRepository('AppBundle:Plangestion')->find($id);
+        $entity = $em->getRepository('App:Plangestion')->find($id);
         $docenteid = $session->get('docenteid');
         if ($docenteid == null) {
             return $this->redirect($this->generateUrl('home_user_inicio'));
         }
-        $docente = $em->getRepository('AppBundle:Docente')->find($docenteid);
-        $eval = $em->getRepository('AppBundle:Evaluacion')->findOneBy(array('docente' => $docente));
+        $docente = $em->getRepository('App:Docente')->find($docenteid);
+        $eval = $em->getRepository('App:Evaluacion')->findOneBy(array('docente' => $docente));
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Plangestion entity.');
         }
@@ -426,8 +426,8 @@ class PlangestionController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $entity = $em->getRepository('AppBundle:Plangestion')->find($id);
-        $docente = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
+        $entity = $em->getRepository('App:Plangestion')->find($id);
+        $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Plangestion entity.');
         }
@@ -461,7 +461,7 @@ class PlangestionController extends AbstractController
     public function cerrarAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Plangestion')->find($id);
+        $entity = $em->getRepository('App:Plangestion')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Entidad No encontrada');
         }
@@ -478,7 +478,7 @@ class PlangestionController extends AbstractController
     public function confirmAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Plangestion')->find($id);
+        $entity = $em->getRepository('App:Plangestion')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Entidad No encontrada');
         }
@@ -515,7 +515,7 @@ class PlangestionController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Plangestion')->find($id);
+            $entity = $em->getRepository('App:Plangestion')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Plangestion entity.');
@@ -548,7 +548,7 @@ class PlangestionController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $docente = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
+        $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));
         //agregar avalador Decano N
         $aval = new Avalplang();
         $aval->setPlan($docente->getPlangestion());

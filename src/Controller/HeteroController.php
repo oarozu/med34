@@ -25,7 +25,7 @@ class HeteroController extends AbstractController {
     public function indexAction($pe) {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Heterocursos')->findBy(array('semestre' => $pe));
+        $entities = $em->getRepository('App:Heterocursos')->findBy(array('semestre' => $pe));
         return array(
             'entities' => $entities,
         );
@@ -38,7 +38,7 @@ class HeteroController extends AbstractController {
      */
     public function heteroescuelasAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $datas = $em->getRepository('AppBundle:Heteroeval')->getPromedioescuela();
+        $datas = $em->getRepository('App:Heteroeval')->getPromedioescuela();
 
 
        $session = $request->getSession();
@@ -61,9 +61,9 @@ class HeteroController extends AbstractController {
 
 
         $em = $this->getDoctrine()->getManager();
-        $docentes = $em->getRepository('AppBundle:Docente')->findBy(array('periodo' => $pe, 'escuela' => $esc));
-        $hetero = $em->getRepository('AppBundle:Heteroeval')->findBy(array('docente' => $docentes));
-        $escuela = $em->getRepository('AppBundle:Escuela')->find($esc);
+        $docentes = $em->getRepository('App:Docente')->findBy(array('periodo' => $pe, 'escuela' => $esc));
+        $hetero = $em->getRepository('App:Heteroeval')->findBy(array('docente' => $docentes));
+        $escuela = $em->getRepository('App:Escuela')->find($esc);
         return array(
             'hetero' => $hetero,
             'escuela' => $escuela,

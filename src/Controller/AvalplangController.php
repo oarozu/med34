@@ -32,7 +32,7 @@ class AvalplangController extends AbstractController
         $em = $this->getDoctrine()->getManager();
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $entities = $em->getRepository('AppBundle:Avalplang')->findby(array('user' => $user, 'periodo' => $this->getParameter('appmed.semestre')));
+        $entities = $em->getRepository('App:Avalplang')->findby(array('user' => $user, 'periodo' => $this->getParameter('appmed.semestre')));
         return array(
             'entities' => $entities,
         );
@@ -48,7 +48,7 @@ class AvalplangController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Avalplang')
+        $entities = $em->getRepository('App:Avalplang')
             ->findBy(
                 array('periodo' => $this->getParameter('appmed.semestre'))
             );
@@ -73,14 +73,14 @@ class AvalplangController extends AbstractController
         $session = $request->getSession();
         $escuelaid = $session->get('escuelaid');
         $semestre = $this->getParameter('appmed.semestre');
-        $periodoe = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $semestre));
+        $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $semestre));
         if ($escuelaid == null) {
             return $this->redirect($this->generateUrl('home_user_inicio'));
         }
 
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            $escuela = $em->getRepository('AppBundle:Escuela')->find($session->get('escuelaid'));
-            $docentes = $em->getRepository('AppBundle:Docente')
+            $escuela = $em->getRepository('App:Escuela')->find($session->get('escuelaid'));
+            $docentes = $em->getRepository('App:Docente')
                 ->findBy(
                     array('periodo' => $semestre,
                         'vinculacion' => 'DC', 'escuela' => $escuela));
@@ -91,7 +91,7 @@ class AvalplangController extends AbstractController
             );
         } else {
             $escuela = null;
-            $docentes = $em->getRepository('AppBundle:Docente')->findBy(
+            $docentes = $em->getRepository('App:Docente')->findBy(
                 array('periodo' => $semestre,
                     'vinculacion' => 'DC'));
             return array(
@@ -115,8 +115,8 @@ class AvalplangController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
 
-        $docente = $em->getRepository('AppBundle:Docente')->find($id);
-        $periodoe = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $docente->getPeriodo()));
+        $docente = $em->getRepository('App:Docente')->find($id);
+        $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $docente->getPeriodo()));
         $entity = $docente->getPlangestion();
 
         return array(
@@ -199,7 +199,7 @@ class AvalplangController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Avalplang')->find($id);
+        $entity = $em->getRepository('App:Avalplang')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Avalplang entity.');
@@ -222,7 +222,7 @@ class AvalplangController extends AbstractController
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Avalplang')->find($id);
+        $entity = $em->getRepository('App:Avalplang')->find($id);
 
         $texto = explode('\n', $entity->getObservaciones());
 
@@ -267,7 +267,7 @@ class AvalplangController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Avalplang')->find($id);
+        $entity = $em->getRepository('App:Avalplang')->find($id);
         $plan = $entity->getPlan();
 
         if (!$entity) {
@@ -319,7 +319,7 @@ class AvalplangController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Avalplang')->find($id);
+            $entity = $em->getRepository('App:Avalplang')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Avalplang entity.');
@@ -366,7 +366,7 @@ class AvalplangController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $semestre = $this->getParameter('appmed.semestre');
-        $docentes = $em->getRepository('AppBundle:Docente')->findBy(array('periodo' => $semestre, 'vinculacion' => 'DC'));
+        $docentes = $em->getRepository('App:Docente')->findBy(array('periodo' => $semestre, 'vinculacion' => 'DC'));
 
         foreach ($docentes as $docente) {
             //agregar avalador Decano N

@@ -30,7 +30,7 @@ class RolplangController extends AbstractController
         $entity = new Rolplang();
 
         $em = $this->getDoctrine()->getManager();
-        $plang = $em->getRepository('AppBundle:Plangestion')->find($id);
+        $plang = $em->getRepository('App:Plangestion')->find($id);
         $entity->setPlang($plang);
         $form = $this->createCreateForm($entity, $id, $plang->getDias());
         $form->handleRequest($request);
@@ -90,9 +90,9 @@ class RolplangController extends AbstractController
     {
         $entity = new Rolplang();
         $em = $this->getDoctrine()->getManager();
-        $plang = $em->getRepository('AppBundle:Plangestion')->find($id);
-        $rol = $em->getRepository('AppBundle:Rolacademico')->find($idr);
-        $roles = $em->getRepository('AppBundle:Rolplang')->findBy(array('plang' => $plang));
+        $plang = $em->getRepository('App:Plangestion')->find($id);
+        $rol = $em->getRepository('App:Rolacademico')->find($idr);
+        $roles = $em->getRepository('App:Rolplang')->findBy(array('plang' => $plang));
         $libre = 0;
         foreach ($roles as $rolok) {
             $libre = $libre + $rolok->getHoras();
@@ -120,7 +120,7 @@ class RolplangController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Rolplang')->find($id);
+        $entity = $em->getRepository('App:Rolplang')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Rolplang entity.');
@@ -144,7 +144,7 @@ class RolplangController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Rolplang')->find($id);
+        $entity = $em->getRepository('App:Rolplang')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Rolplang entity.');
@@ -189,7 +189,7 @@ class RolplangController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Rolplang')->find($id);
+        $entity = $em->getRepository('App:Rolplang')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Rolplang entity.');
@@ -224,7 +224,7 @@ class RolplangController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Rolplang')->find($id);
+            $entity = $em->getRepository('App:Rolplang')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Rolplang entity.');

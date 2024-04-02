@@ -163,14 +163,14 @@ class UserController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $archivo = $em->getRepository('AppBundle:Archivo')->findBy(array('cedula' => $id));
+        $archivo = $em->getRepository('App:Archivo')->findBy(array('cedula' => $id));
 
-        $porSemestre = $em->getRepository('AppBundle:Docente')->porSemestres($id,"'s'");
-        $porAnual = $em->getRepository('AppBundle:Docente')->porSemestres($id,"'a'");
-        $porPeriodo = $em->getRepository('AppBundle:Docente')->porSemestres($id,"'p'");
+        $porSemestre = $em->getRepository('App:Docente')->porSemestres($id,"'s'");
+        $porAnual = $em->getRepository('App:Docente')->porSemestres($id,"'a'");
+        $porPeriodo = $em->getRepository('App:Docente')->porSemestres($id,"'p'");
 
 
-        $entity = $em->getRepository('AppBundle:User')->find($id);
+        $entity = $em->getRepository('App:User')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
@@ -196,7 +196,7 @@ class UserController extends AbstractController
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:User')->find($id);
+        $entity = $em->getRepository('App:User')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
         }
@@ -218,7 +218,7 @@ class UserController extends AbstractController
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:User')->find($id);
+        $entity = $em->getRepository('App:User')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
         }
@@ -264,7 +264,7 @@ class UserController extends AbstractController
         }
 
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:User')->find($id);
+        $entity = $em->getRepository('App:User')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
@@ -302,7 +302,7 @@ class UserController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:User')->find($id);
+            $entity = $em->getRepository('App:User')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find User entity.');
@@ -411,8 +411,8 @@ class UserController extends AbstractController
             $unidad = (int)$Form["unidad"]->getData();
 
 
-            $user = $em->getRepository('AppBundle:User')->find($username);
-            $docente = $em->getRepository('AppBundle:Docente')->findOneBy(array('user' => $user, 'periodo' => $this->getParameter('appmed.periodo')));
+            $user = $em->getRepository('App:User')->find($username);
+            $docente = $em->getRepository('App:Docente')->findOneBy(array('user' => $user, 'periodo' => $this->getParameter('appmed.periodo')));
             $escuela_id = $docente->getEscuela()->getId();
             $docente_vinculacion = $docente->getVinculacion();
 

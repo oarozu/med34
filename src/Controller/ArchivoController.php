@@ -28,7 +28,7 @@ class ArchivoController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Archivo')->findBy(array('cedula' => $ced));
+        $entities = $em->getRepository('App:Archivo')->findBy(array('cedula' => $ced));
 
         return array(
             'entities' => $entities,
@@ -46,7 +46,7 @@ class ArchivoController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Archivo')->findBy(array('periodo' => $id));
+        $entities = $em->getRepository('App:Archivo')->findBy(array('periodo' => $id));
 
         return array(
             'entities' => $entities,
@@ -65,7 +65,7 @@ class ArchivoController extends AbstractController
        $em = $this->getDoctrine()->getManager();
        $user = $this->get('security.token_storage')->getToken()->getUser();
        $userId = $user->getId();
-       $entities = $em->getRepository('AppBundle:Archivo')->findBy(array('cedula' => $userId));
+       $entities = $em->getRepository('App:Archivo')->findBy(array('cedula' => $userId));
        return array(
             'entities' => $entities,
         );
@@ -143,7 +143,7 @@ class ArchivoController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Archivo')->find($id);
+        $entity = $em->getRepository('App:Archivo')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Archivo entity.');
@@ -188,7 +188,7 @@ class ArchivoController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Archivo')->find($id);
+        $entity = $em->getRepository('App:Archivo')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Archivo entity.');
@@ -232,7 +232,7 @@ class ArchivoController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Archivo')->find($id);
+        $entity = $em->getRepository('App:Archivo')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Archivo entity.');
@@ -266,7 +266,7 @@ class ArchivoController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Archivo')->find($id);
+            $entity = $em->getRepository('App:Archivo')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Archivo entity.');

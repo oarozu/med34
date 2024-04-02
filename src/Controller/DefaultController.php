@@ -15,9 +15,9 @@ class DefaultController extends AbstractController {
 
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $periodos = $em->getRepository('AppBundle:Periodoe')->findby(array('type' => 'p', 'year' => $this->getParameter('appmed.year')), array('id' => 'DESC'));
-        $periodoe = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $this->getParameter('appmed.periodo')));
-        $instrumentos = $em->getRepository('AppBundle:Instrumentos')->findBy(array('periodoe' => $periodoe));
+        $periodos = $em->getRepository('App:Periodoe')->findby(array('type' => 'p', 'year' => $this->getParameter('appmed.year')), array('id' => 'DESC'));
+        $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $this->getParameter('appmed.periodo')));
+        $instrumentos = $em->getRepository('App:Instrumentos')->findBy(array('periodoe' => $periodoe));
 
         $diff = date_diff($periodoe->getFechainicio(), $periodoe->getFechafin());
         $diff2 = date_diff($periodoe->getFechainicio(), new \DateTime('now'));
@@ -36,7 +36,7 @@ class DefaultController extends AbstractController {
         }
 
         if (true === $this->container->get('security.authorization_checker')->isGranted('ROLE_LP')) {
-            $entities = $em->getRepository('AppBundle:Programa')->findBy(array('lider' => $this->getUser()));
+            $entities = $em->getRepository('App:Programa')->findBy(array('lider' => $this->getUser()));
             $escuela = $entities[0]->getEscuela();
             $escuelaid = ($escuela != null)? $escuela->getId() : 65000;
             $session->set('escuelaid', $escuelaid );
@@ -65,7 +65,7 @@ class DefaultController extends AbstractController {
 
         if (true === $this->container->get('security.authorization_checker')->isGranted('ROLE_USER')) {
 
-            $docente = $em->getRepository('AppBundle:Docente')->findOneBy(array('user' => $this->getUser(), 'periodo' => $this->getParameter('appmed.periodo')));
+            $docente = $em->getRepository('App:Docente')->findOneBy(array('user' => $this->getUser(), 'periodo' => $this->getParameter('appmed.periodo')));
 
             if (!$docente) {
                 $this->get('session')->getFlashBag()->add('warning', 'Sin activar en el periodo actual');
@@ -101,7 +101,7 @@ class DefaultController extends AbstractController {
             }
         }
         $periodos_on = $this->getParameter('appmed.periodos');
-        $periodos = $em->getRepository('AppBundle:Periodoe')->findBy(array('id' => $periodos_on));
+        $periodos = $em->getRepository('App:Periodoe')->findBy(array('id' => $periodos_on));
         return $this->render('Default/periods.html.twig', array(
             'year' => $year,
             'periodos' => $periodos,
@@ -114,7 +114,7 @@ class DefaultController extends AbstractController {
         $session->set('periodoe', $id);
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-        $docente = $em->getRepository('AppBundle:Docente')->findOneBy(array('user' => $user, 'periodo' => $id));
+        $docente = $em->getRepository('App:Docente')->findOneBy(array('user' => $user, 'periodo' => $id));
         if (!$docente) {
             $this->get('session')->getFlashBag()->add('warning', 'Sin activar en el periodo actual');
             return $this->redirect($this->generateUrl('home_user_periodo'));

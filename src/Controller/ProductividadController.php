@@ -34,7 +34,7 @@ class ProductividadController extends AbstractController
         $docenteid = $session->get('docenteid');
         $user = $this->getUser()->getUsername();
 
-        $plang = $em->getRepository('AppBundle:Plangestion')->find($docenteid);
+        $plang = $em->getRepository('App:Plangestion')->find($docenteid);
         $entity->setPlang($plang);
 
         $form = $this->createProdForm($entity, $user);
@@ -100,7 +100,7 @@ class ProductividadController extends AbstractController
     {
         $entity = new Productividad();
         $em = $this->getDoctrine()->getManager();
-        $plang = $em->getRepository('AppBundle:Plangestion')->find($id);
+        $plang = $em->getRepository('App:Plangestion')->find($id);
         $user = $this->getUser()->getUsername();
 
         $entity->setPlang($plang);
@@ -132,7 +132,7 @@ class ProductividadController extends AbstractController
     {
         $entity = new Proyectoi();
         $em = $this->getDoctrine()->getManager();
-        //$plang = $em->getRepository('AppBundle:Plangestion')->find($id);
+        //$plang = $em->getRepository('App:Plangestion')->find($id);
         $user = $this->getUser();
 
         $entity->setUser($user);
@@ -165,7 +165,7 @@ class ProductividadController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Productividad')->find($id);
+            $entity = $em->getRepository('App:Productividad')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Rolplang entity.');
@@ -204,7 +204,7 @@ class ProductividadController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Productividad')->find($id);
+        $entity = $em->getRepository('App:Productividad')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Rolplang entity.');

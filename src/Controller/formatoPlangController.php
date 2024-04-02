@@ -27,8 +27,8 @@ class formatoPlangController extends AbstractController
     public function createAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $docente = $em->getRepository('AppBundle:Docente')->find($id);
-        $plan = $em->getRepository('AppBundle:Plangestion')->findOneBy(array('docente' => $docente));
+        $docente = $em->getRepository('App:Docente')->find($id);
+        $plan = $em->getRepository('App:Plangestion')->findOneBy(array('docente' => $docente));
         $entity = new formatoPlang();
         $entity->setPlan($plan);
         $form = $this->createCreateForm($entity, $id);
@@ -97,7 +97,7 @@ class formatoPlangController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:formatoPlang')->find($id);
+        $entity = $em->getRepository('App:formatoPlang')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find formatoPlang entity.');
@@ -121,7 +121,7 @@ class formatoPlangController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:formatoPlang')->find($id);
+        $entity = $em->getRepository('App:formatoPlang')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find formatoPlang entity.');
@@ -165,7 +165,7 @@ class formatoPlangController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:formatoPlang')->find($id);
+        $entity = $em->getRepository('App:formatoPlang')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find formatoPlang entity.');
@@ -199,7 +199,7 @@ class formatoPlangController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:formatoPlang')->find($id);
+            $entity = $em->getRepository('App:formatoPlang')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find formatoPlang entity.');

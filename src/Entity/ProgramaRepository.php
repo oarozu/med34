@@ -14,7 +14,7 @@ class ProgramaRepository extends EntityRepository
 {
     public function ordenEscuela(){
      $em = $this->getEntityManager();
-    // $centros = $em->getRepository('AppBundle:Centro')->findAll();
+    // $centros = $em->getRepository('App:Centro')->findAll();
      $query = $em->createQuery('SELECT a FROM AppBundle:Programa a ORDER BY a.escuela ASC');
      $centros = $query->getResult();
      return $centros;

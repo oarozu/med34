@@ -32,7 +32,7 @@ class PlanmejoramientoController extends AbstractController
         if ($escuelaid == null) {
             return $this->redirect($this->generateUrl('home_user_inicio'));
         }
-        $entities = $em->getRepository('AppBundle:Planmejoramiento')->findBy(array('autorid' => $escuelaid));
+        $entities = $em->getRepository('App:Planmejoramiento')->findBy(array('autorid' => $escuelaid));
 
         return array(
             'entities' => $entities,
@@ -111,8 +111,8 @@ class PlanmejoramientoController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $escuela = $em->getRepository('AppBundle:Escuela')->find($session->get('escuelaid'));
-        $entities = $em->getRepository('AppBundle:Docente')->findBy(array('escuela' => $escuela));
+        $escuela = $em->getRepository('App:Escuela')->find($session->get('escuelaid'));
+        $entities = $em->getRepository('App:Docente')->findBy(array('escuela' => $escuela));
         return array(
             'entities' => $entities,
         );
@@ -129,7 +129,7 @@ class PlanmejoramientoController extends AbstractController
         $planm = new Planmejoramiento();
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $docente = $em->getRepository('AppBundle:Docente')->findOneBy(array('id' => $id));
+        $docente = $em->getRepository('App:Docente')->findOneBy(array('id' => $id));
         $planm->setDocente($docente);
         $planm->setFechaCreacion(new \DateTime());
         $planm->setAutorid($session->get('escuelaid'));
@@ -151,7 +151,7 @@ class PlanmejoramientoController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Planmejoramiento')->find($id);
+        $entity = $em->getRepository('App:Planmejoramiento')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Planmejoramiento entity.');
@@ -175,7 +175,7 @@ class PlanmejoramientoController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Planmejoramiento')->find($id);
+        $entity = $em->getRepository('App:Planmejoramiento')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Planmejoramiento entity.');
         }
@@ -195,7 +195,7 @@ class PlanmejoramientoController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Planmejoramiento')->find($id);
+        $entity = $em->getRepository('App:Planmejoramiento')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Planmejoramiento entity.');
@@ -238,7 +238,7 @@ class PlanmejoramientoController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Planmejoramiento')->find($id);
+        $entity = $em->getRepository('App:Planmejoramiento')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Planmejoramiento entity.');
@@ -273,7 +273,7 @@ class PlanmejoramientoController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Planmejoramiento')->find($id);
+            $entity = $em->getRepository('App:Planmejoramiento')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Planmejoramiento entity.');

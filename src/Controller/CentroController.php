@@ -27,8 +27,8 @@ class CentroController extends AbstractController
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        // $entities = $em->getRepository('AppBundle:Centro')->findAll();
-        $entities = $em->getRepository('AppBundle:Centro')->ordenZona();
+        // $entities = $em->getRepository('App:Centro')->findAll();
+        $entities = $em->getRepository('App:Centro')->ordenZona();
         return array(
             'entities' => $entities,
         );
@@ -106,7 +106,7 @@ class CentroController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Centro')->find($id);
+        $entity = $em->getRepository('App:Centro')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Centro entity.');
@@ -130,7 +130,7 @@ class CentroController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Centro')->find($id);
+        $entity = $em->getRepository('App:Centro')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Centro entity.');
@@ -175,7 +175,7 @@ class CentroController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Centro')->find($id);
+        $entity = $em->getRepository('App:Centro')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Centro entity.');
@@ -186,7 +186,7 @@ class CentroController extends AbstractController
         $editForm->handleRequest($request);
 
         $cedulaDirector = $editForm["cedulaDirector"]->getData();
-        $director = $em->getRepository('AppBundle:User')->find($cedulaDirector);
+        $director = $em->getRepository('App:User')->find($cedulaDirector);
         $entity->setDirector($director);
 
         if ($editForm->isValid()) {
@@ -214,7 +214,7 @@ class CentroController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Centro')->find($id);
+            $entity = $em->getRepository('App:Centro')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Centro entity.');
@@ -252,8 +252,8 @@ class CentroController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $centros = $user->getDirectorcentro();
-        $centro = $em->getRepository('AppBundle:Centro')->findBy(array('id' => $id));
-        $docentes = $em->getRepository('AppBundle:Docente')->findBy(array('centro' => $centro));
+        $centro = $em->getRepository('App:Centro')->findBy(array('id' => $id));
+        $docentes = $em->getRepository('App:Docente')->findBy(array('centro' => $centro));
 
         return array(
             'docentes' => $docentes,

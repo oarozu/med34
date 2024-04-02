@@ -14,7 +14,7 @@ class ActividadrolRepository extends EntityRepository
 {
     public function decarrera(){
      $em = $this->getEntityManager();
-    // $centros = $em->getRepository('AppBundle:Centro')->findAll();
+    // $centros = $em->getRepository('App:Centro')->findAll();
      $query = $em->createQuery('SELECT a FROM AppBundle:Actividadrol a WHERE a.id < 500 ORDER BY a.rol, a.id ASC');
      $actividades = $query->getResult();
      return $actividades;

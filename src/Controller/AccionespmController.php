@@ -28,7 +28,7 @@ class AccionespmController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Accionespm')->findAll();
+        $entities = $em->getRepository('App:Accionespm')->findAll();
 
         return array(
             'entities' => $entities,
@@ -101,7 +101,7 @@ class AccionespmController extends AbstractController
     {
         $entity = new Accionespm();
         $em = $this->getDoctrine()->getManager();
-        $plan = $em->getRepository('AppBundle:Planmejoramiento')->findOneBy(array('id' => $id));
+        $plan = $em->getRepository('App:Planmejoramiento')->findOneBy(array('id' => $id));
         $entity->setPlan($plan);
         $fecha = new \DateTime();
         $fecha->modify('+1 month');
@@ -124,7 +124,7 @@ class AccionespmController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Accionespm')->find($id);
+        $entity = $em->getRepository('App:Accionespm')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Accionespm entity.');
@@ -148,7 +148,7 @@ class AccionespmController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Accionespm')->find($id);
+        $entity = $em->getRepository('App:Accionespm')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Accionespm entity.');
@@ -172,7 +172,7 @@ class AccionespmController extends AbstractController
     public function editarAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Accionespm')->find($id);
+        $entity = $em->getRepository('App:Accionespm')->find($id);
         //$defaultData = array('id' => $id);
         $idplan = $entity->getPlan()->getId();
         $form = $this->createFormBuilder($entity)
@@ -207,7 +207,7 @@ class AccionespmController extends AbstractController
     public function editdocAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Accionespm')->find($id);
+        $entity = $em->getRepository('App:Accionespm')->find($id);
 
         $idplan = $entity->getPlan()->getId();
         $form = $this->crearDocenteForm($entity);
@@ -257,7 +257,7 @@ class AccionespmController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Accionespm')->find($id);
+        $entity = $em->getRepository('App:Accionespm')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Accionespm entity.');
@@ -291,7 +291,7 @@ class AccionespmController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Accionespm')->find($id);
+            $entity = $em->getRepository('App:Accionespm')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Accionespm entity.');

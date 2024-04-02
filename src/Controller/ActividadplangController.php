@@ -54,13 +54,13 @@ class ActividadplangController extends AbstractController
     {
         $entity = new Actividadplang();
         $em = $this->getDoctrine()->getManager();
-        $plang = $em->getRepository('AppBundle:Plangestion')->find($id);
-        #$actividad = $em->getRepository('AppBundle:Actividadplang')->find($ida);
+        $plang = $em->getRepository('App:Plangestion')->find($id);
+        #$actividad = $em->getRepository('App:Actividadplang')->find($ida);
         $entity->setPlang($plang);
         $form = $this->createAddForm($entity, $id);
         $form->handleRequest($request);
 
-        # $actividad = $em->getRepository('AppBundle:Actividadrol')->find($form->get('actividad')->getData());
+        # $actividad = $em->getRepository('App:Actividadrol')->find($form->get('actividad')->getData());
         #$entity->setActividad($actividad);
 
 
@@ -125,8 +125,8 @@ class ActividadplangController extends AbstractController
     {
         $entity = new Actividadplang();
         $em = $this->getDoctrine()->getManager();
-        $plang = $em->getRepository('AppBundle:Plangestion')->find($id);
-        $actividad = $em->getRepository('AppBundle:Actividadrol')->find($ida);
+        $plang = $em->getRepository('App:Plangestion')->find($id);
+        $actividad = $em->getRepository('App:Actividadrol')->find($ida);
         $entity->setActividad($actividad);
         $entity->setPlang($plang);
         $form = $this->createAddForm($entity, $id);
@@ -148,7 +148,7 @@ class ActividadplangController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Actividadplang')->find($id);
+        $entity = $em->getRepository('App:Actividadplang')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Actividadplang entity.');
@@ -172,7 +172,7 @@ class ActividadplangController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Actividadplang')->find($id);
+        $entity = $em->getRepository('App:Actividadplang')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Actividadplang entity.');
@@ -200,7 +200,7 @@ class ActividadplangController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Actividadplang')->find($id);
+        $entity = $em->getRepository('App:Actividadplang')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Actividadplang entity.');
@@ -223,7 +223,7 @@ class ActividadplangController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Actividadplang')->find($id);
+        $entity = $em->getRepository('App:Actividadplang')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Actividadplang entity.');
@@ -280,7 +280,7 @@ class ActividadplangController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Actividadplang')->find($id);
+        $entity = $em->getRepository('App:Actividadplang')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Actividadplang entity.');
         }
@@ -311,7 +311,7 @@ class ActividadplangController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Actividadplang')->find($id);
+        $entity = $em->getRepository('App:Actividadplang')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Actividadplang entity.');
@@ -342,9 +342,9 @@ class ActividadplangController extends AbstractController
     {
 
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Actividadplang')->find($id);
+        $entity = $em->getRepository('App:Actividadplang')->find($id);
         $session = $request->getSession();
-        $docente = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
+        $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));
         if ($docente->getPlangestion() == $entity->getPlang()) {
             $em->remove($entity);
             $em->flush();
@@ -365,8 +365,8 @@ class ActividadplangController extends AbstractController
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $session = $request->getSession();
-            $entity = $em->getRepository('AppBundle:Actividadplang')->find($id);
-            $docente = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
+            $entity = $em->getRepository('App:Actividadplang')->find($id);
+            $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Actividadplang entity.');

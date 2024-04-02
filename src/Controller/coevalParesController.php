@@ -26,8 +26,8 @@ class coevalParesController extends AbstractController {
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $docente = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
-        $terna = $em->getRepository('AppBundle:Terna')->findOneBy(array('docente' => $docente));
+        $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));
+        $terna = $em->getRepository('App:Terna')->findOneBy(array('docente' => $docente));
 
         return array(
             'terna' => $terna
@@ -86,7 +86,7 @@ class coevalParesController extends AbstractController {
     public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:coevalPares')->find($id);
+        $entity = $em->getRepository('App:coevalPares')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find coevalPares entity.');
@@ -108,7 +108,7 @@ class coevalParesController extends AbstractController {
      */
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:coevalPares')->find($id);
+        $entity = $em->getRepository('App:coevalPares')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Coevaluacion entity.');
         }
@@ -146,7 +146,7 @@ class coevalParesController extends AbstractController {
     public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:coevalPares')->find($id);
+        $entity = $em->getRepository('App:coevalPares')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find coevalPares entity.');
@@ -191,7 +191,7 @@ class coevalParesController extends AbstractController {
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:coevalPares')->find($id);
+            $entity = $em->getRepository('App:coevalPares')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find coevalPares entity.');
@@ -228,10 +228,10 @@ class coevalParesController extends AbstractController {
     public function crearAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
-        $docente = $em->getRepository('AppBundle:Docente')->find($session->get('docenteid'));
-        $ternado = $em->getRepository('AppBundle:Terna')->findOneBy(array('docente' => $docente));
-        $ternados = $em->getRepository('AppBundle:Terna')->findBy(array('escuela' => $ternado->getEscuela(), 'principal' => 1,'periodo' => $session->get('periodoe')));
-        $pares = $em->getRepository('AppBundle:Docente')->findBy(array('vinculacion' => 'DC', 'escuela' => $ternado->getEscuela(), 'periodo' => $session->get('periodoe')));
+        $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));
+        $ternado = $em->getRepository('App:Terna')->findOneBy(array('docente' => $docente));
+        $ternados = $em->getRepository('App:Terna')->findBy(array('escuela' => $ternado->getEscuela(), 'principal' => 1,'periodo' => $session->get('periodoe')));
+        $pares = $em->getRepository('App:Docente')->findBy(array('vinculacion' => 'DC', 'escuela' => $ternado->getEscuela(), 'periodo' => $session->get('periodoe')));
 
         if ($ternado->getPrincipal()) {
             foreach ($pares as $par) {

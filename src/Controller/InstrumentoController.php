@@ -29,7 +29,7 @@ class InstrumentoController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Instrumento')->findAll();
+        $entities = $em->getRepository('App:Instrumento')->findAll();
 
         return array(
             'entities' => $entities,
@@ -107,7 +107,7 @@ class InstrumentoController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Instrumento')->find($id);
+        $entity = $em->getRepository('App:Instrumento')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Instrumento entity.');
@@ -131,7 +131,7 @@ class InstrumentoController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Instrumento')->find($id);
+        $entity = $em->getRepository('App:Instrumento')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Instrumento entity.');
@@ -174,7 +174,7 @@ class InstrumentoController extends AbstractController
         return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
         }
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Instrumento')->find($id);
+        $entity = $em->getRepository('App:Instrumento')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Instrumento entity.');
@@ -221,7 +221,7 @@ class InstrumentoController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Instrumento')->find($id);
+            $entity = $em->getRepository('App:Instrumento')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Instrumento entity.');

@@ -24,11 +24,11 @@ class BaseController extends AbstractController
     public function heteroevalAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Docente')->find($id);
-        $evaluaciones = $em->getRepository('AppBundle:Heterocursos')->findBy(array('cedula' => $entity->getUser()->getId(), 'semestre' => $entity->getPeriodo()));
+        $entity = $em->getRepository('App:Docente')->find($id);
+        $evaluaciones = $em->getRepository('App:Heterocursos')->findBy(array('cedula' => $entity->getUser()->getId(), 'semestre' => $entity->getPeriodo()));
 
         if ($entity->getVinculacion() == 'DOFE') {
-            $evaluaciones1 = $em->getRepository('AppBundle:Heterocursos')->findBy(array('cedula' => $entity->getUser()->getId(), 'semestre' => $entity->getPeriodo() - 1));
+            $evaluaciones1 = $em->getRepository('App:Heterocursos')->findBy(array('cedula' => $entity->getUser()->getId(), 'semestre' => $entity->getPeriodo() - 1));
             $evaluaciones = array_merge($evaluaciones1, $evaluaciones);
         }
 

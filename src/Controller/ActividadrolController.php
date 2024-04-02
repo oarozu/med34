@@ -27,7 +27,7 @@ class ActividadrolController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Actividadrol')->findAll();
+        $entities = $em->getRepository('App:Actividadrol')->findAll();
 
         return array(
             'entities' => $entities,
@@ -43,9 +43,9 @@ class ActividadrolController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppBundle:Actividadrol')->decarrera();
-        $roles = $em->getRepository('AppBundle:Rolacademico')->findAll();
-        $periodo = $em->getRepository('AppBundle:Periodoe')->findOneBy(array('id' => $this->getParameter('appmed.periodo') ));
+        $entities = $em->getRepository('App:Actividadrol')->decarrera();
+        $roles = $em->getRepository('App:Rolacademico')->findAll();
+        $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $this->getParameter('appmed.periodo') ));
         return array(
             'entities' => $entities,
             'id'  => $id,
@@ -126,7 +126,7 @@ class ActividadrolController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Actividadrol')->find($id);
+        $entity = $em->getRepository('App:Actividadrol')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Actividadrol entity.');
@@ -150,7 +150,7 @@ class ActividadrolController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Actividadrol')->find($id);
+        $entity = $em->getRepository('App:Actividadrol')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Actividadrol entity.');
@@ -194,7 +194,7 @@ class ActividadrolController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Actividadrol')->find($id);
+        $entity = $em->getRepository('App:Actividadrol')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Actividadrol entity.');
@@ -228,7 +228,7 @@ class ActividadrolController extends AbstractController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Actividadrol')->find($id);
+            $entity = $em->getRepository('App:Actividadrol')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Actividadrol entity.');
