@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\redTutores;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -87,7 +88,7 @@ class redTutoresType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Entity\redTutores'
+            'data_class' => redTutores::class
         ));
     }
 

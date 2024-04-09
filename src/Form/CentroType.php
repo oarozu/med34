@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Centro;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -51,7 +52,7 @@ class CentroType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Entity\Centro'
+            'data_class' => Centro::class
         ));
     }
 

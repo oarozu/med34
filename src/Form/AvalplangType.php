@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Avalplang;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -33,7 +34,7 @@ class AvalplangType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Entity\Avalplang'
+            'data_class' => Avalplang::class
         ));
     }
 

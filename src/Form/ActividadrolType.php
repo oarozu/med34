@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Actividadrol;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -27,7 +28,7 @@ class ActividadrolType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Entity\Actividadrol'
+            'data_class' => Actividadrol::class
         ));
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Rolacademico;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -26,7 +27,7 @@ class RolacademicoType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Entity\Rolacademico'
+            'data_class' => Rolacademico::class
         ));
     }
 

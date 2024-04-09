@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\OfertaDatos;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -29,7 +30,7 @@ class ofertaType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Entity\OfertaDatos',
+            'data_class' => OfertaDatos::class,
             'peracas' => null
         ));
     }

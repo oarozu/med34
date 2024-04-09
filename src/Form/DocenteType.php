@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Docente;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -46,7 +47,7 @@ class DocenteType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Entity\Docente'
+            'data_class' => Docente::class
         ));
     }
 

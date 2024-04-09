@@ -1,5 +1,6 @@
 <?php
 namespace App\Form;
+use App\Entity\coevalPares;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -86,7 +87,7 @@ class coevalParesType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Entity\coevalPares'
+            'data_class' => coevalPares::class
         ));
     }
 
