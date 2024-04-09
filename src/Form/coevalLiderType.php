@@ -54,7 +54,7 @@ class coevalLiderType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\coevalLider'
+            'data_class' => 'Entity\coevalLider'
         ));
     }
 

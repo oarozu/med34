@@ -33,7 +33,7 @@ class AvalplangType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Avalplang'
+            'data_class' => 'Entity\Avalplang'
         ));
     }
 

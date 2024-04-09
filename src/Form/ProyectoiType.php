@@ -27,7 +27,7 @@ class ProyectoiType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Proyectoi'
+            'data_class' => 'Entity\Proyectoi'
         ));
     }
 

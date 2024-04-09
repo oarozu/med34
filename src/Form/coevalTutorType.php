@@ -51,7 +51,7 @@ class coevalTutorType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\coevalTutor'
+            'data_class' => 'Entity\coevalTutor'
         ));
     }
 

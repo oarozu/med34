@@ -87,7 +87,7 @@ class redTutoresType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\redTutores'
+            'data_class' => 'Entity\redTutores'
         ));
     }
 

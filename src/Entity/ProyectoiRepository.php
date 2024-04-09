@@ -17,7 +17,7 @@ class ProyectoiRepository extends EntityRepository
 
     $query = $em->createQuery(
        'SELECT p.id, p.nombre
-        FROM AppBundle\Entity\Proyectoi p
+        FROM Entity\Proyectoi p
         WHERE p.user = :user'
     )->setParameter('user', $user);
     // returns an array of Product objects

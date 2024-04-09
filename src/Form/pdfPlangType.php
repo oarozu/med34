@@ -26,7 +26,7 @@ class pdfPlangType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\pdfPlang'
+            'data_class' => 'Entity\pdfPlang'
         ));
     }
 

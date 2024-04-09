@@ -32,7 +32,7 @@ class AccionespmType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Accionespm'
+            'data_class' => 'Entity\Accionespm'
         ));
     }
 

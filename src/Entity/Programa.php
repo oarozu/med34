@@ -186,7 +186,7 @@ protected $escuela;
     /**
      * Set lider
      *
-     * @param AppBundle\Entity\User $lider
+     * @param Entity\User $lider
      * @return Programa
      */
     public function setLider(\App\Entity\User $lider = null)

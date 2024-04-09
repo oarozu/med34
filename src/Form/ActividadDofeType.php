@@ -30,7 +30,7 @@ class ActividadDofeType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Actividadplang'
+            'data_class' => 'Entity\Actividadplang'
         ));
     }
 

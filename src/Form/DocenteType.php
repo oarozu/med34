@@ -46,7 +46,7 @@ class DocenteType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Docente'
+            'data_class' => 'Entity\Docente'
         ));
     }
 

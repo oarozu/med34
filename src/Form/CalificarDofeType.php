@@ -34,7 +34,7 @@ class CalificarDofeType extends AbstractType {
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\evalDofe'
+            'data_class' => 'Entity\evalDofe'
         ));
     }
 

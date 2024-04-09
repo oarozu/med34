@@ -51,7 +51,7 @@ class CentroType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Centro'
+            'data_class' => 'Entity\Centro'
         ));
     }
 
