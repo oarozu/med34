@@ -202,7 +202,6 @@ class AccionespmController extends AbstractController
 
       /**
      * Docente Actualiza Accion
-     * @Template()
      */
     public function editdocAction(Request $request, $id)
     {

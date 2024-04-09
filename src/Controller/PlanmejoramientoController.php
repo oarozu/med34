@@ -169,7 +169,6 @@ class PlanmejoramientoController extends AbstractController
     /**
      * Finds and displays a Planmejoramiento entity.
      *
-     * @Template()
      */
     public function docAction($id)
     {
