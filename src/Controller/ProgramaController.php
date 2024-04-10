@@ -6,7 +6,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\Programa;
 use App\Form\ProgramaType;
 
@@ -17,12 +16,10 @@ use App\Form\ProgramaType;
  */
 class ProgramaController extends AbstractController
 {
-
     /**
      * Lists all Programa entities.
      *
      * @Route("/", name="programa", methods={"GET"})
-     * @Template("Programa/index.html.twig")
      */
     public function indexAction(Request $request)
     {
@@ -36,23 +33,20 @@ class ProgramaController extends AbstractController
             $periodo = $em->getRepository('App:Periodoe')->findBy(array('id' => $session->get('periodoe')));
             $entities = $em->getRepository('App:Programa')->findAll();
         }
-        return array(
+        return $this->render('Programa/index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
 
     /**
      * Lists all Programa entities.
      *
      * @Route("/pe/{id}", name="programa_periodo", methods={"GET"})
-     * @Template("Programa/porperiodo.html.twig")
      */
     public function porperiodoAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('App:ProgramaPeriodo')->findBy(array('periodo' => $id));
-
         return array(
             'entities' => $entities,
         );
@@ -63,7 +57,6 @@ class ProgramaController extends AbstractController
      * Creates a new Programa entity.
      *
      * @Route("/", name="programa_create", methods={"POST"})
-     * @Template("App:Programa:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -79,10 +72,10 @@ class ProgramaController extends AbstractController
             return $this->redirect($this->generateUrl('programa_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('Programa/new.html.twig',array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -108,24 +101,22 @@ class ProgramaController extends AbstractController
      * Displays a form to create a new Programa entity.
      *
      * @Route("/new", name="programa_new", methods={"GET"})
-     * @Template("Programa/new.html.twig")
      */
     public function newAction()
     {
         $entity = new Programa();
         $form = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('Programa/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
      * Finds and displays a Programa entity.
      *
      * @Route("/{id}", name="programa_show", methods={"GET"})
-     * @Template("Programa/show.html.twig")
      */
     public function showAction(Request $request, $id)
     {
@@ -153,7 +144,6 @@ class ProgramaController extends AbstractController
     /**
      * Finds and displays a Programa entity.
      * @Route("/{id}/modal", name="programa_modal", methods={"GET"})
-     * @Template("Programa/modal.html.twig")
      */
     public function modalAction($id)
     {
@@ -176,7 +166,6 @@ class ProgramaController extends AbstractController
     /**
      * Finds and displays a Programa entity.
      * @Route("/{id}/cursos", name="programa_cursos", methods={"GET"})
-     * @Template("Programa/modal.html.twig")
      */
     public function programacursos($id)
     {
@@ -189,17 +178,16 @@ class ProgramaController extends AbstractController
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Programa entity.');
         }
-        return array(
+        return $this->render('Programa/modal.html.twig', array(
             'entity' => $entity,
             'oferta' => $oferta
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing Programa entity.
      *
      * @Route("/{id}/edit", name="programa_edit", methods={"GET"})
-     * @Template("Programa/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -244,7 +232,6 @@ class ProgramaController extends AbstractController
      * Edits an existing Programa entity.
      *
      * @Route("/{id}", name="programa_update", methods={"PUT"})
-     * @Template("Programa/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -257,7 +244,6 @@ class ProgramaController extends AbstractController
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Programa entity.');
         }
-
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -272,11 +258,11 @@ class ProgramaController extends AbstractController
 
         }
 
-        return array(
+        return $this->render('Programa/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -324,7 +310,6 @@ class ProgramaController extends AbstractController
     /**
      * Seleccionar docente
      * @Route("/add/lider", name="programa_addlider", methods={"GET"})
-     * @Template("Programa/addlider.html.twig")
      */
     public function addliderAction(Request $request)
     {
@@ -332,14 +317,11 @@ class ProgramaController extends AbstractController
         $session = $request->getSession();
         $periodo = $em->getRepository('App:Periodoe')->find($session->get('periodoe'));
         $escuela = $em->getRepository('App:Escuela')->find($session->get('escuelaid'));
-        #$entities = $em->getRepository('App:Docente')->findBy(array('escuela' => $escuela, 'periodo' => $session->get('periodoe')));
-        #$entities = $em->getRepository('App:Docente')->selecionarLider($escuela);
 
         $dql = "SELECT d FROM App:Docente d WHERE d.escuela = :escuela AND d.vinculacion != 'HC'";
         $query = $em->createQuery($dql);
         $query->setParameter('escuela', $escuela)->orderBy('d.id', 'DESC')->setMaxResults(500);
         $entities = $query->getResult();
-
 
         return array(
             'entities' => $entities,
