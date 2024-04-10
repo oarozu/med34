@@ -29,7 +29,7 @@
                 <th colspan="2">Docentes por periodo</th>
             </tr>
             <tr>
-                <th>Periodos parciales vigencia {{ year }}</th>
+                <th>Periodos acádemicos</th>
                 <td>
                 {%for periodo in periodosp %}
                     <a class="btn btn-primary btn-sm" href="{{ path('docente_escuela', {'id': entity.id, 'periodo': periodo.id }) }}">{{ periodo.observaciones }}</a>
@@ -37,7 +37,7 @@
                 </td>
             </tr>
             <tr>
-                <th>Periodos consolidados anuales</th>
+                <th>Resultados consolidados anuales</th>
                 <td>
                     {%for periodo in periodosa %}
                         <a class="btn btn-primary btn-sm" href="{{ path('docente_escuela', {'id': entity.id, 'periodo': periodo.id }) }}">{{ periodo.observaciones }}</a>
@@ -45,7 +45,7 @@
                 </td>
             </tr>
             <tr>
-                <th>Periodos consolidados semestrales</th>
+                <th>Resultados Docentes de Carrera</th>
                 <td>
                     {%for periodo in periodoss %}
                         <a class="btn btn-primary btn-sm" href="{{ path('docente_escuela', {'id': entity.id, 'periodo': periodo.id }) }}">{{ periodo.observaciones }}</a>
