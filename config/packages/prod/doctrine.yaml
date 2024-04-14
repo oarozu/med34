@@ -1,20 +1,34 @@
 doctrine:
-    orm:
-        auto_generate_proxy_classes: false
-        metadata_cache_driver:
-            type: pool
-            pool: doctrine.system_cache_pool
-        query_cache_driver:
-            type: pool
-            pool: doctrine.system_cache_pool
-        result_cache_driver:
-            type: pool
-            pool: doctrine.result_cache_pool
+    dbal:
+        #url: '%env(resolve:DATABASE_URL)%'
 
-framework:
-    cache:
-        pools:
-            doctrine.result_cache_pool:
-                adapter: cache.app
-            doctrine.system_cache_pool:
-                adapter: cache.system
+        # IMPORTANT: You MUST configure your server version,
+        # either here or in the DATABASE_URL env var (see .env file)
+        #server_version: '16'
+
+        connections:
+            default:
+                dbname: evaluacion_docente
+                user: evaluacion.docen
+                password: '%env(resolve:DATABASE_PASSWORD)%'
+                host: mysqlweb.unad.edu.co
+                driver: pdo_mysql
+                server_version: '10.11' # in case you are using mysql 5.5
+                # only needed for MySQL
+                charset: utf8mb4
+                default_table_options:
+                    collate: utf8mb4_unicode_ci
+
+        # backtrace queries in profiler (increases memory usage per request)
+        #profiling_collect_backtrace: '%kernel.debug%'
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+        mappings:
+            App:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Entity'
+                prefix: 'App\Entity'
+                alias: App

@@ -48,21 +48,15 @@ class ActividadplangController extends AbstractController
     /**
      * Creates a new Actividadplang entity.
      * @Route("/add/{id}", name="actividadplang_add",  methods={"POST"})
-     * @Template("Actividadplang/new.html.twig")
      */
     public function addAction(Request $request, $id)
     {
         $entity = new Actividadplang();
         $em = $this->getDoctrine()->getManager();
         $plang = $em->getRepository('App:Plangestion')->find($id);
-        #$actividad = $em->getRepository('App:Actividadplang')->find($ida);
         $entity->setPlang($plang);
         $form = $this->createAddForm($entity, $id);
         $form->handleRequest($request);
-
-        # $actividad = $em->getRepository('App:Actividadrol')->find($form->get('actividad')->getData());
-        #$entity->setActividad($actividad);
-
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -71,11 +65,11 @@ class ActividadplangController extends AbstractController
             return $this->redirect($this->generateUrl('plangestion_crear', array('id' => $id)));
         }
 
-        return array(
+        return $this->render('Actividadplang/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
             'id' => $id,
-        );
+        ));
     }
 
     /**
@@ -119,7 +113,6 @@ class ActividadplangController extends AbstractController
      * Displays a form to create a new Actividadplang entity.
      *
      * @Route("/new/{id}/{ida}", name="actividadplang_new",  methods={"GET"})
-     * @Template("Actividadplang/new.html.twig")
      */
     public function newAction($id, $ida)
     {
@@ -142,7 +135,6 @@ class ActividadplangController extends AbstractController
      * Finds and displays a Actividadplang entity.
      *
      * @Route("/{id}", name="actividadplang_show",  methods={"GET"})
-     * @Template("Actividadplang/show.html.twig")
      */
     public function showAction($id)
     {
@@ -166,7 +158,6 @@ class ActividadplangController extends AbstractController
      * Displays a form to edit an existing Actividadplang entity.
      *
      * @Route("/{id}/edit", name="actividadplang_edit",  methods={"GET"})
-     * @Template("Actividadplang/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -194,7 +185,6 @@ class ActividadplangController extends AbstractController
      * Displays a form to edit an existing Actividadplang entity.
      *
      * @Route("/{id}/dofe", name="actividadplang_dofe",  methods={"GET"})
-     * @Template("Actividadplang/dofe.html.twig")
      */
     public function dofeAction($id)
     {
@@ -217,7 +207,6 @@ class ActividadplangController extends AbstractController
     /**
      *
      * @Route("/borrar/{id}", name="actividadplang_borrar",  methods={"GET"})
-     * @Template("Actividadplang/borrar.html.twig")
      */
     public function borrarAction($id)
     {
@@ -274,7 +263,6 @@ class ActividadplangController extends AbstractController
      * Edits an existing Actividadplang entity.
      *
      * @Route("/{id}", name="actividadplang_update",  methods={"PUT"})
-     * @Template("Actividadplang/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -294,11 +282,11 @@ class ActividadplangController extends AbstractController
             return $this->redirect($this->generateUrl('plangestion_show', array('id' => $entity->getPlang()->getId())));
         }
 
-        return array(
+        return $this->render('Actividadplang/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**

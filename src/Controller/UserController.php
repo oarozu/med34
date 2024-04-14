@@ -9,7 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use App\Entity\Parabuscar;
 use App\Entity\User;
 use App\Form\UserType;
@@ -28,7 +29,6 @@ class UserController extends AbstractController
     /**
      * Lists all Usuarios entities.
      * @Route("/", name="admin_user", methods={"GET"})
-     * @Template("User/index.html.twig")
      */
     public function indexAction(Request $request)
     {
@@ -69,7 +69,6 @@ class UserController extends AbstractController
 
     /**
      * Lists all Usuarios entities.
-     * @Template()
      */
     public function infoAction()
     {
@@ -116,7 +115,6 @@ class UserController extends AbstractController
     /**
      * Lists all Usuarios entities.
      * @Route("/create", name="admin_user_create", methods={"POST"})
-     * @Template()
      */
     public function createAction(Request $request)
     {
@@ -142,7 +140,6 @@ class UserController extends AbstractController
     /**
      * Lists all Usuarios entities.
      * @Route("/new", name="admin_user_new", methods={"GET"})
-     * @Template()
      */
     public function newAction()
     {
@@ -157,7 +154,6 @@ class UserController extends AbstractController
 
     /**
      * Lists all Usuarios entities.
-     * @Template()
      */
     public function showAction($id)
     {
@@ -165,9 +161,9 @@ class UserController extends AbstractController
 
         $archivo = $em->getRepository('App:Archivo')->findBy(array('cedula' => $id));
 
-        $porSemestre = $em->getRepository('App:Docente')->porSemestres($id,"'s'");
-        $porAnual = $em->getRepository('App:Docente')->porSemestres($id,"'a'");
-        $porPeriodo = $em->getRepository('App:Docente')->porSemestres($id,"'p'");
+        $porSemestre = $em->getRepository('App:Docente')->porSemestres($id, "'s'");
+        $porAnual = $em->getRepository('App:Docente')->porSemestres($id, "'a'");
+        $porPeriodo = $em->getRepository('App:Docente')->porSemestres($id, "'p'");
 
 
         $entity = $em->getRepository('App:User')->find($id);
@@ -182,16 +178,15 @@ class UserController extends AbstractController
             'entity' => $entity,
             'newpass_form' => $passForm->createView(),
             'archivo' => $archivo,
-            'semestres'=> $porSemestre,
-            'anuales'=> $porAnual,
-            'periodos'=> $porPeriodo
+            'semestres' => $porSemestre,
+            'anuales' => $porAnual,
+            'periodos' => $porPeriodo
         ));
     }
 
     /**
      * Lists all Usuarios entities.
      * @Route("/{id}/edit", name="admin_user_edit", methods={"GET"})
-     * @Template("User/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -210,7 +205,6 @@ class UserController extends AbstractController
     /**
      * Lists all Usuarios entities.
      * @Route("/{id}/update", name="admin_user_update", methods={"PUT"})
-     * @Template("User/edit.html.twig")
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
@@ -244,7 +238,7 @@ class UserController extends AbstractController
      */
     private function createEditForm(User $entity)
     {
-        $form = $this->createForm( UserType::class, $entity, array(
+        $form = $this->createForm(UserType::class, $entity, array(
             'action' => $this->generateUrl('admin_user_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
@@ -255,7 +249,6 @@ class UserController extends AbstractController
     /**
      * Lists all Usuarios entities.
      * @Route("/{id}/newpass", name="admin_user_newpass", methods={"POST"})
-     * @Template("User/show.html.twig")
      */
     public function newpassAction(Request $request, $id)
     {
@@ -277,7 +270,8 @@ class UserController extends AbstractController
             $currentPass = $this->generateRandomString();
             $entity->setPassword($currentPass);
             $this->setSecurePassword($entity);
-            $this->enviarMail($entity, $currentPass);
+         //   $this->enviarMail($entity, $currentPass);
+            $this->sendEmail($entity, $currentPass);
             $em->persist($entity);
             $em->flush();
             return new JsonResponse(array(
@@ -288,31 +282,6 @@ class UserController extends AbstractController
                 'message' => 'Error desde Json'),
             400
         );
-    }
-
-    /**
-     * Lists all Usuarios entities.
-     * @Route("/{id}/delete", name="admin_user_delete", methods={"DELETE"})
-     * @Template("User/delete.html.twig")
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('App:User')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find User entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('admin_user'));
     }
 
     /**
@@ -364,7 +333,7 @@ class UserController extends AbstractController
         return $randomString;
     }
 
-    public function enviarMail(\App\Entity\User $user, $newpass)
+    public function enviarMail(User $user, $newpass)
     {
         $message = \Swift_Message::newInstance()
             ->setSubject('Contraseña del Módulo MED para ' . $user->getId())
@@ -382,6 +351,30 @@ class UserController extends AbstractController
             $message->setCc(array($user->getEmailp() => $user->getNombres() . ' ' . $user->getApellidos()));
         }
         $this->get('mailer')->send($message);
+    }
+
+    public function sendEmail(MailerInterface $mailer, $user, $newpass)
+    {
+        $email = (new Email())
+            ->from(array('siga@unad.edu.co' => 'Módulo de Evaluación Docente MED'))
+            ->to(array($user->getEmail() => $user->getNombres() . ' ' . $user->getApellidos()))
+            //->cc('cc@example.com')
+            //->bcc('bcc@example.com')
+            //->replyTo('fabien@example.com')
+            //->priority(Email::PRIORITY_HIGH)
+            ->subject('Contraseña del Módulo MED para ' . $user->getId())
+            //->text('Sending emails is fun again!')
+            ->htmlTemplate(
+                    'User/newpass.txt.twig',
+                    array('user' => $user,
+                        'newpass' => $newpass
+                    )
+            );
+        try {
+            $mailer->send($email);
+        } catch (TransportExceptionInterface $e) {
+            Return 'Error';
+        }
     }
 
     public function passmedAction()
@@ -422,7 +415,8 @@ class UserController extends AbstractController
                     $user->setPassword($currentpass);
                     $this->setSecurePassword($user);
                     try {
-                        $this->enviarMail($user, $currentpass);
+                     //   $this->enviarMail($user, $currentpass);
+                        $this->sendEmail($user, $currentpass);
                     } catch (\Exception $e) {
                         $pass = $request->server->get('MED_PKW');
                         $user->setPassword($pass);

@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Planmejoramiento;
 use App\Form\PlanmejoramientoType;
 
@@ -22,7 +22,6 @@ class PlanmejoramientoController extends AbstractController
      * Lists all Planmejoramiento entities.
      *
      * @Route("/", name="planmejoramiento", methods={"GET"})
-     * @Template("Planmejoramiento/index.html.twig")
      */
     public function indexAction(Request $request)
     {
@@ -34,16 +33,15 @@ class PlanmejoramientoController extends AbstractController
         }
         $entities = $em->getRepository('App:Planmejoramiento')->findBy(array('autorid' => $escuelaid));
 
-        return array(
+        return $this->render('Planmejoramiento/index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
 
     /**
      * Creates a new Planmejoramiento entity.
      *
      * @Route("/", name="planmejoramiento_create", methods={"POST"})
-     * @Template("Planmejoramiento/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -59,10 +57,10 @@ class PlanmejoramientoController extends AbstractController
             return $this->redirect($this->generateUrl('planmejoramiento_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return  $this->render('Planmejoramiento/show.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -76,7 +74,7 @@ class PlanmejoramientoController extends AbstractController
     {
         $form = $this->createForm(PlanmejoramientoType::class, $entity, array(
             'action' => $this->generateUrl('planmejoramiento_create'),
-            'method' => 'POST',
+            'method' => 'POST'
         ));
 
         $form->add('submit', SubmitType::class, array('label' => 'Create'));
@@ -88,24 +86,22 @@ class PlanmejoramientoController extends AbstractController
      * Displays a form to create a new Planmejoramiento entity.
      *
      * @Route("/new", name="planmejoramiento_new", methods={"GET"})
-     * @Template("Planmejoramiento/new.html.twig")
      */
     public function newAction()
     {
         $entity = new Planmejoramiento();
         $form = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('Planmejoramiento/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
 
     /**
      * Seleccionar docente
      * @Route("/add", name="planmejoramiento_add", methods={"GET"})
-     * @Template("Planmejoramiento/edit.html.twig")
      */
     public function addAction(Request $request)
     {
@@ -113,16 +109,15 @@ class PlanmejoramientoController extends AbstractController
         $session = $request->getSession();
         $escuela = $em->getRepository('App:Escuela')->find($session->get('escuelaid'));
         $entities = $em->getRepository('App:Docente')->findBy(array('escuela' => $escuela));
-        return array(
+        return  $this->render('Planmejoramiento/edit.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
 
     /**
      * Agregar Plan Mejoramiento a Docente
      *
      * @Route("/add/{id}", name="planmejoramiento_agregar", methods={"GET"})
-     * @Template("Planmejoramiento/agregar.html.twig")
      */
     public function agregarAction(Request $request, $id)
     {
@@ -135,9 +130,7 @@ class PlanmejoramientoController extends AbstractController
         $planm->setAutorid($session->get('escuelaid'));
         $em->persist($planm);
         $em->flush();
-
         return $this->redirect($this->generateUrl('planmejoramiento'));
-
     }
 
 
@@ -145,7 +138,6 @@ class PlanmejoramientoController extends AbstractController
      * Finds and displays a Planmejoramiento entity.
      *
      * @Route("/{id}", name="planmejoramiento_show", methods={"GET"})
-     * @Template("Planmejoramiento/show.html.twig")
      */
     public function showAction($id)
     {
@@ -159,17 +151,16 @@ class PlanmejoramientoController extends AbstractController
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Planmejoramiento/show.html.twig', array(
             'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
 
     /**
      * Finds and displays a Planmejoramiento entity.
      *
-     * @Template()
      */
     public function docAction($id)
     {
@@ -180,16 +171,15 @@ class PlanmejoramientoController extends AbstractController
             throw $this->createNotFoundException('Unable to find Planmejoramiento entity.');
         }
 
-        return array(
+        return $this->render('Planmejoramiento/show.html.twig', array(
             'entity' => $entity,
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing Planmejoramiento entity.
      *
      * @Route("/{id}/edit", name="planmejoramiento_edit", methods={"GET"})
-     * @Template("Planmejoramiento/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -203,10 +193,10 @@ class PlanmejoramientoController extends AbstractController
 
         $editForm = $this->createEditForm($entity);
 
-        return array(
+        return $this->render('Planmejoramiento/show.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -232,7 +222,6 @@ class PlanmejoramientoController extends AbstractController
      * Edits an existing Planmejoramiento entity.
      *
      * @Route("/{id}", name="planmejoramiento_update", methods={"PUT"})
-     * @Template("Planmejoramiento/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -254,11 +243,11 @@ class PlanmejoramientoController extends AbstractController
             return $this->redirect($this->generateUrl('planmejoramiento_show', array('id' => $id)));
         }
 
-        return array(
+        return  $this->render('Planmejoramiento/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**

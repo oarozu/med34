@@ -23,7 +23,6 @@ class pdfPlangController extends AbstractController
      * Lists all formatoPlang entities.
      *
      * @Route("/", name="pdfplang", methods={"GET"})
-     * @Template()
      */
     public function indexAction()
     {

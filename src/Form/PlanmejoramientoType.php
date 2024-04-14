@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Planmejoramiento;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -34,7 +33,7 @@ class PlanmejoramientoType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => Planmejoramiento::class
+            'data_class' => 'AppBundle\Entity\Planmejoramiento'
         ));
     }
 
