@@ -15,16 +15,3 @@ framework:
     fragments: true
     php_errors:
         log: true
-
-parameters:
-    database_driver: pdo_mysql
-    database_host: mysqlweb.unad.edu.co
-    database_port: 3306
-    database_name: evaluacion_docente
-    database_user: evaluacion.docen
-    database_password: '$&.!3V4l84c10N#D0c3Nt3.!&'
-    mailer_transport: gmail
-    mailer_host: smtp.gmail.com
-    mailer_user: siga@unad.edu.co
-    locale: en
-    secret: ThisTokenIsNotSoSecretChangeIt

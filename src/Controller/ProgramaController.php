@@ -47,9 +47,9 @@ class ProgramaController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('App:ProgramaPeriodo')->findBy(array('periodo' => $id));
-        return array(
+        return $this->render('Programa/porperiodo.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
 
 
@@ -133,12 +133,12 @@ class ProgramaController extends AbstractController
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Programa/show.html.twig', array(
             'entity' => $programa,
             'oferta' => $oferta,
             'periodo' => $session->get('periodoe'),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -156,10 +156,10 @@ class ProgramaController extends AbstractController
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Programa entity.');
         }
-        return array(
+        return  $this->render('Programa/modal.html.twig', array(
             'entity' => $entity,
             'oferta' => $oferta
-        );
+        ));
     }
 
 
@@ -202,11 +202,11 @@ class ProgramaController extends AbstractController
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Programa/edit.html.twig',  array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -323,9 +323,9 @@ class ProgramaController extends AbstractController
         $query->setParameter('escuela', $escuela)->orderBy('d.id', 'DESC')->setMaxResults(500);
         $entities = $query->getResult();
 
-        return array(
+        return $this->render('Programa/addlider.html.twig', array(
             'entities' => $entities,
             'periodo' => $periodo
-        );
+        ));
     }
 }
