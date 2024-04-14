@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Curso;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -56,7 +57,7 @@ class CursoprogType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Curso',
+            'data_class' => Curso::class,
             'escuela' => null,
             'siglas' => null
         ));

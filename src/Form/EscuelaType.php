@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Escuela;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -35,7 +36,7 @@ class EscuelaType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Escuela'
+            'data_class' => Escuela::class
         ));
     }
 

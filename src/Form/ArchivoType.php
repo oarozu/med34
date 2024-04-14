@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Archivo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -34,7 +35,7 @@ class ArchivoType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Archivo'
+            'data_class' => Archivo::class
         ));
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\coevalLider;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -54,7 +55,7 @@ class coevalLiderType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\coevalLider'
+            'data_class' => coevalLider::class
         ));
     }
 

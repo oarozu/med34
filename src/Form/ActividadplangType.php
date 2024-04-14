@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Actividadplang;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -32,7 +33,7 @@ class ActividadplangType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Actividadplang'
+            'data_class' => Actividadplang::class
         ));
     }
 

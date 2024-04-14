@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\coevalDirector;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -61,7 +62,7 @@ class coevalDirectorType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\coevalDirector'
+            'data_class' => coevalDirector::class
         ));
     }
 

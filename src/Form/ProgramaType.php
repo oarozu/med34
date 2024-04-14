@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Programa;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -46,7 +47,7 @@ class ProgramaType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Programa'
+            'data_class' => Programa::class
         ));
     }
 

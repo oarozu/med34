@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\formatoPlang;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,7 +27,7 @@ class formatoPlangType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\formatoPlang'
+            'data_class' => formatoPlang::class
         ));
     }
 
