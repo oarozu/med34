@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\Curso;
 use App\Entity\Oferta;
 use App\Entity\Cedula;
@@ -29,16 +28,15 @@ class CursoController extends AbstractController
      * Lists all Curso entities.
      *
      * @Route("/", name="curso", methods={"GET"})
-     * @Template("Curso/index.html.twig")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('App:Curso')->findAll();
-        return array(
+        return $this->render('Curso/index.html.twig', array(
             'entities' => $entities,
             'sigla' => false
-        );
+        ));
     }
 
 
@@ -46,7 +44,6 @@ class CursoController extends AbstractController
      * Lists all Curso entities.
      *
      * @Route("/pe/{id}", name="curso_escuela", methods={"GET"})
-     * @Template("Curso/index.html.twig")
      *
      */
     public function porescuelaAction($id)
@@ -56,10 +53,10 @@ class CursoController extends AbstractController
         $sigla = $escuela->getSigla();
         $entities = $em->getRepository('App:Curso')->findBy(array('escuela' => $sigla));
 
-        return array(
+        return $this->render('Curso/index.html.twig', array(
             'entities' => $entities,
             'sigla' => $sigla
-        );
+        ));
     }
 
 
@@ -67,7 +64,6 @@ class CursoController extends AbstractController
      * Creates a new Curso entity.
      *
      * @Route("/", name="curso_create", methods={"POST"})
-     * @Template("Curso/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -82,10 +78,10 @@ class CursoController extends AbstractController
             return $this->redirect($this->generateUrl('curso_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('Curso/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -111,23 +107,21 @@ class CursoController extends AbstractController
      * Displays a form to create a new Curso entity.
      *
      * @Route("/new", name="curso_new", methods={"GET"})
-     * @Template("Curso/new.html.twig")
      */
     public function newAction()
     {
         $entity = new Curso();
         $form = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('Curso/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
      * Finds and displays a Curso entity
      * @Route("/{id}", name="curso_show", methods={"GET"})
-     * @Template("Curso/show.html.twig")
      */
     public function showAction($id)
     {
@@ -150,17 +144,16 @@ class CursoController extends AbstractController
             'peracas' => $peracas
         ));
 
-        return array(
+        return $this->render('Curso/show.html.twig', array(
             'entity' => $entity,
             'cursooferta' => $cursooferta,
             'form' => $Form->createView(),
-        );
+        ));
     }
 
     /**
      * Docentes de un curso por oferta
      * @Route("/{id}/oferta", name="oferta", methods={"GET"})
-     * @Template("Curso/oferta.html.twig")
      */
 
     public function ofertaAction($id)
@@ -176,10 +169,10 @@ class CursoController extends AbstractController
             'action' => $this->generateUrl('oferta_tutor', array('id' => $entity->getId())),
             'method' => 'POST',
         ));
-        return array(
+        return $this->render('Curso/oferta.html.twig', array(
             'entity' => $entity,
             'cedula_form' => $Form->createView(),
-        );
+        ));
     }
 
 
@@ -281,7 +274,6 @@ class CursoController extends AbstractController
 
     /** en modal
      * @Route("/{id}/modal", name="curso_modal", methods={"GET"})
-     * @Template("Curso/modal.html.twig")
      */
     public function modalAction($id)
     {
@@ -296,17 +288,16 @@ class CursoController extends AbstractController
             'action' => $this->generateUrl('oferta_tutor', array('id' => $id)),
             'method' => 'GET',
         ));
-        return array(
+        return $this->render('Curso/modal.html.twig', array(
             'entity' => $entity,
             'cedula_form' => $Form->createView(),
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing Curso entity.
      *
      * @Route("/{id}/edit", name="curso_edit", methods={"GET"})
-     * @Template("Curso/edit.html.twig")
      */
     public function editAction($id, Request $request)
     {
@@ -323,11 +314,11 @@ class CursoController extends AbstractController
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Curso/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     public function getArray($values){
@@ -341,7 +332,6 @@ class CursoController extends AbstractController
     /**
      * Displays a form to edit an existing Curso entity.
      * @Route("/{id}/ofertaedit", name="oferta_edit", methods={"GET"})
-     * @Template("Curso/ofertaedit.html.twig")
      */
     public function ofertaeditAction($id)
     {
@@ -355,10 +345,10 @@ class CursoController extends AbstractController
             'action' => $this->generateUrl('oferta_update', array('id' => $entity->getId())),
             'method' => 'GET',
         ));
-        return array(
+        return $this->render('Curso/ofertaedit.html.twig', array(
             'entity' => $entity,
             'cedula_form' => $Form->createView(),
-        );
+        ));
     }
 
 
@@ -402,7 +392,6 @@ class CursoController extends AbstractController
     /**
      * Edits an existing Curso entity.
      * @Route("/{id}/ofertaupdate", name="oferta_update", methods={"GET"})
-     * @Template("Curso/ofertaedit.html.twig")
      */
     public function ofertaupdateAction(Request $request, $id)
     {
@@ -441,7 +430,6 @@ class CursoController extends AbstractController
      * Edits an existing Curso entity.
      *
      * @Route("/{id}", name="curso_update", methods={"PUT"})
-     * @Template("Curso/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -462,11 +450,11 @@ class CursoController extends AbstractController
             return $this->redirect($this->generateUrl('lider_cursos', array('id' => $escuelaid)));
         }
 
-        return array(
+        return $this->render('Curso/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
 
@@ -538,8 +526,5 @@ class CursoController extends AbstractController
             $this->get('session')->getFlashBag()->add('error', 'No permitido');
             return $this->redirect($this->generateUrl('oferta', array('id' => $oferta->getId())));
         }
-
     }
-
-
 }

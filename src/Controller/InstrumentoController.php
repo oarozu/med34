@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\Instrumento;
 use App\Form\InstrumentoType;
 
@@ -23,7 +22,6 @@ class InstrumentoController extends AbstractController
      * Lists all Instrumento entities.
      *
      * @Route("/", name="admin_instrumento", methods={"GET"})
-     * @Template("Instrumento/index.html.twig")
      */
     public function indexAction()
     {
@@ -31,15 +29,14 @@ class InstrumentoController extends AbstractController
 
         $entities = $em->getRepository('App:Instrumento')->findAll();
 
-        return array(
+        return $this->render('Instrumento/index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
     /**
      * Creates a new Instrumento entity.
      *
      * @Route("/", name="admin_instrumento_create", methods={"POST"})
-     * @Template("Instrumento/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -55,10 +52,10 @@ class InstrumentoController extends AbstractController
             return $this->redirect($this->generateUrl('instrumento_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('Instrumento/new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -84,24 +81,22 @@ class InstrumentoController extends AbstractController
      * Displays a form to create a new Instrumento entity.
      *
      * @Route("/new", name="admin_instrumento_new", methods={"GET"})
-     * @Template("Instrumento/new.html.twig")
      */
     public function newAction()
     {
         $entity = new Instrumento();
         $form   = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('Instrumento/new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
      * Finds and displays a Instrumento entity.
      *
      * @Route("/{id}", name="admin_instrumento_show", methods={"GET"})
-     * @Template("Instrumento/show.html.twig")
      */
     public function showAction($id)
     {
@@ -115,17 +110,16 @@ class InstrumentoController extends AbstractController
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Instrumento/show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing Instrumento entity.
      *
      * @Route("/{id}/edit", name="admin_instrumento_edit", methods={"GET"})
-     * @Template("Instrumento/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -140,11 +134,11 @@ class InstrumentoController extends AbstractController
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Instrumento/edit.html.twig', array(
             'entity'      => $entity,
             'form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -166,7 +160,6 @@ class InstrumentoController extends AbstractController
      * Edits an existing Instrumento entity.
      *
      * @Route("/{id}", name="admin_instrumento_update", methods={"POST"})
-     * @Template("Instrumento/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {

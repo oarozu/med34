@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\Archivo;
 use App\Form\ArchivoType;
 
@@ -22,7 +21,6 @@ class ArchivoController extends AbstractController
      * Lists all Archivo entities.
      *
      * @Route("/doc/{ced}", name="archivo_pordoc", methods={"GET"})
-     * @Template("Archivo/pordoc.html.twig")
      */
     public function pordocAction($ced)
     {
@@ -30,9 +28,9 @@ class ArchivoController extends AbstractController
 
         $entities = $em->getRepository('App:Archivo')->findBy(array('cedula' => $ced));
 
-        return array(
+        return $this->render('Archivo/pordoc.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
 
 
@@ -40,7 +38,6 @@ class ArchivoController extends AbstractController
      * Lists all Archivo entities.
      *
      * @Route("/per/{id}", name="archivo_pordoc", methods={"GET"})
-     * @Template("Archivo/porperiodo.html.twig")
      */
     public function porperiodoAction($id)
     {
@@ -48,17 +45,16 @@ class ArchivoController extends AbstractController
 
         $entities = $em->getRepository('App:Archivo')->findBy(array('periodo' => $id));
 
-        return array(
+        return $this->render('Archivo/porperiodo.html.twig', array(
             'entities' => $entities,
             'id'    => $id,
-        );
+        ));
     }
 
 
      /**
       * Lists all Archivo entities.
       * @Route("/docente", name="archivo_docente", methods={"GET"})
-      * @Template("Archivo/pordoc.html.twig")
      */
     public function docenteAction()
     {
@@ -66,16 +62,15 @@ class ArchivoController extends AbstractController
        $user = $this->get('security.token_storage')->getToken()->getUser();
        $userId = $user->getId();
        $entities = $em->getRepository('App:Archivo')->findBy(array('cedula' => $userId));
-       return array(
+       return $this->render('Archivo/pordoc.html.twig', array(
             'entities' => $entities,
-        );
+       ));
     }
 
     /**
      * Creates a new Archivo entity.
      *
      * @Route("/", name="archivo_create", methods={"POST"})
-     * @Template("Archivo/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -91,10 +86,10 @@ class ArchivoController extends AbstractController
             return $this->redirect($this->generateUrl('archivo_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('Archivo/new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -117,27 +112,9 @@ class ArchivoController extends AbstractController
     }
 
     /**
-     * Displays a form to create a new Archivo entity.
-     *
-     * @Route("/new", name="archivo_new", methods={"GET"})
-     * @Template("Archivo/new.html.twig")
-     */
-    public function newAction()
-    {
-        $entity = new Archivo();
-        $form   = $this->createCreateForm($entity);
-
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
-    }
-
-    /**
      * Finds and displays a Archivo entity.
      *
      * @Route("/{id}", name="archivo_show", methods={"GET"})
-     * @Template("Archivo/show.html.twig")
      */
     public function showAction($id)
     {
@@ -169,20 +146,19 @@ class ArchivoController extends AbstractController
 
         $coeval = $urlcoeval;
 
-        return array(
+        return $this->render('Archivo/show.html.twig', array(
             'entity'  => $entity,
             'plan'    => $plan,
             'hetero'  => $hetero,
             'auto'    => $auto,
             'coeval'  => $coeval
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing Archivo entity.
      *
      * @Route("/{id}/edit", name="archivo_edit", methods={"GET"})
-     * @Template("Archivo/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -197,11 +173,11 @@ class ArchivoController extends AbstractController
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Archivo/edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -226,7 +202,6 @@ class ArchivoController extends AbstractController
      * Edits an existing Archivo entity.
      *
      * @Route("/{id}", name="archivo_update", methods={"PUT"})
-     * @Template("Archivo/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -248,11 +223,11 @@ class ArchivoController extends AbstractController
             return $this->redirect($this->generateUrl('archivo_edit', array('id' => $id)));
         }
 
-        return array(
+        return $this->render('Archivo/edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
     /**
      * Deletes a Archivo entity.

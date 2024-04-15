@@ -7,7 +7,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\Plangestion;
 use App\Entity\Actividadplang;
 use App\Entity\Avalplang;
@@ -25,7 +24,6 @@ class PlangestionController extends AbstractController
      * Creates a new Plangestion entity.
      *
      * @Route("/", name="plangestion_create", methods={"POST"})
-     * @Template("Plangestion/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -40,10 +38,10 @@ class PlangestionController extends AbstractController
 
             return $this->redirect($this->generateUrl('plangestion_show', array('id' => $entity->getId())));
         }
-        return array(
+        return $this->render('Plangestion/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -51,7 +49,6 @@ class PlangestionController extends AbstractController
      *
      * @param Plangestion $entity The entity
      *
-     * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(Plangestion $entity)
     {
@@ -94,7 +91,6 @@ class PlangestionController extends AbstractController
 
     /**
      * @Route("/auto", name="plangestion_show", methods={"GET"})
-     * @Template("Plangestion/show.html.twig")
      */
     public function showAction(Request $request)
     {
@@ -110,10 +106,10 @@ class PlangestionController extends AbstractController
         if (!$entity) {
             throw $this->createNotFoundException('Entidad no encontrada');
         }
-        return array(
+        return $this->render('Plangestion/show.html.twig', array(
             'entity' => $entity,
             'periodo' => $periodoe
-        );
+        ));
     }
 
     public function checkActividades($plang, $rolId){
@@ -142,7 +138,6 @@ class PlangestionController extends AbstractController
 
     /**
      * @Route("/{id}/dofe", name="plangestion_dofe", methods={"GET"})
-     * @Template("Plangestion/dofe.html.twig")
      */
     public function dofeAction($id)
     {
@@ -153,14 +148,13 @@ class PlangestionController extends AbstractController
         if (!$entity) {
             throw $this->createNotFoundException('Entidad no encontrada');
         }
-        return array(
+        return $this->render('Plangestion/dofe.html.twig', array(
             'entity' => $entity,
-        );
+        ));
     }
 
     /**
      * @Route("/conf/plan", name="plangestion_conf", methods={"GET"})
-     * @Template("Plangestion/conf.html.twig")
      */
     public function confAction(Request $request)
     {
@@ -181,12 +175,12 @@ class PlangestionController extends AbstractController
             return $this->redirect($this->generateUrl('plangestion_show', array('id' => $session->get('docenteid'))));
         }
 
-        return array(
+        return $this->render('Plangestion/conf.html.twig', array(
             'entity' => $entity,
             'estutor' => isset($estutor),
             'esdirector' => isset($esdirector),
             'periodo' => $periodo
-        );
+        ));
     }
 
 
@@ -214,7 +208,6 @@ class PlangestionController extends AbstractController
 
     /**
      * @Route("/agregar/roles", name="plangestion_crear", methods={"GET"})
-     * @Template("Plangestion/crear.html.twig")
      */
     public function crearAction(Request $request)
     {
@@ -230,15 +223,14 @@ class PlangestionController extends AbstractController
         }
 
 
-        return array(
+        return $this->render('Plangestion/crear.html.twig', array(
             'entity' => $entity,
             'actividades' => $actividades,
             'periodo' => $periodoe
-        );
+        ));
     }
 
     /**
-     * @Template("Plangestion/info.html.twig")
      */
     public function infoAction($id)
     {
@@ -270,7 +262,6 @@ class PlangestionController extends AbstractController
     }
 
     /**
-     * @Template("Plangestion/autoeval.html.twig")
      */
     public function autoevalAction($id)
     {
@@ -284,9 +275,9 @@ class PlangestionController extends AbstractController
                 'entity' => $docente,
             ));
         } else {
-            return array(
+            return $this->render('Plangestion/autoeval.html.twig', array(
                 'entity' => $docente,
-            );
+            ));
         }
     }
 
@@ -294,7 +285,6 @@ class PlangestionController extends AbstractController
      * Displays a form to edit an existing Plangestion entity.
      *
      * @Route("/{id}/edit", name="plangestion_edit", methods={"GET"})
-     * @Template("Plangestion/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -309,18 +299,17 @@ class PlangestionController extends AbstractController
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Plangestion/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing Plangestion entity.
      *
      * @Route("/{id}/abrir", name="plangestion_abrir", methods={"GET"})
-     * @Template("Plangestion/abrir.html.twig")
      */
     public function abrirAction($id)
     {
@@ -335,11 +324,11 @@ class PlangestionController extends AbstractController
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Plangestion/abrir.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -347,7 +336,6 @@ class PlangestionController extends AbstractController
      *
      * @param Plangestion $entity The entity
      *
-     * @return \Symfony\Component\Form\Form The form
      */
     private function createEditForm(Plangestion $entity)
     {
@@ -365,7 +353,6 @@ class PlangestionController extends AbstractController
      * Edits an existing Plangestion entity.
      *
      * @Route("/{id}", name="plangestion_update", methods={"PUT"})
-     * @Template("Plangestion/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -409,10 +396,10 @@ class PlangestionController extends AbstractController
                 )));
             }
         }
-        return array(
+        return $this->render('Plangestion/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
-        );
+        ));
     }
 
 
@@ -420,7 +407,6 @@ class PlangestionController extends AbstractController
      * Abrir an existing Plangestion entity.
      *
      * @Route("/{id}/abrir", name="plangestion_abrir_registro", methods={"PUT"})
-     * @Template("Plangestion/edit.html.twig")
      */
     public function abrirRegistroAction(Request $request, $id)
     {
@@ -448,10 +434,10 @@ class PlangestionController extends AbstractController
                 )));
             }
         }
-        return array(
+        return $this->render('Plangestion/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
-        );
+        ));
     }
 
 
@@ -533,7 +519,6 @@ class PlangestionController extends AbstractController
      *
      * @param mixed $id The entity id
      *
-     * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm($id)
     {

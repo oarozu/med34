@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\Heteroeval;
 use App\Entity\HeteroevalRepository;
 
@@ -19,7 +18,6 @@ class BaseController extends AbstractController
     /**
      * Mostrar heteroevaluaciones
      * @Route("/{id}/heteroeval", name="heteroeval_info",  methods={"GET"})
-     * @Template("Base/heteroeval.html.twig")
      */
     public function heteroevalAction($id)
     {
@@ -32,9 +30,9 @@ class BaseController extends AbstractController
             $evaluaciones = array_merge($evaluaciones1, $evaluaciones);
         }
 
-        return array(
+        return $this->render('Base/heteroeval.html.twig', array(
             'entity' => $entity,
             'evaluaciones' => $evaluaciones
-        );
+        ));
     }
 }

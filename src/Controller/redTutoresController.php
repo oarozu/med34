@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\redTutores;
 use App\Form\redTutoresType;
 
@@ -21,7 +20,6 @@ class redTutoresController extends AbstractController
      * Lists all redTutores entities.
      *
      * @Route("/", name="redtutores", methods={"GET"})
-     * @Template("redTutores/index.html.twig")
      */
     public function indexAction(Request $request)
     {
@@ -30,15 +28,14 @@ class redTutoresController extends AbstractController
         $entity = $em->getRepository('App:Docente')->find($session->get('docenteid'));
         $tutorias = $em->getRepository('App:Tutor')->findBy(array('docente' => $entity));
 
-        return array(
+        return $this->render('redTutores/index.html.twig', array(
             'entity' => $entity,
             'tutorias' => $tutorias,
-        );
+        ));
     }
 
     /**
      * @Route("/", name="redtutores_create", methods={"POST"})
-     * @Template("redTutores/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -54,10 +51,10 @@ class redTutoresController extends AbstractController
             return $this->redirect($this->generateUrl('redtutores_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('redTutores/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -83,24 +80,22 @@ class redTutoresController extends AbstractController
      * Displays a form to create a new redTutores entity.
      *
      * @Route("/new", name="redtutores_new", methods={"GET"})
-     * @Template("redTutores/new.html.twig")
      */
     public function newAction()
     {
         $entity = new redTutores();
         $form = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('redTutores/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
      * Finds and displays a redTutores entity.
      *
      * @Route("/{id}", name="redtutores_show", methods={"GET"})
-     * @Template("redTutores/show.html.twig")
      */
     public function showAction($id)
     {
@@ -114,17 +109,16 @@ class redTutoresController extends AbstractController
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('redTutores/show.html.twig', array(
             'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing redTutores entity.
      *
      * @Route("/{id}/edit", name="redtutores_edit", methods={"GET"})
-     * @Template("redTutores/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -144,11 +138,11 @@ class redTutoresController extends AbstractController
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('redTutores/edit.html.twig', array(
             'evaluacion' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -174,7 +168,6 @@ class redTutoresController extends AbstractController
      * Edits an existing redTutores entity.
      *
      * @Route("/{id}", name="redtutores_update", methods={"PUT"})
-     * @Template("redTutores/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -201,10 +194,10 @@ class redTutoresController extends AbstractController
 
             return $this->redirect($this->generateUrl('redtutores'));
         }
-        return array(
+        return $this->render('redTutores/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
-        );
+        ));
     }
 
     /**

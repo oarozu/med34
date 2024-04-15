@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\Actividadplang;
 use App\Form\ActividadplangType;
 use App\Form\ActividadDofeType;
@@ -23,7 +22,6 @@ class ActividadplangController extends AbstractController
     /**
      * Creates a new Actividadplang entity.
      * @Route("/", name="actividadplang_create",  methods={"POST"})
-     * @Template("Actividadplang/new.html.twig")
      */
     public function createAction(Request $request, $id)
     {
@@ -39,10 +37,10 @@ class ActividadplangController extends AbstractController
             return $this->redirect($this->generateUrl('actividadplang_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('Actividadplang/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -293,7 +291,6 @@ class ActividadplangController extends AbstractController
      * Edits an existing Actividadplang entity.
      *
      * @Route("/{id}/dofe", name="actividadplang_updatedofe",  methods={"PUT"})
-     * @Template("Actividadplang/dofe.html.twig")
      */
     public function updatedofeAction(Request $request, $id)
     {
@@ -314,11 +311,11 @@ class ActividadplangController extends AbstractController
             return $this->redirect($this->generateUrl('plangestion_dofe', array('id' => $entity->getPlang()->getId())));
         }
 
-        return array(
+        return $this->render('Actividadplang/dofe.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
