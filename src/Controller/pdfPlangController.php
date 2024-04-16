@@ -6,7 +6,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\pdfPlang;
 use App\Form\pdfPlangType;
 use App\Service\FileUploader;
@@ -38,7 +37,6 @@ class pdfPlangController extends AbstractController
      * Creates a new formatoPlang entity.
      *
      * @Route("/crear/{id}", name="pdfplang_create", methods={"POST"})
-     * @Template("pdfPlang/new.html.twig")
      */
     public function createAction(Request $request, $id)
     {
@@ -58,11 +56,11 @@ class pdfPlangController extends AbstractController
             return $this->redirect($this->generateUrl('avalplang'));
         }
 
-        return array(
+        return $this->render('pdfPlang/new.html.twig', array(
             'entity' => $entity,
             'id'      => $id,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -88,7 +86,6 @@ class pdfPlangController extends AbstractController
      * Displays a form to create a new pdfPlang entity.
      *
      * @Route("/new/{id}", name="pdfplang_new", methods={"GET"})
-     * @Template("pdfPlang/new.html.twig")
      */
     public function newAction($id)
     {
@@ -101,12 +98,12 @@ class pdfPlangController extends AbstractController
 
         $pathproyect =  dirname(__DIR__).'/../web';
 
-        return array(
+        return $this->render('pdfPlang/new.html.twig', array(
             'entity' => $entity,
             'id'    => $id,
             'form'   => $form->createView(),
             'pathp' => $pathproyect
-        );
+        ));
     }
 
 
@@ -114,7 +111,6 @@ class pdfPlangController extends AbstractController
      * Displays a form to edit an existing formatoPlang entity.
      *
      * @Route("/{id}/edit", name="pdfplang_edit", methods={"GET"})
-     * @Template("formatoPlang/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -129,11 +125,11 @@ class pdfPlangController extends AbstractController
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('formatoPlang/edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -158,7 +154,6 @@ class pdfPlangController extends AbstractController
      * Edits an existing formatoPlang entity.
      *
      * @Route("/{id}", name="formatoplang_update", methods={"PUT"})
-     * @Template("formatoPlang/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -180,11 +175,11 @@ class pdfPlangController extends AbstractController
             return $this->redirect($this->generateUrl('formatoplang_edit', array('id' => $id)));
         }
 
-        return array(
+        return $this->render('formatoPlang/edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
     /**
      * Deletes a formatoPlang entity.

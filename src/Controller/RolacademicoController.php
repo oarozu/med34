@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\Rolacademico;
 use App\Form\RolacademicoType;
 
@@ -22,7 +21,6 @@ class RolacademicoController extends AbstractController
      * Lists all Rolacademico entities.
      *
      * @Route("/", name="rolacademico", methods={"GET"})
-     * @Template("Rolacademico/index.html.twig")
      */
     public function indexAction()
     {
@@ -30,15 +28,14 @@ class RolacademicoController extends AbstractController
 
         $entities = $em->getRepository('App:Rolacademico')->findAll();
 
-        return array(
+        return $this->render('Rolacademico/index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
     /**
      * Creates a new Rolacademico entity.
      *
      * @Route("/", name="rolacademico_create", methods={"POST"})
-     * @Template("Rolacademico/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -54,10 +51,10 @@ class RolacademicoController extends AbstractController
             return $this->redirect($this->generateUrl('rolacademico_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('Rolacademico/new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -83,24 +80,22 @@ class RolacademicoController extends AbstractController
      * Displays a form to create a new Rolacademico entity.
      *
      * @Route("/new", name="rolacademico_new", methods={"GET"})
-     * @Template("Rolacademico/new.html.twig")
      */
     public function newAction()
     {
         $entity = new Rolacademico();
         $form   = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('Rolacademico/new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
      * Finds and displays a Rolacademico entity.
      *
      * @Route("/{id}", name="rolacademico_show", methods={"GET"})
-     * @Template("Rolacademico/show.html.twig")
      */
     public function showAction($id)
     {
@@ -114,17 +109,16 @@ class RolacademicoController extends AbstractController
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Rolacademico/show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing Rolacademico entity.
      *
      * @Route("/{id}/edit", name="rolacademico_edit", methods={"GET"})
-     * @Template("Rolacademico:/dit.html.twig")
      */
     public function editAction($id)
     {
@@ -139,11 +133,11 @@ class RolacademicoController extends AbstractController
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Rolacademico/edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -168,7 +162,6 @@ class RolacademicoController extends AbstractController
      * Edits an existing Rolacademico entity.
      *
      * @Route("/{id}", name="rolacademico_update", methods={"PUT"})
-     * @Template("Rolacademico/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -190,11 +183,11 @@ class RolacademicoController extends AbstractController
             return $this->redirect($this->generateUrl('rolacademico_edit', array('id' => $id)));
         }
 
-        return array(
+        return $this->render('Rolacademico/edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
     /**
      * Deletes a Rolacademico entity.
@@ -213,11 +206,9 @@ class RolacademicoController extends AbstractController
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Rolacademico entity.');
             }
-
             $em->remove($entity);
             $em->flush();
         }
-
         return $this->redirect($this->generateUrl('rolacademico'));
     }
 

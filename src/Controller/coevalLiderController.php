@@ -5,7 +5,6 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\coevalLider;
 use App\Form\coevalLiderType;
 
@@ -21,7 +20,6 @@ class coevalLiderController extends AbstractController
      * Creates a new coevalLider entity.
      *
      * @Route("/", name="coevallider_create", methods={"POST"})
-     * @Template("coevalLider/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -37,10 +35,10 @@ class coevalLiderController extends AbstractController
             return $this->redirect($this->generateUrl('coevallider_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('coevalLider/new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -67,7 +65,6 @@ class coevalLiderController extends AbstractController
      * Finds and displays a coevalLider entity.
      *
      * @Route("/{id}", name="coevallider_show", methods={"GET"})
-     * @Template("coevalLider/show.html.twig")
      */
     public function showAction($id)
     {
@@ -81,17 +78,16 @@ class coevalLiderController extends AbstractController
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('coevalLider/show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing coevalLider entity.
      *
      * @Route("/{id}/edit", name="coevallider_edit", methods={"GET"})
-     * @Template("coevalLider/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -106,11 +102,11 @@ class coevalLiderController extends AbstractController
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('coevalLider/edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -135,7 +131,6 @@ class coevalLiderController extends AbstractController
      * Edits an existing coevalLider entity.
      *
      * @Route("/{id}", name="coevallider_update", methods={"PUT"})
-     * @Template("coevalLider/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -165,10 +160,10 @@ class coevalLiderController extends AbstractController
             return $this->redirect($this->generateUrl('decano_coevallider'));
         }
 
-        return array(
+        return $this->render('coevalLider/edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-        );
+        ));
     }
     /**
      * Deletes a coevalLider entity.

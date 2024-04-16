@@ -6,7 +6,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\coevalTutor;
 use App\Form\coevalTutorType;
 
@@ -22,7 +21,6 @@ class coevalTutorController extends AbstractController
      * Creates a new coevalTutor entity.
      *
      * @Route("/", name="coevaltutor_create", methods={"POST"})
-     * @Template("coevalTutor/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -38,10 +36,10 @@ class coevalTutorController extends AbstractController
             return $this->redirect($this->generateUrl('coevaltutor_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('coevalTutor/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -67,24 +65,22 @@ class coevalTutorController extends AbstractController
      * Displays a form to create a new coevalTutor entity.
      *
      * @Route("/new", name="coevaltutor_new", methods={"GET"})
-     * @Template("coevalTutor/new.html.twig")
      */
     public function newAction()
     {
         $entity = new coevalTutor();
         $form = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('coevalTutor/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
      * Finds and displays a coevalTutor entity.
      *
      * @Route("/{id}", name="coevaltutor_show", methods={"POST"})
-     * @Template("coevalTutor/show.html.twig")
      */
     public function showAction($id)
     {
@@ -98,17 +94,16 @@ class coevalTutorController extends AbstractController
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('coevalTutor/show.html.twig', array(
             'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing coevalTutor entity.
      *
      * @Route("/{id}/edit", name="coevaltutor_edit", methods={"GET"})
-     * @Template("coevalTutor/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -128,11 +123,11 @@ class coevalTutorController extends AbstractController
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('coevalTutor/edit.html.twig', array(
             'coeval' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -158,7 +153,6 @@ class coevalTutorController extends AbstractController
      * Edits an existing coevalTutor entity.
      *
      * @Route("/{id}", name="coevaltutor_update", methods={"PUT"})
-     * @Template("coevalTutor/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -190,10 +184,10 @@ class coevalTutorController extends AbstractController
             return $this->redirect($this->generateUrl('docente_coevaltutor'));
         }
 
-        return array(
+        return $this->render('coevalTutor/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView()
-        );
+        ));
     }
 
     /**

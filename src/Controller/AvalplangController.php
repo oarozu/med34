@@ -6,7 +6,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Session\Session;
 use App\Entity\Avalplang;
 use App\Form\AvalplangType;
@@ -25,7 +24,6 @@ class AvalplangController extends AbstractController
      * Lists all Avalplang entities.
      *
      * @Route("/", name="avalplang", methods={"GET"})
-     * @Template("Avalplang/index.html.twig")
      */
     public function indexAction()
     {
@@ -33,16 +31,15 @@ class AvalplangController extends AbstractController
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $entities = $em->getRepository('App:Avalplang')->findby(array('user' => $user, 'periodo' => $this->getParameter('appmed.semestre')));
-        return array(
+        return $this->render('Avalplang/index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
 
     /**
      * Lists all Avalplang entities.
      *
      * @Route("/lista", name="aval_lista", methods={"GET"})
-     * @Template("Avalplang/lista.html.twig")
      */
     public function listaAction()
     {
@@ -56,16 +53,15 @@ class AvalplangController extends AbstractController
             $this->addAvales();
         }
 
-        return array(
+        return $this->render('Avalplang/lista.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
 
     /**
      * Lists all Avalplang por escuela.
      *
      * @Route("/planesg", name="aval_porescuela", methods={"GET"})
-     * @Template("Avalplang/porescuela.html.twig")
      */
     public function porescuelaAction(Request $request)
     {
@@ -84,23 +80,22 @@ class AvalplangController extends AbstractController
                 ->findBy(
                     array('periodo' => $semestre,
                         'vinculacion' => 'DC', 'escuela' => $escuela));
-            return array(
+            return $this->render('Avalplang/porescuela.html.twig', array(
                 'entities' => $docentes,
                 'periodo' => $periodoe,
                 'escuela' => $escuela
-            );
+            ));
         } else {
             $escuela = null;
             $docentes = $em->getRepository('App:Docente')->findBy(
                 array('periodo' => $semestre,
                     'vinculacion' => 'DC'));
-            return array(
+            return $this->render('Avalplang/porescuela.html.twig', array(
                 'entities' => $docentes,
                 'periodo' => $semestre,
                 'escuela' => $escuela
-            );
+            ));
         }
-
     }
 
 
@@ -108,7 +103,6 @@ class AvalplangController extends AbstractController
      * Avalar plang
      *
      * @Route("/planesg/{id}", name="aval_plangestion", methods={"GET"})
-     * @Template("Avalplang/plangestion.html.twig")
      */
     public function plangestionAction($id)
     {
@@ -119,11 +113,11 @@ class AvalplangController extends AbstractController
         $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $docente->getPeriodo()));
         $entity = $docente->getPlangestion();
 
-        return array(
+        return $this->render('Avalplang/plangestion.html.twig', array(
             'docente' => $docente,
             'entity' => $entity,
             'periodo' => $periodoe
-        );
+        ));
     }
 
 
@@ -131,7 +125,6 @@ class AvalplangController extends AbstractController
      * Creates a new Avalplang entity.
      *
      * @Route("/", name="avalplang_create", methods={"POST"})
-     * @Template("Avalplang/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -147,10 +140,10 @@ class AvalplangController extends AbstractController
             return $this->redirect($this->generateUrl('avalplang_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('Avalplang/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -176,24 +169,22 @@ class AvalplangController extends AbstractController
      * Displays a form to create a new Avalplang entity.
      *
      * @Route("/new", name="avalplang_new", methods={"GET"})
-     * @Template("Avalplang/new.html.twig")
      */
     public function newAction()
     {
         $entity = new Avalplang();
         $form = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('Avalplang/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
      * Finds and displays a Avalplang entity.
      *
      * @Route("/{id}", name="avalplang_show", methods={"GET"})
-     * @Template("Avalplang/show.html.twig")
      */
     public function showAction($id)
     {
@@ -207,17 +198,16 @@ class AvalplangController extends AbstractController
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Avalplang/show.html.twig', array(
             'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing Avalplang entity.
      *
      * @Route("/{id}/edit", name="avalplang_edit", methods={"GET"})
-     * @Template("Avalplang/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -231,11 +221,11 @@ class AvalplangController extends AbstractController
         }
         $editForm = $this->createEditForm($entity);
 
-        return array(
+        return $this->render('Avalplang/edit.html.twig', array(
             'entity' => $entity,
             'texto' => $texto,
             'edit_form' => $editForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -261,7 +251,6 @@ class AvalplangController extends AbstractController
      * Edits an existing Avalplang entity.
      *
      * @Route("/{id}", name="avalplang_update", methods={"PUT"})
-     * @Template("Avalplang/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -301,10 +290,10 @@ class AvalplangController extends AbstractController
             return $this->redirect($this->generateUrl('aval_porescuela'));
         }
 
-        return array(
+        return $this->render('Avalplang/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
-        );
+        ));
     }
 
     /**

@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\Rolplang;
 use App\Form\RolplangType;
 
@@ -23,7 +22,6 @@ class RolplangController extends AbstractController
      * Creates a new Rolplang entity.
      *
      * @Route("/{id}", name="rolplang_create", methods={"POST"})
-     * @Template("Rolplang/new.html.twig")
      */
     public function createAction(Request $request, $id)
     {
@@ -51,12 +49,12 @@ class RolplangController extends AbstractController
         // foreach ($roles as $rolok){
         //$libre = $libre + $rolok->getHoras();
         // }
-        return array(
+        return $this->render('Rolplang/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
             'id' => $id,
             'libre' => $libre,
-        );
+        ));
     }
 
     /**
@@ -84,7 +82,6 @@ class RolplangController extends AbstractController
      * Displays a form to create a new Rolplang entity.
      *
      * @Route("/new/{id}/{idr}", name="rolplang_new", methods={"GET"})
-     * @Template("Rolplang/new.html.twig")
      */
     public function newAction($id, $idr)
     {
@@ -101,20 +98,19 @@ class RolplangController extends AbstractController
         $entity->setPlang($plang);
         $form = $this->createCreateForm($entity, $id, $plang->getDias());
 
-        return array(
+        return $this->render('Rolplang/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
             'id' => $id,
             'libre' => $libre,
             'total' => $plang->getDias() * 8,
-        );
+        ));
     }
 
     /**
      * Finds and displays a Rolplang entity.
      *
      * @Route("/{id}", name="rolplang_show", methods={"GET"})
-     * @Template("Rolplang/show.html.twig")
      */
     public function showAction($id)
     {
@@ -128,17 +124,16 @@ class RolplangController extends AbstractController
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Rolplang/show.html.twig', array(
             'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing Rolplang entity.
      *
      * @Route("/{id}/edit", name="rolplang_edit", methods={"GET"})
-     * @Template("Rolplang/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -153,11 +148,11 @@ class RolplangController extends AbstractController
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Rolplang/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -183,7 +178,6 @@ class RolplangController extends AbstractController
      * Edits an existing Rolplang entity.
      *
      * @Route("/{id}", name="rolplang_update", methods={"PUT"})
-     * @Template("Rolplang/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -205,11 +199,11 @@ class RolplangController extends AbstractController
             return $this->redirect($this->generateUrl('rolplang_edit', array('id' => $id)));
         }
 
-        return array(
+        return $this->render('Rolplang/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**

@@ -6,7 +6,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\coevalPares;
 use App\Form\coevalParesType;
 
@@ -21,7 +20,6 @@ class coevalParesController extends AbstractController {
      * Lists all coevalPares entities.
      *
      * @Route("/", name="docente_coevalpares", methods={"GET"})
-     * @Template("coevalPares/index.html.twig")
      */
     public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -29,16 +27,15 @@ class coevalParesController extends AbstractController {
         $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));
         $terna = $em->getRepository('App:Terna')->findOneBy(array('docente' => $docente));
 
-        return array(
+        return $this->render('coevalPares/index.html.twig', array(
             'terna' => $terna
-        );
+        ));
     }
 
     /**
      * Creates a new coevalPares entity.
      *
      * @Route("/", name="coevalpares_create", methods={"POST"})
-     * @Template("coevalPares/new.html.twig")
      */
     public function createAction(Request $request) {
         $entity = new coevalPares();
@@ -53,10 +50,10 @@ class coevalParesController extends AbstractController {
             return $this->redirect($this->generateUrl('coevalpares_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('coevalPares/new.html.twig',  array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -81,7 +78,6 @@ class coevalParesController extends AbstractController {
      * Finds and displays a coevalPares entity.
      *
      * @Route("/{id}", name="coevalpares_show", methods={"GET"})
-     * @Template("coevalPares/show.html.twig")
      */
     public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -94,17 +90,16 @@ class coevalParesController extends AbstractController {
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('coevalPares/show.html.twig', array(
             'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing coevalPares entity.
      *
      * @Route("/send/{id}", name="coevalpares_edit", methods={"GET"})
-     * @Template("coevalPares/edit.html.twig")
      */
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -113,10 +108,10 @@ class coevalParesController extends AbstractController {
             throw $this->createNotFoundException('Unable to find Coevaluacion entity.');
         }
         $editForm = $this->createEditForm($entity);
-        return array(
+        return $this->render('coevalPares/edit.html.twig',  array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -141,7 +136,6 @@ class coevalParesController extends AbstractController {
      * Edits an existing coevalPares entity.
      *
      * @Route("/{id}", name="coevalpares_update", methods={"PUT"})
-     * @Template("coevalPares/edit.html.twig")
      */
     public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
@@ -152,7 +146,6 @@ class coevalParesController extends AbstractController {
             throw $this->createNotFoundException('Unable to find coevalPares entity.');
         }
 
-        //$deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -173,11 +166,10 @@ class coevalParesController extends AbstractController {
             return $this->redirect($this->generateUrl('docente_coevalpares'));
         }
 
-        return array(
+        return $this->render('coevalPares/edit.html.twig',  array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
-                // 'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -223,7 +215,6 @@ class coevalParesController extends AbstractController {
     /**
      * Crear Evaluaciones
      * @Route("/crear/eval", name="coevalpares_crear", methods={"GET"})
-     * @Template("coevalPares/crear.html.twig")
      */
     public function crearAction(Request $request) {
         $em = $this->getDoctrine()->getManager();

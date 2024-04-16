@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\Actividadrol;
 use App\Form\ActividadrolType;
 
@@ -21,7 +20,6 @@ class ActividadrolController extends AbstractController
     /**
      * Lists all Actividadrol entities.
      * @Route("/", name="actividadrol", methods={"GET"})
-     * @Template("Actividadrol/index.html.twig")
      */
     public function indexAction()
     {
@@ -29,15 +27,14 @@ class ActividadrolController extends AbstractController
 
         $entities = $em->getRepository('App:Actividadrol')->findAll();
 
-        return array(
+        return $this->render('Actividadrol/index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
 
         /**
      * Lists all Actividadrol entities.
      * @Route("/select/{id}", name="actividadrol_select", methods={"GET"})
-     * @Template("Actividadrol/select.html.twig")
      */
     public function selectAction($id)
     {
@@ -46,19 +43,18 @@ class ActividadrolController extends AbstractController
         $entities = $em->getRepository('App:Actividadrol')->decarrera();
         $roles = $em->getRepository('App:Rolacademico')->findAll();
         $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $this->getParameter('appmed.periodo') ));
-        return array(
+        return $this->render('Actividadrol/select.html.twig', array(
             'entities' => $entities,
             'id'  => $id,
             'roles' => $roles,
             'periodo' => $periodo
-        );
+        ));
     }
 
     /**
      * Creates a new Actividadrol entity.
      *
      * @Route("/", name="actividadrol_create", methods={"POST"})
-     * @Template("Actividadrol/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -74,10 +70,10 @@ class ActividadrolController extends AbstractController
             return $this->redirect($this->generateUrl('actividadrol_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('Actividadrol/new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -93,9 +89,7 @@ class ActividadrolController extends AbstractController
             'action' => $this->generateUrl('actividadrol_create'),
             'method' => 'POST',
         ));
-
         $form->add('submit', SubmitType::class, array('label' => 'Create'));
-
         return $form;
     }
 
@@ -103,24 +97,22 @@ class ActividadrolController extends AbstractController
      * Displays a form to create a new Actividadrol entity.
      *
      * @Route("/new", name="actividadrol_new", methods={"GET"})
-     * @Template("Actividadrol/new.html.twig")
      */
     public function newAction()
     {
         $entity = new Actividadrol();
         $form   = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('Actividadrol/new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
      * Finds and displays a Actividadrol entity.
      *
      * @Route("/{id}", name="actividadrol_show", methods={"GET"})
-     * @Template("Actividadrol/show.html.twig")
      */
     public function showAction($id)
     {
@@ -134,17 +126,16 @@ class ActividadrolController extends AbstractController
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Actividadrol/show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing Actividadrol entity.
      *
      * @Route("/{id}/edit", name="actividadrol_edit", methods={"GET"})
-     * @Template("Actividadrol/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -159,11 +150,11 @@ class ActividadrolController extends AbstractController
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Actividadrol/edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -188,7 +179,6 @@ class ActividadrolController extends AbstractController
      * Edits an existing Actividadrol entity.
      *
      * @Route("/{id}", name="actividadrol_update", methods={"PUT"})
-     * @Template("Actividadrol/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -210,11 +200,11 @@ class ActividadrolController extends AbstractController
             return $this->redirect($this->generateUrl('actividadrol_edit', array('id' => $id)));
         }
 
-        return array(
+        return $this->render('Actividadrol/edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
     /**
      * Deletes a Actividadrol entity.
