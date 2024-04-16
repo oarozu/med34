@@ -143,7 +143,7 @@ class EscuelaController extends AbstractController
             return $this->redirect($this->generateUrl('home_user_inicio'));
         }
 
-        $periodoss = $em->getRepository('App:Periodoe')->findby(array('type' => 's'), array('id' => 'DESC'), 10);
+        $periodoss = $em->getRepository('App:Periodoe')->findby(array('type' => 's'), array('id' => 'DESC'), 14);
         $periodosa = $em->getRepository('App:Periodoe')->findby(array('type' => 'a'), array('id' => 'DESC'), 5);
         $periodosp = $em->getRepository('App:Periodoe')->findby(array('type' => 'p'), array('id' => 'DESC'), 5);
 

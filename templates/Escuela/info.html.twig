@@ -45,7 +45,7 @@
                 </td>
             </tr>
             <tr>
-                <th>Resultados Docentes de Carrera</th>
+                <th>Resultados consolidados semestrales</th>
                 <td>
                     {%for periodo in periodoss %}
                         <a class="btn btn-primary btn-sm" href="{{ path('docente_escuela', {'id': entity.id, 'periodo': periodo.id }) }}">{{ periodo.observaciones }}</a>
