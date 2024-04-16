@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\Zona;
 use App\Form\ZonaType;
 
@@ -23,7 +22,6 @@ class ZonaController extends AbstractController
      * Lists all Zona entities.
      *
      * @Route("/", name="zona", methods={"GET"})
-     * @Template("Zona/index.html.twig")
      */
     public function indexAction()
     {
@@ -31,16 +29,14 @@ class ZonaController extends AbstractController
 
         $entities = $em->getRepository('App:Zona')->findAll();
 
-        return array(
+        return $this->render('Zona/index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
 
     /**
      * Creates a new Zona entity.
-     *
      * @Route("/", name="zona_create", methods={"POST"})
-     * @Template("Zona/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -56,10 +52,10 @@ class ZonaController extends AbstractController
             return $this->redirect($this->generateUrl('zona_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('Zona/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -85,24 +81,22 @@ class ZonaController extends AbstractController
      * Displays a form to create a new Zona entity.
      *
      * @Route("/new", name="zona_new", methods={"GET"})
-     * @Template("Zona/new.html.twig")
      */
     public function newAction()
     {
         $entity = new Zona();
         $form = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('Zona/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
      * Finds and displays a Zona entity.
      *
      * @Route("/{id}", name="zona_show", methods={"GET"})
-     * @Template("Zona/show.html.twig")
      */
     public function showAction($id)
     {
@@ -116,17 +110,16 @@ class ZonaController extends AbstractController
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Zona/show.html.twig', array(
             'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing Zona entity.
      *
      * @Route("/{id}/edit", name="zona_edit", methods={"GET"})
-     * @Template("Zona/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -143,11 +136,11 @@ class ZonaController extends AbstractController
         $deleteForm = $this->createDeleteForm($id);
         $editForm["director_nom"]->setData($entity->getDirector()->getNombres() . ' ' . $entity->getDirector()->getApellidos());
 
-        return array(
+        return $this->render('Zona/edit.html.twig', array(
             'entity' => $entity,
             'form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+            'delete_form' => $deleteForm->createView()
+            ));
     }
 
     /**
@@ -171,7 +164,6 @@ class ZonaController extends AbstractController
      * Edits an existing Zona entity.
      *
      * @Route("/{id}", name="zona_update", methods={"POST"})
-     * @Template("Zona/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -273,7 +265,6 @@ class ZonaController extends AbstractController
 
     /**
      * @Route("/docs/{id}", name="zona_index", methods={"GET"})
-     * @Template("Zona/docs.html.twig")
      */
     public function listaAction($id)
     {
@@ -292,7 +283,7 @@ class ZonaController extends AbstractController
         $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $id));
 
 
-        return array(
+        return  $this->render('Zona/docs.html.twig', array(
             'docentes' => $docentes,
             'zona' => $zona[0],
             'periodoss' => $periodoss,
@@ -300,6 +291,6 @@ class ZonaController extends AbstractController
             'periodosp' => $periodosp,
             'periodo' => $periodo,
             'year' => $year
-        );
+        ));
     }
 }

@@ -1,9 +1,7 @@
 <?php
-// proyecto/src/MDW/BlogBundle/Controller/SecurityController.php
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Request;

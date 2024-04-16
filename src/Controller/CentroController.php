@@ -6,7 +6,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\Centro;
 use App\Form\CentroType;
 
@@ -22,23 +21,20 @@ class CentroController extends AbstractController
      * Lists all Centro entities.
      *
      * @Route("/", name="centro", methods={"GET"})
-     * @Template("Centro/index.html.twig")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        // $entities = $em->getRepository('App:Centro')->findAll();
         $entities = $em->getRepository('App:Centro')->ordenZona();
-        return array(
+        return $this->render('Centro/index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
 
     /**
      * Creates a new Centro entity.
      *
      * @Route("/", name="centro_create", methods={"POST"})
-     * @Template("Centro/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -54,10 +50,10 @@ class CentroController extends AbstractController
             return $this->redirect($this->generateUrl('centro_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('Curso/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -83,29 +79,26 @@ class CentroController extends AbstractController
      * Displays a form to create a new Centro entity.
      *
      * @Route("/new", name="centro_new", methods={"GET"})
-     * @Template("Centro/new.html.twig")
      */
     public function newAction()
     {
         $entity = new Centro();
         $form = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('Curso/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
      * Finds and displays a Centro entity.
      *
      * @Route("/{id}", name="centro_show", methods={"GET"})
-     * @Template("Centro/show.html.twig")
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('App:Centro')->find($id);
 
         if (!$entity) {
@@ -113,23 +106,20 @@ class CentroController extends AbstractController
         }
 
         $deleteForm = $this->createDeleteForm($id);
-
-        return array(
+        return $this->render('Curso/show.html.twig', array(
             'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing Centro entity.
      *
      * @Route("/{id}/edit", name="centro_edit", methods={"GET"})
-     * @Template("Centro/edit.html.twig")
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('App:Centro')->find($id);
 
         if (!$entity) {
@@ -139,11 +129,11 @@ class CentroController extends AbstractController
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Curso/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -169,7 +159,6 @@ class CentroController extends AbstractController
      * Edits an existing Centro entity.
      *
      * @Route("/{id}", name="centro_update", methods={"PUT"})
-     * @Template("Centro/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -191,15 +180,14 @@ class CentroController extends AbstractController
 
         if ($editForm->isValid()) {
             $em->flush();
-
             return $this->redirect($this->generateUrl('centro_edit', array('id' => $id)));
         }
 
-        return array(
+        return $this->render('Curso/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -245,7 +233,6 @@ class CentroController extends AbstractController
 
     /**
      * @Route("/docs/{id}/pc", name="centro_docs", methods={"GET"})
-     * @Template("Centro/docs.html.twig")
      */
     public function docsAction($id)
     {
@@ -255,17 +242,16 @@ class CentroController extends AbstractController
         $centro = $em->getRepository('App:Centro')->findBy(array('id' => $id));
         $docentes = $em->getRepository('App:Docente')->findBy(array('centro' => $centro));
 
-        return array(
+        return $this->render('Curso/docs.html.twig', array(
             'docentes' => $docentes,
             'centro' => $centros[0],
             'user' => $user,
-        );
+        ));
     }
 
 
     /**
      * @Route("/docs/index", name="centro_index", methods={"GET"})
-     * @Template("Centro/lista.html.twig")
      */
     public function listaAction()
     {
@@ -273,9 +259,9 @@ class CentroController extends AbstractController
         $centros = $user->getDirectorcentro();
         $zonas = $user->getDirectorzona();
 
-        return array(
+        return $this->render('Curso/lista.html.twig', array(
             'centros' => $centros,
             'zonas' => $zonas,
-        );
+        ));
     }
 }

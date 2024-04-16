@@ -107,9 +107,11 @@ class PlanmejoramientoController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $session = $request->getSession();
+        $periodoe_id = $session->get('periodoe');
+        $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $periodoe_id));;
         $escuela = $em->getRepository('App:Escuela')->find($session->get('escuelaid'));
-        $entities = $em->getRepository('App:Docente')->findBy(array('escuela' => $escuela));
-        return  $this->render('Planmejoramiento/edit.html.twig', array(
+        $entities = $em->getRepository('App:Docente')->findBy(array('escuela' => $escuela,  'periodo' => $periodoe));
+        return  $this->render('Planmejoramiento/add.html.twig', array(
             'entities' => $entities,
         ));
     }
@@ -193,7 +195,7 @@ class PlanmejoramientoController extends AbstractController
 
         $editForm = $this->createEditForm($entity);
 
-        return $this->render('Planmejoramiento/show.html.twig', array(
+        return $this->render('Planmejoramiento/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
         ));

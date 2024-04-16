@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\evalDofe;
 use App\Entity\RedDofe;
 use App\Form\CalificarDofeType;
@@ -16,50 +15,48 @@ use App\Form\CalificarDofeType;
  * Base controller
  * @Route("/dofe")
  */
-class DofeController extends AbstractController {
+class DofeController extends AbstractController
+{
 
     /**
      * Lists all Escuela entities.
      *
      * @Route("/", name="dofe_index", methods={"GET"})
-     * @Template("Dofe/index.html.twig")
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
-
-
-        $entities = $em->getRepository('App:RedDofe')->findAll();
-
-        return array(
+        $entities = $em->getRepository('App:RedDofe')->findBy(array('periodo' => '20236'));
+        return $this->render('Dofe/index.html.twig', array(
             'entities' => $entities
-        );
+        ));
     }
 
     /**
      * Lists all evaluaciones dofe entities
      * @Route("/evaluar", name="dofe_evaluar", methods={"GET"})
-     * @Template("Dofe/evaluar.html.twig")
      */
-    public function evaluarAction() {
+    public function evaluarAction()
+    {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('App:RedDofe')->findBy(array('evaluador' => $this->getUser(), 'periodo'=> $this->getParameter('appmed.periodo')));
-        return array(
+        $entities = $em->getRepository('App:RedDofe')->findBy(array('evaluador' => $this->getUser(), 'periodo' => $this->getParameter('appmed.periodo')));
+        return $this->render('Dofe/evaluar.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
 
     /**
      * Lists all evaluaciones dofe entities
      * @Route("/eval/{id}", name="dofe_eval", methods={"GET"})
-     * @Template("Dofe/eval.html.twig")
      */
-    public function evalAction($id) {
+    public function evalAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $evaluacion = $em->getRepository('App:RedDofe')->findOneBy(array('id' => $id));
         $actividades = $em->getRepository('App:evalDofe')->findBy(array('evaluacion' => $evaluacion));
-        if (count($actividades) == 0){
+        if (count($actividades) == 0) {
             $n_actividades = $em->getRepository('App:evalDofe')->getActividades($id);
-            foreach ($n_actividades as $actividad){
+            foreach ($n_actividades as $actividad) {
                 $entity = new evalDofe();
                 $eval = $em->getRepository('App:RedDofe')->findOneBy(array('id' => $actividad['id']));
                 $entity->setEvaluacion($eval);
@@ -71,17 +68,17 @@ class DofeController extends AbstractController {
             return $this->redirect($this->generateUrl('dofe_eval', array('id' => $id)));
 
         }
-        return array(
+        return $this->render('Dofe/eval.html.twig', array(
             'entity' => $evaluacion,
             'actividades' => $actividades
-        );
+        ));
     }
 
     /**
      * @Route("/calificar/{id}", name="dofe_calificaredit", methods={"GET"})
-     * @Template("Dofe/calificar.html.twig")
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('App:evalDofe')->find($id);
@@ -96,20 +93,20 @@ class DofeController extends AbstractController {
 
         $editForm = $this->createEditForm($entity);
 
-        return array(
+        return $this->render('Dofe/calificar.html.twig', array(
             'entity' => $entity,
             'eval' => $eval,
             'edit_form' => $editForm->createView(),
             'actividad' => $actividad
-        );
+        ));
     }
 
     /**
      * Edits an existing Actividadplang entity.
      * @Route("/calificar/{id}", name="dofe_calificarupdate", methods={"PUT"})
-     * @Template("Dofe/calificar.html.twig")
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('App:evalDofe')->find($id);
         $eval = $entity->getEvaluacion();
@@ -124,11 +121,11 @@ class DofeController extends AbstractController {
             $em->flush();
             return $this->redirect($this->generateUrl('dofe_eval', array('id' => $entity->getEvaluacion()->getId())));
         }
-        return array(
+        return $this->render('Dofe/calificar.html.twig', array(
             'entity' => $entity,
             'eval' => $eval,
             'edit_form' => $editForm->createView()
-        );
+        ));
     }
 
     /**
@@ -136,7 +133,8 @@ class DofeController extends AbstractController {
      * @param Actividadplang $entity The entity
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(evalDofe $entity) {
+    private function createEditForm(evalDofe $entity)
+    {
         $form = $this->createForm(CalificarDofeType::class, $entity, array(
             //  'action' => $this->generateUrl('dofe_calificarupdate', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -149,9 +147,9 @@ class DofeController extends AbstractController {
      * Edits an existing reddofe entity.
      *
      * @Route("/cerrar/{id}", name="dofe_cerrar", methods={"GET"})
-     * @Template("Dofe/calificar.html.twig")
      */
-    public function cerrarAction( $id) {
+    public function cerrarAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('App:RedDofe')->findOneBy(array('id' => $id));
 
@@ -161,28 +159,27 @@ class DofeController extends AbstractController {
         $actividades = $em->getRepository('App:evalDofe')->findBy(array('evaluacion' => $entity));
         $suma = $aux = 0;
         foreach ($actividades as $actividad) {
-                $suma = $suma + $actividad->getCalificacion();
-                $aux++;
+            $suma = $suma + $actividad->getCalificacion();
+            $aux++;
         }
 
-        //$editForm = $this->createCerrarForm($entity);
-        //$editForm->handleRequest($request);
         if ($entity) {
-        $entity->setCalificacion($suma / $aux);
-        $entity->setFecha(new \DateTime());
-        $em->flush();
-                return $this->redirect($this->generateUrl('dofe_evaluar', array(
+            $entity->setCalificacion($suma / $aux);
+            $entity->setFecha(new \DateTime());
+            $em->flush();
+            return $this->redirect($this->generateUrl('dofe_evaluar', array(
                 'id' => $entity->getId()
-                )));
+            )));
         }
     }
 
-     /**
+    /**
      * Creates a form to cerrar eval Dofe entity
      * @param Plangestion $entity The entity
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCerrarForm(Plangestion $entity) {
+    private function createCerrarForm(Plangestion $entity)
+    {
         $form = $this->createForm(DofeType::class, $entity, array(
             'action' => $this->generateUrl('dofe_cerrar', array('id' => $entity->getId())),
             'method' => 'PUT',

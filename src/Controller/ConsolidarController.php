@@ -7,33 +7,34 @@
  */
 
 namespace App\Controller;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 
 /**
  * Base controller
  * @Route("/admin/panel")
  */
-class ConsolidarController extends AbstractController {
+class ConsolidarController extends AbstractController
+{
 
 
-     /**
+    /**
      * Mostrar Home
      * @Route("/", name="admin_consolidar_index", methods={"POST"})
      */
-    public function indexAction() {
-    return $this->render('Consolidar/index.html.twig');
+    public function indexAction()
+    {
+        return $this->render('Consolidar/index.html.twig');
     }
 
-         /**
+    /**
      * Mostrar Home
      * @Route("/auto", name="consolidar_index", methods={"POST"})
-     * @Template("Consolidar/result.html.twig")
      */
-    public function heterocursosAction() {
-
+    public function heterocursosAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $connection = $em->getConnection();
         $q = "update evaluacion as a
@@ -43,9 +44,8 @@ class ConsolidarController extends AbstractController {
         where d.periodo = 20171 and p.autoevaluacion is not null";
         $total = $connection->executeUpdate($q);
 
-        return array(
-       'result' => $total,
-       );
-       }
-
+        return $this->render('Consolidar/result.html.twig', array(
+            'result' => $total,
+        ));
+    }
 }

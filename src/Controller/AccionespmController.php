@@ -5,7 +5,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\Accionespm;
 use App\Form\AccionespmType;
 use App\Form\AccionespmdocType;
@@ -22,7 +21,6 @@ class AccionespmController extends AbstractController
      * Lists all Accionespm entities.
      *
      * @Route("/", name="accionespm", methods={"GET"})
-     * @Template("Accionespm/index.html.twig")
      */
     public function indexAction()
     {
@@ -30,15 +28,15 @@ class AccionespmController extends AbstractController
 
         $entities = $em->getRepository('App:Accionespm')->findAll();
 
-        return array(
+        return $this->render('Accionespm/index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
+
     /**
      * Creates a new Accionespm entity.
      *
      * @Route("/", name="accionespm_create",  methods={"POST"})
-     * @Template("Accionespm/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -52,10 +50,10 @@ class AccionespmController extends AbstractController
             return $this->redirect($this->generateUrl('planmejoramiento_show', array('id' => $entity->getPlan()->getId())));
         }
 
-        return array(
+        return $this->render('Accionespm/new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -95,7 +93,6 @@ class AccionespmController extends AbstractController
      * Displays a form to create a new Accionespm entity.
      *
      * @Route("/new/{id}", name="accionespm_new",  methods={"GET"})
-     * @Template("Accionespm/new.html.twig")
      */
     public function newAction($id)
     {
@@ -107,18 +104,17 @@ class AccionespmController extends AbstractController
         $fecha->modify('+1 month');
         $entity->setFechaProyectada($fecha);
         $form   = $this->createCreateForm($entity);
-        return array(
+        return $this->render('Accionespm/new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
             'id'    => $id
-        );
+        ));
     }
 
     /**
      * Finds and displays a Accionespm entity.
      *
      * @Route("/{id}", name="accionespm_show",  methods={"GET"})
-     * @Template("Accionespm/show.html.twig")
      */
     public function showAction($id)
     {
@@ -132,17 +128,16 @@ class AccionespmController extends AbstractController
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Accionespm/show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing Accionespm entity.
      *
      * @Route("/{id}/edit", name="accionespm_edit",  methods={"GET"})
-     * @Template("Accionespm/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -157,17 +152,16 @@ class AccionespmController extends AbstractController
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Accionespm/edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
        /**
      * Displays a form to edit an existing Accionespm entity.
      * @Route("/{id}/editar", name="accionespm_editar",  methods={"GET"})
-     * @Template("Accionespm/editar.html.twig")
      */
     public function editarAction(Request $request, $id)
     {
@@ -194,10 +188,10 @@ class AccionespmController extends AbstractController
             $em->flush();
             return $this->redirect($this->generateUrl('planmejoramiento_show', array('id' => $idplan)));
         }
-        return array(
+        return $this->render('Accionespm/editar.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $form->createView(),
-        );
+        ));
     }
 
       /**
@@ -213,9 +207,7 @@ class AccionespmController extends AbstractController
 
          if ($request->isMethod('POST')) {
             $form->bind($request);
-            //$data = $form->getData();
             $entity->setObservaciones($form->get('observaciones')->getData());
-
             $fecha = new \DateTime();
             $entity->setFechaCierre($fecha);
             $em->persist($entity);
@@ -250,7 +242,6 @@ class AccionespmController extends AbstractController
      * Edits an existing Accionespm entity.
      *
      * @Route("/{id}", name="accionespm_update",  methods={"PUT"})
-     * @Template("Accionespm/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -272,11 +263,11 @@ class AccionespmController extends AbstractController
         return $this->redirect($this->generateUrl('planmejoramiento_show', array('id' => $entity->getPlan()->getId())));
         }
 
-        return array(
+        return $this->render('Accionespm/edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
     /**
      * Deletes a Accionespm entity.

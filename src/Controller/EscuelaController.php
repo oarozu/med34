@@ -6,7 +6,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\Escuela;
 use App\Form\EscuelaType;
 
@@ -22,7 +21,6 @@ class EscuelaController extends AbstractController
      * Lists all Escuela entities.
      *
      * @Route("/", name="escuela", methods={"GET"})
-     * @Template("Escuela/index.html.twig")
      */
     public function indexAction()
     {
@@ -30,16 +28,15 @@ class EscuelaController extends AbstractController
 
         $entities = $em->getRepository('App:Escuela')->findAll();
 
-        return array(
+        return $this->render('Escuela/index.html.twig', array(
             'entities' => $entities,
-        );
+        ));
     }
 
     /**
      * Creates a new Escuela entity.
      *
      * @Route("/", name="escuela_create", methods={"POST"})
-     * @Template("Escuela/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -61,10 +58,10 @@ class EscuelaController extends AbstractController
             return $this->redirect($this->generateUrl('escuela_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('Escuela/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -90,24 +87,22 @@ class EscuelaController extends AbstractController
      * Displays a form to create a new Escuela entity.
      *
      * @Route("/new", name="escuela_new", methods={"GET"})
-     * @Template("Escuela/new.html.twig")
      */
     public function newAction()
     {
         $entity = new Escuela();
         $form = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('Escuela/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
      * Finds and displays a Escuela entity.
      *
      * @Route("/{id}", name="escuela_show", methods={"GET"})
-     * @Template("Escuela/show.html.twig")
      */
     public function showAction($id)
     {
@@ -123,18 +118,17 @@ class EscuelaController extends AbstractController
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Escuela/show.html.twig', array(
             'entity' => $entity,
             'terna' => $terna,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
      * Finds and displays a Escuela entity.
      *
      * @Route("/mi/info", name="escuela_info", methods={"GET"})
-     * @Template("Escuela/info.html.twig")
      */
     public function infoAction(Request $request)
     {
@@ -162,7 +156,7 @@ class EscuelaController extends AbstractController
         if (!$escuela) {
             throw $this->createNotFoundException('Unable to find Escuela entity.');
         }
-        return array(
+        return $this->render('Escuela/info.html.twig', array(
             'entity' => $escuela,
             'ofertado' => $ofertado,
             'periodoss' => $periodoss,
@@ -170,14 +164,13 @@ class EscuelaController extends AbstractController
             'periodosp' => $periodosp,
             'periodo' => $periodo,
             'year' => $year
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing Escuela entity.
      *
      * @Route("/{id}/edit", name="escuela_edit", methods={"GET"})
-     * @Template("Escuela/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -194,11 +187,11 @@ class EscuelaController extends AbstractController
         $editForm["secretaria"]->setData($entity->getSecretaria()->getId());
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('Escuela/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -224,7 +217,6 @@ class EscuelaController extends AbstractController
      * Edits an existing Escuela entity.
      *
      * @Route("/{id}", name="escuela_update", methods={"PUT"})
-     * @Template("Escuela/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -251,11 +243,11 @@ class EscuelaController extends AbstractController
             return $this->redirect($this->generateUrl('escuela_edit', array('id' => $id)));
         }
 
-        return array(
+        return $this->render('Escuela/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -302,7 +294,6 @@ class EscuelaController extends AbstractController
     /**
      * Finds and displays a Escuela entity.
      *
-     * @Template("Escuela/coevallider.html.twig")
      */
     public function coevalliderAction(Request $request)
     {
@@ -312,16 +303,15 @@ class EscuelaController extends AbstractController
         if (!$escuela) {
             throw $this->createNotFoundException('Unable to find Escuela entity.');
         }
-        return array(
+        return $this->render('Escuela/coevallider.html.twig', array(
             'entity' => $escuela,
-        );
+        ));
     }
 
 
     /**
      * Lista la evaluacion de estudiantes
      * @Route("/mi/heteroeval", name="escuela_heteroeval", methods={"GET"})
-     * @Template("Escuela/heteroeval.html.twig")
      */
     public function heteroevalAction(Request $request)
     {
@@ -332,16 +322,15 @@ class EscuelaController extends AbstractController
         if (!$escuela) {
             throw $this->createNotFoundException('Unable to find Escuela entity.');
         }
-        return array(
+        return $this->render('Escuela/heteroeval.html.twig', array(
             'escuela' => $escuela,
             'docentes' => $docentes,
-        );
+        ));
     }
 
 
     /**
      * @Route("/mi/resultados", name="escuela_resultados", methods={"GET"})
-     * @Template("Escuela/resultados.html.twig")
      */
     public function resultadosAction(Request $request)
     {
@@ -351,8 +340,8 @@ class EscuelaController extends AbstractController
         if (!$escuela) {
             throw $this->createNotFoundException('Unable to find Escuela entity.');
         }
-        return array(
+        return $this->render('Escuela/resultados.html.twig', array(
             'escuela' => $escuela,
-        );
+        ));
     }
 }

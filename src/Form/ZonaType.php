@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Zona;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -17,11 +18,11 @@ class ZonaType extends AbstractType
     {
         $builder
             ->add('nombre')
-            ->add("director", "text", array(
+            ->add("director", TextType::class, array(
                 "mapped" => false,
                 'required'  => true,
             ))
-            ->add("director_nom", "text", array(
+            ->add("director_nom", TextType::class, array(
                 "mapped" => false,
                 'required'  => true,
                 'disabled' => true
