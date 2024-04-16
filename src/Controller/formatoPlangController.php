@@ -5,7 +5,6 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\formatoPlang;
 use App\Form\formatoPlangType;
 
@@ -22,7 +21,6 @@ class formatoPlangController extends AbstractController
      * Creates a new formatoPlang entity.
      *
      * @Route("/crear/{id}", name="formatoplang_create", methods={"POST"})
-     * @Template("formatoPlang/new.html.twig")
      */
     public function createAction(Request $request, $id)
     {
@@ -41,11 +39,11 @@ class formatoPlangController extends AbstractController
             return $this->redirect($this->generateUrl('docente_show', array('id' => $id)));
         }
 
-        return array(
+        return $this->render('formatoPlang/new.html.twig',  array(
             'entity' => $entity,
             'id'      => $id,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -71,7 +69,6 @@ class formatoPlangController extends AbstractController
      * Displays a form to create a new formatoPlang entity.
      *
      * @Route("/new/{id}", name="formatoplang_new", methods={"GET"})
-     * @Template("formatoPlang/new.html.twig")
      */
     public function newAction($id)
     {
@@ -80,18 +77,17 @@ class formatoPlangController extends AbstractController
 
         $form   = $this->createCreateForm($entity,$id);
 
-        return array(
+        return $this->render('formatoPlang/new.html.twig', array(
             'entity' => $entity,
             'id'    => $id,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
      * Finds and displays a formatoPlang entity.
      *
      * @Route("/{id}", name="formatoplang_show", methods={"GET"})
-     * @Template("formatoPlang/show.html.twig")
      */
     public function showAction($id)
     {
@@ -105,17 +101,16 @@ class formatoPlangController extends AbstractController
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('formatoPlang/show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing formatoPlang entity.
      *
      * @Route("/{id}/edit", name="formatoplang_edit", methods={"GET"})
-     * @Template("formatoPlang/edit.html.twig")
      */
     public function editAction($id)
     {
@@ -130,11 +125,11 @@ class formatoPlangController extends AbstractController
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('formatoPlang/edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -159,7 +154,6 @@ class formatoPlangController extends AbstractController
      * Edits an existing formatoPlang entity.
      *
      * @Route("/{id}", name="formatoplang_update", methods={"PUT"})
-     * @Template("formatoPlang/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -181,11 +175,11 @@ class formatoPlangController extends AbstractController
             return $this->redirect($this->generateUrl('formatoplang_edit', array('id' => $id)));
         }
 
-        return array(
+        return $this->render('formatoPlang/edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
     /**
      * Deletes a formatoPlang entity.

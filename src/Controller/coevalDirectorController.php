@@ -6,7 +6,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\coevalDirector;
 use App\Entity\Programa;
 use App\Form\coevalDirectorType;
@@ -23,7 +22,6 @@ class coevalDirectorController extends AbstractController
      * Lists all coevalDirector entities.
      *
      * @Route("/{id}", name="docente_coevaldirector",  methods={"GET"})
-     * @Template("coevalDirector/index.html.twig")
      */
     public function indexAction(Request $request, $id)
     {
@@ -35,19 +33,18 @@ class coevalDirectorController extends AbstractController
         $periodoa = $em->getRepository('App:Periodoa')->findBy(array('periodoe' => $periodoe));
         $ofertas = $em->getRepository('App:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa),array('director' => 'ASC'));
 
-        return array(
+        return $this->render('coevalDirector/index.html.twig', array(
             'programas' => $programas,
             'cursos' => $cursos,
             'ofertas' => $ofertas,
             'periodoe' => $periodoe,
             'periodoa' => $periodoa
-        );
+        ));
     }
     /**
      * Creates a new coevalDirector entity.
      *
      * @Route("/", name="coevaldirector_create",  methods={"POST"})
-     * @Template("coevalDirector/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -63,10 +60,10 @@ class coevalDirectorController extends AbstractController
             return $this->redirect($this->generateUrl('coevaldirector_show', array('id' => $entity->getId())));
         }
 
-        return array(
+        return $this->render('coevalDirector/new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -93,7 +90,6 @@ class coevalDirectorController extends AbstractController
      * Finds and displays a coevalDirector entity.
      *
      * @Route("/{id}", name="coevaldirector_show",  methods={"GET"})
-     * @Template("coevalDirector/show.html.twig")
      */
     public function showAction($id)
     {
@@ -107,17 +103,16 @@ class coevalDirectorController extends AbstractController
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('coevalDirector/show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing coevalDirector entity.
      *
      * @Route("/{id}/edit", name="coevaldirector_edit",  methods={"GET"})
-     * @Template("coevalDirector/edit.html.twig")
      */
     public function editAction(Request $request, $id)
     {
@@ -138,12 +133,12 @@ class coevalDirectorController extends AbstractController
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('coevalDirector/edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'periodo' => $periodo
-        );
+        ));
     }
 
     /**
@@ -168,7 +163,6 @@ class coevalDirectorController extends AbstractController
      * Edits an existing coevalDirector entity.
      *
      * @Route("/{id}", name="coevaldirector_update",  methods={"PUT"})
-     * @Template("coevalDirector/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -197,10 +191,10 @@ class coevalDirectorController extends AbstractController
             return $this->redirect($this->generateUrl('docente_coevaldirector', array('id' => $session->get('periodoe'))));
         }
 
-        return array(
+        return $this->render('coevalDirector/edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-        );
+        ));
     }
     /**
      * Deletes a coevalDirector entity.

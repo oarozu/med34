@@ -50,7 +50,7 @@ class CentroController extends AbstractController
             return $this->redirect($this->generateUrl('centro_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('Curso/new.html.twig', array(
+        return $this->render('Centro/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
         ));
@@ -85,7 +85,7 @@ class CentroController extends AbstractController
         $entity = new Centro();
         $form = $this->createCreateForm($entity);
 
-        return $this->render('Curso/new.html.twig', array(
+        return $this->render('Centro/new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
         ));
@@ -106,7 +106,7 @@ class CentroController extends AbstractController
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        return $this->render('Curso/show.html.twig', array(
+        return $this->render('Centro/show.html.twig', array(
             'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -129,7 +129,7 @@ class CentroController extends AbstractController
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('Curso/edit.html.twig', array(
+        return $this->render('Centro/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -183,7 +183,7 @@ class CentroController extends AbstractController
             return $this->redirect($this->generateUrl('centro_edit', array('id' => $id)));
         }
 
-        return $this->render('Curso/edit.html.twig', array(
+        return $this->render('Centro/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -242,7 +242,7 @@ class CentroController extends AbstractController
         $centro = $em->getRepository('App:Centro')->findBy(array('id' => $id));
         $docentes = $em->getRepository('App:Docente')->findBy(array('centro' => $centro));
 
-        return $this->render('Curso/docs.html.twig', array(
+        return $this->render('Centro/docs.html.twig', array(
             'docentes' => $docentes,
             'centro' => $centros[0],
             'user' => $user,
@@ -259,7 +259,7 @@ class CentroController extends AbstractController
         $centros = $user->getDirectorcentro();
         $zonas = $user->getDirectorzona();
 
-        return $this->render('Curso/lista.html.twig', array(
+        return $this->render('Centro/lista.html.twig', array(
             'centros' => $centros,
             'zonas' => $zonas,
         ));
