@@ -69,7 +69,7 @@ class DocenteRepository extends EntityRepository
     public function evalAnual($year, $docente)
     {
         $connection = $this->getEntityManager()->getConnection();
-        $query = "SELECT do.id, pe.year, pe.observaciones as periodo, e.hetero, e.co, e.auto
+        $query = "SELECT do.id, pe.year, pe.observaciones as periodo, e.hetero, e.co, e.auto, e.final
             FROM docente do
             JOIN periodoe pe ON do.periodo = pe.id
             JOIN evaluacion e ON do.id = e.id
@@ -90,7 +90,7 @@ class DocenteRepository extends EntityRepository
     public function resultadosEscuelaPeriodo($escuela, $periodo)
     {
         $em = $this->getEntityManager();
-        $query = $em->createQuery('SELECT d.id, u.id AS cedula, u.nombres, u.apellidos, d.vinculacion, c.nombre AS centro, p.id AS programa, e.hetero, e.co, e.auto, e.final
+        $query = $em->createQuery('SELECT d.id, u.id AS cedula, u.nombres, u.apellidos, d.vinculacion, c.nombre AS centro, p.id AS programa_id, p.nombre AS programa, e.hetero, e.co, e.auto, e.final
         FROM App:Docente d  
         JOIN d.user u
         JOIN d.centro c

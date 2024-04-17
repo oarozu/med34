@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/print.css') }}">
 </head>
 {% block body -%}
-    <table class="data" widtd="100%" border="0">
+    <table class="data" widtd="100%">
         <tr>
             <td colspan="4" align="center"><img src="/img/logo-med-unad.png" alt="MED">
                 <h3>INFORME FINAL DE EVALUACIÓN INDIVIDUAL</h3>
@@ -61,9 +61,10 @@
         <tr>
             <td class="centro">ID</td>
             <td class="centro">Periodo</td>
-            <td class="centro">Hetero-evaluación</td>
-            <td class="centro">Co-evaluación</td>
-            <td class="centro">Auto Evaluación</td>
+            <td class="centro">Heteroevaluación 50%</td>
+            <td class="centro">Coevaluación 25%</td>
+            <td class="centro">Autoevaluación 25%</td>
+            <td class="centro">Final</td>
         </tr>
         {% for parcial in parciales %}
             <tr>
@@ -77,6 +78,7 @@
                 <td class="centro">{{ parcial.hetero }}</td>
                 <td class="centro">{{ parcial.co }}</td>
                 <td class="centro">{{ parcial.auto }}</td>
+                <td class="centro">{{ parcial.final }}</td>
             </tr>
         {% endfor %}
     </table>
@@ -89,21 +91,6 @@
             <td class="centro">Tipo de Evaluación</td>
             <td class="centro">Ponderación:</td>
             <td class="centro">Percentil</td>
-        </tr>
-        <tr>
-            <td>Heteroevaluación</td>
-            <td>50%</td>
-            <td class="centro">{{ docente.evaluacion.hetero? (docente.evaluacion.hetero*0.5)|number_format(1, '.', ',') : '*' }}</td>
-        </tr>
-        <tr>
-            <td>Coevaluación</td>
-            <td>25%</td>
-            <td class="centro">{{ docente.evaluacion.co? (docente.evaluacion.co*0.25)|number_format(1, '.', ',') : '*' }}</td>
-        </tr>
-        <tr>
-            <td>Autoevaluación</td>
-            <td>25%</td>
-            <td class="centro">{{ docente.evaluacion.auto? (docente.evaluacion.auto*0.25)|number_format(1, '.', ',') : '*' }}</td>
         </tr>
         <tr>
             <td>

@@ -94,7 +94,7 @@ class DocenteController extends AbstractController
         $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $periodo));
         $response->headers->set('Content-type', 'application/vnd.ms-excel');
         $response->headers->set('Cache-Control', 'private');
-        $response->headers->set('Content-Disposition', 'attachment; filename="resultados-' . $escuela->getSigla() .'-'.$periodoe->getYear() .'_'. $periodoe->getObservaciones() . '.xls";');
+        $response->headers->set('Content-Disposition', 'attachment; filename="resultados-' . $escuela->getSigla() .'-'.$periodoe->getYear() .'_'. $periodoe->getObservaciones() . '.csv";');
         $response->sendHeaders();
         $response->setContent($responseString);
         return $response;
@@ -108,9 +108,9 @@ class DocenteController extends AbstractController
         ob_start();
         $df = fopen("php://output", 'w');
      #   fputs($df, $bom =( chr(0xEF) . chr(0xBB) . chr(0xBF) ));
-        fputcsv($df, array_keys(reset($array)),";");
+        fputcsv($df, array_keys(reset($array)),",");
         foreach ($array as $row) {
-            fputcsv($df, $row, ";");
+            fputcsv($df, $row, ",");
         }
         fclose($df);
         return ob_get_clean();
@@ -540,14 +540,14 @@ class DocenteController extends AbstractController
                 'red' => $red
             ));
         } else if($periodo->getType() == "a"){
-            return $this->render('Docente/final.html.twig', array(
+            return $this->render('Docente/finalanual.html.twig', array(
                 'docente' => $entity,
                 'periodo' => $periodo,
                 'parciales' => $parciales
             ));
         }
         else {
-            return $this->render('Docente/porperiodo.html.twig', array(
+            return $this->render('Docente/final.html.twig', array(
                 'docente' => $entity,
                 'periodo' => $periodo
             ));
