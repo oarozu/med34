@@ -92,7 +92,7 @@ class DocenteController extends AbstractController
         $response = new Response();
         $responseString = $this->array2csv($resultados);
         $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $periodo));
-        $response->headers->set('Content-type', 'application/vnd.ms-excel');
+        $response->headers->set('Content-type', 'text/csv');
         $response->headers->set('Cache-Control', 'private');
         $response->headers->set('Content-Disposition', 'attachment; filename="resultados-' . $escuela->getSigla() .'-'.$periodoe->getYear() .'_'. $periodoe->getObservaciones() . '.csv";');
         $response->sendHeaders();

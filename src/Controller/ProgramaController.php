@@ -318,11 +318,7 @@ class ProgramaController extends AbstractController
         $periodo = $em->getRepository('App:Periodoe')->find($session->get('periodoe'));
         $escuela = $em->getRepository('App:Escuela')->find($session->get('escuelaid'));
 
-        $dql = "SELECT d FROM App:Docente d WHERE d.escuela = :escuela AND d.vinculacion != 'HC'";
-        $query = $em->createQuery($dql);
-        $query->setParameter('escuela', $escuela)->orderBy('d.id', 'DESC')->setMaxResults(500);
-        $entities = $query->getResult();
-
+        $entities = $em->getRepository('App:Docente')->findby(array('escuela' => $escuela, 'vinculacion' => ['DO', 'DC']), array('id' => 'DESC'), 500);
         return $this->render('Programa/addlider.html.twig', array(
             'entities' => $entities,
             'periodo' => $periodo
