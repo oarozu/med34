@@ -50,8 +50,8 @@ class LiderController extends AbstractController
         $programas = $em->getRepository('App:Programa')->findBy(array('lider' => $user));
         $cursos = $em->getRepository('App:Curso')->findBy(array('programa' => $programas));
         $periodoe = $em->getRepository('App:Periodoe')->findBy(array('id' => $session->get('periodoe')));
-        $periodoa = $em->getRepository('AdminMedBundle:Periodoa')->findOneBy(array('periodoe' => $periodoe));
-        $ofertas = $em->getRepository('AdminMedBundle:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa),array('director' => 'ASC'));
+        $periodoa = $em->getRepository('App:Periodoa')->findOneBy(array('periodoe' => $periodoe));
+        $ofertas = $em->getRepository('App:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa),array('director' => 'ASC'));
 
         return $this->render('Curso/lider.html.twig', array(
             'programas' => $programas,
