@@ -236,13 +236,13 @@ protected $actividad;
                 : $this->getUploadDir() . '/' . $this->path;
     }
 
-    protected function getUploadRootDir() {
-        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
+    protected function getUploadRootDir()
+    {
+        return '/home/evaluacion.docente/public_html/releases/appmed/web/' . $this->getUploadDir();
     }
 
     protected function getUploadDir() {
-        return 'repo/'.$this->getPlang()->getDocente()->getPeriodo().'/plang/plan_'.$this->getPlang()->getDocente()->getId();
-
+        return 'upload/'.$this->getPlang()->getDocente()->getPeriodo().'/plang/plan_'.$this->getPlang()->getDocente()->getId();
     }
 
     public function getWebPathRepo() {
