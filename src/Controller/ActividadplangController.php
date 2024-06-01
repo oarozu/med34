@@ -171,12 +171,12 @@ class ActividadplangController extends AbstractController
         $deleteForm = $this->createDeleteForm($id);
         $borrarForm = $this->createBorrarForm($id);
 
-        return array(
+        return $this->render('Actividadplang/edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'borrar_form' => $borrarForm->createView(),
-        );
+            'borrar_form' => $borrarForm->createView()
+        ));
     }
 
     /**
