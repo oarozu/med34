@@ -415,8 +415,8 @@ class UserController extends AbstractController
                     $user->setPassword($currentpass);
                     $this->setSecurePassword($user);
                     try {
-                     //   $this->enviarMail($user, $currentpass);
-                        $this->sendEmail($user, $currentpass);
+                        //   $this->enviarMail($user, $currentpass);
+                        //     $this->sendEmail($user, $currentpass);
                     } catch (\Exception $e) {
                         $pass = $request->server->get('MED_PKW');
                         $user->setPassword($pass);
