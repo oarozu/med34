@@ -271,7 +271,7 @@ class UserController extends AbstractController
             $entity->setPassword($currentPass);
             $this->setSecurePassword($entity);
          //   $this->enviarMail($entity, $currentPass);
-            $this->sendEmail($entity, $currentPass);
+          //  $this->sendEmail($entity, $currentPass);
             $em->persist($entity);
             $em->flush();
             return new JsonResponse(array(
