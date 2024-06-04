@@ -101,7 +101,7 @@ class PlangestionController extends AbstractController
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $docente = $em->getRepository('App:Docente')->findOneBy(array('user' => $user, 'periodo' => $periodoe_id));
         $entity = $em->getRepository('App:Plangestion')->findOneBy(array('docente' => $docente));
-        $this->checkActividades($entity, 2);
+        //$this->checkActividades($entity, 2);
 
         if (!$entity) {
             throw $this->createNotFoundException('Entidad no encontrada');
