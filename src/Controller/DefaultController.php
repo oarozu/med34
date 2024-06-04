@@ -91,6 +91,7 @@ class DefaultController extends AbstractController {
 
     public function periodAction(Request $request)
     {
+        $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
         $year = $this->getParameter('appmed.year');
         $roles = $this->getUser()->getUserRoles();
@@ -99,6 +100,12 @@ class DefaultController extends AbstractController {
             if ($role->getName() == 'ROLE_DC'){
                 $isdc = true;
             }
+        }
+        if (true === $this->container->get('security.authorization_checker')->isGranted('ROLE_LP')) {
+            $entities = $em->getRepository('App:Programa')->findBy(array('lider' => $this->getUser()));
+            $escuela = $entities[0]->getEscuela();
+            $escuelaid = ($escuela != null)? $escuela->getId() : 65000;
+            $session->set('escuelaid', $escuelaid );
         }
         $periodos_on = $this->getParameter('appmed.periodos');
         $periodos = $em->getRepository('App:Periodoe')->findBy(array('id' => $periodos_on));
