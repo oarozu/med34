@@ -23,12 +23,8 @@ class BaseController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('App:Docente')->find($id);
-        $evaluaciones = $em->getRepository('App:Heterocursos')->findBy(array('cedula' => $entity->getUser()->getId(), 'semestre' => $entity->getPeriodo()));
-
-        if ($entity->getVinculacion() == 'DOFE') {
-            $evaluaciones1 = $em->getRepository('App:Heterocursos')->findBy(array('cedula' => $entity->getUser()->getId(), 'semestre' => $entity->getPeriodo() - 1));
-            $evaluaciones = array_merge($evaluaciones1, $evaluaciones);
-        }
+        //$evaluaciones = $em->getRepository('App:Heterocursos')->findBy(array('cedula' => $entity->getUser()->getId(), 'semestre' => $entity->getPeriodo()));
+        $evaluaciones = $em->getRepository('App:Heterocursosfull')->findBy(array('cedula' => $entity->getUser()->getId(), 'semestre' => $entity->getPeriodo()));
 
         return $this->render('Base/heteroeval.html.twig', array(
             'entity' => $entity,
