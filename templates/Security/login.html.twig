@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
 
-    <title>SIGA MED V2 - Login </title>
+    <title>Módulo MED V4 - Login </title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -59,43 +59,45 @@
             {% if error %}
                 <div class="alert alert-warning fade in">
                     <a class="close" data-dismiss="alert" href="#">×</a>
-                    <h4 class="alert-heading">Error de ingreso desde intranet (Credenciales del Sistema Único de
-                        Autenticación)</h4>
-                    <h5>El número de identificación: "{{ last_username }}" no corresponde a un número valido para
-                        ingreso al MED desde Intranet esto puede suceder por: </h5>
+                    <h4 class="alert-heading">Error de ingreso al Módulo MED para el usuario con identificación
+                        :{{ last_username }}</h4>
+                    <h5>Si esta ingresando desde intranet (Credenciales del Sistema Único de Autenticación) la
+                        autenticación ha fallado.</h5>
+                    <h5>Si esta ingresando con contraseña propia del Módulo MED, el usuario o contraseña esta
+                        errada.</h5>
 
                     <br>
-                    <h4>
-                        2. La configuración del Sistema Único de Autenticación no es valido.</h4>
+                    <h4>1. Puede intentar nuevamente en ingreso mediante las credenciales de intranet.</h4>
+                    <div>
+                        <a href="https://intranet.unad.edu.co" class="btn btn-primary">Autenticarse en Intranet</a>
+                    </div>
                     <br>
-                    <h5>
-					Por favor escriba un correo a soporte.med@unad.edu.co
-                    </h5>
-
+                    <h4>2. Solicitar una contraseña propia de Módulo de Evaluación MED.</h4>
+                    <div>
+                        <a href="https://med.unad.edu.co/getpass" class="btn btn-primary">Solicitar Contraseña MED</a>
+                    </div>
+                    <br>
+                    <h4>3. Ingresar con una contraseña propia de Módulo de Evaluación MED.</h4>
+                    <div>
+                        <a href="https://med.unad.edu.co/login" class="btn btn-primary">Ingresar con Contraseña MED</a>
+                    </div>
                 </div>
-            {% endif %}
-
+            {% else %}
             <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
                 <h1 class="txt-color-orangeDark login-header-big">MED Módulo de Evaluación Docente</h1>
                 <div class="hero">
 
                     <div class="pull-left login-desc-box-l">
-                        <h4 class="paragraph-header">IMPORTANTE: Esta ventana es para el ingreso únicamente con
+                        <h4 class="paragraph-header">IMPORTANTE: Este ingreso es únicamente con
                             contraseña MED, si no tiene esta contraseña debe autenticarse utilizando las credenciales
                             del sistema único de autenticación (Intranet).</h4>
 
                         <div class="login-app-icons">
-                            <a href="http://med.unad.edu.co" class="btn btn-primary">Autenticarse</a>
+                            <a href="http://med.unad.edu.co" class="btn btn-primary">Inicio</a>
                         </div>
                     </div>
-
                 </div>
             </div>
-            {% if error %}
-                <center>
-                    <div class="mserror">{{ error.message=='Bad credentials.' ? 'Este usuario no tiene acceso' : error.message }}</div>
-                </center>
-            {% endif %}
             <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
                 <div class="well no-padding">
                     <form action="{{ path('login_check') }}" method="post" id="login-form"
@@ -132,6 +134,7 @@
                     </form>
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 

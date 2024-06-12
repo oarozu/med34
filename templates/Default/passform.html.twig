@@ -1,6 +1,6 @@
 
 
-        {{ form_errors(form) }}  
+        {{ form_errors(form) }}
         <fieldset>
             <section>
                 <h5>Por favor complete la siguiente información:</h5>
@@ -28,12 +28,6 @@
                         {{ form_widget(form.email,  {'attr': {'placeholder':'Correo Institucional'}}) }}
                     </label>
                 {%endif%}
-            </section>
-            <section>
-                <label class="select"> <i class="icon-append fa fa-user"></i>
-                    {{ form_widget(form.vinculacion)}}
-                </label>
-                <em for="name" class="invalid">{{ form_errors(form.vinculacion) }}</em>
             </section>
             <section>
                 <label class="select"> <i class="icon-append fa fa-user"></i>

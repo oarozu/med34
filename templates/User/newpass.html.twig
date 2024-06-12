@@ -2,40 +2,40 @@
 
 {% block body -%}
 
-            <table class="table table-bordered table-striped hidden-mobile" style="width: 80%">
-   <tr>
-    <td>Identificación</td>
-    <td>{{entity.id}}</td>
-   </tr>
-   <tr>
-    <td>Usuario</td>
-    <td>{{entity.id}}</td>
-   </tr>
-   <tr>
-    <td>Nombres</td>
-    <td>{{entity.nombres}}</td>
-   </tr>
-      <tr>
-    <td>Apellidos</td>
-    <td>{{entity.apellidos}}</td>
-   </tr>
-      <tr>
-    <td>Email</td>
-    <td>{{entity.email}}</td>
-   </tr>
-      <tr>
-    <td>Nueva Contraseña</td>
-    <td>{{newpass}}
-    </td>
-   </tr>
+    <table class="table table-bordered table-striped hidden-mobile" style="width: 80%">
+        <tr>
+            <td>Identificación</td>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <td>Usuario</td>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <td>Nombres</td>
+            <td>{{ entity.nombres }}</td>
+        </tr>
+        <tr>
+            <td>Apellidos</td>
+            <td>{{ entity.apellidos }}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{ entity.email }}</td>
+        </tr>
+        <tr>
+            <td>Nueva Contraseña</td>
+            <td>{{ newpass }}
+            </td>
+        </tr>
 
-  </table>
+    </table>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_user_show', {'id':entity.id}) }}">
-            Regresar
-        </a>
-    </li>
-</ul>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('admin_user_show', {'id':entity.id}) }}">
+                Regresar
+            </a>
+        </li>
+    </ul>
 {% endblock %}

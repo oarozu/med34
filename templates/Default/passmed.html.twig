@@ -38,146 +38,145 @@
 
 </head>
 <body id="login" class="animated fadeInDown">
-    <!-- possible classes: minified, no-right-panel, fixed-ribbon, fixed-header, fixed-width-->
-    <header id="header">
-        <!--<span id="logo"></span>-->
+<!-- possible classes: minified, no-right-panel, fixed-ribbon, fixed-header, fixed-width-->
+<header id="header">
+    <!--<span id="logo"></span>-->
 
-        <div id="logo-group">
-            <span id="logo"> <img src="img/logoUNAD.png" style="width:315px;height:67px" alt="Unad"> </span>
+    <div id="logo-group">
+        <span id="logo"> <img src="img/logoUNAD.png" style="width:315px;height:67px" alt="Unad"> </span>
 
-            <!-- END AJAX-DROPDOWN -->
-        </div>
-
-    </header>
-
-    <div id="main" role="main">
-
-        <!-- MAIN CONTENT -->
-        <div id="content" class="container">
-
-            <div class="row">
-
-                <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
-                    <h1 class="txt-color-orangeDark login-header-big">Generar contraseña de ingreso al Módulo de Evaluación Docente MED</h1>
-                    <div class="hero">
-
-
-                        <h4 class="paragraph-header">IMPORTANTE: </h4><br>
-                        <p>- Puede generar una contraseña si  usted es Docente y no puede autenticarse en la intranet para ingresar al MED.</p>
-                        <p>- Tenga en cuenta que al generar esta contraseña usted no podra ingresar al MED desde la intranet.</p>
-                        <p>- La contraseña se enviara únicamente al correo institucional.</p>
-                        <p>- Al generar cada contraseña esta remplazara la anterior.</p>
-                        <p>- Cualquier duda o inquietud puede escribir a siga@unad.edu.co.</p>
-
-
-                    </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
-
-
-
-                    <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-0" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
-                        <header>
-                            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                            <h2>Generar Contraseña</h2>
-                        </header>
-                        <!-- widget div-->
-                        <div>
-
-                            <!-- widget edit box -->
-                            <div class="jarviswidget-editbox">
-                                <!-- This area used as dropdown edit box -->
-
-                            </div>
-                            <!-- end widget edit box -->
-
-                            <!-- widget content -->
-                            <div class="content">
-                                <div class="widget-body no-padding" id="bodyform">
-
-                                    <form method="POST" id="checkout-form" class="smart-form" novalidate="novalidate" method="POST" action="{{path('home_pass2')}}" {{ form_start(form) }}
-
-                                        <div id="form_body">
-                                            {% include 'App:Default:passform.html.twig' with {'form': form} %}
-                                        </div>
-                                        <footer>
-                                            <button type="submit" class="btn btn-primary">Enviar</button>
-                                        </footer>
-
-                                        {{form_rest(form)}}
-
-                                    </form>
-                                    <div class="form_error"></div>
-                                </div>
-                                <!-- end widget content -->
-                            </div>
-                        </div>
-                        <!-- end widget div -->
-                    </div>
-
-
-
-                </div>
-            </div>
-        </div>
-
+        <!-- END AJAX-DROPDOWN -->
     </div>
 
-    <!--================================================== -->
+</header>
 
-    <!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
-    <script src="js/plugin/pace/pace.min.js"></script>
+<div id="main" role="main">
 
-    <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
-    <script src="{{ asset('js/libs/jquery-2.0.2.min.js') }}"></script>
-    <script src="{{ asset('js/libs/jquery-ui-1.10.3.min.js') }}"></script>
+    <!-- MAIN CONTENT -->
+    <div id="content" class="container">
 
-    <!-- JS TOUCH : include this plugin for mobile drag / drop touch events
-    <script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> -->
+        <div class="row">
 
-    <!-- BOOTSTRAP JS -->
-    <script src="js/bootstrap/bootstrap.min.js"></script>
+            <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
+                <h1 class="txt-color-orangeDark login-header-big">Generar contraseña propia del Módulo de Evaluación
+                    Docente MED</h1>
+                <div class="hero">
 
-    <!-- CUSTOM NOTIFICATION -->
-    <script src="js/notification/SmartNotification.min.js"></script>
 
-    <!-- JARVIS WIDGETS -->
-    <script src="js/smartwidgets/jarvis.widget.min.js"></script>
+                    <h4 class="paragraph-header">IMPORTANTE: </h4><br>
+                    <p>- Puede generar una contraseña si usted es Docente y no puede autenticarse por la intranet para
+                        ingresar al MED.</p>
+                    <p>- Tenga en cuenta que al generar esta contraseña usted no podra ingresar al MED desde la
+                        intranet.</p>
+                    <p>- La contraseña se enviara únicamente al correo institucional.</p>
+                    <p>- Cualquier duda o inquietud puede escribir a soporte.med@unad.edu.co.</p>
+                </div>
+            </div>
 
-    <!-- EASY PIE CHARTS -->
-    <script src="js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
+            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
 
-    <!-- SPARKLINES -->
-    <script src="js/plugin/sparkline/jquery.sparkline.min.js"></script>
+                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-0" data-widget-editbutton="false"
+                     data-widget-colorbutton="false" data-widget-deletebutton="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                        <h2>Generar Contraseña</h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
 
-    <!-- JQUERY VALIDATE -->
-    <script src="js/plugin/jquery-validate/jquery.validate.min.js"></script>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
 
-    <!-- JQUERY MASKED INPUT -->
-    <script src="js/plugin/masked-input/jquery.maskedinput.min.js"></script>
+                        </div>
+                        <!-- end widget edit box -->
 
-    <!-- JQUERY SELECT2 INPUT -->
-    <script src="js/plugin/select2/select2.min.js"></script>
+                        <!-- widget content -->
+                        <div class="content">
+                            <div class="widget-body no-padding" id="bodyform">
 
-    <!-- JQUERY UI + Bootstrap Slider -->
-    <script src="js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
+                                <form method="POST" id="checkout-form" class="smart-form" novalidate="novalidate"
+                                      method="POST" action="{{ path('home_pass2') }}" {{ form_start(form) }}
 
-    <!-- browser msie issue fix -->
-    <script src="js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
+                                <div id="form_body">
+                                    {% include 'Default/passform.html.twig' with {'form': form} %}
+                                </div>
+                                <footer>
+                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                </footer>
 
-    <!-- FastClick: For mobile devices -->
-    <script src="js/plugin/fastclick/fastclick.js"></script>
+                                {{ form_rest(form) }}
 
-    <!--[if IE 7]>
+                                </form>
+                                <div class="form_error"></div>
+                            </div>
+                            <!-- end widget content -->
+                        </div>
+                    </div>
+                    <!-- end widget div -->
+                </div>
 
-        <h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
 
-    <![endif]-->
+            </div>
+        </div>
+    </div>
 
-    <!-- MAIN APP JS FILE -->
-    <script src="js/app.js"></script>
-    <script src="js/main.js"></script>
-    <script>initAjaxForm();</script>
+</div>
+
+<!--================================================== -->
+
+<!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
+<script src="js/plugin/pace/pace.min.js"></script>
+
+<!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+<script src="{{ asset('js/libs/jquery-2.0.2.min.js') }}"></script>
+<script src="{{ asset('js/libs/jquery-ui-1.10.3.min.js') }}"></script>
+
+<!-- JS TOUCH : include this plugin for mobile drag / drop touch events
+<script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> -->
+
+<!-- BOOTSTRAP JS -->
+<script src="js/bootstrap/bootstrap.min.js"></script>
+
+<!-- CUSTOM NOTIFICATION -->
+<script src="js/notification/SmartNotification.min.js"></script>
+
+<!-- JARVIS WIDGETS -->
+<script src="js/smartwidgets/jarvis.widget.min.js"></script>
+
+<!-- EASY PIE CHARTS -->
+<script src="js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
+
+<!-- SPARKLINES -->
+<script src="js/plugin/sparkline/jquery.sparkline.min.js"></script>
+
+<!-- JQUERY VALIDATE -->
+<script src="js/plugin/jquery-validate/jquery.validate.min.js"></script>
+
+<!-- JQUERY MASKED INPUT -->
+<script src="js/plugin/masked-input/jquery.maskedinput.min.js"></script>
+
+<!-- JQUERY SELECT2 INPUT -->
+<script src="js/plugin/select2/select2.min.js"></script>
+
+<!-- JQUERY UI + Bootstrap Slider -->
+<script src="js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
+
+<!-- browser msie issue fix -->
+<script src="js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
+
+<!-- FastClick: For mobile devices -->
+<script src="js/plugin/fastclick/fastclick.js"></script>
+
+<!--[if IE 7]>
+
+<h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
+
+<![endif]-->
+
+<!-- MAIN APP JS FILE -->
+<script src="js/app.js"></script>
+<script src="js/main.js"></script>
+<script>initAjaxForm();</script>
 </body>
 </html>

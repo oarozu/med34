@@ -19,11 +19,6 @@ class Newpass {
     /**
      * @Assert\NotBlank()
      */
-    public $vinculacion;
-
-    /**
-     * @Assert\NotBlank()
-     */
     public $unidad;
 
     /**
@@ -38,13 +33,6 @@ class Newpass {
      */
     public function setEmail($email) {
         $this->email = $email;
-    }
-
-    /**
-     * @param string $vinculacion
-     */
-    public function setVinculacion($vinculacion) {
-        $this->vinculacion = $vinculacion;
     }
 
     /**

@@ -13,16 +13,16 @@ class SecurityController extends AbstractController
     {
         $session = $request->getSession();
         // obtiene el error de inicio de sesión si lo hay
-
         if ($request->attributes->has(Security::AUTHENTICATION_ERROR)) {
         $error = $request->attributes->get(Security::AUTHENTICATION_ERROR);
         } else {
-
-          $error = $session->get(Security::AUTHENTICATION_ERROR);
+              $error = $session->get(Security::AUTHENTICATION_ERROR);
         }
+        $user = $session->get(Security::LAST_USERNAME);
+        $session->clear();
          return $this->render('Security/login.html.twig', array(
             // el último nombre de usuario ingresado por el usuario
-            'last_username' => $session->get(Security::LAST_USERNAME),
+            'last_username' => $user,
             'error'         => $error,
             ));
         //$this->get('session')->getFlashBag()->add('error', $error->getMessage().' '.$session->get(SecurityContext::LAST_USERNAME).' No corresponde a un usuario en el Módulo MED');

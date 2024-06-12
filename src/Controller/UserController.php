@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Address;
 use App\Entity\Parabuscar;
 use App\Entity\User;
 use App\Form\UserType;
@@ -25,7 +26,6 @@ use App\Entity\Newpass;
  */
 class UserController extends AbstractController
 {
-
     /**
      * Lists all Usuarios entities.
      * @Route("/", name="admin_user", methods={"GET"})
@@ -250,7 +250,7 @@ class UserController extends AbstractController
      * Lists all Usuarios entities.
      * @Route("/{id}/newpass", name="admin_user_newpass", methods={"POST"})
      */
-    public function newpassAction(Request $request, $id)
+    public function newpassAction(Request $request, MailerInterface $mailer, $id)
     {
         if (!$request->isXmlHttpRequest()) {
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
@@ -271,7 +271,7 @@ class UserController extends AbstractController
             $entity->setPassword($currentPass);
             $this->setSecurePassword($entity);
          //   $this->enviarMail($entity, $currentPass);
-          //  $this->sendEmail($entity, $currentPass);
+            $this->sendEmail($mailer, $entity, $currentPass);
             $em->persist($entity);
             $em->flush();
             return new JsonResponse(array(
@@ -333,43 +333,15 @@ class UserController extends AbstractController
         return $randomString;
     }
 
-    public function enviarMail(User $user, $newpass)
+    public function sendEmail($mailer, $user, $newpass)
     {
-        $message = \Swift_Message::newInstance()
-            ->setSubject('Contraseña del Módulo MED para ' . $user->getId())
-            ->setFrom(array('siga@unad.edu.co' => 'Módulo de Evaluación Docente MED'))
-            ->setTo(array($user->getEmail() => $user->getNombres() . ' ' . $user->getApellidos()))
-            ->setBody(
-                $this->renderView(
-                    'User/newpass.txt.twig',
-                    array('user' => $user,
-                        'newpass' => $newpass
-                    )
-                )
-            );
-        if ($user->getEmailp() != '') {
-            $message->setCc(array($user->getEmailp() => $user->getNombres() . ' ' . $user->getApellidos()));
-        }
-        $this->get('mailer')->send($message);
-    }
-
-    public function sendEmail(MailerInterface $mailer, $user, $newpass)
-    {
+        $template = $this->render('User/mailnewpass.html.twig', array('user' => $user->getId(), 'newpass' => $newpass ));
         $email = (new Email())
-            ->from(array('siga@unad.edu.co' => 'Módulo de Evaluación Docente MED'))
-            ->to(array($user->getEmail() => $user->getNombres() . ' ' . $user->getApellidos()))
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
+            ->from(new Address('soporte.med@unad.edu.co', 'Módulo de Evaluación Docente MED'))
+            ->to(new Address($user->getEmail(),$user->getNombres() . ' ' . $user->getApellidos()))
             //->priority(Email::PRIORITY_HIGH)
             ->subject('Contraseña del Módulo MED para ' . $user->getId())
-            //->text('Sending emails is fun again!')
-            ->htmlTemplate(
-                    'User/newpass.txt.twig',
-                    array('user' => $user,
-                        'newpass' => $newpass
-                    )
-            );
+            ->html($template->getContent());
         try {
             $mailer->send($email);
         } catch (TransportExceptionInterface $e) {
@@ -386,7 +358,7 @@ class UserController extends AbstractController
         ));
     }
 
-    public function setpassAction(Request $request)
+    public function setpassAction(Request $request,  MailerInterface $mailer)
     {
         if (!$request->isXmlHttpRequest()) {
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
@@ -400,23 +372,19 @@ class UserController extends AbstractController
         if ($Form->isValid()) {
             $username = $Form["username"]->getData();
             $email = $Form["email"]->getData();
-            $vinculacion = $Form["vinculacion"]->getData();
             $unidad = (int)$Form["unidad"]->getData();
-
 
             $user = $em->getRepository('App:User')->find($username);
             $docente = $em->getRepository('App:Docente')->findOneBy(array('user' => $user, 'periodo' => $this->getParameter('appmed.periodo')));
             $escuela_id = $docente->getEscuela()->getId();
-            $docente_vinculacion = $docente->getVinculacion();
 
             if (isset($docente) && (strcmp($user->getEmail(), $email) == 0)) {
-                if ((strcmp($docente_vinculacion, $vinculacion) == 0) && strcmp($escuela_id, $unidad) == 0) {
+                if (strcmp($escuela_id, $unidad) == 0) {
                     $currentpass = $this->generateRandomString();
                     $user->setPassword($currentpass);
                     $this->setSecurePassword($user);
                     try {
-                        //   $this->enviarMail($user, $currentpass);
-                        //     $this->sendEmail($user, $currentpass);
+                        $this->sendEmail($mailer, $user, $currentpass);
                     } catch (\Exception $e) {
                         $pass = $request->server->get('MED_PKW');
                         $user->setPassword($pass);
