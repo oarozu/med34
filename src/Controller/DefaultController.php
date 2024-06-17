@@ -92,6 +92,10 @@ class DefaultController extends AbstractController {
     public function periodAction(Request $request)
     {
         $session = $request->getSession();
+        $escuelaid = $session->get('escuelaid');
+        if ($escuelaid == null) {
+            return $this->redirect($this->generateUrl('home_user_inicio'));
+        }
         $em = $this->getDoctrine()->getManager();
         $year = $this->getParameter('appmed.year');
         $roles = $this->getUser()->getUserRoles();
