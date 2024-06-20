@@ -93,7 +93,7 @@ class DefaultController extends AbstractController {
     {
         $session = $request->getSession();
         $escuelaid = $session->get('escuelaid');
-        if ($escuelaid == null) {
+        if ($escuelaid == null && !$this->container->get('security.authorization_checker')->isGranted('ROLE_DC')) {
             return $this->redirect($this->generateUrl('home_user_inicio'));
         }
         $em = $this->getDoctrine()->getManager();
