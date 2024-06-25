@@ -39,7 +39,9 @@
                             <table id="datatable_tabletools" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
+                                        <th>Id</th>
                                         <th>Escuela</th>
+                                        <th>Año</th>
                                         <th>Periodo</th>
                                         <th>Competencia1</th>
                                         <th>Competencia2</th>
@@ -54,7 +56,9 @@
                                 <tbody>
                                     {% for entity in data %}
                                         <tr>
+                                            <td>{{ entity.id }}</td>
                                             <td>{{ entity.escuela }}</td>
+                                            <td>{{ entity.year }}</td>
                                             <td>{{ entity.periodo }}</td>
                                             <td>{{ entity.competencia1|number_format(2, '.', ',') }}</td>
                                             <td>{{ entity.competencia2|number_format(2, '.', ',') }}</td>
@@ -62,16 +66,16 @@
                                             <td>{{ entity.competencia4|number_format(2, '.', ',') }}</td>
                                             <td>{{ entity.competencia5|number_format(2, '.', ',') }}</td>
                                             <td>{{ entity.competencia6|number_format(2, '.', ',') }}</td>
-                                            <td>{{ ((entity.competencia1+entity.competencia2+entity.competencia3+entity.competencia4+entity.competencia5+entity.competencia6)/120)|number_format(2, '.', ',') }}</td>
+                                            <td>{{ ((entity.competencia1+entity.competencia2+entity.competencia3+entity.competencia4+entity.competencia5+entity.competencia6)/6)|number_format(2, '.', ',') }}</td>
 
                                             {%if miescuela==''%}
                                                 <td>
-                                                    <a href="{{ path('hetero_esc_per', { 'esc': entity.escuela_id, 'pe' : entity.periodo  }) }}">{{ entity.docentes }}</a>
+                                                    <a href="{{ path('hetero_esc_per', { 'esc': entity.escuela_id, 'pe' : entity.id  }) }}">{{ entity.docentes }}</a>
                                                 </td>
                                             {%else%}
                                                 <td>
                                                     {%if entity.escuela_id == miescuela%}
-                                                        <a href="{{ path('hetero_esc_per', { 'esc': entity.escuela_id, 'pe' : entity.periodo  }) }}">{{ entity.docentes }}</a>
+                                                        <a href="{{ path('hetero_esc_per', { 'esc': entity.escuela_id, 'pe' : entity.id  }) }}">{{ entity.docentes }}</a>
                                                     {%else%}
                                                         {{ entity.docentes }}
                                                     {%endif%}
@@ -90,11 +94,12 @@
                 <!-- end widget -->
             </article>
             <!-- WIDGET END -->
+            <a href="{{ path('hetero_prom_esc_csv' ) }}" class="btn btn-primary">Descargar resultados <i class="fa fa-download"></i></a>
         </div>
         <!-- end row -->
     </section>
     <!-- end widget grid -->
-
+    <br>
     <table>
           <tr>
 <td class="data" colspan="11">

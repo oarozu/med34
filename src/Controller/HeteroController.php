@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Heteroeval;
 use App\Entity\Heterocursos;
+use App\Service\CvsHelper;
 
 /**
  * Plangestion controller.
@@ -36,14 +38,29 @@ class HeteroController extends AbstractController {
     public function heteroescuelasAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $datas = $em->getRepository('App:Heteroeval')->getPromedioescuela();
-
        $session = $request->getSession();
        $miescuela = $session->get('escuelaid');
-
         return $this->render('Hetero/promescuela.html.twig', array(
             'data' => $datas,
             'miescuela' => $miescuela
         ));
+    }
+
+    /**
+     * Mostrar promedio escuelas
+     * @Route("/prom_esc/csv", name="hetero_prom_esc_csv", methods={"GET"})
+     */
+    public function heteroescuelascsvAction(Request $request, CvsHelper $cvsHelper) {
+        $em = $this->getDoctrine()->getManager();
+        $result = $em->getRepository('App:Heteroeval')->getPromedioescuela();
+        $response = new Response();
+        $responseString = $cvsHelper->array2csv($result);
+        $response->headers->set('Content-type', 'text/csv');
+        $response->headers->set('Cache-Control', 'private');
+        $response->headers->set('Content-Disposition', 'attachment; filename="MED-promedio-hetero_por_escuela.csv";');
+        $response->sendHeaders();
+        $response->setContent($responseString);
+        return $response;
     }
 
     /**
