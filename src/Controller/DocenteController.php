@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\CvsHelper;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,6 +38,24 @@ class DocenteController extends AbstractController
             'entities' => $entities,
             'periodo' => $periodo
         ));
+    }
+
+    /**
+     * @Route("/pe/{periodo}/csv", name="docente_cvs", methods={"GET"})
+     */
+    public function getCsvAction($periodo, CvsHelper $cvsHelper):Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('App:Docente')->docentesPeriodo($periodo);
+        $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $periodo));
+        $response = new Response();
+        $responseString = $cvsHelper->array2csv($entities);
+        $response->headers->set('Content-type', 'text/csv');
+        $response->headers->set('Cache-Control', 'private');
+        $response->headers->set('Content-Disposition', 'attachment; filename="MED-consolidado-'.$periodoe->getId().'.csv";');
+        $response->sendHeaders();
+        $response->setContent($responseString);
+        return $response;
     }
 
     /**
