@@ -62,9 +62,7 @@
             </th>
             <td>
                 {%if entity.evaluacion%}
-                    {%if entity.evaluacion.auto1%}
                         <a href="javascript:popUp('{{ path('docente_final', {'id': entity.id }) }}')" class="btn btn-primary btn-xs">Ver... <i class="fa fa-sign-in"></i></a>
-                        {%endif%}
                     {%endif%}
             </td>
             <td></td>
