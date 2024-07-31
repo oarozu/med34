@@ -21,6 +21,9 @@ parameters:
     appmed.periodos:
         - '20241'
         - '20242'
+        - '20243'
+        - '20244'
+        - '20245'
     mailer_password: q
 
 services:
