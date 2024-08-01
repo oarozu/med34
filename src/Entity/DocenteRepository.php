@@ -101,4 +101,15 @@ class DocenteRepository extends EntityRepository
         $docentes = $query->getResult();
         return $docentes;
     }
+
+
+    public function lastEscuela($user)
+    {
+        $connection = $this->getEntityManager()->getConnection();
+        $query = "SELECT do.escuela_id
+            FROM docente do
+            WHERE do.user_id ='$user' ORDER BY do.id DESC LIMIT 1";
+        $result = $connection->executeQuery($query);
+        return $result->fetchAllAssociative();
+    }
 }
