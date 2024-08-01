@@ -97,8 +97,9 @@ class DefaultController extends AbstractController {
         $user = $this->getUser();
         if ($escuelaid == null && !$this->container->get('security.authorization_checker')->isGranted('ROLE_DC')) {
             $escuelas = $em->getRepository('App:Docente')->lastEscuela($user->getId());
-            $session->set('escuelaid', $escuelas[0]['escuela_id'] );
-            // return $this->redirect($this->generateUrl('home_user_inicio'));
+            if (count($escuelas)>0){
+                $session->set('escuelaid', $escuelas[0]['escuela_id'] );
+            }
         }
         $em = $this->getDoctrine()->getManager();
         $year = $this->getParameter('appmed.year');
