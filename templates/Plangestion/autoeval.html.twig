@@ -62,7 +62,7 @@
                 <td>
                     {% if actividad.path %}
                         {% if entity.vinculacion == 'De Carrera' %}
-                            <a href="../../../{{ actividad.webpath|replace({'uploads': 'repo'}) }}" target="_blank"><i class="fa fa-download"></i>Ver...</a>
+                            <a href="../../../{{ actividad.webpath|replace({'repo': 'web/repo'}) }}" target="_blank"><i class="fa fa-download"></i>Ver...</a>
                         {% else %}
                             <a href="../../../{{ actividad.webpath }}" target="_blank"><i class="fa fa-download"></i>Ver...</a>
                         {% endif %}
