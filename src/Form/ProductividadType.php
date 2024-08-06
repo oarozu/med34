@@ -40,7 +40,6 @@ class ProductividadType extends AbstractType
                     'Innovación' => 'Invonvación',
                 ),
                 // *this line is important*
-                'choices_as_values' => true,
                 'expanded' => false,
                 'multiple' => false,
                 'required' => true

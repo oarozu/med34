@@ -35,11 +35,11 @@ class ProductividadController extends AbstractController
         $entity->setPlang($plang);
         $form = $this->createProdForm($entity, $user);
 
-        return array(
+        return $this->render('Productividad/new.html.twig', array(
             'tipo' => $tipo,
             'form' => $form->createView(),
             'docenteid' => $docenteid,
-        );
+        ));
     }
 
     /**
@@ -104,11 +104,7 @@ class ProductividadController extends AbstractController
             return $this->redirect($this->generateUrl('plangestion_crear'));
         }
 
-        return $this->render('Productividad/new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
-            'id' => $id,
-        ));
+        return $this->redirect($this->generateUrl('plangestion_crear'));
     }
 
     /**
