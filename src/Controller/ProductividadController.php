@@ -65,9 +65,9 @@ class ProductividadController extends AbstractController
         $user = $this->getUser();
         $entity->setUser($user);
         $form = $this->createProyectForm($entity);
-        return array(
+        return $this->render('Productividad/newproject.html.twig', array(
             'form' => $form->createView()
-        );
+        ));
     }
 
 
