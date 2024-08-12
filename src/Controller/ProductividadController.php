@@ -187,9 +187,9 @@ class ProductividadController extends AbstractController
             throw $this->createNotFoundException('Unable to find Rolplang entity.');
         }
         $deleteForm = $this->createDeleteForm($id);
-        return array(
+        return $this->render('Productividad/show.html.twig', array(
             'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 }
