@@ -160,7 +160,7 @@ class PlangestionController extends AbstractController
     {
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
-        $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $this->getParameter('appmed.periodo')));
+        $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
         $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));
         $entity = $em->getRepository('App:Plangestion')->findOneBy(array('docente' => $docente));
         $rol_tutor = $em->getRepository('App:Rolacademico')->findBy(array('id' => 1));
