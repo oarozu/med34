@@ -17,8 +17,8 @@ class ProyectoiType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre', TextareaType::class, array('required' => true, 'attr' => array('cols' => '60', 'rows' => '1')))
-            ->add('linea', TextareaType::class, array('required' => true, 'attr' => array('cols' => '60', 'rows' => '1')))
+            ->add('nombre', TextareaType::class, array('required' => true, 'attr' => array('cols' => '60', 'rows' => '1', 'maxlength' => '512')))
+            ->add('linea', TextareaType::class, array('required' => true, 'attr' => array('cols' => '60', 'rows' => '1', 'maxlength' => '512')))
         ;
     }
 
