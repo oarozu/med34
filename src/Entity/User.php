@@ -221,9 +221,16 @@ class User implements UserInterface, \Serializable
      */
     public function getRoles()
     {
-        return $this->user_roles->toArray(); //IMPORTANTE: el mecanismo de seguridad de Sf2 requiere ésto como un array
+      //  return $this->user_roles->toArray(); //IMPORTANTE: el mecanismo de seguridad de Sf2 requiere ésto como un array
+        return $this->extractRoles($this->user_roles->toArray());
     }
 
+    public function extractRoles($roles){
+        foreach ($roles as $role){
+            $rolesName[] = $role->getName();
+        }
+        return $rolesName;
+    }
     /**
      * Compares this user to another to determine if they are the same.
      *

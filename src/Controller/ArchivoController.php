@@ -63,7 +63,7 @@ class ArchivoController extends AbstractController
        $userId = $user->getId();
        $entities = $em->getRepository('App:Archivo')->findBy(array('cedula' => $userId));
        return $this->render('Archivo/pordoc.html.twig', array(
-            'entities' => $entities,
+            'entities' => $entities
        ));
     }
 

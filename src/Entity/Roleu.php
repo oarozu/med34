@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use Symfony\Component\Security\Core\Role\Role;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
