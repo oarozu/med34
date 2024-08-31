@@ -167,6 +167,7 @@ class UserController extends AbstractController
 
 
         $entity = $em->getRepository('App:User')->find($id);
+        $roles = $entity->getUserRoles();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
@@ -180,7 +181,8 @@ class UserController extends AbstractController
             'archivo' => $archivo,
             'semestres' => $porSemestre,
             'anuales' => $porAnual,
-            'periodos' => $porPeriodo
+            'periodos' => $porPeriodo,
+            'roles' => $roles
         ));
     }
 

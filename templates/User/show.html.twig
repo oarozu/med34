@@ -24,7 +24,7 @@
                         <tbody>
                         <tr>
                             <td>Nombre : {{ entity.nombres }} {{ entity.apellidos }}</td>
-                            <td>Roles: {% for rol in entity.roles %} {{ rol.descripcion }}, {% endfor %}</td>
+                            <td>Roles: {% for rol in roles %} {{ rol.descripcion }}, {% endfor %}</td>
                         </tr>
                         <tr>
                             <td>Email Unad: {{ entity.email }}</td>
