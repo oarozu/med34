@@ -10,9 +10,11 @@
     },
     "require": {
         "php": "^7.2",
+        "doctrine/common": "^3.0",
         "doctrine/doctrine-bundle": "^2.0",
         "doctrine/orm": "^2.5.11",
-        "gedmo/doctrine-extensions": "^2.4",
+        "doctrine/persistence": "^2.0",
+        "gedmo/doctrine-extensions": "^3.0",
         "incenteev/composer-parameter-handler": "~2.0",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "4.4.*",
