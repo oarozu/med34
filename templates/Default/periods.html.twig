@@ -57,7 +57,7 @@
                         {% endif %}
                     </td>
                     <td>
-                        {% if is_granted('ROLE_DC') and periodoe.type == 's' %}
+                        {% if (is_granted('ROLE_DC') or is_granted('ROLE_DEC')) and periodoe.type == 's' %}
                             <a href="{{ path('home_user_periodo_select', {'id':periodoe.id}) }}" class="btn btn-primary btn-xs">Seleccionar <i class="fa fa-sign-in"></i></a>
                         {% elseif periodoe.type == 'p' %}
                             <a href="{{ path('home_user_periodo_select', {'id':periodoe.id}) }}" class="btn btn-primary btn-xs">Seleccionar <i class="fa fa-sign-in"></i></a>
