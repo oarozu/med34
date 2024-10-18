@@ -55,7 +55,7 @@
                 </td>
                 <td>
                     {% if entity.plangestion.pdf %}
-                        <a href="../../repo/{{ entity.periodo }}{{ entity.plangestion.pdf.webpath }}"
+                        <a href="../../web/repo/{{ entity.periodo }}{{ entity.plangestion.pdf.webpath }}"
                            target="_blank"><i class="fa fa-file-o"></i> Ver...</a>
                     {% else %}
                         <a href="{{ path('pdfplang_new', { 'id': entity.plangestion.docente.id }) }}"

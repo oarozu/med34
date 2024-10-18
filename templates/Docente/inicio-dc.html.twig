@@ -54,7 +54,7 @@
         <td>Plan de Gestión Aprobado en PDF. (Este es cargado por el Decano Nacional)</td>
         <td>
             {% if entity.plangestion.pdf %}
-                <a href="javascript:popUp('../../../repo/{{ entity.plangestion.docente.periodo }}{{ entity.plangestion.pdf.webpath }}')"><i
+                <a href="javascript:popUp('../../../web/repo/{{ entity.plangestion.docente.periodo }}{{ entity.plangestion.pdf.webpath }}')"><i
                             class="fa fa-file-o"></i> Ver Archivo...</a>
             {% else %}
                 No cargado
