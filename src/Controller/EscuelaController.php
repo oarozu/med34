@@ -148,6 +148,10 @@ class EscuelaController extends AbstractController
         $periodosp = $em->getRepository('App:Periodoe')->findby(array('type' => 'p'), array('id' => 'DESC'), 10);
 
         $programas = $em->getRepository('App:Programa')->findBy(array('escuela' => $escuela), array('nivel' => 'DESC'));
+        $periodosession = $session->get('periodoe');
+        if (!$periodosession){
+            return $this->redirect($this->generateUrl('home_user_inicio'));
+        }
         $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
 
         $ofertado = $em->getRepository('App:ProgramaPeriodo')->findby(array('programa' => $programas, 'periodo' => $session->get('periodoe')));
