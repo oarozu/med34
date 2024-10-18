@@ -72,7 +72,7 @@ class pdfPlang
 
     protected function getUploadRootDir()
     {
-        return '/home/evaluacion.docente/public_html/releases/appmed/public/' . $this->getUploadDir();
+        return '/home/evaluacion.docente/public_html/releases/appmed/web/' . $this->getUploadDir();
     }
 
 
