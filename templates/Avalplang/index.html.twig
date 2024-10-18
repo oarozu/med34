@@ -40,7 +40,7 @@
                 </td>
                                                 <td>
                                 {%if entity.plan.pdf%}
-            <a href="../../uploads/{{entity.periodo}}{{entity.plan.pdf.webpath}}" target="_blank"><i class="fa fa-file-o"></i> Ver...</a>
+            <a href="../../web/repo/{{entity.periodo}}{{entity.plan.pdf.webpath}}" target="_blank"><i class="fa fa-file-o"></i> Ver...</a>
            {%elseif is_granted('ROLE_DEC') and entity.avalado == 1 %}
            <a href="{{ path('pdfplang_new', { 'id': entity.plan.docente.id }) }}" class="btn btn-primary btn-xs">Cargar <i class="fa fa-upload"></i></a>
            {%endif%}
