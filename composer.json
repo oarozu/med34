@@ -10,6 +10,7 @@
     },
     "require": {
         "php": "^7.2",
+        "doctrine/annotations": "*",
         "doctrine/common": "^3.0",
         "doctrine/doctrine-bundle": "^2.0",
         "doctrine/orm": "^2.5.11",
