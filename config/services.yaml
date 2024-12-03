@@ -24,6 +24,7 @@ parameters:
         - '20243'
         - '20244'
         - '20245'
+        - '20246'
     mailer_password: q
 
 services:
