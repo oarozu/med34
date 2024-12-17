@@ -318,7 +318,7 @@ class ProgramaController extends AbstractController
         $periodo = $em->getRepository('App:Periodoe')->find($session->get('periodoe'));
         $escuela = $em->getRepository('App:Escuela')->find($session->get('escuelaid'));
 
-        $entities = $em->getRepository('App:Docente')->findby(array('escuela' => $escuela, 'vinculacion' => ['DO', 'DC']), array('id' => 'DESC'), 500);
+        $entities = $em->getRepository('App:Docente')->findby(array('escuela' => $escuela, 'vinculacion' => ['DO', 'DC'], 'modalidad' => ['TC']), array('id' => 'DESC'), 800);
         return $this->render('Programa/addlider.html.twig', array(
             'entities' => $entities,
             'periodo' => $periodo
