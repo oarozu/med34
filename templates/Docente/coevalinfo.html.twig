@@ -148,12 +148,16 @@
              </td>
              <td>{{oferta.coeval? oferta.coeval.observaciones : ' '}}</td>
              <td>
+                 {%if oferta.curso.programa%}
                 {%if oferta.curso.programa.lider%}
                 {%if oferta.curso.programa.lider.id == entity.user.id %}
                 No Aplica
                 {%else%}
                 {{oferta.coeval? oferta.coeval.f0 : 'Sin Evaluación'}}
                 {%endif%}
+                {%endif%}
+                 {%else%}
+                     No asignado a un programa.
                 {%endif%}
              </td>
             </tr>
