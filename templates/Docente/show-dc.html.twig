@@ -131,17 +131,6 @@
                 </td>
             </tr>
         {% endif %}
-        {% if entity.lider|length > 0 %}
-            <tr>
-                <th>
-                    Coevaluación - Lider o Cordinador Nacional a Directores de Curso
-                </th>
-                <td>Evaluación del lider a los directores de curso</td>
-                <td>
-                    <a href="{{ path('docente_coevaldirector', { 'id': periodo.id }) }}">Ingresar</a>
-                </td>
-            </tr>
-        {% endif %}
 
         {% if entity.ternado|length != 0 %}
             <tr>
