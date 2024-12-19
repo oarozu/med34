@@ -21,11 +21,14 @@ class coevalDirectorController extends AbstractController
     /**
      * Lists all coevalDirector entities.
      *
-     * @Route("/{id}", name="docente_coevaldirector",  methods={"GET"})
+     * @Route("/home", name="docente_coevaldirector",  methods={"GET"})
      */
-    public function indexAction(Request $request, $id)
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $session = $request->getSession();
+        $session->set('periodoe', $this->getParameter('appmed.periodo'));
+        $id = $this->getParameter('appmed.periodo');
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $programas = $em->getRepository('App:Programa')->findBy(array('lider' => $user));
         $cursos = $em->getRepository('App:Curso')->findBy(array('programa' => $programas));
@@ -188,7 +191,7 @@ class coevalDirectorController extends AbstractController
 
         if ($editForm->isValid()) {
             $em->flush();
-            return $this->redirect($this->generateUrl('docente_coevaldirector', array('id' => $session->get('periodoe'))));
+            return $this->redirect($this->generateUrl('docente_coevaldirector'));
         }
 
         return $this->render('coevalDirector/edit.html.twig', array(
