@@ -69,9 +69,7 @@
                  {%if entity.calificacion is not null%}
                      {{ entity.calificacion |number_format(1,'.') }}
                 {%else%}
-                    {%if  entity.docente.plangestion.estado == 'Autoevaluado' %}
                  <a  href="{{ path('dofe_eval', { 'id': entity.id }) }}"  class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Evaluar </a>
-                    {%endif%}
                 {%endif%}
                 </td>
             </tr>
