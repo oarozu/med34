@@ -55,12 +55,12 @@ class DofeController extends AbstractController
         $evaluacion = $em->getRepository('App:RedDofe')->findOneBy(array('id' => $id));
         $actividades = $em->getRepository('App:evalDofe')->findBy(array('evaluacion' => $evaluacion));
         if (count($actividades) == 0) {
-            $n_actividades = $em->getRepository('App:evalDofe')->getActividades($id);
+            $n_actividades = $em->getRepository('App:Actividadrol')->findBy(array('rol' => $evaluacion->getRol()));
             foreach ($n_actividades as $actividad) {
                 $entity = new evalDofe();
-                $eval = $em->getRepository('App:RedDofe')->findOneBy(array('id' => $actividad['id']));
+                $eval = $em->getRepository('App:RedDofe')->findOneBy(array('id' => $id));
                 $entity->setEvaluacion($eval);
-                $actPlang = $em->getRepository('App:Actividadrol')->findOneBy(array('id' => $actividad['actividad_id']));
+                $actPlang = $em->getRepository('App:Actividadrol')->findOneBy(array('rol' => $evaluacion->getRol()));
                 $entity->setActividad($actPlang);
                 $em->persist($entity);
             }
@@ -114,12 +114,13 @@ class DofeController extends AbstractController
             throw $this->createNotFoundException('Unable to find Actividadplang entity.');
         }
         $editForm = $this->createEditForm($entity);
-
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity->setCalificacion($editForm["calificacion"]->getData()/10);
+            $eval->setCalificacion($editForm["calificacion"]->getData()/10);
             $em->flush();
-            return $this->redirect($this->generateUrl('dofe_eval', array('id' => $entity->getEvaluacion()->getId())));
+            return $this->redirect($this->generateUrl('dofe_evaluar', array('id' => $entity->getId())));
         }
         return $this->render('Dofe/calificar.html.twig', array(
             'entity' => $entity,
@@ -136,7 +137,7 @@ class DofeController extends AbstractController
     private function createEditForm(evalDofe $entity)
     {
         $form = $this->createForm(CalificarDofeType::class, $entity, array(
-            //  'action' => $this->generateUrl('dofe_calificarupdate', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('dofe_calificarupdate', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
         $form->add('submit', SubmitType::class, array('label' => 'Update'));

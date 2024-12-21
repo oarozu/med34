@@ -18,7 +18,7 @@
             -->
             <header>
                     <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                    <h2>Docentes DOFE a evaluar</h2>
+                    <h2>Docentes líderes a evaluar</h2>
             </header>
 <!-- widget div-->
 <div>
@@ -42,7 +42,7 @@
                 <th>Escuela</th>
                 <th>Programa</th>
                 <th>Zona</th>
-                <th>Registro Cumpliento</th>
+                <th>Autoevaluación</th>
                 <th>Evaluación</th>
             </tr>
         </thead>
@@ -67,15 +67,7 @@
                 <td>{{entity.docente.plangestion.fechaautoevaluacion? entity.docente.plangestion.fechaautoevaluacion|date('Y-m-d H:i'): 'sin registrar'}}</td>
                 <td>
                  {%if entity.calificacion is not null%}
-                 {%if entity.calificacion >= 25%}
-                 <span class="center-block padding-5 label label-success">Superior</span>
-                 {%elseif entity.calificacion < 25 and entity.calificacion > 15 %}
-                    <span class="center-block padding-5 label label-warning">Medio</span>
-                     {%elseif entity.calificacion <= 15 and entity.calificacion > 0%}
-                       <span class="center-block padding-5 label label-default">Bajo</span>
-                       {%else%}
-                          {%endif%}
-
+                     {{ entity.calificacion |number_format(1,'.') }}
                 {%else%}
                     {%if  entity.docente.plangestion.estado == 'Autoevaluado' %}
                  <a  href="{{ path('dofe_eval', { 'id': entity.id }) }}"  class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Evaluar </a>

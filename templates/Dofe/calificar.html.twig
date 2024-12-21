@@ -8,48 +8,38 @@
         <table class="table table-bordered table-striped hidden-mobile">
             <input type="hidden" name="_method" value="PUT"/>
             <tr>
-                <td>Responsabilidad</td>
-                <td>{{ entity.actividad.responsabilidad.nombre }}</td>
-            </tr>
-            <tr>
-                <td>Actividad</td>
+                <td>Rol Líder</td>
                 <td>{{ entity.actividad.descripcion }}</td>
             </tr>
             <tr>
                 <td colspan="2"></td>
             </tr>
             <tr>
-                <td>Descripción del cumplimiento:</td>
-                <td>
-                    <font color="#4267b2">{{ actividad.observaciones }}</font>
+            </tr>
 
+            <tr>
+                <td>Calificación:</td>
+                <td>
+                    0 - 0.9	Incumplimiento total		No cumple con ningún aspecto de su responsabilidad principal.<br>
+                    1 - 1.9	Cumplimiento muy bajo	Cumple con una mínima proporción de su responsabilidad principal.<br>
+                    2 - 2.9	Cumplimiento bajo		Cumple con una proporción básica de su responsabilidad principal.<br>
+                    3 - 3.9	Cumplimiento medio		Cumple con más de la mitad de su responsabilidad principal.<br>
+                    4 - 4.9	Cumplimiento alto			Cumple con casi toda su responsabilidad principal.<br>
+                    5		Cumplimiento total		Cumple plenamente con su responsabilidad principal.
                 </td>
             </tr>
             <tr>
-                <td>Evidencia:</td>git
-                <td>
-                    {% if actividad.path %}
-                        <a href="../../../{{ actividad.webpathrepo }}" target="_blank"
-                           class="btn btn-default btn-xs txt-color-green"><i class="fa fa-download"></i> Ver
-                            evidencia... </a>
-                    {% endif %}
+                <td colspan="2">
+                    {{ form_row(edit_form.calificacion)}}
+                    {{ form_errors(edit_form.calificacion) }}
                 </td>
-            </tr>
-            <tr>
-                <td colspan="2">Calificación</td>
-
             </tr>
             <tr>
                 {% if eval.calificacion == null %}
                 <td>
-                    {% for choiceFormView in edit_form.calificacion %}
-                        <label class="radio">  {{ form_widget(choiceFormView) }} {{ form_label(choiceFormView) }}</label>
-                    {% endfor %}
-
-                    {{ form_errors(edit_form.calificacion) }}
+                    <h1 id="myCalificacion"></h1>
                 </td>
                 <td style="vertical-align: middle">
-
                         <button type="hidden" class="btn btn-lg btn-primary">Calificar</button>
                 </td>
                 {% endif %}
@@ -58,5 +48,5 @@
             <font color="#F87217">{{ form_errors(edit_form) }}</font>
             {{ form_widget(edit_form._token) }}
         </table>
-    </form>
+    </div>
 {% endblock %}

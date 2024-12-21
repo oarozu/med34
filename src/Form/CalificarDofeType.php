@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\evalDofe;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -16,17 +17,15 @@ class CalificarDofeType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
-        $builder->add('calificacion', ChoiceType::class, array(
-            'choices' => array(
-                'Superior' => 30,
-                'Medio' => 20,
-                'Bajo' => 10
-            ),
-            // *this line is important*
-            'choices_as_values' => true,
-             'expanded' => true,
-             'multiple' => false,
-             'required'  => true
+        $builder
+        ->add('calificacion', RangeType::class, array(
+            'attr' => [
+                'required' => true,
+                'label' => 'Calificación',
+                'min' => 0,
+                'max' => 50,
+                'onchange' => 'updateTextInput(this.value)'
+            ],
         ));
     }
 
