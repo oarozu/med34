@@ -29,20 +29,26 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2">
-                    {{ form_row(edit_form.calificacion)}}
-                    {{ form_errors(edit_form.calificacion) }}
+                <td colspan="2" style="align-content: center">
+                    <div style="width: 100%; align-content: center; display: block">
+                        {{ form_label(edit_form.calificacion,  'Calificación:') }}
+                        {{ form_widget(edit_form.calificacion)}}
+                        {{ form_errors(edit_form.calificacion) }}
+                        <h5 style="width: min-content" id="myCalificacion"></h5>
+                    </div>
                 </td>
             </tr>
             <tr>
-                {% if eval.calificacion == null %}
-                <td>
-                    <h1 id="myCalificacion"></h1>
+                <td colspan="2" style="align-items: center">
+                    {{ form_label(edit_form.observaciones,  'Observaciones') }}<br>
+                    {{ form_widget(edit_form.observaciones)}}
+                    {{ form_errors(edit_form.observaciones) }}
                 </td>
+            </tr>
+            <tr>
                 <td style="vertical-align: middle">
-                        <button type="hidden" class="btn btn-lg btn-primary">Calificar</button>
+                        <button  id="buttonLiderCalf" type="hidden" class="btn btn-lg btn-primary" disabled="disabled">Calificar</button>
                 </td>
-                {% endif %}
 
             </tr>
             <font color="#F87217">{{ form_errors(edit_form) }}</font>

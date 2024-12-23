@@ -33,4 +33,5 @@
 
  function updateTextInput(val) {
      document.getElementById('myCalificacion').innerHTML=((parseInt(val)/10).toString());
+     document.getElementById('buttonLiderCalf').disabled = false;
  }

@@ -6,6 +6,7 @@ use App\Entity\evalDofe;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -26,7 +27,9 @@ class CalificarDofeType extends AbstractType {
                 'max' => 50,
                 'onchange' => 'updateTextInput(this.value)'
             ],
-        ));
+        ))
+            ->add('observaciones', TextareaType::class, array('required'  => true, 'attr' => array('cols' => '120', 'maxlength' => '512')))
+        ;
     }
 
     /**

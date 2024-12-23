@@ -42,6 +42,11 @@ class evalDofe {
     protected $calificacion;
 
     /**
+     * @ORM\Column(type="string", length=512, nullable=true)
+     */
+    protected $observaciones;
+
+    /**
      * Get id
      *
      * @return integer
@@ -119,5 +124,28 @@ class evalDofe {
     public function getCalificacion()
     {
         return $this->calificacion;
+    }
+
+    /**
+     * Set observaciones
+     *
+     * @param string $observaciones
+     * @return coevalLider
+     */
+    public function setObservaciones($observaciones)
+    {
+        $this->observaciones = $observaciones;
+
+        return $this;
+    }
+
+    /**
+     * Get observaciones
+     *
+     * @return string
+     */
+    public function getObservaciones()
+    {
+        return $this->observaciones;
     }
 }
