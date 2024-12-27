@@ -37,7 +37,7 @@ class evalDofe {
     protected $actividad;
 
      /**
-     * @ORM\Column(type="integer", nullable=true)
+      * @ORM\Column(type="decimal", scale=2, nullable=true)
      */
     protected $calificacion;
 
@@ -106,20 +106,19 @@ class evalDofe {
     /**
      * Set calificacion
      *
-     * @param integer $calificacion
+     * @param string $calificacion
      * @return evalDofe
      */
     public function setCalificacion($calificacion)
     {
         $this->calificacion = $calificacion;
-
         return $this;
     }
 
     /**
      * Get calificacion
      *
-     * @return integer
+     * @return string
      */
     public function getCalificacion()
     {

@@ -2,112 +2,130 @@
 
 {% block body -%}
 
-<h1>Evaluación al líder {{ entity.docente.user.nombres}} {{ entity.docente.user.apellidos}} : {{ entity.docente.user.id}} </h1>
+    <h1>Evaluación al líder {{ entity.docente.user.nombres }} {{ entity.docente.user.apellidos }}
+        : {{ entity.docente.user.id }} </h1>
 
 
 
-   <table class="table table-bordered hidden-mobile" style="width: 95%">
+    <table class="table table-bordered hidden-mobile" style="width: 95%">
         <thead>
-            <tr>
-                <th>Actividad</th>
-                <th></th>
-            </tr>
+        <tr>
+            <th>Actividad</th>
+            <th>Calificación</th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
-
         {% set temp = 'temp' %} {% set num = 0 %}
         {% set termino = 1 %}
-         {% set resp = "0" %}
+        {% set resp = "0" %}
         {% for actividad in actividades %}
-
-                    {%if temp != actividad.actividad.rol.nombre %}
+            {% if temp != actividad.actividad.rol.nombre %}
                 <tr>
                     <td colspan="2">
-                    <b>ROL:
-                    {{actividad.actividad.rol.nombre}}
-                    {% set temp = actividad.actividad.rol.nombre %}
-                    </b>
+                        <b>ROL:
+                            {{ actividad.actividad.rol.nombre }}
+                            {% set temp = actividad.actividad.rol.nombre %}
+                        </b>
                     </td>
-                                 </tr>
-                    {%endif%}
+                </tr>
+            {% endif %}
 
             <tr>
                 {% set num = num+1 %}
-                <td>{{num}}.
-                {{ actividad.actividad.descripcion }}
+                <td>{{ num }}.
+                    {{ actividad.actividad.descripcion }}
 
                 </td>
                 <td>
-                {%if actividad.calificacion is not null %}
-                    {{ actividad.calificacion }}
-                {%else%}
-                 <a data-toggle="modal" href="{{ path('dofe_calificaredit', { 'id': actividad.id }) }}" data-target="#myModal" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Calificar </a>
-                {% set termino = 0 %}
-                {%endif%}
-
-                 </td>
-               </tr>
+                    {% if entity.calificacion is not null %}
+                        {{ entity.calificacion|number_format(1,'.') }}
+                    {% else %}
+                        <a data-toggle="modal" href="{{ path('dofe_calificaredit', { 'id': actividad.id }) }}"
+                           data-target="#myModal" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Calificar
+                        </a>
+                        {% set termino = 0 %}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if entity.calificacion is not null %}
+                        <a data-toggle="modal" href="{{ path('dofe_calificaredit', { 'id': actividad.id }) }}"
+                           data-target="#myModal" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar </a>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <b>Observaciones:</b><br>
+                    {% if actividad.observaciones is not null %}
+                        {{ actividad.observaciones }}
+                    {% endif %}
+                </td>
+            </tr>
         {% endfor %}
         </tbody>
 
-          </table>
+    </table>
     <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
         <tbody>
-            <tr>
-                <td colspan="2">
-                {%if termino == 1 and entity.calificacion is null %}
-                <a data-toggle="modal" data-target="#ModalCerrar" class="btn btn-labeled btn-success"><span class="btn-label"><i class="glyphicon glyphicon-thumbs-up"></i></span>Finalizar Evaluación</a>
-                {%elseif entity.calificacion is  null %}
-                <div class="alert alert-danger fade in">
-                <button class="close" data-dismiss="alert">×</button>
-                <i class="fa-fw fa fa-times"></i>
-                <strong>Importante!</strong> No ha finalizado su evaluación. Califique cada actividad y luego oprima el botón "Finalizar Evaluación".
-                </div>
-                {%endif%}
-                </td>
-            </tr>
-            <tr>
-                <td>Fecha Evaluación: </td>
-                <td>Estado:
-                         {%if entity.calificacion == null%}
-                         <h1> <font color="#c7254e">Evaluación sin Finalizar !</font></h1>
-                         {%else%}
-                         Evaluación Cerrada
-                         {%endif%}
-                </td>
-            </tr>
+        <tr>
+            <td colspan="3">
+                Evaluación:
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Estado:
+                {% if entity.calificacion == null %}
+                    <h1><font color="#c7254e">Evaluación sin Finalizar !</font></h1>
+                {% else %}
+                    Evaluación realizada
+                {% endif %}
+            </td>
+            <td>
+            </td>
+        </tr>
 
         </tbody>
     </table>
 
 
-<div class="modal fade" data-refresh="true" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-lg">
-<div class="modal-content">
-</div></div></div>
+    <div class="modal fade" data-refresh="true" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
 
 
- <div class="modal fade" data-refresh="true" id="ModalCerrar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-sm">
-<div class="modal-content">
+    <div class="modal fade" data-refresh="true" id="ModalCerrar" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
                 <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
-                <h4 class="modal-title">Cerrar Evaluación</h4>
-                </div>			<!-- /modal-header -->
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+                    <h4 class="modal-title">Cerrar Evaluación</h4>
+                </div>            <!-- /modal-header -->
                 <div class="modal-body">
-                IMPORTANTE:
-Para finalizar la evaluación de {{ entity.docente.user.nombres}} {{ entity.docente.user.apellidos}}, oprima el bóton confirmar: <br>
+                    IMPORTANTE:
+                    Para finalizar la evaluación
+                    de {{ entity.docente.user.nombres }} {{ entity.docente.user.apellidos }}, oprima el bóton confirmar:
+                    <br>
                 </div>
                 <div class="modal-footer">
-               <form  action="{{ path('dofe_cerrar', { 'id': entity.id }) }}" method="get">
-                <button type="button" class="btn btn-default" data-dismiss="modal">
-                        Cancelar
-                </button>
-               <td><button type="hidden" class="btn btn-primary">Confirmar</button></td>
-               </form>
+                    <form action="{{ path('dofe_cerrar', { 'id': entity.id }) }}" method="get">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Cancelar
+                        </button>
+                        <td>
+                            <button type="hidden" class="btn btn-primary">Confirmar</button>
+                        </td>
+                    </form>
                 </div>
-</div></div>
- </div>
+            </div>
+        </div>
+    </div>
 
 
 

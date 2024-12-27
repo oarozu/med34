@@ -28,7 +28,7 @@ class CalificarDofeType extends AbstractType {
                 'onchange' => 'updateTextInput(this.value)'
             ],
         ))
-            ->add('observaciones', TextareaType::class, array('required'  => true, 'attr' => array('cols' => '120', 'maxlength' => '512')))
+            ->add('observaciones', TextareaType::class, array('required'  => true, 'attr' => array('cols' => '130', 'maxlength' => '512', 'style' => 'height: 100px')))
         ;
     }
 

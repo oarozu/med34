@@ -2,90 +2,102 @@
 
 {% block body -%}
 
-        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <!-- Widget ID (each widget will need unique ID)-->
-        <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-0"  data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false">
-                <!-- widget options:
-                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-                data-widget-colorbutton="false"
-                data-widget-editbutton="false"
-                data-widget-togglebutton="false"
-                data-widget-deletebutton="false"
-                data-widget-fullscreenbutton="true"
-                data-widget-custombutton="false"
-                data-widget-collapsed="true"
-                data-widget-sortable="false"
-            -->
+        <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-0" data-widget-editbutton="false"
+             data-widget-colorbutton="false" data-widget-deletebutton="false">
+            <!-- widget options:
+            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+            data-widget-colorbutton="false"
+            data-widget-editbutton="false"
+            data-widget-togglebutton="false"
+            data-widget-deletebutton="false"
+            data-widget-fullscreenbutton="true"
+            data-widget-custombutton="false"
+            data-widget-collapsed="true"
+            data-widget-sortable="false"
+        -->
             <header>
-                    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                    <h2>Docentes líderes a evaluar</h2>
+                <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                <h2>Docentes líderes a evaluar</h2>
             </header>
-<!-- widget div-->
-<div>
+            <!-- widget div-->
+            <div>
 
-            <!-- widget edit box -->
-            <div class="jarviswidget-editbox">
-            <!-- This area used as dropdown edit box -->
+                <!-- widget edit box -->
+                <div class="jarviswidget-editbox">
+                    <!-- This area used as dropdown edit box -->
 
                 </div>
                 <!-- end widget edit box -->
 
                 <!-- widget content -->
                 <div class="widget-body">
-                <table class="table table-bordered">
+                    <table class="table table-bordered">
                         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Cédula</th>
-                <th>Nombre</th>
-                <th>Rol</th>
-                <th>Escuela</th>
-                <th>Programa</th>
-                <th>Zona</th>
-                <th>Autoevaluación</th>
-                <th>Evaluación</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td>
-                {{ entity.docente.id }}
-                </td>
-                <td>{{ entity.docente.user.id }}</td>
-                <td>{{ entity.docente.user.nombres }} {{ entity.docente.user.apellidos }}</td>
-                <td>{{ entity.rol.nombre }}</td>
-                <td>
-               {{ entity.escuela.sigla }}
-                </td>
-                <td>
-               {{ entity.programa.id }}
-                </td>
-                 <td>
-               {{ entity.zona.nombre }}
-                </td>
-                <td>{{entity.docente.plangestion.fechaautoevaluacion? entity.docente.plangestion.fechaautoevaluacion|date('Y-m-d H:i'): 'sin registrar'}}</td>
-                <td>
-                 {%if entity.calificacion is not null%}
-                     {{ entity.calificacion |number_format(1,'.') }}
-                {%else%}
-                 <a  href="{{ path('dofe_eval', { 'id': entity.id }) }}"  class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Evaluar </a>
-                {%endif%}
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cédula</th>
+                            <th>Nombre</th>
+                            <th>Rol</th>
+                            <th>Escuela</th>
+                            <th>Programa</th>
+                            <th>Zona</th>
+                            <th>Autoevaluación</th>
+                            <th>Evaluación</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entity in entities %}
+                            <tr>
+                                <td>
+                                    {{ entity.docente.id }}
+                                </td>
+                                <td>{{ entity.docente.user.id }}</td>
+                                <td>{{ entity.docente.user.nombres }} {{ entity.docente.user.apellidos }}</td>
+                                <td>{{ entity.rol.nombre }}</td>
+                                <td>
+                                    {{ entity.escuela.sigla }}
+                                </td>
+                                <td>
+                                    {{ entity.programa.id }}
+                                </td>
+                                <td>
+                                    {{ entity.zona.nombre }}
+                                </td>
+                                <td>{{ entity.docente.plangestion.fechaautoevaluacion? entity.docente.plangestion.fechaautoevaluacion|date('Y-m-d H:i'): 'sin registrar' }}</td>
+                                <td>
+                                    {% if entity.calificacion is not null %}
+                                        {{ entity.calificacion |number_format(1,'.') }}
+                                    {% else %}
+                                        <a href="{{ path('dofe_eval', { 'id': entity.id }) }}"
+                                           class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Evaluar </a>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if entity.calificacion is not null %}
+                                        <a href="{{ path('dofe_eval', { 'id': entity.id }) }}"
+                                           class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
 
-            </div>
-              <!-- end widget content -->
+                </div>
+                <!-- end widget content -->
             </div>
             <!-- end widget div -->
         </div>
         <!-- end widget -->
-        </article>
-<div class="modal fade" data-refresh="true" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-<div class="modal-content">
-</div></div></div>
-    {% endblock %}
+    </article>
+    <div class="modal fade" data-refresh="true" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+{% endblock %}
