@@ -15,7 +15,7 @@ parameters:
     mailer_user: siga@unad.edu.co
     locale: en
     secret: ThisTokenIsNotSoSecretChangeIt
-    appmed.periodo: '20246'
+    appmed.periodo: '20247'
     appmed.year: '2024'
     appmed.semestre: '20245'
     appmed.periodos:
@@ -25,6 +25,7 @@ parameters:
         - '20244'
         - '20245'
         - '20246'
+        - '20247'
     mailer_password: q
 
 services:
