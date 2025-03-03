@@ -17,15 +17,15 @@ parameters:
     secret: ThisTokenIsNotSoSecretChangeIt
     appmed.periodo: '20247'
     appmed.year: '2024'
-    appmed.semestre: '20245'
+    appmed.semestre: '20251'
     appmed.periodos:
-        - '20241'
         - '20242'
         - '20243'
         - '20244'
         - '20245'
         - '20246'
         - '20247'
+        - '20251'
     mailer_password: q
 
 services:
