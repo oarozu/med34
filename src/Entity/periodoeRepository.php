@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class periodoeRepository extends EntityRepository
 {
-    public function findAll()
+    public function findAll(): array
     {
         return $this->findBy(array(), array('id' => 'ASC'));
     }

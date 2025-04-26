@@ -2,15 +2,17 @@
 
 namespace App\Entity;
 
+use App\Repository\UserRepository;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="admin_user")
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @var integer $id
@@ -139,6 +141,17 @@ class User implements UserInterface, \Serializable
         $this->username = $username;
     }
 
+
+    /**
+     * The public representation of the user (e.g. a username, an email address, etc.)
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->username;
+    }
+
     /**
      * Get username
      *
@@ -154,17 +167,17 @@ class User implements UserInterface, \Serializable
      *
      * @param string $password
      */
-    public function setPassword($password)
+    public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
     }
 
     /**
-     * Get password
-     *
-     * @return string
+     * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -182,11 +195,10 @@ class User implements UserInterface, \Serializable
     /**
      * Get salt
      *
-     * @return string
      */
-    public function getSalt()
+    public function getSalt(): ?string
     {
-        return $this->salt;
+        return null;
     }
 
     /**
