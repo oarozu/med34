@@ -1,13 +1,14 @@
 security:
-    encoders:
-        App\Entity\User:
-            algorithm: sha512
-            encode-as-base64: true
-            iterations: 10
+    enable_authenticator_manager: true
+
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
 
     providers:
-        user_db:
-            entity: { class: App\Entity\User, property: username }
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: username
 
     firewalls:
 
@@ -29,7 +30,6 @@ security:
         secured_area:
             switch_user: { role: ROLE_ADMIN, parameter: _quieroser }
             pattern:    ^/
-            anonymous: ~
             #            http_basic:
             #                realm: "Introduzca Usuario y Contraseña"
             form_login:

@@ -18,6 +18,8 @@ use App\Form\UserType;
 use App\Form\BuscarType;
 use App\Form\PassType;
 use App\Entity\Newpass;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactory;
+
 
 /**
  * User controller.
@@ -318,10 +320,18 @@ class UserController extends AbstractController
 
     private function setSecurePassword(&$entity)
     {
-        $entity->setSalt(md5(time()));
-        $encoder = new \Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder('sha512', true, 10);
-        $password = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
-        $entity->setPassword($password);
+        #$entity->setSalt(md5(time()));
+        #$encoder = new \Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder('sha512', true, 10);
+        // Retrieve the right password hasher by its name
+        // Configure different password hashers via the factory
+        $factory = new PasswordHasherFactory([
+            'common' => ['algorithm' => 'bcrypt'],
+            'memory-hard' => ['algorithm' => 'sodium'],
+        ]);
+        $passwordHasher = $factory->getPasswordHasher('common');
+        $hash = $passwordHasher->hash($entity->getPassword());
+        #$password = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
+        $entity->setPassword($hash);
     }
 
     private function generateRandomString($length = 6)
