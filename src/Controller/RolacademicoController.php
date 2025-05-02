@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -16,6 +17,10 @@ use App\Form\RolacademicoType;
  */
 class RolacademicoController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * Lists all Rolacademico entities.
@@ -24,7 +29,7 @@ class RolacademicoController extends AbstractController
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entities = $em->getRepository('App:Rolacademico')->findAll();
 
@@ -44,7 +49,7 @@ class RolacademicoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -99,7 +104,7 @@ class RolacademicoController extends AbstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Rolacademico')->find($id);
 
@@ -122,7 +127,7 @@ class RolacademicoController extends AbstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Rolacademico')->find($id);
 
@@ -165,7 +170,7 @@ class RolacademicoController extends AbstractController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Rolacademico')->find($id);
 
@@ -200,7 +205,7 @@ class RolacademicoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $entity = $em->getRepository('App:Rolacademico')->find($id);
 
             if (!$entity) {

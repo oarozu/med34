@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,6 +17,10 @@ use App\Form\EscuelaType;
  */
 class EscuelaController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * Lists all Escuela entities.
@@ -24,7 +29,7 @@ class EscuelaController extends AbstractController
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entities = $em->getRepository('App:Escuela')->findAll();
 
@@ -44,14 +49,14 @@ class EscuelaController extends AbstractController
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $decano = $em->getRepository('App:User')->find($form["decano"]->getData());
         $entity->setDecano($decano);
         $secretaria = $em->getRepository('App:User')->find($form["secretaria"]->getData());
         $entity->setSecretaria($secretaria);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -106,7 +111,7 @@ class EscuelaController extends AbstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Escuela')->find($id);
         $terna = $em->getRepository('App:Terna')->findBy(array('escuela' => $entity, 'periodo' => $this->getParameter('appmed.periodo')));
@@ -132,7 +137,7 @@ class EscuelaController extends AbstractController
      */
     public function infoAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $year = $this->getParameter('appmed.year');
         $session = $request->getSession();
@@ -178,7 +183,7 @@ class EscuelaController extends AbstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Escuela')->find($id);
 
@@ -224,7 +229,7 @@ class EscuelaController extends AbstractController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Escuela')->find($id);
 
@@ -265,7 +270,7 @@ class EscuelaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $entity = $em->getRepository('App:Escuela')->find($id);
 
             if (!$entity) {
@@ -301,7 +306,7 @@ class EscuelaController extends AbstractController
      */
     public function coevalliderAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $escuela = $em->getRepository('App:Escuela')->find($session->get('escuelaid'));
         if (!$escuela) {
@@ -319,7 +324,7 @@ class EscuelaController extends AbstractController
      */
     public function heteroevalAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $escuela = $em->getRepository('App:Escuela')->find($session->get('escuelaid'));
         $docentes = $em->getRepository('App:Docente')->findby(array('escuela' => $session->get('escuelaid')));
@@ -338,7 +343,7 @@ class EscuelaController extends AbstractController
      */
     public function resultadosAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $escuela = $em->getRepository('App:Escuela')->find($session->get('escuelaid'));
         if (!$escuela) {

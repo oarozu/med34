@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,6 +17,10 @@ use App\Form\ProgramaType;
  */
 class ProgramaController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
     /**
      * Lists all Programa entities.
      *
@@ -23,7 +28,7 @@ class ProgramaController extends AbstractController
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
 
         if ($this->container->get('security.authorization_checker')->isGranted('ROLE_SECA')) {
@@ -45,7 +50,7 @@ class ProgramaController extends AbstractController
      */
     public function porperiodoAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entities = $em->getRepository('App:ProgramaPeriodo')->findBy(array('periodo' => $id));
         return $this->render('Programa/porperiodo.html.twig', array(
             'entities' => $entities,
@@ -65,7 +70,7 @@ class ProgramaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -120,7 +125,7 @@ class ProgramaController extends AbstractController
      */
     public function showAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $programa = $em->getRepository('App:Programa')->find($id);
         $cursos = $em->getRepository('App:Curso')->findBy(array('programa' => $id));
@@ -147,7 +152,7 @@ class ProgramaController extends AbstractController
      */
     public function modalAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:ProgramaPeriodo')->find($id);
         $cursos = $em->getRepository('App:Curso')->findBy(array('programa' => $entity->getPrograma()));
         $periodoa = $em->getRepository('App:Periodoa')->findBy(array('periodoe' => $entity->getPeriodo()->getId()));
@@ -169,7 +174,7 @@ class ProgramaController extends AbstractController
      */
     public function programacursos($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:ProgramaPeriodo')->find($id);
         $cursos = $em->getRepository('App:Curso')->findBy(array('programa' => $entity->getPrograma()));
         $periodoa = $em->getRepository('App:Periodoa')->findBy(array('periodoe' => $entity->getPeriodo()->getId()));
@@ -191,7 +196,7 @@ class ProgramaController extends AbstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Programa')->find($id);
 
@@ -235,7 +240,7 @@ class ProgramaController extends AbstractController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $entity = $em->getRepository('App:Programa')->find($id);
         $periodo = $em->getRepository('App:Periodoe')->find($session->get('periodoe'));
@@ -276,7 +281,7 @@ class ProgramaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $entity = $em->getRepository('App:Programa')->find($id);
 
             if (!$entity) {
@@ -313,7 +318,7 @@ class ProgramaController extends AbstractController
      */
     public function addliderAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $periodo = $em->getRepository('App:Periodoe')->find($session->get('periodoe'));
         $escuela = $em->getRepository('App:Escuela')->find($session->get('escuelaid'));

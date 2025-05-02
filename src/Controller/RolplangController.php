@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -16,7 +17,10 @@ use App\Form\RolplangType;
  */
 class RolplangController extends AbstractController
 {
-
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * Creates a new Rolplang entity.
@@ -27,14 +31,14 @@ class RolplangController extends AbstractController
     {
         $entity = new Rolplang();
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $plang = $em->getRepository('App:Plangestion')->find($id);
         $entity->setPlang($plang);
         $form = $this->createCreateForm($entity, $id, $plang->getDias());
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
 
             try {
                 $em->persist($entity);
@@ -86,7 +90,7 @@ class RolplangController extends AbstractController
     public function newAction($id, $idr)
     {
         $entity = new Rolplang();
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $plang = $em->getRepository('App:Plangestion')->find($id);
         $rol = $em->getRepository('App:Rolacademico')->find($idr);
         $roles = $em->getRepository('App:Rolplang')->findBy(array('plang' => $plang));
@@ -114,7 +118,7 @@ class RolplangController extends AbstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Rolplang')->find($id);
 
@@ -137,7 +141,7 @@ class RolplangController extends AbstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Rolplang')->find($id);
 
@@ -181,7 +185,7 @@ class RolplangController extends AbstractController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Rolplang')->find($id);
 
@@ -217,7 +221,7 @@ class RolplangController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $entity = $em->getRepository('App:Rolplang')->find($id);
 
             if (!$entity) {

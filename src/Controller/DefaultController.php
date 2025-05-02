@@ -3,18 +3,27 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Instrumento;
 use App\Entity\Periodoe;
 use Admin\UnadBundle\Entity\Docente;
+use Doctrine\Persistence\ManagerRegistry;
 
 
 class DefaultController extends AbstractController {
 
+    private $doctrine;
+    private $requestStack;
+
+    public function __construct(ManagerRegistry $doctrine, RequestStack $requestStack) {
+        $this->doctrine = $doctrine;
+        $this->requestStack = $requestStack;
+    }
+
     public function indexAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $periodos = $em->getRepository('App:Periodoe')->findby(array('type' => 'p', 'year' => $this->getParameter('appmed.year')), array('id' => 'DESC'));
         $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $this->getParameter('appmed.periodo')));
         $instrumentos = $em->getRepository('App:Instrumentos')->findBy(array('periodoe' => $periodoe));
@@ -24,7 +33,7 @@ class DefaultController extends AbstractController {
         $dias = $diff->format("%a");
         $hoy = $diff2->format("%a");
 
-        $session = $request->getSession();
+        $session = $this->requestStack->getSession();
         $session->set('periodoe', $this->getParameter('appmed.periodo'));
 
         if (true === $this->container->get('security.authorization_checker')->isGranted('ROLE_DEC')) {
@@ -68,7 +77,7 @@ class DefaultController extends AbstractController {
             $docente = $em->getRepository('App:Docente')->findOneBy(array('user' => $this->getUser(), 'periodo' => $this->getParameter('appmed.periodo')));
 
             if (!$docente) {
-                $this->get('session')->getFlashBag()->add('warning', 'Sin activar en el periodo actual');
+                $session->getFlashBag()->add('warning', 'Sin activar en el periodo actual');
             } else {
                 $session->set('docenteid', $docente->getId());
 
@@ -91,8 +100,8 @@ class DefaultController extends AbstractController {
 
     public function periodAction(Request $request)
     {
-        $session = $request->getSession();
-        $em = $this->getDoctrine()->getManager();
+        $session = $this->requestStack->getSession();
+        $em = $this->doctrine->getManager();
         $escuelaid = $session->get('escuelaid');
         $user = $this->getUser();
         if ($escuelaid == null && !$this->container->get('security.authorization_checker')->isGranted('ROLE_DC')) {
@@ -101,7 +110,7 @@ class DefaultController extends AbstractController {
                 $session->set('escuelaid', $escuelas[0]['escuela_id'] );
             }
         }
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $year = $this->getParameter('appmed.year');
         $roles = $this->getUser()->getUserRoles();
         $isdc = false;
@@ -126,13 +135,13 @@ class DefaultController extends AbstractController {
     }
 
     public function selectAction(Request $request, $id){
-        $session = $request->getSession();
+        $session = $this->requestStack->getSession();
         $session->set('periodoe', $id);
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine;
         $user = $this->getUser();
         $docente = $em->getRepository('App:Docente')->findOneBy(array('user' => $user, 'periodo' => $id));
         if (!$docente) {
-            $this->get('session')->getFlashBag()->add('warning', 'Usted no tiene asignación en el periodo seleccionado:', $id);
+            $session->getFlashBag()->add('warning', 'Usted no tiene asignación en el periodo seleccionado:', $id);
             return $this->redirect($this->generateUrl('home_user_periodo'));
         } else {
             $session->set('docenteid', $docente->getId());
@@ -143,12 +152,10 @@ class DefaultController extends AbstractController {
 
     public function homeAction(Request $request) {
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $instrumentos = $em->getRepository('App:Instrumento')->findAll();
         $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $this->getParameter('appmed.periodo')));
         $periodos = $em->getRepository('App:Periodoe')->findby(array('year' => $this->getParameter('appmed.year')));
-
-        $session = $request->getSession();
 
         $cedula_usuario = $request->request->get('cedula_usuario');
 
@@ -200,9 +207,8 @@ class DefaultController extends AbstractController {
         }
     }
 
-    public function sendAction() {
-        $request = $this->getRequest();
-        $session = $request->getSession();
+    public function sendAction(Request $request) {
+        $session = $this->requestStack->getSession();
         $cedula_usuario = $session->get('cedula_usuario');
         $pass = $request->server->get('MED_PKW');
         $formulario = "<form method='post' name='datos' action='/login_check'>";
@@ -222,7 +228,4 @@ class DefaultController extends AbstractController {
         $formulario .= "<script>document.forms[0].submit(); </script>";
         echo $formulario;
     }
-
-
-
 }

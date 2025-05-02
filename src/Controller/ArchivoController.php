@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -16,6 +17,10 @@ use App\Form\ArchivoType;
  */
 class ArchivoController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
      /**
      * Lists all Archivo entities.
@@ -24,7 +29,7 @@ class ArchivoController extends AbstractController
      */
     public function pordocAction($ced)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entities = $em->getRepository('App:Archivo')->findBy(array('cedula' => $ced));
 
@@ -41,7 +46,7 @@ class ArchivoController extends AbstractController
      */
     public function porperiodoAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entities = $em->getRepository('App:Archivo')->findBy(array('periodo' => $id));
 
@@ -58,7 +63,7 @@ class ArchivoController extends AbstractController
      */
     public function docenteAction()
     {
-       $em = $this->getDoctrine()->getManager();
+       $em = $this->doctrine->getManager();
        $user = $this->get('security.token_storage')->getToken()->getUser();
        $userId = $user->getId();
        $entities = $em->getRepository('App:Archivo')->findBy(array('cedula' => $userId));
@@ -79,7 +84,7 @@ class ArchivoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -118,7 +123,7 @@ class ArchivoController extends AbstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Archivo')->find($id);
 
@@ -162,7 +167,7 @@ class ArchivoController extends AbstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Archivo')->find($id);
 
@@ -205,7 +210,7 @@ class ArchivoController extends AbstractController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Archivo')->find($id);
 
@@ -240,7 +245,7 @@ class ArchivoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $entity = $em->getRepository('App:Archivo')->find($id);
 
             if (!$entity) {

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +18,10 @@ use App\Form\ZonaType;
  */
 class ZonaController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * Lists all Zona entities.
@@ -25,7 +30,7 @@ class ZonaController extends AbstractController
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entities = $em->getRepository('App:Zona')->findAll();
 
@@ -45,7 +50,7 @@ class ZonaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -100,7 +105,7 @@ class ZonaController extends AbstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Zona')->find($id);
 
@@ -123,7 +128,7 @@ class ZonaController extends AbstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Zona')->find($id);
 
@@ -171,7 +176,7 @@ class ZonaController extends AbstractController
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
         }
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Zona')->find($id);
 
         if (!$entity) {
@@ -232,7 +237,7 @@ class ZonaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $entity = $em->getRepository('App:Zona')->find($id);
 
             if (!$entity) {
@@ -268,7 +273,7 @@ class ZonaController extends AbstractController
      */
     public function listaAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $zona = $user->getDirectorzona();
         $year = $this->getParameter('appmed.year');

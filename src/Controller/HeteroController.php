@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +17,10 @@ use App\Service\CvsHelper;
  * @Route("/unad/hetero")
  */
 class HeteroController extends AbstractController {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * Lists all hetero semestre actual
@@ -23,7 +28,7 @@ class HeteroController extends AbstractController {
      * @Route("/pcurso/{pe}", name="hetero_index", methods={"GET"})
      */
     public function indexAction($pe) {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entities = $em->getRepository('App:Heterocursos')->findBy(array('semestre' => $pe));
         return $this->render('Hetero/index.html.twig', array(
@@ -36,7 +41,7 @@ class HeteroController extends AbstractController {
      * @Route("/prom_esc", name="hetero_prom_esc", methods={"GET"})
      */
     public function heteroescuelasAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $datas = $em->getRepository('App:Heteroeval')->getPromedioescuela();
        $session = $request->getSession();
        $miescuela = $session->get('escuelaid');
@@ -51,7 +56,7 @@ class HeteroController extends AbstractController {
      * @Route("/prom_esc/csv", name="hetero_prom_esc_csv", methods={"GET"})
      */
     public function heteroescuelascsvAction(Request $request, CvsHelper $cvsHelper) {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $result = $em->getRepository('App:Heteroeval')->getPromedioescuela();
         $response = new Response();
         $responseString = $cvsHelper->array2csv($result);
@@ -69,7 +74,7 @@ class HeteroController extends AbstractController {
      */
     public function escuelaperiodoAction($esc, $pe) {
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $docentes = $em->getRepository('App:Docente')->findBy(array('periodo' => $pe, 'escuela' => $esc));
         $hetero = $em->getRepository('App:Heteroeval')->findBy(array('docente' => $docentes));
         $escuela = $em->getRepository('App:Escuela')->find($esc);

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -19,6 +20,10 @@ use App\Form\ProyectoiType;
  */
 class ProductividadController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
     /**
      * Displays a form to create a new Actividadplang entity.
      *
@@ -27,7 +32,7 @@ class ProductividadController extends AbstractController
     public function newAction(Request $request, $tipo)
     {
         $entity = new Productividad();
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $docenteid = $session->get('docenteid');
         $user = $this->getUser()->getUsername();
@@ -89,7 +94,7 @@ class ProductividadController extends AbstractController
     public function addAction(Request $request, $id)
     {
         $entity = new Productividad();
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $plang = $em->getRepository('App:Plangestion')->find($id);
         $user = $this->getUser()->getUsername();
 
@@ -114,7 +119,7 @@ class ProductividadController extends AbstractController
     public function addprojectAction(Request $request)
     {
         $entity = new Proyectoi();
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $user = $this->getUser();
 
         $entity->setUser($user);
@@ -145,7 +150,7 @@ class ProductividadController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $entity = $em->getRepository('App:Productividad')->find($id);
 
             if (!$entity) {
@@ -181,7 +186,7 @@ class ProductividadController extends AbstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Productividad')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Rolplang entity.');

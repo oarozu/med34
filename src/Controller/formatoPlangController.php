@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,6 +16,10 @@ use App\Form\formatoPlangType;
  */
 class formatoPlangController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
 
     /**
@@ -24,7 +29,7 @@ class formatoPlangController extends AbstractController
      */
     public function createAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $docente = $em->getRepository('App:Docente')->find($id);
         $plan = $em->getRepository('App:Plangestion')->findOneBy(array('docente' => $docente));
         $entity = new formatoPlang();
@@ -33,7 +38,7 @@ class formatoPlangController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('docente_show', array('id' => $id)));
@@ -91,7 +96,7 @@ class formatoPlangController extends AbstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:formatoPlang')->find($id);
 
@@ -114,7 +119,7 @@ class formatoPlangController extends AbstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:formatoPlang')->find($id);
 
@@ -157,7 +162,7 @@ class formatoPlangController extends AbstractController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:formatoPlang')->find($id);
 
@@ -192,7 +197,7 @@ class formatoPlangController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $entity = $em->getRepository('App:formatoPlang')->find($id);
 
             if (!$entity) {

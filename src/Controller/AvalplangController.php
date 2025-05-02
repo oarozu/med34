@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,6 +20,10 @@ use Symfony\Component\Security\Core\Security;
  */
 class AvalplangController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * Lists all Avalplang entities.
@@ -27,7 +32,7 @@ class AvalplangController extends AbstractController
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $entities = $em->getRepository('App:Avalplang')->findby(array('user' => $user, 'periodo' => $this->getParameter('appmed.semestre')));
@@ -43,7 +48,7 @@ class AvalplangController extends AbstractController
      */
     public function listaAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entities = $em->getRepository('App:Avalplang')
             ->findBy(
@@ -65,7 +70,7 @@ class AvalplangController extends AbstractController
      */
     public function porescuelaAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $escuelaid = $session->get('escuelaid');
         $semestre = $this->getParameter('appmed.semestre');
@@ -107,7 +112,7 @@ class AvalplangController extends AbstractController
     public function plangestionAction($id)
     {
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $docente = $em->getRepository('App:Docente')->find($id);
         $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $docente->getPeriodo()));
@@ -133,7 +138,7 @@ class AvalplangController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -188,7 +193,7 @@ class AvalplangController extends AbstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Avalplang')->find($id);
 
@@ -211,7 +216,7 @@ class AvalplangController extends AbstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Avalplang')->find($id);
 
         $texto = explode('\n', $entity->getObservaciones());
@@ -254,7 +259,7 @@ class AvalplangController extends AbstractController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Avalplang')->find($id);
         $plan = $entity->getPlan();
@@ -307,7 +312,7 @@ class AvalplangController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $entity = $em->getRepository('App:Avalplang')->find($id);
 
             if (!$entity) {
@@ -353,7 +358,7 @@ class AvalplangController extends AbstractController
 
     public function addAvales()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $semestre = $this->getParameter('appmed.semestre');
         $docentes = $em->getRepository('App:Docente')->findBy(array('periodo' => $semestre, 'vinculacion' => 'DC'));
 

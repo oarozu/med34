@@ -8,6 +8,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -18,7 +19,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ConsolidarController extends AbstractController
 {
-
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * Mostrar Home
@@ -35,7 +39,7 @@ class ConsolidarController extends AbstractController
      */
     public function heterocursosAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $connection = $em->getConnection();
         $q = "update evaluacion as a
         left join plangestion as p ON a.id = p.docente_id

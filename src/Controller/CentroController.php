@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,6 +17,10 @@ use App\Form\CentroType;
  */
 class CentroController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * Lists all Centro entities.
@@ -24,7 +29,7 @@ class CentroController extends AbstractController
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entities = $em->getRepository('App:Centro')->ordenZona();
         return $this->render('Centro/index.html.twig', array(
             'entities' => $entities,
@@ -43,7 +48,7 @@ class CentroController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -98,7 +103,7 @@ class CentroController extends AbstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Centro')->find($id);
 
         if (!$entity) {
@@ -119,7 +124,7 @@ class CentroController extends AbstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Centro')->find($id);
 
         if (!$entity) {
@@ -162,7 +167,7 @@ class CentroController extends AbstractController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Centro')->find($id);
 
@@ -201,7 +206,7 @@ class CentroController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $entity = $em->getRepository('App:Centro')->find($id);
 
             if (!$entity) {
@@ -236,7 +241,7 @@ class CentroController extends AbstractController
      */
     public function docsAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $centros = $user->getDirectorcentro();
         $centro = $em->getRepository('App:Centro')->findBy(array('id' => $id));

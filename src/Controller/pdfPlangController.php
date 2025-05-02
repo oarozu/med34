@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +18,10 @@ use App\Service\FileUploader;
  */
 class pdfPlangController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * Lists all formatoPlang entities.
@@ -25,7 +30,7 @@ class pdfPlangController extends AbstractController
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entities = $em->getRepository('App:formatoPlang')->findAll();
 
@@ -40,7 +45,7 @@ class pdfPlangController extends AbstractController
      */
     public function createAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $docente = $em->getRepository('App:Docente')->find($id);
         $plan = $em->getRepository('App:Plangestion')->findOneBy(array('docente' => $docente));
         $entity = new pdfPlang($id,$docente->getPeriodo());
@@ -50,7 +55,7 @@ class pdfPlangController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('avalplang'));
@@ -90,7 +95,7 @@ class pdfPlangController extends AbstractController
     public function newAction($id)
     {
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $docente = $em->getRepository('App:Docente')->find($id);
         $entity = new pdfPlang($id,$docente->getPeriodo());
 
@@ -114,7 +119,7 @@ class pdfPlangController extends AbstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:formatoPlang')->find($id);
 
@@ -157,7 +162,7 @@ class pdfPlangController extends AbstractController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:formatoPlang')->find($id);
 
@@ -192,7 +197,7 @@ class pdfPlangController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $entity = $em->getRepository('App:formatoPlang')->find($id);
 
             if (!$entity) {

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -14,6 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class LiderController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * Lists all cursos entities por escuela.
@@ -23,7 +28,7 @@ class LiderController extends AbstractController
      */
     public function porescuelaAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $escuela = $em->getRepository('App:Escuela')->findOneBy(array('id' => $id));
         $sigla = $escuela->getSigla();
         $entities = $em->getRepository('App:Curso')->findBy(array('escuela' => $sigla));
@@ -45,7 +50,7 @@ class LiderController extends AbstractController
     {
         $session = $request->getSession();
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $programas = $em->getRepository('App:Programa')->findBy(array('lider' => $user));
         $cursos = $em->getRepository('App:Curso')->findBy(array('programa' => $programas));

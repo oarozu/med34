@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +18,10 @@ use App\Form\CalificarDofeType;
  */
 class DofeController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * Lists all Escuela entities.
@@ -25,7 +30,7 @@ class DofeController extends AbstractController
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entities = $em->getRepository('App:RedDofe')->findBy(array('periodo' => '20236'));
         return $this->render('Dofe/index.html.twig', array(
             'entities' => $entities
@@ -38,7 +43,7 @@ class DofeController extends AbstractController
      */
     public function evaluarAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entities = $em->getRepository('App:RedDofe')->findBy(array('evaluador' => $this->getUser(), 'periodo' => $this->getParameter('appmed.periodo')));
         return $this->render('Dofe/evaluar.html.twig', array(
             'entities' => $entities,
@@ -51,7 +56,7 @@ class DofeController extends AbstractController
      */
     public function evalAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $evaluacion = $em->getRepository('App:RedDofe')->findOneBy(array('id' => $id));
         $actividades = $em->getRepository('App:evalDofe')->findBy(array('evaluacion' => $evaluacion));
         if (count($actividades) == 0) {
@@ -79,7 +84,7 @@ class DofeController extends AbstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:evalDofe')->find($id);
         $eval = $entity->getEvaluacion();
@@ -107,7 +112,7 @@ class DofeController extends AbstractController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:evalDofe')->find($id);
         $eval = $entity->getEvaluacion();
         if (!$entity) {
@@ -151,7 +156,7 @@ class DofeController extends AbstractController
      */
     public function cerrarAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:RedDofe')->findOneBy(array('id' => $id));
 
         if (!$entity) {

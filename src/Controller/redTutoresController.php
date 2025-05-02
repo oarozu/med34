@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -16,6 +17,10 @@ use App\Form\redTutoresType;
  */
 class redTutoresController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
     /**
      * Lists all redTutores entities.
      *
@@ -23,7 +28,7 @@ class redTutoresController extends AbstractController
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $entity = $em->getRepository('App:Docente')->find($session->get('docenteid'));
         $tutorias = $em->getRepository('App:Tutor')->findBy(array('docente' => $entity));
@@ -44,7 +49,7 @@ class redTutoresController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -99,7 +104,7 @@ class redTutoresController extends AbstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:redTutores')->find($id);
 
@@ -122,13 +127,13 @@ class redTutoresController extends AbstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:redTutores')->find($id);
 
         if (!$entity) {
             $entity = new redTutores();
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $tutor = $em->getRepository('App:Tutor')->find($id);
             $entity->setId($tutor);
             $em->persist($entity);
@@ -171,7 +176,7 @@ class redTutoresController extends AbstractController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:redTutores')->find($id);
 
@@ -211,7 +216,7 @@ class redTutoresController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $entity = $em->getRepository('App:redTutores')->find($id);
 
             if (!$entity) {

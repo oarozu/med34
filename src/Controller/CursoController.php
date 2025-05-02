@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Rolplang;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -23,6 +24,10 @@ use App\Form\CursoprogType;
  */
 class CursoController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * Lists all Curso entities.
@@ -31,7 +36,7 @@ class CursoController extends AbstractController
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entities = $em->getRepository('App:Curso')->findAll();
         return $this->render('Curso/index.html.twig', array(
             'entities' => $entities,
@@ -48,7 +53,7 @@ class CursoController extends AbstractController
      */
     public function porescuelaAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $escuela = $em->getRepository('App:Escuela')->findOneBy(array('id' => $id));
         $sigla = $escuela->getSigla();
         $entities = $em->getRepository('App:Curso')->findBy(array('escuela' => $sigla));
@@ -72,7 +77,7 @@ class CursoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('curso_show', array('id' => $entity->getId())));
@@ -125,7 +130,7 @@ class CursoController extends AbstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Curso')->find($id);
         $peracas = $em->getRepository('App:Periodoe')->findLastThree();
@@ -158,7 +163,7 @@ class CursoController extends AbstractController
 
     public function ofertaAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Oferta')->find($id);
 
         if (!$entity) {
@@ -182,7 +187,7 @@ class CursoController extends AbstractController
      */
     public function ofertaCursoAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $curso = $em->getRepository('App:Curso')->find($id);
         $oferta = new Oferta();
         $datos = $request->request->get('oferta');
@@ -221,7 +226,7 @@ class CursoController extends AbstractController
      */
     public function ofertaTutorAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $oferta = $em->getRepository('App:Oferta')->find($id);
         $data = new Cedula();
         $form = $this->createForm(CedulaTypeMed::class, $data);
@@ -277,7 +282,7 @@ class CursoController extends AbstractController
      */
     public function modalAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Oferta')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Curso entity.');
@@ -301,7 +306,7 @@ class CursoController extends AbstractController
      */
     public function editAction($id, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $escuelaid = $session->get('escuelaid');
         $entity = $em->getRepository('App:Curso')->find($id);
@@ -335,7 +340,7 @@ class CursoController extends AbstractController
      */
     public function ofertaeditAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Oferta')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('NO se encontro oferta');
@@ -395,7 +400,7 @@ class CursoController extends AbstractController
      */
     public function ofertaupdateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $oferta = $em->getRepository('App:Oferta')->find($id);
         $cedula = new Cedula();
         $Form = $this->createForm(CedulaTypeMed::class, $cedula, array(
@@ -433,7 +438,7 @@ class CursoController extends AbstractController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $escuelaid = $session->get('escuelaid');
         $entity = $em->getRepository('App:Curso')->find($id);
@@ -469,7 +474,7 @@ class CursoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $entity = $em->getRepository('App:Curso')->find($id);
 
             if (!$entity) {
@@ -506,7 +511,7 @@ class CursoController extends AbstractController
      */
     public function borrartutorAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Tutor')->find($id);
         $oferta = $entity->getOferta();
         $director = $oferta->getDirector();

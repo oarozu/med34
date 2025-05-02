@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Rolplang;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,6 +20,10 @@ use App\Form\PlangestionType;
  */
 class PlangestionController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * Creates a new Plangestion entity.
@@ -32,7 +37,7 @@ class PlangestionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -69,7 +74,7 @@ class PlangestionController extends AbstractController
     public function addAction(Request $request)
     {
         $entity = new Plangestion();
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));
         if (!$docente) {
@@ -94,7 +99,7 @@ class PlangestionController extends AbstractController
      */
     public function showAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $periodoe_id = $session->get('periodoe');
         $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $periodoe_id));
@@ -113,7 +118,7 @@ class PlangestionController extends AbstractController
     }
 
     public function checkActividades($plang, $rolId){
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $rolAc = $em->getRepository('App:Rolacademico')->findOneBy(array('id' => $rolId));
         $roles = $em->getRepository('App:Rolplang')->findBy(array('plang' => $plang, 'rol' => $rolAc));
         if (count($roles) > 0){
@@ -126,7 +131,7 @@ class PlangestionController extends AbstractController
     }
 
     public function addActividades($plang, $rolAc){
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         foreach ($rolAc->getActividades() as $actividad) {
             $actividadplan = new Actividadplang();
             $actividadplan->setPlang($plang);
@@ -141,7 +146,7 @@ class PlangestionController extends AbstractController
      */
     public function dofeAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Plangestion')->find($id);
 
@@ -159,7 +164,7 @@ class PlangestionController extends AbstractController
     public function confAction(Request $request)
     {
         $session = $request->getSession();
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
         $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));
         $entity = $em->getRepository('App:Plangestion')->findOneBy(array('docente' => $docente));
@@ -190,7 +195,7 @@ class PlangestionController extends AbstractController
     public function addRole(Request $request, $id)
     {
         $session = $request->getSession();
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));
         $plang = $em->getRepository('App:Plangestion')->findOneBy(array('docente' => $docente));
         $rol_a = $em->getRepository('App:Rolacademico')->findOneBy(array('id' => $id));
@@ -212,7 +217,7 @@ class PlangestionController extends AbstractController
     public function crearAction(Request $request)
     {
         $session = $request->getSession();
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));
         $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $docente->getPeriodo()));
         $entity = $em->getRepository('App:Plangestion')->findOneBy(array('docente' => $docente));
@@ -234,7 +239,7 @@ class PlangestionController extends AbstractController
      */
     public function infoAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $docente = $em->getRepository('App:Docente')->find($id);
         $entity = $docente->getPlangestion();
         $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $docente->getPeriodo()));
@@ -265,7 +270,7 @@ class PlangestionController extends AbstractController
      */
     public function autoevalAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $docente = $em->getRepository('App:Docente')->find($id);
         if (!$docente) {
             throw $this->createNotFoundException('No se encuentra docente entity.');
@@ -288,7 +293,7 @@ class PlangestionController extends AbstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Plangestion')->find($id);
 
@@ -313,7 +318,7 @@ class PlangestionController extends AbstractController
      */
     public function abrirAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Plangestion')->find($id);
 
@@ -356,7 +361,7 @@ class PlangestionController extends AbstractController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $entity = $em->getRepository('App:Plangestion')->find($id);
         $docenteid = $session->get('docenteid');
@@ -410,7 +415,7 @@ class PlangestionController extends AbstractController
      */
     public function abrirRegistroAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $entity = $em->getRepository('App:Plangestion')->find($id);
         $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));
@@ -446,7 +451,7 @@ class PlangestionController extends AbstractController
      */
     public function cerrarAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Plangestion')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Entidad No encontrada');
@@ -463,7 +468,7 @@ class PlangestionController extends AbstractController
      */
     public function confirmAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Plangestion')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Entidad No encontrada');
@@ -500,7 +505,7 @@ class PlangestionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $entity = $em->getRepository('App:Plangestion')->find($id);
 
             if (!$entity) {
@@ -531,7 +536,7 @@ class PlangestionController extends AbstractController
 
     public function addAvales(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));
         //agregar avalador Decano N

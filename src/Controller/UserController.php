@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\CedulaType;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,13 +29,17 @@ use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactory;
  */
 class UserController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
     /**
      * Lists all Usuarios entities.
      * @Route("/", name="admin_user", methods={"GET"})
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $dql = "select a from App:User a ORDER BY a.updated DESC";
         $query = $em->createQuery($dql);
         $query->setMaxResults(200);
@@ -98,7 +103,7 @@ class UserController extends AbstractController
 
     public function buscarDocenteAction($text, $parametro)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         if ($parametro == 'ced') {
             $query = $em->createQuery('SELECT a FROM App:User a WHERE a.id LIKE :text');
         } elseif ($parametro == 'nom') {
@@ -126,7 +131,7 @@ class UserController extends AbstractController
 
         if ($form->isValid()) {
             $this->setSecurePassword($entity);
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -159,7 +164,7 @@ class UserController extends AbstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $archivo = $em->getRepository('App:Archivo')->findBy(array('cedula' => $id));
 
@@ -194,7 +199,7 @@ class UserController extends AbstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:User')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
@@ -215,7 +220,7 @@ class UserController extends AbstractController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:User')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
@@ -260,7 +265,7 @@ class UserController extends AbstractController
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
         }
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:User')->find($id);
 
         if (!$entity) {
@@ -375,7 +380,7 @@ class UserController extends AbstractController
         if (!$request->isXmlHttpRequest()) {
             return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
         }
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $valores = new Newpass();
         $Form = $this->createForm(PassType::class, $valores);
 

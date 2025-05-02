@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +18,10 @@ use App\Form\InstrumentoType;
  */
 class InstrumentoController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * Lists all Instrumento entities.
@@ -25,7 +30,7 @@ class InstrumentoController extends AbstractController
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entities = $em->getRepository('App:Instrumento')->findAll();
 
@@ -45,7 +50,7 @@ class InstrumentoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -100,7 +105,7 @@ class InstrumentoController extends AbstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Instrumento')->find($id);
 
@@ -123,7 +128,7 @@ class InstrumentoController extends AbstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Instrumento')->find($id);
 
@@ -166,7 +171,7 @@ class InstrumentoController extends AbstractController
         if (!$request->isXmlHttpRequest()) {
         return new JsonResponse(array('message' => 'You can access this only using Ajax!'), 400);
         }
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Instrumento')->find($id);
 
         if (!$entity) {
@@ -213,7 +218,7 @@ class InstrumentoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $entity = $em->getRepository('App:Instrumento')->find($id);
 
             if (!$entity) {

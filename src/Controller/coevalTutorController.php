@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,6 +17,10 @@ use App\Form\coevalTutorType;
  */
 class coevalTutorController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * Creates a new coevalTutor entity.
@@ -29,7 +34,7 @@ class coevalTutorController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -84,7 +89,7 @@ class coevalTutorController extends AbstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:coevalTutor')->find($id);
 
@@ -107,13 +112,13 @@ class coevalTutorController extends AbstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:coevalTutor')->find($id);
 
         if (!$entity) {
             $entity = new coevalTutor();
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $tutor = $em->getRepository('App:Tutor')->find($id);
             $entity->setTutor($tutor);
             $em->persist($entity);
@@ -156,7 +161,7 @@ class coevalTutorController extends AbstractController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:coevalTutor')->find($id);
 
@@ -201,7 +206,7 @@ class coevalTutorController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $entity = $em->getRepository('App:coevalTutor')->find($id);
 
             if (!$entity) {

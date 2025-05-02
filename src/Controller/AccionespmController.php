@@ -8,6 +8,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Accionespm;
 use App\Form\AccionespmType;
 use App\Form\AccionespmdocType;
+use Doctrine\Persistence\ManagerRegistry;
+
 
 /**
  * Accionespm controller.
@@ -16,6 +18,10 @@ use App\Form\AccionespmdocType;
  */
 class AccionespmController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * Lists all Accionespm entities.
@@ -24,7 +30,7 @@ class AccionespmController extends AbstractController
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entities = $em->getRepository('App:Accionespm')->findAll();
 
@@ -44,7 +50,7 @@ class AccionespmController extends AbstractController
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('planmejoramiento_show', array('id' => $entity->getPlan()->getId())));
@@ -97,7 +103,7 @@ class AccionespmController extends AbstractController
     public function newAction($id)
     {
         $entity = new Accionespm();
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $plan = $em->getRepository('App:Planmejoramiento')->findOneBy(array('id' => $id));
         $entity->setPlan($plan);
         $fecha = new \DateTime();
@@ -118,7 +124,7 @@ class AccionespmController extends AbstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Accionespm')->find($id);
 
@@ -141,7 +147,7 @@ class AccionespmController extends AbstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Accionespm')->find($id);
 
@@ -165,7 +171,7 @@ class AccionespmController extends AbstractController
      */
     public function editarAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Accionespm')->find($id);
         //$defaultData = array('id' => $id);
         $idplan = $entity->getPlan()->getId();
@@ -199,7 +205,7 @@ class AccionespmController extends AbstractController
      */
     public function editdocAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Accionespm')->find($id);
 
         $idplan = $entity->getPlan()->getId();
@@ -245,7 +251,7 @@ class AccionespmController extends AbstractController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Accionespm')->find($id);
 
@@ -280,7 +286,7 @@ class AccionespmController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $entity = $em->getRepository('App:Accionespm')->find($id);
 
             if (!$entity) {

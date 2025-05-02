@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +18,10 @@ use App\Form\coevalDirectorType;
  */
 class coevalDirectorController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * Lists all coevalDirector entities.
@@ -25,7 +30,7 @@ class coevalDirectorController extends AbstractController
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $session->set('periodoe', $this->getParameter('appmed.periodo'));
         $id = $this->getParameter('appmed.periodo');
@@ -56,7 +61,7 @@ class coevalDirectorController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -96,7 +101,7 @@ class coevalDirectorController extends AbstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:coevalDirector')->find($id);
 
@@ -119,14 +124,14 @@ class coevalDirectorController extends AbstractController
      */
     public function editAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $entity = $em->getRepository('App:coevalDirector')->find($id);
         $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
 
         if (!$entity) {
         $entity = new coevalDirector();
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $oferta = $em->getRepository('App:Oferta')->find($id);
         $entity->setOferta($oferta);
         $em->persist($entity);
@@ -169,7 +174,7 @@ class coevalDirectorController extends AbstractController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $entity = $em->getRepository('App:coevalDirector')->find($id);
 
@@ -210,7 +215,7 @@ class coevalDirectorController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $entity = $em->getRepository('App:coevalDirector')->find($id);
 
             if (!$entity) {

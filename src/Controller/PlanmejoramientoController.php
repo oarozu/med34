@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -17,6 +18,10 @@ use App\Form\PlanmejoramientoType;
  */
 class PlanmejoramientoController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * Lists all Planmejoramiento entities.
@@ -25,7 +30,7 @@ class PlanmejoramientoController extends AbstractController
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $escuelaid = $session->get('escuelaid');
         if ($escuelaid == null) {
@@ -50,7 +55,7 @@ class PlanmejoramientoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -105,7 +110,7 @@ class PlanmejoramientoController extends AbstractController
      */
     public function addAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $periodoe_id = $session->get('periodoe');
         $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $periodoe_id));;
@@ -124,7 +129,7 @@ class PlanmejoramientoController extends AbstractController
     public function agregarAction(Request $request, $id)
     {
         $planm = new Planmejoramiento();
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $docente = $em->getRepository('App:Docente')->findOneBy(array('id' => $id));
         $planm->setDocente($docente);
@@ -143,7 +148,7 @@ class PlanmejoramientoController extends AbstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Planmejoramiento')->find($id);
 
@@ -166,7 +171,7 @@ class PlanmejoramientoController extends AbstractController
      */
     public function docAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Planmejoramiento')->find($id);
         if (!$entity) {
@@ -185,7 +190,7 @@ class PlanmejoramientoController extends AbstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Planmejoramiento')->find($id);
 
@@ -227,7 +232,7 @@ class PlanmejoramientoController extends AbstractController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Planmejoramiento')->find($id);
 
@@ -263,7 +268,7 @@ class PlanmejoramientoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $entity = $em->getRepository('App:Planmejoramiento')->find($id);
 
             if (!$entity) {

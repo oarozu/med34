@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -18,6 +19,10 @@ use App\Form\ActividadplangAddType;
  */
 class ActividadplangController extends AbstractController
 {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * Creates a new Actividadplang entity.
@@ -30,7 +35,7 @@ class ActividadplangController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -50,14 +55,14 @@ class ActividadplangController extends AbstractController
     public function addAction(Request $request, $id)
     {
         $entity = new Actividadplang();
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $plang = $em->getRepository('App:Plangestion')->find($id);
         $entity->setPlang($plang);
         $form = $this->createAddForm($entity, $id);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('plangestion_crear', array('id' => $id)));
@@ -115,7 +120,7 @@ class ActividadplangController extends AbstractController
     public function newAction($id, $ida)
     {
         $entity = new Actividadplang();
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $plang = $em->getRepository('App:Plangestion')->find($id);
         $actividad = $em->getRepository('App:Actividadrol')->find($ida);
         $entity->setActividad($actividad);
@@ -136,7 +141,7 @@ class ActividadplangController extends AbstractController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Actividadplang')->find($id);
 
@@ -159,7 +164,7 @@ class ActividadplangController extends AbstractController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Actividadplang')->find($id);
 
@@ -186,7 +191,7 @@ class ActividadplangController extends AbstractController
      */
     public function dofeAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Actividadplang')->find($id);
 
@@ -208,7 +213,7 @@ class ActividadplangController extends AbstractController
      */
     public function borrarAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Actividadplang')->find($id);
 
@@ -264,7 +269,7 @@ class ActividadplangController extends AbstractController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Actividadplang')->find($id);
         if (!$entity) {
@@ -294,7 +299,7 @@ class ActividadplangController extends AbstractController
      */
     public function updatedofeAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:Actividadplang')->find($id);
 
@@ -326,7 +331,7 @@ class ActividadplangController extends AbstractController
     public function deleteAction(Request $request, $id)
     {
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Actividadplang')->find($id);
         $session = $request->getSession();
         $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));
@@ -348,7 +353,7 @@ class ActividadplangController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $session = $request->getSession();
             $entity = $em->getRepository('App:Actividadplang')->find($id);
             $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));

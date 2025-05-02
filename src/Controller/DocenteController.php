@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Service\CvsHelper;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -24,6 +26,13 @@ use Doctrine\ORM\EntityManagerInterface;
  */
 class DocenteController extends AbstractController
 {
+    private $doctrine;
+    private $requestStack;
+
+    public function __construct(ManagerRegistry $doctrine, RequestStack $requestStack) {
+        $this->doctrine = $doctrine;
+        $this->requestStack = $requestStack;
+    }
 
     /**
      * Lists all Docente entities.
@@ -32,7 +41,7 @@ class DocenteController extends AbstractController
      */
     public function indexAction($periodo):Response
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entities = $em->getRepository('App:Docente')->docentesPeriodo($periodo);
         return $this->render('Docente/porperiodo.html.twig', array(
             'entities' => $entities,
@@ -45,7 +54,7 @@ class DocenteController extends AbstractController
      */
     public function getCsvAction($periodo, CvsHelper $cvsHelper):Response
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entities = $em->getRepository('App:Docente')->docentesPeriodo($periodo);
         $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $periodo));
         $response = new Response();
@@ -64,7 +73,7 @@ class DocenteController extends AbstractController
      */
     public function homeAction($periodo):Response
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $escuelas = $em->getRepository('App:Escuela')->findAll();
         $periodose = $em->getRepository('App:Periodoe')->findby(array(), array('id' => 'DESC'), 10);
         $docsdc = $em->getRepository('App:Docente')->totalEscuelas($periodo);
@@ -83,7 +92,7 @@ class DocenteController extends AbstractController
      */
     public function indexEscuelaAction($id, $periodo):Response
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $escuela = $em->getRepository('App:Escuela')->findOneBy(array('id' => $id));
         $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $periodo));
         $entities = $em->getRepository('App:Docente')->resultadosEscuelaPeriodo($escuela, $periodo);
@@ -105,7 +114,7 @@ class DocenteController extends AbstractController
      */
     public function indexResultadosCsvAction($id, $periodo):Response
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $escuela = $em->getRepository('App:Escuela')->findOneBy(array('id' => $id));
         $resultados = $em->getRepository('App:Docente')->resultadosEscuelaPeriodo($escuela, $periodo);
         $response = new Response();
@@ -142,7 +151,7 @@ class DocenteController extends AbstractController
      */
     public function indexVinculacionAction($id):Response
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entities = $em->getRepository('App:Docente')->findBy(array('vinculacion' => $id, 'periodo' => $this->getParameter('appmed.periodo')));
 
         $total = count($entities);
@@ -160,7 +169,7 @@ class DocenteController extends AbstractController
      */
     public function indexDcAction():Response
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entities = $em->getRepository('App:Docente')->findBy(array('vinculacion' => 'DC', 'periodo' => $this->getParameter('appmed.periodo')));
         $total = count($entities);
         return $this->render('Docente/dc.html.twig', array(
@@ -176,8 +185,8 @@ class DocenteController extends AbstractController
      */
     public function indexDcescuelaAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $session = $request->getSession();
+        $em = $this->doctrine->getManager();
+        $session = $this->requestStack->getSession();
         $id = $em->getRepository('App:Escuela')->find($session->get('escuelaid'));
         $escuela = $em->getRepository('App:Escuela')->findOneBy(array('id' => $id));
         $entities = $em->getRepository('App:Docente')->findBy(array('escuela' => $escuela, 'vinculacion' => 'DC', 'periodo' => $this->getParameter('appmed.periodo')));
@@ -196,8 +205,8 @@ class DocenteController extends AbstractController
      */
     public function indexZonaAction(Request $request):Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $session = $request->getSession();
+        $em = $this->doctrine->getManager();
+        $session = $this->requestStack->getSession();
         $zona = $em->getRepository('App:Zona')->find($session->get('zonaid'));
         $centro = $em->getRepository('App:Centro')->findBy(array('zona' => $zona));
         $entities = $em->getRepository('App:Docente')->findBy(array('centro' => $centro, 'vinculacion' => 'DC', 'periodo' => $this->getParameter('appmed.periodo')));
@@ -220,7 +229,7 @@ class DocenteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -271,11 +280,10 @@ class DocenteController extends AbstractController
      */
     public function showAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $session = $request->getSession();
+        $em = $this->doctrine->getManager();
+        $session = $this->requestStack->getSession();
         $entity = $em->getRepository('App:Docente')->find($id);
         $instrumentos = $em->getRepository('App:Instrumento')->findAll();
-        //$this->get('session')->getFlashBag()->add('warning', 'El plazo para el proceso se extiende hasta el lunes 16 inclusive');
         $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
 
         if (!$entity) {
@@ -299,9 +307,8 @@ class DocenteController extends AbstractController
      */
     public function inicioAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $session = $request->getSession();
-
+        $em = $this->doctrine->getManager();
+        $session = $this->requestStack->getSession();
         $docenteid = $session->get('docenteid');
         if ($docenteid == null) {
             return $this->redirect($this->generateUrl('home_user_inicio'));
@@ -309,7 +316,7 @@ class DocenteController extends AbstractController
         $entity = $em->getRepository('App:Docente')->find($docenteid);
         $instrumentos = $em->getRepository('App:Instrumento')->findAll();
         $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
-        $this->get('session')->getFlashBag()->add('success', 'Periodo de evaluación seleccionado: ' . $periodo->getObservaciones());
+        $session->getFlashBag()->add('success', 'Periodo de evaluación seleccionado: ' . $periodo->getObservaciones());
 
 
         if (!$entity) {
@@ -345,7 +352,7 @@ class DocenteController extends AbstractController
      */
     public function infoAction(Request $request, $id):Response
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Docente')->find($id);
         $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $entity->getPeriodo()));
 
@@ -373,8 +380,7 @@ class DocenteController extends AbstractController
      */
     public function finalAnual(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $session = $request->getSession();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Docente')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Docente entity.');
@@ -442,7 +448,7 @@ class DocenteController extends AbstractController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App\Entity\Docente')->find($id);
 
@@ -478,7 +484,7 @@ class DocenteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $entity = $em->getRepository('App:Docente')->find($id);
 
             if (!$entity) {
@@ -511,9 +517,9 @@ class DocenteController extends AbstractController
      */
     public function coevaltutorAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $session = $request->getSession();
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $em = $this->doctrine->getManager();
+        $session = $this->requestStack->getSession();
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $programas = $em->getRepository('App:Programa')->findBy(array('lider' => $user));
 
         $entity = $em->getRepository('App:Docente')->find($session->get('docenteid'));
@@ -530,7 +536,7 @@ class DocenteController extends AbstractController
      */
     public function coevalinfoAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Docente')->find($id);
         return $this->render('Docente/coevalinfo.html.twig', array(
             'entity' => $entity,
@@ -542,7 +548,7 @@ class DocenteController extends AbstractController
      */
     public function finalAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Docente')->find($id);
         $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $entity->getPeriodo()));
         $parciales = $em->getRepository('App:Docente')->evalAnual($periodo->getYear(), $entity->getUser()->getId());
@@ -577,7 +583,7 @@ class DocenteController extends AbstractController
      */
     public function observAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Docente')->find($id);
 
         $Form = $this->createForm(ObservType::class);
@@ -593,7 +599,7 @@ class DocenteController extends AbstractController
      */
     public function observacionesAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Docente')->find($id);
         $evaluacion = $em->getRepository('App:evaluacion')->find($id);
 

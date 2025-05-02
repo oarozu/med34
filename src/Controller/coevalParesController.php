@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,6 +16,10 @@ use App\Form\coevalParesType;
  * @Route("/doc/coevalpares")
  */
 class coevalParesController extends AbstractController {
+    private $doctrine;
+    public function __construct(ManagerRegistry $doctrine) {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * Lists all coevalPares entities.
@@ -22,7 +27,7 @@ class coevalParesController extends AbstractController {
      * @Route("/", name="docente_coevalpares", methods={"GET"})
      */
     public function indexAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));
         $terna = $em->getRepository('App:Terna')->findOneBy(array('docente' => $docente));
@@ -43,7 +48,7 @@ class coevalParesController extends AbstractController {
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -80,7 +85,7 @@ class coevalParesController extends AbstractController {
      * @Route("/{id}", name="coevalpares_show", methods={"GET"})
      */
     public function showAction($id) {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:coevalPares')->find($id);
 
@@ -102,7 +107,7 @@ class coevalParesController extends AbstractController {
      * @Route("/send/{id}", name="coevalpares_edit", methods={"GET"})
      */
     public function editAction($id) {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:coevalPares')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Coevaluacion entity.');
@@ -138,7 +143,7 @@ class coevalParesController extends AbstractController {
      * @Route("/{id}", name="coevalpares_update", methods={"PUT"})
      */
     public function updateAction(Request $request, $id) {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $entity = $em->getRepository('App:coevalPares')->find($id);
 
@@ -182,7 +187,7 @@ class coevalParesController extends AbstractController {
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $entity = $em->getRepository('App:coevalPares')->find($id);
 
             if (!$entity) {
@@ -217,7 +222,7 @@ class coevalParesController extends AbstractController {
      * @Route("/crear/eval", name="coevalpares_crear", methods={"GET"})
      */
     public function crearAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $session = $request->getSession();
         $docente = $em->getRepository('App:Docente')->find($session->get('docenteid'));
         $ternado = $em->getRepository('App:Terna')->findOneBy(array('docente' => $docente));
