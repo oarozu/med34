@@ -17,19 +17,15 @@ use App\Form\EscuelaType;
  */
 class EscuelaController extends AbstractController
 {
-    private $doctrine;
-    public function __construct(ManagerRegistry $doctrine) {
-        $this->doctrine = $doctrine;
-    }
 
     /**
      * Lists all Escuela entities.
      *
      * @Route("/", name="escuela", methods={"GET"})
      */
-    public function indexAction()
+    public function indexAction(ManagerRegistry $doctrine)
     {
-        $em = $this->doctrine->getManager();
+        $em = $doctrine->getManager();
 
         $entities = $em->getRepository('App:Escuela')->findAll();
 
@@ -43,13 +39,13 @@ class EscuelaController extends AbstractController
      *
      * @Route("/", name="escuela_create", methods={"POST"})
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, ManagerRegistry $doctrine)
     {
         $entity = new Escuela();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        $em = $this->doctrine->getManager();
+        $em = $doctrine->getManager();
         $decano = $em->getRepository('App:User')->find($form["decano"]->getData());
         $entity->setDecano($decano);
         $secretaria = $em->getRepository('App:User')->find($form["secretaria"]->getData());
@@ -109,9 +105,9 @@ class EscuelaController extends AbstractController
      *
      * @Route("/{id}", name="escuela_show", methods={"GET"})
      */
-    public function showAction($id)
+    public function showAction($id, ManagerRegistry $doctrine)
     {
-        $em = $this->doctrine->getManager();
+        $em = $doctrine->getManager();
 
         $entity = $em->getRepository('App:Escuela')->find($id);
         $terna = $em->getRepository('App:Terna')->findBy(array('escuela' => $entity, 'periodo' => $this->getParameter('appmed.periodo')));
@@ -135,9 +131,9 @@ class EscuelaController extends AbstractController
      *
      * @Route("/mi/info", name="escuela_info", methods={"GET"})
      */
-    public function infoAction(Request $request)
+    public function infoAction(Request $request, ManagerRegistry $doctrine)
     {
-        $em = $this->doctrine->getManager();
+        $em = $doctrine->getManager();
 
         $year = $this->getParameter('appmed.year');
         $session = $request->getSession();
@@ -181,9 +177,9 @@ class EscuelaController extends AbstractController
      *
      * @Route("/{id}/edit", name="escuela_edit", methods={"GET"})
      */
-    public function editAction($id)
+    public function editAction($id, ManagerRegistry $doctrine)
     {
-        $em = $this->doctrine->getManager();
+        $em = $doctrine->getManager();
 
         $entity = $em->getRepository('App:Escuela')->find($id);
 
@@ -227,9 +223,9 @@ class EscuelaController extends AbstractController
      *
      * @Route("/{id}", name="escuela_update", methods={"PUT"})
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, $id, ManagerRegistry $doctrine)
     {
-        $em = $this->doctrine->getManager();
+        $em = $doctrine->getManager();
 
         $entity = $em->getRepository('App:Escuela')->find($id);
 
@@ -264,13 +260,13 @@ class EscuelaController extends AbstractController
      *
      * @Route("/{id}", name="escuela_delete", methods={"DELETE"})
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, $id, ManagerRegistry $doctrine)
     {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->doctrine->getManager();
+            $em = $doctrine->getManager();
             $entity = $em->getRepository('App:Escuela')->find($id);
 
             if (!$entity) {
@@ -304,9 +300,9 @@ class EscuelaController extends AbstractController
      * Finds and displays a Escuela entity.
      *
      */
-    public function coevalliderAction(Request $request)
+    public function coevalliderAction(Request $request, ManagerRegistry $doctrine)
     {
-        $em = $this->doctrine->getManager();
+        $em = $doctrine->getManager();
         $session = $request->getSession();
         $escuela = $em->getRepository('App:Escuela')->find($session->get('escuelaid'));
         if (!$escuela) {
@@ -322,9 +318,9 @@ class EscuelaController extends AbstractController
      * Lista la evaluacion de estudiantes
      * @Route("/mi/heteroeval", name="escuela_heteroeval", methods={"GET"})
      */
-    public function heteroevalAction(Request $request)
+    public function heteroevalAction(Request $request, ManagerRegistry $doctrine)
     {
-        $em = $this->doctrine->getManager();
+        $em = $doctrine->getManager();
         $session = $request->getSession();
         $escuela = $em->getRepository('App:Escuela')->find($session->get('escuelaid'));
         $docentes = $em->getRepository('App:Docente')->findby(array('escuela' => $session->get('escuelaid')));
@@ -341,9 +337,9 @@ class EscuelaController extends AbstractController
     /**
      * @Route("/mi/resultados", name="escuela_resultados", methods={"GET"})
      */
-    public function resultadosAction(Request $request)
+    public function resultadosAction(Request $request, ManagerRegistry $doctrine)
     {
-        $em = $this->doctrine->getManager();
+        $em = $doctrine->getManager();
         $session = $request->getSession();
         $escuela = $em->getRepository('App:Escuela')->find($session->get('escuelaid'));
         if (!$escuela) {
