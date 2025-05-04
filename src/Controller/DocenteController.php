@@ -6,7 +6,6 @@ use App\Service\CvsHelper;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -29,9 +28,8 @@ class DocenteController extends AbstractController
     private $doctrine;
     private $requestStack;
 
-    public function __construct(ManagerRegistry $doctrine, RequestStack $requestStack) {
+    public function __construct(ManagerRegistry $doctrine) {
         $this->doctrine = $doctrine;
-        $this->requestStack = $requestStack;
     }
 
     /**
@@ -186,7 +184,7 @@ class DocenteController extends AbstractController
     public function indexDcescuelaAction(Request $request)
     {
         $em = $this->doctrine->getManager();
-        $session = $this->requestStack->getSession();
+        $session = $request->getSession();
         $id = $em->getRepository('App:Escuela')->find($session->get('escuelaid'));
         $escuela = $em->getRepository('App:Escuela')->findOneBy(array('id' => $id));
         $entities = $em->getRepository('App:Docente')->findBy(array('escuela' => $escuela, 'vinculacion' => 'DC', 'periodo' => $this->getParameter('appmed.periodo')));
@@ -206,7 +204,7 @@ class DocenteController extends AbstractController
     public function indexZonaAction(Request $request):Response
     {
         $em = $this->doctrine->getManager();
-        $session = $this->requestStack->getSession();
+        $session = $request->getSession();
         $zona = $em->getRepository('App:Zona')->find($session->get('zonaid'));
         $centro = $em->getRepository('App:Centro')->findBy(array('zona' => $zona));
         $entities = $em->getRepository('App:Docente')->findBy(array('centro' => $centro, 'vinculacion' => 'DC', 'periodo' => $this->getParameter('appmed.periodo')));
@@ -281,7 +279,7 @@ class DocenteController extends AbstractController
     public function showAction(Request $request, $id)
     {
         $em = $this->doctrine->getManager();
-        $session = $this->requestStack->getSession();
+        $session = $request->getSession();
         $entity = $em->getRepository('App:Docente')->find($id);
         $instrumentos = $em->getRepository('App:Instrumento')->findAll();
         $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
@@ -308,7 +306,7 @@ class DocenteController extends AbstractController
     public function inicioAction(Request $request)
     {
         $em = $this->doctrine->getManager();
-        $session = $this->requestStack->getSession();
+        $session = $request->getSession();
         $docenteid = $session->get('docenteid');
         if ($docenteid == null) {
             return $this->redirect($this->generateUrl('home_user_inicio'));
@@ -518,7 +516,7 @@ class DocenteController extends AbstractController
     public function coevaltutorAction(Request $request)
     {
         $em = $this->doctrine->getManager();
-        $session = $this->requestStack->getSession();
+        $session = $request->getSession();
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $programas = $em->getRepository('App:Programa')->findBy(array('lider' => $user));
 

@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Instrumento;
@@ -17,9 +16,8 @@ class DefaultController extends AbstractController {
     private $doctrine;
     private $requestStack;
 
-    public function __construct(ManagerRegistry $doctrine, RequestStack $requestStack) {
+    public function __construct(ManagerRegistry $doctrine) {
         $this->doctrine = $doctrine;
-        $this->requestStack = $requestStack;
     }
 
     public function indexAction(Request $request) {
@@ -33,7 +31,7 @@ class DefaultController extends AbstractController {
         $dias = $diff->format("%a");
         $hoy = $diff2->format("%a");
 
-        $session = $this->requestStack->getSession();
+        $session = $request->getSession();
         $session->set('periodoe', $this->getParameter('appmed.periodo'));
 
         if (true === $this->container->get('security.authorization_checker')->isGranted('ROLE_DEC')) {
@@ -100,7 +98,7 @@ class DefaultController extends AbstractController {
 
     public function periodAction(Request $request)
     {
-        $session = $this->requestStack->getSession();
+        $session = $request->getSession();
         $em = $this->doctrine->getManager();
         $escuelaid = $session->get('escuelaid');
         $user = $this->getUser();
@@ -135,7 +133,7 @@ class DefaultController extends AbstractController {
     }
 
     public function selectAction(Request $request, $id){
-        $session = $this->requestStack->getSession();
+        $session = $request->getSession();
         $session->set('periodoe', $id);
         $em = $this->doctrine;
         $user = $this->getUser();
@@ -208,7 +206,7 @@ class DefaultController extends AbstractController {
     }
 
     public function sendAction(Request $request) {
-        $session = $this->requestStack->getSession();
+        $session = $request->getSession();
         $cedula_usuario = $session->get('cedula_usuario');
         $pass = $request->server->get('MED_PKW');
         $formulario = "<form method='post' name='datos' action='/login_check'>";
