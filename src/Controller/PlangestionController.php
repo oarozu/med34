@@ -103,7 +103,7 @@ class PlangestionController extends AbstractController
         $session = $request->getSession();
         $periodoe_id = $session->get('periodoe');
         $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $periodoe_id));
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
         $docente = $em->getRepository('App:Docente')->findOneBy(array('user' => $user, 'periodo' => $periodoe_id));
         $entity = $em->getRepository('App:Plangestion')->findOneBy(array('docente' => $docente));
         //$this->checkActividades($entity, 2);

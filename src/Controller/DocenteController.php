@@ -26,7 +26,6 @@ use Doctrine\ORM\EntityManagerInterface;
 class DocenteController extends AbstractController
 {
     private $doctrine;
-    private $requestStack;
 
     public function __construct(ManagerRegistry $doctrine) {
         $this->doctrine = $doctrine;

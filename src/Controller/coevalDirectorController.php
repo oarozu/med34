@@ -34,7 +34,7 @@ class coevalDirectorController extends AbstractController
         $session = $request->getSession();
         $session->set('periodoe', $this->getParameter('appmed.periodo'));
         $id = $this->getParameter('appmed.periodo');
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
         $programas = $em->getRepository('App:Programa')->findBy(array('lider' => $user));
         $cursos = $em->getRepository('App:Curso')->findBy(array('programa' => $programas));
         $periodoe = $em->getRepository('App:Periodoe')->findBy(array('id' => $id));

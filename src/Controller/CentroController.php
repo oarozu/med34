@@ -242,7 +242,7 @@ class CentroController extends AbstractController
     public function docsAction($id)
     {
         $em = $this->doctrine->getManager();
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
         $centros = $user->getDirectorcentro();
         $centro = $em->getRepository('App:Centro')->findBy(array('id' => $id));
         $docentes = $em->getRepository('App:Docente')->findBy(array('centro' => $centro));
@@ -260,7 +260,7 @@ class CentroController extends AbstractController
      */
     public function listaAction()
     {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
         $centros = $user->getDirectorcentro();
         $zonas = $user->getDirectorzona();
 

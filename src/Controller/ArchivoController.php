@@ -64,7 +64,7 @@ class ArchivoController extends AbstractController
     public function docenteAction()
     {
        $em = $this->doctrine->getManager();
-       $user = $this->get('security.token_storage')->getToken()->getUser();
+       $user = $this->getUser();
        $userId = $user->getId();
        $entities = $em->getRepository('App:Archivo')->findBy(array('cedula' => $userId));
        return $this->render('Archivo/pordoc.html.twig', array(

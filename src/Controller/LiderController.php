@@ -51,7 +51,7 @@ class LiderController extends AbstractController
         $session = $request->getSession();
 
         $em = $this->doctrine->getManager();
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
         $programas = $em->getRepository('App:Programa')->findBy(array('lider' => $user));
         $cursos = $em->getRepository('App:Curso')->findBy(array('programa' => $programas));
         $periodoe = $em->getRepository('App:Periodoe')->findBy(array('id' => $session->get('periodoe')));

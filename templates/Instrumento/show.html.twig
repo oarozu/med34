@@ -18,14 +18,6 @@
                 <td>{{ entity.tipo }}</td>
             </tr>
             <tr>
-                <th>Fechainicio</th>
-                <td>{{ entity.fechainicio|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Fechafin</th>
-                <td>{{ entity.fechafin|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
                 <th>Estado</th>
                 <td>{{ entity.estado }}</td>
             </tr>
@@ -34,12 +26,12 @@
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('instrumento') }}">
+        <a href="{{ path('admin_instrumento_new') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('instrumento_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('admin_instrumento_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>

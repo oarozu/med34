@@ -274,7 +274,7 @@ class ZonaController extends AbstractController
     public function listaAction($id)
     {
         $em = $this->doctrine->getManager();
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
         $zona = $user->getDirectorzona();
         $year = $this->getParameter('appmed.year');
         $periodoss = $em->getRepository('App:Periodoe')->findby(array('type' => 's'), array('id' => 'DESC'), 10);

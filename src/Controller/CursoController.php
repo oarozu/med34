@@ -193,14 +193,14 @@ class CursoController extends AbstractController
         $datos = $request->request->get('oferta');
         $usuario = $em->getRepository('App:User')->find($datos['cedula']);
         if (!$usuario) {
-            $this->get('session')->getFlashBag()->add('error', 'Cédula no encontrada');
+            $request->getSession()->getFlashBag()->add('error', 'Cédula no encontrada');
             return $this->redirect($this->generateUrl('curso_show', array('id' => $id)));
         }
 
         $docente = $em->getRepository('App:Docente')->findOneBy(array('user' => $usuario, 'periodo' => $this->getParameter('appmed.periodo')));
 
         if (!$docente) {
-            $this->get('session')->getFlashBag()->add('error', 'El número no corresponde a un docente');
+            $request->getSession()->getFlashBag()->add('error', 'El número no corresponde a un docente');
             return $this->redirect($this->generateUrl('curso_show', array('id' => $id)));
         }
 
@@ -212,10 +212,10 @@ class CursoController extends AbstractController
             $em->persist($oferta);
             $em->flush();
         } catch (\Doctrine\DBAL\DBALException $e) {
-            $this->get('session')->getFlashBag()->add('warning', 'Error de base de datos');
+            $request->getSession()->getFlashBag()->add('warning', 'Error de base de datos');
             return $this->redirect($this->generateUrl('curso_show', array('id' => $id)));
         }
-        $this->get('session')->getFlashBag()->add('success', 'La oferta se agrego al curso');
+        $request->getSession()->getFlashBag()->add('success', 'La oferta se agrego al curso');
         return $this->redirect($this->generateUrl('curso_show', array('id' => $id)));
     }
 
@@ -236,29 +236,29 @@ class CursoController extends AbstractController
             $data = $form->getData();
         }
 
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
         $director = $em->getRepository('App:Docente')->findOneBy(array('user' => $user, 'periodo' => $this->getParameter('appmed.periodo')));
 
-        if ($oferta->getDirector() != $director && !$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            $this->get('session')->getFlashBag()->add('error', 'No permitido no es director');
+        if ($oferta->getDirector() != $director && !$this->isGranted('ROLE_ADMIN')) {
+            $request->getSession()->getFlashBag()->add('error', 'No permitido no es director');
             return $this->redirect($this->generateUrl('oferta', array('id' => $id)));
         }
 
         $usuario = $em->getRepository('App:User')->find($data->getCedula());
         if (!$usuario) {
-            $this->get('session')->getFlashBag()->add('error', 'Cédula no encontrada');
+            $request->getSession()->getFlashBag()->add('error', 'Cédula no encontrada');
             return $this->redirect($this->generateUrl('oferta', array('id' => $id)));
         }
 
         $docente = $em->getRepository('App:Docente')->findOneBy(array('user' => $usuario, 'periodo' => $this->getParameter('appmed.periodo')));
 
         if (!$docente) {
-            $this->get('session')->getFlashBag()->add('error', 'El número no corresponde a un docente');
+            $request->getSession()->getFlashBag()->add('error', 'El número no corresponde a un docente');
             return $this->redirect($this->generateUrl('oferta', array('id' => $id)));
         }
 
         if ($docente->getId() == $oferta->getDirector()->getId()) {
-            $this->get('session')->getFlashBag()->add('warning', 'No es necesario que el director se agregue como tutor');
+            $request->getSession()->add('warning', 'No es necesario que el director se agregue como tutor');
             return $this->redirect($this->generateUrl('oferta', array('id' => $id)));
         }
 
@@ -269,10 +269,10 @@ class CursoController extends AbstractController
             $em->persist($tutor);
             $em->flush();
         } catch (\Doctrine\DBAL\DBALException $e) {
-            $this->get('session')->getFlashBag()->add('warning', 'El docente ya se encuentra en el curso');
+            $request->getSession()->getFlashBag()->add('warning', 'El docente ya se encuentra en el curso');
             return $this->redirect($this->generateUrl('oferta', array('id' => $id)));
         }
-        $this->get('session')->getFlashBag()->add('success', 'El docente se agrego al curso');
+        $request->getSession()->getFlashBag()->add('success', 'El docente se agrego al curso');
         return $this->redirect($this->generateUrl('oferta', array('id' => $id)));
     }
 
@@ -413,7 +413,7 @@ class CursoController extends AbstractController
         $user = $em->getRepository('App:User')->find($ncedula);
         $docente = $em->getRepository('App:Docente')->findOneBy(array('user' => $user, 'periodo' => $this->getParameter('appmed.periodo')));
         if (!$docente) {
-            $this->get('session')->getFlashBag()->add('error', 'El número no corresponde a un docente');
+            $request->getSession()->getFlashBag()->add('error', 'El número no corresponde a un docente');
             return $this->redirect($this->generateUrl('oferta_edit', array('id' => $id)));
         }
         $plang = $em->getRepository('App:Plangestion')->findOneBy(array('docente' => $docente));
@@ -427,7 +427,7 @@ class CursoController extends AbstractController
         }
         $oferta->setDirector($docente);
         $em->flush();
-        $this->get('session')->getFlashBag()->add('success', 'Se actualizo el director');
+        $request->getSession()->getFlashBag()->add('success', 'Se actualizo el director');
         return $this->redirect($this->generateUrl('oferta', array('id' => $id)));
     }
 
@@ -517,18 +517,18 @@ class CursoController extends AbstractController
         $director = $oferta->getDirector();
         $session = $request->getSession();
 
-        if ($director->getId() == $session->get('docenteid') || $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+        if ($director->getId() == $session->get('docenteid') || $this->isGranted('ROLE_ADMIN')) {
             try {
                 $em->remove($entity);
                 $em->flush();
-                $this->get('session')->getFlashBag()->add('success', 'Se borro el docente del curso');
+                $request->getSession()->getFlashBag()->add('success', 'Se borro el docente del curso');
             } catch (\Doctrine\DBAL\DBALException $e) {
-                $this->get('session')->getFlashBag()->add('warning', 'El tutor no se puede remover ya evaluo');
+                $request->getSession()->getFlashBag()->add('warning', 'El tutor no se puede remover ya evaluo');
                 return $this->redirect($this->generateUrl('oferta', array('id' => $oferta->getId())));
             }
             return $this->redirect($this->generateUrl('oferta', array('id' => $oferta->getId())));
         } else {
-            $this->get('session')->getFlashBag()->add('error', 'No permitido');
+            $request->getSession()->getFlashBag()->add('error', 'No permitido');
             return $this->redirect($this->generateUrl('oferta', array('id' => $oferta->getId())));
         }
     }

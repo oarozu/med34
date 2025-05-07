@@ -25,7 +25,5 @@ class SecurityController extends AbstractController
             'last_username' => $user,
             'error'         => $error,
             ));
-        //$this->get('session')->getFlashBag()->add('error', $error->getMessage().' '.$session->get(SecurityContext::LAST_USERNAME).' No corresponde a un usuario en el Módulo MED');
-       // return $this->redirect($this->generateUrl('admin_user_home'));
     }
 }

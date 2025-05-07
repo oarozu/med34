@@ -4,13 +4,16 @@ namespace App\Controller;
 
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Session\Session;
 use App\Entity\Avalplang;
 use App\Form\AvalplangType;
-use Symfony\Component\Security\Core\Security;
 
 
 /**
@@ -21,7 +24,9 @@ use Symfony\Component\Security\Core\Security;
 class AvalplangController extends AbstractController
 {
     private $doctrine;
-    public function __construct(ManagerRegistry $doctrine) {
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
         $this->doctrine = $doctrine;
     }
 
@@ -30,11 +35,11 @@ class AvalplangController extends AbstractController
      *
      * @Route("/", name="avalplang", methods={"GET"})
      */
-    public function indexAction()
+    public function indexAction(): Response
     {
         $em = $this->doctrine->getManager();
 
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
         $entities = $em->getRepository('App:Avalplang')->findby(array('user' => $user, 'periodo' => $this->getParameter('appmed.semestre')));
         return $this->render('Avalplang/index.html.twig', array(
             'entities' => $entities,
@@ -46,7 +51,7 @@ class AvalplangController extends AbstractController
      *
      * @Route("/lista", name="aval_lista", methods={"GET"})
      */
-    public function listaAction()
+    public function listaAction(): Response
     {
         $em = $this->doctrine->getManager();
 
@@ -79,7 +84,7 @@ class AvalplangController extends AbstractController
             return $this->redirect($this->generateUrl('home_user_inicio'));
         }
 
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+        if (!$this->isGranted('ROLE_ADMIN')) {
             $escuela = $em->getRepository('App:Escuela')->find($session->get('escuelaid'));
             $docentes = $em->getRepository('App:Docente')
                 ->findBy(
@@ -109,7 +114,7 @@ class AvalplangController extends AbstractController
      *
      * @Route("/planesg/{id}", name="aval_plangestion", methods={"GET"})
      */
-    public function plangestionAction($id)
+    public function plangestionAction($id): Response
     {
 
         $em = $this->doctrine->getManager();
@@ -156,9 +161,8 @@ class AvalplangController extends AbstractController
      *
      * @param Avalplang $entity The entity
      *
-     * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Avalplang $entity)
+    private function createCreateForm(Avalplang $entity): FormInterface
     {
         $form = $this->createForm(AvalplangType::class, $entity, array(
             'action' => $this->generateUrl('avalplang_create'),
@@ -175,7 +179,7 @@ class AvalplangController extends AbstractController
      *
      * @Route("/new", name="avalplang_new", methods={"GET"})
      */
-    public function newAction()
+    public function newAction(): Response
     {
         $entity = new Avalplang();
         $form = $this->createCreateForm($entity);
@@ -191,7 +195,7 @@ class AvalplangController extends AbstractController
      *
      * @Route("/{id}", name="avalplang_show", methods={"GET"})
      */
-    public function showAction($id)
+    public function showAction($id): Response
     {
         $em = $this->doctrine->getManager();
 
@@ -214,16 +218,13 @@ class AvalplangController extends AbstractController
      *
      * @Route("/{id}/edit", name="avalplang_edit", methods={"GET"})
      */
-    public function editAction($id)
+    public function editAction($id): Response
     {
         $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Avalplang')->find($id);
 
         $texto = explode('\n', $entity->getObservaciones());
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Avalplang entity.');
-        }
         $editForm = $this->createEditForm($entity);
 
         return $this->render('Avalplang/edit.html.twig', array(
@@ -238,9 +239,8 @@ class AvalplangController extends AbstractController
      *
      * @param Avalplang $entity The entity
      *
-     * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Avalplang $entity)
+    private function createEditForm(Avalplang $entity): FormInterface
     {
         $form = $this->createForm(AvalplangType::class, $entity, array(
             'action' => $this->generateUrl('avalplang_update', array('id' => $entity->getId())),
@@ -264,18 +264,13 @@ class AvalplangController extends AbstractController
         $entity = $em->getRepository('App:Avalplang')->find($id);
         $plan = $entity->getPlan();
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Avalplang entity.');
-        }
-
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
+        $date = (new \DateTime());
         if ($entity->getObservaciones() != null) {
-            $date = (new \DateTime());
             $texto = $entity->getObservaciones() . '|' . $date->format('Y-m-d H:i') . ' - ' . $editForm->get('observaciones')->getData();
         } else {
-            $date = (new \DateTime());
             $texto = $date->format('Y-m-d H:i') . ' - ' . $editForm->get('observaciones')->getData();
         }
 
@@ -285,7 +280,7 @@ class AvalplangController extends AbstractController
         }
         if ($editForm->get('avalado')->getData() == 2) {
             $plan->setEstado(0);
-    //        $this->enviarMail($entity);
+            //        $this->enviarMail($entity);
         }
 
         if ($editForm->isValid()) {
@@ -331,9 +326,8 @@ class AvalplangController extends AbstractController
      *
      * @param mixed $id The entity id
      *
-     * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
+    private function createDeleteForm($id): FormInterface
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('avalplang_delete', array('id' => $id)))
@@ -342,7 +336,7 @@ class AvalplangController extends AbstractController
             ->getForm();
     }
 
-    public function enviarMail(\App\Entity\Avalplang $aval)
+    public function enviarMail(\App\Entity\Avalplang $aval, MailerInterface $mailer)
     {
         $docente = $aval->getPlan()->getDocente();
         $message = \Swift_Message::newInstance()
@@ -353,7 +347,12 @@ class AvalplangController extends AbstractController
                 $this->renderView('App:Avalplang:noaprobado.txt.twig', array('aval' => $aval)
                 )
             );
-        $this->get('mailer')->send($message);
+        try {
+            $mailer->send($message);
+        } catch (TransportExceptionInterface $e) {
+            return 'Error';
+        }
+        return null;
     }
 
     public function addAvales()

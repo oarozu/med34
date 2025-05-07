@@ -44,7 +44,7 @@ class RolplangController extends AbstractController
                 $em->persist($entity);
                 $em->flush();
             } catch (\Doctrine\DBAL\DBALException $e) {
-                $this->get('session')->getFlashBag()->add('error', 'No puede agregar un rol dos veces');
+                $request->getSession()->getFlashBag()->add('error', 'No puede agregar un rol dos veces');
             }
 
             return $this->redirect($this->generateUrl('plangestion_crear', array('id' => $id)));
