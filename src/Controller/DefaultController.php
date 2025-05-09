@@ -7,8 +7,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Instrumento;
 use App\Entity\Periodoe;
-use Admin\UnadBundle\Entity\Docente;
+use App\Entity\Docente;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class DefaultController extends AbstractController {
@@ -148,15 +149,13 @@ class DefaultController extends AbstractController {
     }
 
 
-    public function homeAction(Request $request) {
+    public function homeAction(Request $request) : ?Response {
 
         $em = $this->doctrine->getManager();
         $instrumentos = $em->getRepository('App:Instrumento')->findAll();
         $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $this->getParameter('appmed.periodo')));
         $periodos = $em->getRepository('App:Periodoe')->findby(array('year' => $this->getParameter('appmed.year')));
-
         $cedula_usuario = $request->request->get('cedula_usuario');
-
         $user = $em->getRepository('App:User')->findOneBy(array('id' => $cedula_usuario));
 
         $nombres_usuario = $request->request->get('nombres_usuario');
@@ -166,13 +165,9 @@ class DefaultController extends AbstractController {
         $login_usuario = $request->request->get('login_usuario');
 
         $url_autenticacion = "http://login.unad.edu.co/";
-        $url_autenticacion2 = "https://intranet.unad.edu.co/autenticacion.php";
         $urlInicioApp = "http://med.unad.edu.co/";
-        //$urlServerApp  = "/login_check";
-        //$direccion_respuesta = $this->getRequest()->server->get('HTTP_REFERER');
         $direccion_respuesta = $request->server->get('HTTP_REFERER');
         $direccion_ip = $request->server->get('REMOTE_ADDR');
-        //$direccion_respuesta = $request->getPathInfo();
         //------------- Origenes validos ----------------------------------------------------------
         $urlOrigenValido1 = "https://intranet.unad.edu.co/autenticacion.php?continue=http://med.unad.edu.co/"; //cuando accede por el home de intranet
         $urlOrigenValido2 = $url_autenticacion . "Usuario/envioDatosUsuario.php"; //cuando accede por login.unad.edu.co
@@ -184,8 +179,8 @@ class DefaultController extends AbstractController {
 
         if ($autenticacion == "Aceptada" && $ucount == 1) {
             $this->ingresoAction($cedula_usuario, $request);
+            return null;
         } else {
-            # $this->ingresoAction($cedula_usuario);
             return $this->render('Default/home.html.twig', array(
                         // el último nombre de usuario ingresado por el usuario
                         'cedula_usuario' => $cedula_usuario,
