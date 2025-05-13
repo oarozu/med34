@@ -59,7 +59,6 @@ class DocenteRepository extends EntityRepository
 
         return $this->createQueryBuilder('docente')
             ->where('docente.escuela = :escuela')
-           # ->where('docente.vinculacion != "HC"')
             ->setParameter('escuela', $escuela)
             ->orderBy('docente.id', 'DESC')
             ->setMaxResults(750);
@@ -111,5 +110,15 @@ class DocenteRepository extends EntityRepository
             WHERE do.user_id ='$user' ORDER BY do.id DESC LIMIT 1";
         $result = $connection->executeQuery($query);
         return $result->fetchAllAssociative();
+    }
+
+    public function porCentro($centro){
+        $qb = $this->createQueryBuilder('docente')
+            ->where('docente.centro = :centro')
+            ->setParameter('centro', $centro)
+            ->orderBy('docente.periodo', 'DESC')
+            ->setMaxResults(500);
+        $query = $qb->getQuery();
+        return $query->execute();
     }
 }

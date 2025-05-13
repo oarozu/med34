@@ -245,8 +245,8 @@ class CentroController extends AbstractController
         $user = $this->getUser();
         $centros = $user->getDirectorcentro();
         $centro = $em->getRepository('App:Centro')->findBy(array('id' => $id));
-        $docentes = $em->getRepository('App:Docente')->findBy(array('centro' => $centro));
-
+        #$docentes = $em->getRepository('App:Docente')->findBy(array('centro' => $centro));
+        $docentes = $em->getRepository('App:Docente')->porCentro($centro);
         return $this->render('Centro/docs.html.twig', array(
             'docentes' => $docentes,
             'centro' => $centros[0],
