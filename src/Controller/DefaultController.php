@@ -100,6 +100,7 @@ class DefaultController extends AbstractController {
     public function periodAction(Request $request)
     {
         $session = $request->getSession();
+        $session->set('periodoe', $this->getParameter('appmed.periodo'));
         $em = $this->doctrine->getManager();
         $escuelaid = $session->get('escuelaid');
         $user = $this->getUser();
