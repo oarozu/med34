@@ -54,7 +54,7 @@ class LiderController extends AbstractController
         $user = $this->getUser();
         $programas = $em->getRepository('App:Programa')->findBy(array('lider' => $user));
         $cursos = $em->getRepository('App:Curso')->findBy(array('programa' => $programas));
-        $periodoe = $em->getRepository('App:Periodoe')->findBy(array('id' => $session->get('periodoe')));
+        $periodoe = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
         $periodoa = $em->getRepository('App:Periodoa')->findOneBy(array('periodoe' => $periodoe));
         $ofertas = $em->getRepository('App:Oferta')->findBy(array('curso' => $cursos, 'periodo' => $periodoa),array('director' => 'ASC'));
 
