@@ -44,7 +44,7 @@ class CursoprogType extends AbstractType
                 'required' => true,
                 'placeholder' => 'Programa',
                 'class' => 'App:Programa',
-                'choice_label' => 'nombre',
+                'choice_label' => 'label',
                 'query_builder' => function (ProgramaRepository $repo) use ($escuelaid) {
                     return $repo->findByEscuela($escuelaid);
                 }

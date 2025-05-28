@@ -301,4 +301,14 @@ protected $escuela;
     {
         return $this->coeval;
     }
+
+    /**
+     * Get nombre
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->id.' - '.$this->nombre;
+    }
 }
