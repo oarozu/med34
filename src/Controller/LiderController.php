@@ -31,7 +31,7 @@ class LiderController extends AbstractController
         $em = $this->doctrine->getManager();
         $escuela = $em->getRepository('App:Escuela')->findOneBy(array('id' => $id));
         $sigla = $escuela->getSigla();
-        $entities = $em->getRepository('App:Curso')->findBy(array('escuela' => $sigla));
+        $entities = $em->getRepository('App:Curso')->findBy(array('escuela' => $sigla, 'creditos' => '1'));
 
 
         return $this->render('Curso/index.html.twig',  array(

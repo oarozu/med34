@@ -49,4 +49,4 @@ security:
         - { path: ^/dec, roles: ROLE_DEC }
         - { path: ^/unad, roles: [ROLE_DEC, ROLE_DIRC, ROLE_ADMIN, ROLE_DOC, ROLE_SECA, ROLE_ADMON, ROLE_AVAL] }
         - { path: ^/aval, roles: [ROLE_DEC, ROLE_DIRZ, ROLE_ADMON] }
-        - { path: ^/lider, roles: ROLE_LP }
+        - { path: ^/lider, roles: [ROLE_LP, ROLE_SECA]}
