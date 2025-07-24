@@ -48,21 +48,16 @@
             </tr>
         </thead>
         <tbody>
-        {% for entity in docentes %}
+        {% for entity in entities %}
             <tr>
-            <td><a href="{{ path('docente_info', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.user.username }}</td>
-            <td>{{ entity.user.nombres }}</td>
-            <td>{{ entity.user.apellidos }}</td>
-            <td>{{ entity.vinculacion }}</td>
-            <td>{{ entity.modalidad }}</td>
-            <td>{{ entity.escuela.sigla }}</td>
-            <td>{{ entity.centro.nombre }}</td>
+            <td>{{ entity.id }}</td>
+            <td>{{ entity.zona.id }}</td>
+            <td>{{ entity.nombre }}</td>
+            <td>{{ entity.tipo }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td>
-                {%if entity.evaluacion%}
-{{ entity.evaluacion.final }}
-            </td>
-            {%endif%}
             </tr>
         {% endfor %}
         </tbody>

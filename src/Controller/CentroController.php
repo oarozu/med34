@@ -27,10 +27,10 @@ class CentroController extends AbstractController
      *
      * @Route("/", name="centro", methods={"GET"})
      */
-    public function indexAction()
+    public function indexAction(ManagerRegistry $doctrine)
     {
-        $em = $this->doctrine->getManager();
-        $entities = $em->getRepository('App:Centro')->ordenZona();
+        //$em = $this->doctrine->getManager();
+        $entities = $doctrine->getRepository(Centro::class)->ordenZona();
         return $this->render('Centro/index.html.twig', array(
             'entities' => $entities,
         ));

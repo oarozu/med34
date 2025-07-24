@@ -258,7 +258,7 @@ class CursoController extends AbstractController
         }
 
         if ($docente->getId() == $oferta->getDirector()->getId()) {
-            $request->getSession()->add('warning', 'No es necesario que el director se agregue como tutor');
+            $request->getSession()->getFlashBag()->add('warning', 'No es necesario que el director se agregue como tutor');
             return $this->redirect($this->generateUrl('oferta', array('id' => $id)));
         }
 
