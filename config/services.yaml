@@ -22,6 +22,8 @@ parameters:
         - '20251'
         - '20252'
         - '20253'
+        - '20254'
+        - '20255'
     mailer_password: q
 
 services:
