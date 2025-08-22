@@ -17,7 +17,7 @@ parameters:
     secret: ThisTokenIsNotSoSecretChangeIt
     appmed.periodo: '20254'
     appmed.year: '2025'
-    appmed.semestre: '20251'
+    appmed.semestre: '20252'
     appmed.periodos:
         - '20251'
         - '20252'
