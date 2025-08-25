@@ -141,7 +141,7 @@ class DefaultController extends AbstractController {
         $user = $this->getUser();
         $docente = $em->getRepository('App:Docente')->findOneBy(array('user' => $user, 'periodo' => $id));
         if (!$docente) {
-            $session->getFlashBag()->add('warning', 'Usted no tiene asignación en el periodo seleccionado:', $id);
+            $session->getFlashBag()->add('warning', 'Usted no tiene asignación en el periodo seleccionado');
             return $this->redirect($this->generateUrl('home_user_periodo'));
         } else {
             $session->set('docenteid', $docente->getId());
