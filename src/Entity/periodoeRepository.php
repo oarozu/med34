@@ -40,13 +40,22 @@ class periodoeRepository extends EntityRepository
         $query->setParameters(array(
             'tipo' => 'p'
         ));
-        return $query->setMaxResults(10)->getResult();
+        $result = $query->setMaxResults(10)->getResult();
+        return $this->getIds($result);
     }
 
     public function getArray($values){
         $result = array();
         foreach ($values as $i => $value){
             $result[$value->getObservaciones(). ' de ' .$value->getYear()] = $value->getPeraca();
+        }
+        return $result;
+    }
+
+    public function getIds($values){
+        $result = array();
+        foreach ($values as $i => $value){
+            $result[] = $value['id'];
         }
         return $result;
     }
