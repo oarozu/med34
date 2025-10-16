@@ -24,12 +24,23 @@ class periodoeRepository extends EntityRepository
             ->orderBy('periodoe.id', 'DESC');
     }
 
+
     public function findLastThree()
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery('SELECT a FROM App:Periodoe a WHERE a.peraca < 20000 ORDER BY a.id DESC');
         $periodos =  $query->setMaxResults(3)->getResult();
         return $this->getArray($periodos);
+    }
+
+    public function findLastTenId()
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery('SELECT a.id FROM App:Periodoe a WHERE a.type=:tipo ORDER BY a.id DESC');
+        $query->setParameters(array(
+            'tipo' => 'p'
+        ));
+        return $query->setMaxResults(10)->getResult();
     }
 
     public function getArray($values){

@@ -12,7 +12,7 @@
             </td>
         </tr>
         <tr>
-            <td>Periodo: {{ entity.periodo }}</td>
+            <td>Periodo:  {{ periodo.year }} {{ periodo.observaciones }}</td>
             <td>Fecha
                 Autoevaluación: {{ entity.plangestion.fechaautoevaluacion? entity.plangestion.fechaautoevaluacion|date('Y-m-d H:i:s') : '' }}</td>
         </tr>
@@ -60,7 +60,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    {% if actividad.path %}
+                    {% if actividad.path and lincOn %}
                         {% if entity.vinculacion == 'De Carrera' %}
                             <a href="../../../{{ actividad.webpath|replace({'repo': 'web/repo'}) }}" target="_blank"><i class="fa fa-download"></i>Ver...</a>
                         {% else %}

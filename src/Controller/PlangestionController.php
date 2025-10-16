@@ -274,14 +274,27 @@ class PlangestionController extends AbstractController
         $docente = $em->getRepository('App:Docente')->find($id);
         if (!$docente) {
             throw $this->createNotFoundException('No se encuentra docente entity.');
+
         }
+        $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $docente->getPeriodo()));
+        $lastTenPeriods = $em->getRepository('App:Periodoe')->findLastTenId();
+        $lincOn = false;
+        if (in_array($periodo->getId(), $lastTenPeriods)) {
+            $lincOn = true;
+        }
+
+
         if ($docente->getVinculacion() == 'DOFE') {
             return $this->render('Plangestion/registrodofe.html.twig', array(
                 'entity' => $docente,
+                'periodo' => $periodo,
+                'lincOn' => $lincOn
             ));
         } else {
             return $this->render('Plangestion/autoeval.html.twig', array(
                 'entity' => $docente,
+                'periodo' => $periodo,
+                'lincOn' => $lincOn
             ));
         }
     }
