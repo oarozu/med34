@@ -137,7 +137,7 @@ protected $coevaltutor;
      * @param \App\Entity\redTurores $coevaldirector
      * @return Tutor
      */
-    public function setCoevaldirector(\App\Entity\redTutores $coevaldirector = null)
+    public function setCoevaldirector(\App\Entity\redTutores $coevaldirector)
     {
         $this->coevaldirector = $coevaldirector;
 
@@ -160,7 +160,7 @@ protected $coevaltutor;
      * @param \App\Entity\coevalTutor $coevaltutor
      * @return Tutor
      */
-    public function setCoevaltutor(\App\Entity\coevalTutor $coevaltutor = null)
+    public function setCoevaltutor(\App\Entity\coevalTutor $coevaltutor)
     {
         $this->coevaltutor = $coevaltutor;
 

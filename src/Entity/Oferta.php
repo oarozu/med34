@@ -188,7 +188,7 @@ protected $tutores;
      * @param \App\Entity\coevalDirector $coeval
      * @return Oferta
      */
-    public function setCoeval(\App\Entity\coevalDirector $coeval = null)
+    public function setCoeval(\App\Entity\coevalDirector $coeval)
     {
         $this->coeval = $coeval;
 

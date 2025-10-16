@@ -194,7 +194,7 @@ protected $oferta;
      * @param \App\Entity\Programa $programa
      * @return Curso
      */
-    public function setPrograma(\App\Entity\Programa $programa = null)
+    public function setPrograma(\App\Entity\Programa $programa)
     {
         $this->programa = $programa;
 

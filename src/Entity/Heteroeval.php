@@ -266,7 +266,7 @@ protected $fecha;
      * @param \App\Entity\Docente $docente
      * @return Heteroeval
      */
-    public function setDocente(\App\Entity\Docente $docente = null)
+    public function setDocente(\App\Entity\Docente $docente)
     {
         $this->docente = $docente;
 

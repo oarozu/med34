@@ -3,7 +3,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Doctrine\Common \Collections\ArrayCollection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -201,7 +201,7 @@ protected $periodoe;
      * @param \App\Entity\Periodoe $periodoe
      * @return Periodoa
      */
-    public function setPeriodoe(\App\Entity\Periodoe $periodoe = null)
+    public function setPeriodoe(\App\Entity\Periodoe $periodoe)
     {
         $this->periodoe = $periodoe;
 

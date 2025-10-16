@@ -139,7 +139,7 @@ class ProgramaPeriodo {
      * @param \App\Entity\Docente $lider
      * @return ProgramaPeriodo
      */
-    public function setLider(\App\Entity\Docente $lider = null)
+    public function setLider(\App\Entity\Docente $lider)
     {
         $this->lider = $lider;
 

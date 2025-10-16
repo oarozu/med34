@@ -164,7 +164,7 @@ protected $secretaria;
      * @param \App\Entity\User $secretaria
      * @return Escuela
      */
-    public function setSecretaria(\App\Entity\User $secretaria = null)
+    public function setSecretaria(\App\Entity\User $secretaria)
     {
         $this->secretaria = $secretaria;
 

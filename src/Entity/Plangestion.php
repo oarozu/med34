@@ -376,7 +376,7 @@ class Plangestion {
      * @param \App\Entity\pdfPlang $pdf
      * @return Plangestion
      */
-    public function setPdf(\App\Entity\pdfPlang $pdf = null) {
+    public function setPdf(\App\Entity\pdfPlang $pdf) {
         $this->pdf = $pdf;
 
         return $this;

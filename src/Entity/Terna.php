@@ -192,7 +192,7 @@ protected $principal;
      * @param \App\Entity\Periodoe $periodo
      * @return Terna
      */
-    public function setPeriodo(\App\Entity\Periodoe $periodo = null)
+    public function setPeriodo(\App\Entity\Periodoe $periodo)
     {
         $this->periodo = $periodo;
 

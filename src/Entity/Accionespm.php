@@ -308,7 +308,7 @@ protected $plan;
      *
      * @param UploadedFile $file
      */
-    public function setFile(UploadedFile $file = null)     {
+    public function setFile(UploadedFile $file)     {
         $this->file = $file;
         $this->descripcion = 'adjunto';
 

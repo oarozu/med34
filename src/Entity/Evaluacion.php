@@ -509,7 +509,7 @@ protected $aclaraciones;
      * @param \App\Entity\Docente $docente
      * @return Evaluacion
      */
-    public function setDocente(\App\Entity\Docente $docente = null)
+    public function setDocente(\App\Entity\Docente $docente)
     {
         $this->docente = $docente;
 

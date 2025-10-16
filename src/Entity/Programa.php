@@ -189,7 +189,7 @@ protected $escuela;
      * @param Entity\User $lider
      * @return Programa
      */
-    public function setLider(\App\Entity\User $lider = null)
+    public function setLider(\App\Entity\User $lider)
     {
         $this->lider = $lider;
 
@@ -285,7 +285,7 @@ protected $escuela;
      * @param \App\Entity\coevalLider $coeval
      * @return Programa
      */
-    public function setCoeval(\App\Entity\coevalLider $coeval = null)
+    public function setCoeval(\App\Entity\coevalLider $coeval)
     {
         $this->coeval = $coeval;
 

@@ -131,7 +131,7 @@ protected $zona;
      * @param \App\Entity\User $director
      * @return Centro
      */
-    public function setDirector(\App\Entity\User $director = null)
+    public function setDirector(\App\Entity\User $director)
     {
         $this->director = $director;
 
@@ -211,7 +211,7 @@ protected $zona;
      * @param \App\Entity\Departamento $departamento
      * @return Centro
      */
-    public function setDepartamento(\App\Entity\Departamento $departamento = null)
+    public function setDepartamento(\App\Entity\Departamento $departamento)
     {
         $this->departamento = $departamento;
 

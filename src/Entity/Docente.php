@@ -392,7 +392,7 @@ protected $centro;
      * @param \App\Entity\Programa $programa
      * @return Docente
      */
-    public function setPrograma(\App\Entity\Programa $programa = null)
+    public function setPrograma(\App\Entity\Programa $programa)
     {
         $this->programa = $programa;
 
@@ -496,7 +496,7 @@ protected $centro;
      * @param \App\Entity\Plangestion $plangestion
      * @return Docente
      */
-    public function setPlangestion(\App\Entity\Plangestion $plangestion = null)
+    public function setPlangestion(\App\Entity\Plangestion $plangestion)
     {
         $this->plangestion = $plangestion;
 
@@ -554,7 +554,7 @@ protected $centro;
      * @param \App\Entity\Heteroeval $heteroeval
      * @return Docente
      */
-    public function setHeteroeval(\App\Entity\Heteroeval $heteroeval = null)
+    public function setHeteroeval(\App\Entity\Heteroeval $heteroeval)
     {
         $this->heteroeval = $heteroeval;
 
@@ -577,7 +577,7 @@ protected $centro;
      * @param \App\Entity\Evaluacion $evaluacion
      * @return Docente
      */
-    public function setEvaluacion(\App\Entity\Evaluacion $evaluacion = null)
+    public function setEvaluacion(\App\Entity\Evaluacion $evaluacion)
     {
         $this->evaluacion = $evaluacion;
 

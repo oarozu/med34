@@ -152,7 +152,7 @@ protected $director;
      * @param \App\Entity\Centro $nodo
      * @return Zona
      */
-    public function setNodo(\App\Entity\Centro $nodo = null)
+    public function setNodo(\App\Entity\Centro $nodo)
     {
         $this->nodo = $nodo;
 

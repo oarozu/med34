@@ -167,7 +167,7 @@ protected $plang;
      * @param \App\Entity\Proyectoi $proyecto
      * @return Productividad
      */
-    public function setProyecto(\App\Entity\Proyectoi $proyecto = null)
+    public function setProyecto(\App\Entity\Proyectoi $proyecto)
     {
         $this->proyecto = $proyecto;
 
