@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Escuela;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -19,11 +20,11 @@ class EscuelaType extends AbstractType
             ->add('id')
             ->add('nombre')
             ->add('sigla')
-            ->add("decano", "text", array(
+            ->add("decano", TextType::class, array(
              "mapped" => false,
             'required'  => true,
                 ))
-            ->add("secretaria", "text", array(
+            ->add("secretaria", TextType::class, array(
              "mapped" => false,
             'required'  => true,
                 ))
