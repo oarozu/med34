@@ -22,72 +22,72 @@
         <th>Estado</th>
     </tr>
     {% if periodo.dias > 0 %}
-    <tr>
-        <th>Registro Roles
+        <tr>
+            <th>Registro Roles
 
-        </th>
-        <td>Registro de roles para autoevaluación</td>
-        <td>
-            {% if entity.plangestion %}
-                {% if instrumentos[0].estado %}
-                    <a href="{{ path('plangestion_crear') }}" class="btn btn-primary btn-xs">Ingresar <i
-                                class="fa fa-sign-in"></i></a>
-                {% else %}<i></i>{% endif %}
-            {% endif %}
-        </td>
-        <td>
-            {% if entity.plangestion.estado == 'Cerrado' or  entity.plangestion.estado == 'Autoevaluado' or  entity.plangestion.estado == 'Confirmado' %}
-                <i class="fa fa-check" style="color: #739e73"></i>
-            {% else %}
-                <i class="fa fa-times" style="color: #a90329"></i>
-            {% endif %}
+            </th>
+            <td>Registro de roles para autoevaluación</td>
+            <td>
+                {% if entity.plangestion %}
+                    {% if instrumentos[0].estado %}
+                        <a href="{{ path('plangestion_crear') }}" class="btn btn-primary btn-xs">Ingresar <i
+                                    class="fa fa-sign-in"></i></a>
+                    {% else %}<i></i>{% endif %}
+                {% endif %}
+            </td>
+            <td>
+                {% if entity.plangestion.estado == 'Cerrado' or  entity.plangestion.estado == 'Autoevaluado' or  entity.plangestion.estado == 'Confirmado' %}
+                    <i class="fa fa-check" style="color: #739e73"></i>
+                {% else %}
+                    <i class="fa fa-times" style="color: #a90329"></i>
+                {% endif %}
 
-            {% if entity.plangestion.estado != 'Sin Cerrar' %}
-            {% else %}
+                {% if entity.plangestion.estado != 'Sin Cerrar' %}
+                {% else %}
 
-            {% endif %}
+                {% endif %}
 
-        </td>
-    </tr>
-    <tr>
-        <th>Plan de Gestión Docente</th>
-        <td>Plan de Gestión Aprobado en PDF. (Este es cargado por el Decano Nacional)</td>
-        <td>
-            {% if entity.plangestion.pdf %}
-                <a href="javascript:popUp('../../../web/repo/{{ entity.plangestion.docente.periodo }}{{ entity.plangestion.pdf.webpath }}')"><i
-                            class="fa fa-file-o"></i> Ver Archivo...</a>
-            {% else %}
-                No cargado
-            {% endif %}
-        </td>
-        <td>
-            {% if entity.plangestion.pdf %}
-                <i class="fa fa-check" style="color: #739e73"></i>
-            {% else %}
-                <i class="fa fa-times" style="color: #a90329"></i>
-            {% endif %}
-        </td>
-    </tr>
-    <tr>
-        <th>Autoevaluación
-        </th>
-        <td>Descripción del avance y cargue de evidencias</td>
-        <td>
-            {% if entity.plangestion %}
-                {% if periodo.auto %}
-                    <a href="{{ path('plangestion_show') }}"
-                       class="btn btn-primary btn-xs">Ingresar <i class="fa fa-sign-in"></i></a>
-                {% else %}<i>{{ periodo.cronograma }}</i>{% endif %}
-            {% endif %}
-        </td>
-        <td>
-            {% if entity.plangestion.autoevaluacion is not null %}
-                <i class="fa fa-check" style="color: #739e73"></i>
-            {% else %}
-                <i class="fa fa-times" style="color: #a90329"></i>
-            {% endif %}
-        </td>
-    </tr>
+            </td>
+        </tr>
+        <tr>
+            <th>Plan de Gestión Docente</th>
+            <td>Plan de Gestión Aprobado en PDF. (Este es cargado por el Decano Nacional)</td>
+            <td>
+                {% if entity.plangestion.pdf %}
+                    <a href="javascript:popUp('../../../web/repo/{{ entity.plangestion.docente.periodo }}{{ entity.plangestion.pdf.webpath }}')"><i
+                                class="fa fa-file-o"></i> Ver Archivo...</a>
+                {% else %}
+                    No cargado
+                {% endif %}
+            </td>
+            <td>
+                {% if entity.plangestion.pdf %}
+                    <i class="fa fa-check" style="color: #739e73"></i>
+                {% else %}
+                    <i class="fa fa-times" style="color: #a90329"></i>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>Autoevaluación
+            </th>
+            <td>Descripción del avance y cargue de evidencias</td>
+            <td>
+                {% if entity.plangestion %}
+                    {% if periodo.auto %}
+                        <a href="{{ path('plangestion_show') }}"
+                           class="btn btn-primary btn-xs">Ingresar <i class="fa fa-sign-in"></i></a>
+                    {% else %}<i>{{ periodo.cronograma }}</i>{% endif %}
+                {% endif %}
+            </td>
+            <td>
+                {% if entity.plangestion.autoevaluacion is not null %}
+                    <i class="fa fa-check" style="color: #739e73"></i>
+                {% else %}
+                    <i class="fa fa-times" style="color: #a90329"></i>
+                {% endif %}
+            </td>
+        </tr>
     {% endif %}
     {% if entity.tutoria|length > 0 %}
         <tr>
@@ -187,18 +187,18 @@
         <td></td>
     </tr>
     {% if periodo.dias >  0 %}
-    <tr>
-        <th>
-            4. Informe de Evaluación Final
-        </th>
-        <td>
-            {% if entity.evaluacion %}
-                <a href="javascript:popUp('{{ path('docente_final', {'id': entity.id }) }}')"
-                   class="btn btn-primary btn-xs">Ver Calificaciones <i class="fa fa-sign-in"></i></a>
-            {% endif %}
-        </td>
-        <td></td>
-    </tr>
+        <tr>
+            <th>
+                4. Informe de Evaluación Final
+            </th>
+            <td>
+                {% if entity.evaluacion %}
+                    <a href="javascript:popUp('{{ path('docente_final', {'id': entity.id }) }}')"
+                       class="btn btn-primary btn-xs">Ver Calificaciones <i class="fa fa-sign-in"></i></a>
+                {% endif %}
+            </td>
+            <td></td>
+        </tr>
     {% endif %}
 
 </table>
