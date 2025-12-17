@@ -23,7 +23,7 @@ class CalificarDofeType extends AbstractType {
             'attr' => [
                 'required' => true,
                 'label' => 'Calificación',
-                'min' => 0,
+                'min' => 1,
                 'max' => 50,
                 'onchange' => 'updateTextInput(this.value)'
             ],
