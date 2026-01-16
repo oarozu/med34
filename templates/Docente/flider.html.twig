@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{{ docente.user.id }}-{{ docente.periodo }}{% endblock %}</title>
+    <meta name="description" content="Informe Final Anual de Evaluación">
+    <meta charset="utf-8">
+    <meta name="author" content="MED Módulo de Evaluación Docente UNAD">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/print.css') }}">
+</head>
+{% block body -%}
+    <table class="data" widtd="100%">
+        <tr>
+            <td colspan="4" align="center"><img src="/img/logo-med-unad.png" alt="MED">
+                <h3>INFORME DE EVALUACIÓN DE LA GESTIÓN DE LIDERAZGO</h3>
+            </td>
+        </tr>
+        <tr>
+            <td><b>Cédula</b></td>
+            <td>{{ docente.user.id }}</td>
+            <td><b>Periodo de Evaluación</b></td>
+            <td>{{ docente.periodo }}</td>
+        </tr>
+        <tr>
+            <td><b>Nombres</b></td>
+            <td>{{ docente.user.nombres }}</td>
+            <td><b>Programa</b></td>
+            <td>{{ docente.programa.nombre }}</td>
+        </tr>
+        <tr>
+            <td><b>Apellidos</b></td>
+            <td>{{ docente.user.apellidos }}</td>
+            <td><b>Cargo</b></td>
+            <td>{{ docente.cargo }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><b>Vinculación:</b> {{ docente.vinculacion }} - <b>Modalidad:</b> {{ docente.modalidad }}
+            </td>
+            <td colspan="2"><b>Perfil:</b> {{ docente.perfil }}</td>
+        </tr>
+        <tr>
+            <td colspan="4"><b>Escuela:</b> {{ docente.escuela.nombre }}<br>
+                <b>Decano:</b> {{ docente.escuela.decano.nombres }} {{ docente.escuela.decano.apellidos }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><b>Centro:</b> {{ docente.centro.nombre }}</td>
+            <td colspan="2">
+                <b>Director:</b>
+                {% if docente.centro.director %}
+                    {{ docente.centro.director.nombres }} {{ docente.centro.director.apellidos }}
+                {% endif %}
+            </td>
+        </tr>
+
+    </table>
+
+    <table widtd="100%" border="0">
+        <tr>
+            <td class="titulo" colspan="5">Calificaciones {{ periodo.year }}</td>
+        </tr>
+        <tr>
+            <td class="centro">ID</td>
+            <td class="centro">Evaluador</td>
+            <td class="centro">Perfil</td>
+            <td class="centro">Observaciones</td>
+            <td class="centro">Calificación</td>
+        </tr>
+        {% set final = 0 %} {% set evales = 0 %}
+        {% for eval in evaluaciones %}
+            {% set evales = evales+1 %}
+            <tr>
+                <td>{{ eval.evaluacion.id }}</td>
+                <td>{{ eval.evaluacion.evaluador.nombres }}</td>
+                <td>{{ eval.evaluacion.perfil }}</td>
+                <td>{{ eval.observaciones }}</td>
+                <td class="centro">{{ eval.calificacion }}</td>
+                {% set final = final+eval.calificacion %}
+            </tr>
+        {% endfor %}
+    </table>
+
+    <table widtd="100%" border="0">
+        <tr>
+            <td class="titulo" colspan="3">FINAL</td>
+        </tr>
+        <tr>
+            <td class="centro">Tipo de Evaluación</td>
+            <td class="centro">Ponderación:</td>
+            <td class="centro">Percentil</td>
+        </tr>
+        <tr>
+            <td>
+                {% if docente.evaluacion.fecha %}
+                    Fecha de consolidación: {{ docente.evaluacion.fecha|date('d/m/Y') }}
+                {% endif %}
+            </td>
+            <td class="centro"><h3>EVALUACIÓN DE LA GESTIÓN DE LIDERAZGO</h3></td>
+            <td class="centro">
+                <h3>{{ (final/evales)|number_format(1, '.', ',') }}</h3>
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <td colspan="3" align="center">Evaluación Número:{{ docente.id }} - Fecha y hora de
+                consulta: {{ "now"|date("d/m/Y H:m") }}</td>
+        </tr>
+    </table>
+{% endblock %}
+</html>

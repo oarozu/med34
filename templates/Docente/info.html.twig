@@ -67,6 +67,19 @@
             </td>
             <td></td>
         </tr>
+        {% if eslider %}
+        <tr>
+            <th>
+                6. Informe de Evaluación de la Gestión de Liderazgo
+            </th>
+            <td>
+                {%if entity.evaluacion%}
+                    <a href="javascript:popUp('{{ path('docente_lider', {'id': entity.id }) }}')" class="btn btn-primary btn-xs">Ver... <i class="fa fa-sign-in"></i></a>
+                {%endif%}
+            </td>
+            <td></td>
+        </tr>
+        {%endif%}
 
     </table>
 

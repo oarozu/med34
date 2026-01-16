@@ -352,6 +352,8 @@ class DocenteController extends AbstractController
         $em = $this->doctrine->getManager();
         $entity = $em->getRepository('App:Docente')->find($id);
         $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $entity->getPeriodo()));
+        $redlider = $em->getRepository('App:RedDofe')->findBy(array('docente' => $entity));
+        $eslider = count($redlider)>0 ? 1 : 0;
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Docente entity.');
@@ -365,7 +367,8 @@ class DocenteController extends AbstractController
         } else {
             return $this->render('Docente/info.html.twig', array(
                 'entity' => $entity,
-                'periodo' => $periodo
+                'periodo' => $periodo,
+                'eslider' => $eslider
             ));
         }
     }
@@ -573,6 +576,27 @@ class DocenteController extends AbstractController
                 'periodo' => $periodo
             ));
         }
+    }
+
+
+    /**
+     * @Route("/flider/{id}", name="docente_lider", methods={"GET"})
+     */
+    public function finalLiderAction($id)
+    {
+        $em = $this->doctrine->getManager();
+        $entity = $em->getRepository('App:Docente')->find($id);
+        $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $entity->getPeriodo()));
+
+        $evaluadores = $em->getRepository('App:RedDofe')->findBy(array('docente' => $entity));
+        $evaluaciones = $em->getRepository('App:evalDofe')->findBy(array('evaluacion' => $evaluadores));
+            return $this->render('Docente/flider.html.twig', array(
+                'docente' => $entity,
+                'periodo' => $periodo,
+                'evaluadores' => $evaluadores,
+                'evaluaciones' => $evaluaciones
+            ));
+
     }
 
     /**
