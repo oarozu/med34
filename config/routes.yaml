@@ -87,7 +87,6 @@ plangestion_autoeval:
   defaults: { _controller: App\Controller\PlangestionController::autoevalAction }
   methods: GET
 
-
 redtutores_info:
   path:  /unad/doc/{id}/redtutor
   defaults: { _controller: App\Controller\DocenteController::redtutoresinfoAction" }

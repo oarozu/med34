@@ -284,8 +284,8 @@ class PlangestionController extends AbstractController
         }
 
 
-        if ($docente->getVinculacion() == 'DC') {
-            return $this->render('Plangestion/registrodofe.html.twig', array(
+        if ($docente->getVinculacion() == "De Carrera") {
+            return $this->render('Plangestion/autoeval.html.twig', array(
                 'entity' => $docente,
                 'periodo' => $periodo,
                 'lincOn' => 1
