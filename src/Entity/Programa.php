@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -10,36 +12,43 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="programa")
  * @ORM\Entity(repositoryClass="ProgramaRepository")
  */
-class Programa{
+class Programa
+{
 
-/**
- * @ORM\Id
- * @ORM\Column(name="id", type="integer", nullable=false)
- * @ORM\GeneratedValue(strategy="IDENTITY")
+    /**
+     * @ORM\Id
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
- protected $id;
+    protected $id;
 
- /**
+    /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-protected $nombre;
+    protected $nombre;
 
-/**
+    /**
      * @ORM\Column(type="string", length=15)
      * @Assert\NotBlank()
      */
-protected $nivel;
+    protected $nivel;
 
 
-     /**
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $resolucion;
+
+
+    /**
      * @var Escuela
      * @ORM\ManyToOne(targetEntity="App\Entity\Escuela", inversedBy="programas")
      * @ORM\JoinColumn(name="escuela_id", referencedColumnName="id",
      * nullable=true
      * )
      */
-protected $escuela;
+    protected $escuela;
 
 
     /**
@@ -51,17 +60,11 @@ protected $escuela;
      */
     protected $lider;
 
+
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Docente", mappedBy="programa")
+     * @ORM\OneToMany(targetEntity="App\Entity\Curso", mappedBy="programa")
      */
-    protected $docentes;
-
-
-    /**
-      * @ORM\OneToMany(targetEntity="App\Entity\Curso", mappedBy="programa")
-      */
     protected $cursos;
-
 
 
     /**
@@ -142,7 +145,7 @@ protected $escuela;
     {
         return $this->escuela;
 
-        }
+    }
 
     /**
      * Set tipo
@@ -167,19 +170,18 @@ protected $escuela;
         return $this->tipo;
     }
 
-        /**
+    /**
      * Get lista para menu
      *
      * @return string
      */
     public function getLista()
     {
-        if ($this->getEscuela()){
-          return $this->getEscuela()->getSigla().'-'.$this->nombre;
+        if ($this->getEscuela()) {
+            return $this->getEscuela()->getSigla() . '-' . $this->nombre;
+        } else {
+            return 'Sin-' . $this->nombre;
         }
-      else{
-       return 'Sin-'.$this->nombre;
-      }
 
     }
 
@@ -205,45 +207,13 @@ protected $escuela;
     {
         return $this->lider;
     }
+
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->docentes = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add docentes
-     *
-     * @param \App\Entity\Docente $docentes
-     * @return Programa
-     */
-    public function addDocente(\App\Entity\Docente $docentes)
-    {
-        $this->docentes[] = $docentes;
-
-        return $this;
-    }
-
-    /**
-     * Remove docentes
-     *
-     * @param \App\Entity\Docente $docentes
-     */
-    public function removeDocente(\App\Entity\Docente $docentes)
-    {
-        $this->docentes->removeElement($docentes);
-    }
-
-    /**
-     * Get docentes
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDocentes()
-    {
-        return $this->docentes;
     }
 
     /**
@@ -293,6 +263,24 @@ protected $escuela;
     }
 
     /**
+     * @return mixed
+     */
+    public function getResolucion()
+    {
+        return $this->resolucion;
+    }
+
+    /**
+     * @param mixed $resolucion
+     */
+    public function setResolucion($resolucion): void
+    {
+        $this->resolucion = $resolucion;
+    }
+
+
+
+    /**
      * Get coeval
      *
      * @return \App\Entity\coevalLider
@@ -309,6 +297,6 @@ protected $escuela;
      */
     public function getLabel()
     {
-        return $this->id.' - '.$this->nombre;
+        return $this->id . ' - ' . $this->nombre;
     }
 }

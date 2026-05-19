@@ -81,7 +81,7 @@ protected $escuela;
 
 /**
      * @var Programa
-     * @ORM\ManyToOne(targetEntity="App\Entity\Programa", inversedBy="docentes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Programa")
      * @ORM\JoinColumn(name="programa_id", referencedColumnName="id",
      * nullable=true
      * )

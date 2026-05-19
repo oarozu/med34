@@ -37,7 +37,7 @@ class CursoController extends AbstractController
     public function indexAction()
     {
         $em = $this->doctrine->getManager();
-        $entities = $em->getRepository('App:Curso')->findAll();
+        $entities = $em->getRepository('App:Curso')->findBy(array('nivel' => '1'));
         return $this->render('Curso/index.html.twig', array(
             'entities' => $entities,
             'sigla' => false
