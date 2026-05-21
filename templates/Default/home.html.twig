@@ -62,51 +62,7 @@
         <div align="center">
             <span> <img src="img/med-anual.png" style="height: 220px; margin-top: 50px"> </span>
         </div>
-        <table class="table table-bordered hidden-mobile">
-            <h1 class="txt-color-orangeDark login-header-big">1. Circulares del proceso</h1>
-            <thead>
-            <tr>
-                <th>Número:</th>
-                <th>Fecha</th>
-                <th>Ver...</th>
-            </tr>
-            </thead>
-            <tr>
-                <td>101.060</td>
-                <td>26 de noviembre de 2025</td>
-                <td><a href="http://med.unad.edu.co/archivo/circular2025-101-060.pdf" target="new">Ver... <i
-                                class="fa fa-download"></i></a></td>
-            </tr>
-        </table>
-        <table class="table table-bordered hidden-mobile">
-            <h1 class="txt-color-orangeDark login-header-big">2. Instructivos del proceso</h1>
-            <thead>
-            <tr>
-                <th>No.</th>
-                <th>Nombre</th>
-                <th>Responsable</th>
-                <th>Versión</th>
-                <th>Ver...</th>
-            </tr>
-            </thead>
-            <tr>
-                <td>1</td>
-                <td>Instructivo de ingreso a la intranet</td>
-                <td>GIDT</td>
-                <td>1</td>
-                <td><a href="http://med.unad.edu.co/archivo/instructivo-acceso-intranet.pdf" target="new">Ver... <i
-                                class="fa fa-download"></i></a></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Instructivo General MED</td>
-                <td>VIACI</td>
-                <td>1.1</td>
-                <td><a href="http://med.unad.edu.co/archivo/circular2025-101-060.pdf" target="new">Ver... <i
-                                class="fa fa-download"></i></a></td>
-            </tr>
-        </table>
-        <h1 class="txt-color-orangeDark login-header-big">3. Periodos de evaluación</h1>
+        <h1 class="txt-color-orangeDark login-header-big">Periodos de evaluación</h1>
         <table class="table table-bordered hidden-mobile">
             <thead>
             <tr>
@@ -131,9 +87,50 @@
                     {%if periodoe.type == 's'%}
                         Únicamente Docentes de Carrera
                     {% endif %}
-                    </td>
+                </td>
                 {% endfor %}
             </tbody>
+        </table>
+        <table class="table table-bordered hidden-mobile">
+            <h1 class="txt-color-orangeDark login-header-big">Circulares por periodo Académico</h1>
+            <thead>
+            <tr>
+                <th>Número</th>
+                <th>Fecha de publicación</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tr>
+                <td>101.060</td>
+                <td>26 de noviembre de 2025</td>
+                <td><a href="http://med.unad.edu.co/archivo/circular2025-101-060.pdf" target="new">Ver Circular <i
+                                class="fa fa-download"></i></a></td>
+            </tr>
+        </table>
+        <table class="table table-bordered hidden-mobile">
+            <h1 class="txt-color-orangeDark login-header-big">Instructivos del proceso</h1>
+            <thead>
+            <tr>
+                <th>Título</th>
+                <th>Responsable</th>
+                <th>Versión</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tr>
+                <td>Instructivo de ingreso a la intranet</td>
+                <td>GIDT</td>
+                <td>1</td>
+                <td><a href="http://med.unad.edu.co/archivo/instructivo-acceso-intranet.pdf" target="new">Ver Instructivo <i
+                                class="fa fa-download"></i></a></td>
+            </tr>
+            <tr>
+                <td>Instructivo General MED</td>
+                <td>VIACI</td>
+                <td>1.1</td>
+                <td><a href="http://med.unad.edu.co/archivo/circular2025-101-060.pdf" target="new">Ver Instructivo <i
+                                class="fa fa-download"></i></a></td>
+            </tr>
         </table>
         </h4>
         <br>
