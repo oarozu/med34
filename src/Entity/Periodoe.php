@@ -72,6 +72,10 @@ class Periodoe
      */
     protected $periodoa;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $peracas;
 
     /**
      * Set id
@@ -339,5 +343,21 @@ class Periodoe
     public function getPeriodoa()
     {
         return $this->periodoa;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPeracas()
+    {
+        return $this->peracas;
+    }
+
+    /**
+     * @param mixed $peracas
+     */
+    public function setPeracas($peracas): void
+    {
+        $this->peracas = $peracas;
     }
 }

@@ -43,7 +43,7 @@
     <!--<span id="logo"></span>-->
 
     <div id="logo-group">
-        <span id="logo"> <img src="img/logoUNAD.png" style="width:315px;height:67px" alt="Unad"> </span>
+        <span id="logo"> <img src="https://www.unad.edu.co/images/footer/logo-unad-acreditacion-min.png" style="width:365px;height:67px" alt="Unad"> </span>
 
         <!-- END AJAX-DROPDOWN -->
     </div>
@@ -63,7 +63,7 @@
             <span> <img src="img/med-anual.png" style="height: 220px; margin-top: 50px"> </span>
         </div>
         <table class="table table-bordered hidden-mobile">
-            <h1 class="txt-color-orangeDark login-header-big">Circular del proceso</h1>
+            <h1 class="txt-color-orangeDark login-header-big">1. Circulares del proceso</h1>
             <thead>
             <tr>
                 <th>Número:</th>
@@ -78,32 +78,60 @@
                                 class="fa fa-download"></i></a></td>
             </tr>
         </table>
-        <h1 class="txt-color-orangeDark login-header-big">Periodos de evaluación:</h1>
+        <table class="table table-bordered hidden-mobile">
+            <h1 class="txt-color-orangeDark login-header-big">2. Instructivos del proceso</h1>
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>Nombre</th>
+                <th>Responsable</th>
+                <th>Versión</th>
+                <th>Ver...</th>
+            </tr>
+            </thead>
+            <tr>
+                <td>1</td>
+                <td>Instructivo de ingreso a la intranet</td>
+                <td>GIDT</td>
+                <td>1</td>
+                <td><a href="http://med.unad.edu.co/archivo/instructivo-acceso-intranet.pdf" target="new">Ver... <i
+                                class="fa fa-download"></i></a></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Instructivo General MED</td>
+                <td>VIACI</td>
+                <td>1.1</td>
+                <td><a href="http://med.unad.edu.co/archivo/circular2025-101-060.pdf" target="new">Ver... <i
+                                class="fa fa-download"></i></a></td>
+            </tr>
+        </table>
+        <h1 class="txt-color-orangeDark login-header-big">3. Periodos de evaluación</h1>
         <table class="table table-bordered hidden-mobile">
             <thead>
             <tr>
-                <th>Periodo Académico</th>
+                <th>Periodo</th>
                 <th>Peracas a evaluar</th>
                 <th>Inicio eventos académicos</th>
                 <th>Fin eventos académicos</th>
-                <th>Proceso de evaluación en el MED</th>
+                <th>Cronograma de evaluación en el MED</th>
                 <th>Observaciones</th>
             </tr>
             </thead>
             <tbody>
 
-            {% for periodoa in periodos %}
+            {% for periodoe in periodos %}
             <tr>
-                <td>{{ periodoa.observaciones }}</td>
-                <td>{{ periodoa.peraca }}</td>
-                <td>{{ periodoa.fechainicio|date('Y-m-d') }}</td>
-                <td>{{ periodoa.fechafin|date('Y-m-d') }}</td>
-                <th>{{ periodoa.cronograma }}</th>
-                <th>
-                    {%if periodoa.type == 's'%}
+                <td>{{ periodoe.observaciones }}</td>
+                <td>{{ periodoe.peracas }}</td>
+                <td>{{ periodoe.fechainicio|date('Y-m-d') }}</td>
+                <td>{{ periodoe.fechafin|date('Y-m-d') }}</td>
+                <td>{{ periodoe.cronograma }}</td>
+                <td>
+                    {%if periodoe.type == 's'%}
                         Únicamente Docentes de Carrera
                     {% endif %}
-                    </th>
+                    </td>
                 {% endfor %}
             </tbody>
         </table>
@@ -128,11 +156,6 @@
                         el <a href="http://med.unad.edu.co/archivo/instructivo-acceso-intranet.pdf" target="new">Instructivo
                             de Acceso a la Intranet UNAD <i class="fa fa-download"></i></a> o puede comunicarse con la Mesa de Ayuda al correo
                         soporte.tecnico@unad.edu.co
-                    <br>
-                        <br>
-                        <b>Ingreso Alternativo</b><br>
-                    Si por algún motivo usted no logra autenticarse mediante la intranet UNAD  para el ingreso se habilitó nuevamente la opción para generación e ingreso con contraseña propia del MED:
-                    <a href="https://med.unad.edu.co/getpass">Solicitar contraseña MED</a>
                     <br>
                     </h4>
                 </td>
@@ -182,33 +205,14 @@
             {% endif %}
         </table>
         <table class="table table-bordered hidden-mobile">
-            <thead>
             <tr>
-                <td colspan="3" align="center">
-                    <h1 class="txt-color-orangeDark login-header-big">SOPORTE AL PROCESO</h1>
-                </td>
-            </tr>
-            </thead>
-            <tr>
-                <td colspan="3">
-                    <h4 class="paragraph-header">
-                        Recuerde:
-                        <br>
-                        Si usted es tutor y no está habilitado para evaluar a su director solicite a éste que lo agregue a la red en el MED.
-                        <br>
-                        Si usted es director de curso y no se encuentra registrado para las coevaluaciones solicite al líder de programa que agregue.
-                        <br>
-                        Ante cualquier otro inconveniente escriba soporte.med@unad.edu.co.
-                    </h4>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <h4>Navegadores compatible con esta versión: Google Chrome</h4>
+                <td colspan="2" style="text-align: center">
+                    <p>Módulo de evaluación Docente MED Versión 5.3 - Navegadores compatible con esta versión: Google Chrome</p>
                     {{ direccion_ip }}
                 </td>
             </tr>
         </table>
+        <br>
     </div>
 </div>
 
