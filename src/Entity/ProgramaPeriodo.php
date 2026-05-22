@@ -23,7 +23,7 @@ class ProgramaPeriodo {
 
     /**
      * @var Programa
-     * @ORM\ManyToOne(targetEntity="App\Entity\Programa")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Programa", inversedBy="oferta")
      * @ORM\JoinColumn(name="programa_id", referencedColumnName="id",
      * nullable=false
      * )

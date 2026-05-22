@@ -40,6 +40,10 @@ class Programa
      */
     protected $resolucion;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $parent;
 
     /**
      * @var Escuela
@@ -65,6 +69,12 @@ class Programa
      * @ORM\OneToMany(targetEntity="App\Entity\Curso", mappedBy="programa")
      */
     protected $cursos;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ProgramaPeriodo", mappedBy="programa")
+     */
+    protected $oferta;
 
 
     /**
@@ -298,5 +308,21 @@ class Programa
     public function getLabel()
     {
         return $this->id . ' - ' . $this->nombre;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOferta()
+    {
+        return $this->oferta;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParent()
+    {
+        return $this->parent;
     }
 }

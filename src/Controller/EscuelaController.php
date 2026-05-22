@@ -147,23 +147,18 @@ class EscuelaController extends AbstractController
         $periodoss = $em->getRepository('App:Periodoe')->findby(array('type' => 's'), array('id' => 'DESC'), 14);
         $periodosa = $em->getRepository('App:Periodoe')->findby(array('type' => 'a'), array('id' => 'DESC'), 5);
         $periodosp = $em->getRepository('App:Periodoe')->findby(array('type' => 'p'), array('id' => 'DESC'), 10);
-
-        $programas = $em->getRepository('App:Programa')->findBy(array('escuela' => $escuela), array('nivel' => 'DESC'));
         $periodosession = $session->get('periodoe');
         if (!$periodosession){
             return $this->redirect($this->generateUrl('home_user_inicio'));
         }
-        $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));
-
-        $ofertado = $em->getRepository('App:ProgramaPeriodo')->findby(array('programa' => $programas, 'periodo' => $session->get('periodoe')));
-
+        $periodo = $em->getRepository('App:Periodoe')->findOneBy(array('id' => $session->get('periodoe')));$programasOfertados = $em->getRepository('App:Programa')->findByEscuelaOferta($escuela, $periodo);
 
         if (!$escuela) {
             throw $this->createNotFoundException('Unable to find Escuela entity.');
         }
         return $this->render('Escuela/info.html.twig', array(
             'entity' => $escuela,
-            'ofertado' => $ofertado,
+            'programas' => $programasOfertados,
             'periodoss' => $periodoss,
             'periodosa' => $periodosa,
             'periodosp' => $periodosp,

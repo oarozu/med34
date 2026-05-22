@@ -135,7 +135,6 @@ class ProgramaController extends AbstractController
         if (!$programa) {
             throw $this->createNotFoundException('Unable to find Programa entity.');
         }
-
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('Programa/show.html.twig', array(
@@ -244,7 +243,8 @@ class ProgramaController extends AbstractController
         $session = $request->getSession();
         $entity = $em->getRepository('App:Programa')->find($id);
         $periodo = $em->getRepository('App:Periodoe')->find($session->get('periodoe'));
-        $programa = $em->getRepository('App:ProgramaPeriodo')->findOneBy(array('programa' => $entity, 'periodo' => $periodo));
+        $programaPeriodo = $em->getRepository('App:ProgramaPeriodo')->findOneBy(array('programa' => $entity, 'periodo' => $periodo));
+        $programas = $em->getRepository('App:Programa')->findByOfertaParent($periodo, $id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Programa entity.');
@@ -254,13 +254,14 @@ class ProgramaController extends AbstractController
         $editForm->handleRequest($request);
         if ($editForm["lider"]->getData() != null) {
             $lider = $em->getRepository('App:Docente')->find($editForm["lider"]->getData());
-            $entity->setLider($lider->getUser());
-            $programa->setLider($lider);
+            $programaPeriodo->setLider($lider);
+            foreach ($programas as $programa) {
+                $programa->setLider($lider->getUser());
+            }
         }
         if ($editForm->isValid()) {
             $em->flush();
             return $this->redirect($this->generateUrl('escuela_info'));
-
         }
 
         return $this->render('Programa/edit.html.twig', array(

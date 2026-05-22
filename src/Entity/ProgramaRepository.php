@@ -34,6 +34,30 @@ class ProgramaRepository extends EntityRepository
             ->orderBy('programa.nombre', 'ASC');
     }
 
+    public function findByEscuelaOferta($escuela, $periodo){
+        $qb = $this->createQueryBuilder('programa')
+            ->join('programa.oferta', 'oferta')
+            ->where('programa.escuela = :escuela')
+            ->andWhere('oferta.periodo = :periodo')
+            ->setParameter('escuela', $escuela)
+            ->setParameter('periodo', $periodo)
+            ->orderBy('programa.nombre', 'ASC');
+        $query = $qb->getQuery();
+        return $query->execute();
+    }
+
+    public function findByOfertaParent($periodo, $id){
+        $qb = $this->createQueryBuilder('programa')
+            ->join('programa.oferta', 'oferta')
+            ->Where('oferta.periodo = :periodo')
+            ->andWhere('programa.parent = :parent')
+            ->setParameter('periodo', $periodo)
+            ->setParameter('parent', $id)
+            ->orderBy('programa.nombre', 'ASC');
+        $query = $qb->getQuery();
+        return $query->execute();
+    }
+
     public function getPorIds($ids)
     {
         $em = $this->getEntityManager();

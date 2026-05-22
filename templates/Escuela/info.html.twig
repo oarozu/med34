@@ -2,92 +2,99 @@
 
 {% block body -%}
 
-  <h4 class="modal-title">{{ entity.nombre }}</h4>
-  <table class="table table-bordered hidden-mobile" style="width: 95%">
+    <h4 class="modal-title">{{ entity.nombre }}</h4>
+    <table class="table table-bordered hidden-mobile" style="width: 95%">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Nombre</th>
-                <td>{{ entity.nombre }}</td>
-            </tr>
-            <tr>
-                <th>Sigla</th>
-                <td>{{ entity.sigla }}</td>
-            </tr>
-            <tr>
-                <th>Decano</th>
-                <td>{{ entity.decano.username }} {{ entity.decano.nombres }} {{ entity.decano.apellidos }}</td>
-            </tr>
-            <tr>
-                <th>Secretaria Academica</th>
-                <td>{{ entity.secretaria ? entity.secretaria.username~' '~entity.secretaria.nombres~' '~entity.secretaria.apellidos  : 'SIN' }}</td>
-            </tr>
-            <tr>
-                <th colspan="2">Docentes por periodo</th>
-            </tr>
-            <tr>
-                <th>Periodos académicos</th>
-                <td>
-                {%for periodo in periodosp %}
-                    <a class="btn btn-primary btn-sm" href="{{ path('docente_escuela', {'id': entity.id, 'periodo': periodo.id }) }}">{{ periodo.observaciones }} {{ periodo.year }}</a>
-                      {%endfor%}
-                </td>
-            </tr>
-            <tr>
-                <th>Resultados consolidados anuales</th>
-                <td>
-                    {%for periodo in periodosa %}
-                        <a class="btn btn-primary btn-sm" href="{{ path('docente_escuela', {'id': entity.id, 'periodo': periodo.id }) }}">{{ periodo.observaciones }}</a>
-                    {%endfor%}
-                </td>
-            </tr>
-            <tr>
-                <th>Resultados consolidados semestrales</th>
-                <td>
-                    {%for periodo in periodoss %}
-                        <a class="btn btn-primary btn-sm" href="{{ path('docente_escuela', {'id': entity.id, 'periodo': periodo.id }) }}">{{ periodo.observaciones }}</a>
-                    {%endfor%}
-                </td>
-            </tr>
-             <th>Cursos</th>
-                <td><a href="{{ path('lider_cursos', { 'id': app.session.get('escuelaid')}) }}">Cursos Escuela</a></td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Nombre</th>
+            <td>{{ entity.nombre }}</td>
+        </tr>
+        <tr>
+            <th>Sigla</th>
+            <td>{{ entity.sigla }}</td>
+        </tr>
+        <tr>
+            <th>Decano</th>
+            <td>{{ entity.decano.username }} {{ entity.decano.nombres }} {{ entity.decano.apellidos }}</td>
+        </tr>
+        <tr>
+            <th>Secretaria Academica</th>
+            <td>{{ entity.secretaria ? entity.secretaria.username~' '~entity.secretaria.nombres~' '~entity.secretaria.apellidos  : 'SIN' }}</td>
+        </tr>
+        <tr>
+            <th colspan="2">Docentes por periodo</th>
+        </tr>
+        <tr>
+            <th>Periodos académicos</th>
+            <td>
+                {% for periodo in periodosp %}
+                    <a class="btn btn-primary btn-sm"
+                       href="{{ path('docente_escuela', {'id': entity.id, 'periodo': periodo.id }) }}">{{ periodo.observaciones }} {{ periodo.year }}</a>
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <th>Resultados consolidados anuales</th>
+            <td>
+                {% for periodo in periodosa %}
+                    <a class="btn btn-primary btn-sm"
+                       href="{{ path('docente_escuela', {'id': entity.id, 'periodo': periodo.id }) }}">{{ periodo.observaciones }}</a>
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <th>Resultados consolidados semestrales</th>
+            <td>
+                {% for periodo in periodoss %}
+                    <a class="btn btn-primary btn-sm"
+                       href="{{ path('docente_escuela', {'id': entity.id, 'periodo': periodo.id }) }}">{{ periodo.observaciones }}</a>
+                {% endfor %}
+            </td>
+        </tr>
+        <th>Cursos</th>
+        <td><a href="{{ path('lider_cursos', { 'id': app.session.get('escuelaid')}) }}">Cursos Escuela</a></td>
+        </tr>
         </tbody>
     </table>
 
-   <h4 class="modal-title">Programas y lideres del periodo {{ periodo.observaciones }}</h4>
-   <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+    <h4 class="modal-title">Programas y lideres del periodo {{ periodo.observaciones }}</h4>
+    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
         <tbody>
+        <tr>
+
+            <td>Código</td>
+            <td>Nivel</td>
+            <td>Nombre</td>
+            <td>Resolución</td>
+            <td>Líder</td>
+            <td>Editar</td>
+
+        </tr>
+        {% for programa in programas %}
             <tr>
-
-                <td>Código</td>
-                <td>Nivel</td>
-                <td>Nombre</td>
-                <td>Lider</td>
-
-                <td>Editar</td>
-
-            </tr>
-         {% for oferta in ofertado %}
-                 <tr>
-                 <td><a href="{{ path('programa_show', { 'id': oferta.programa.id }) }}">{{oferta.programa.id}}</a></td>
-
-                <td>{{oferta.programa.nivel}}</td>
-                 <td>{{oferta.programa.nombre}}</td>
-                     <td>{{oferta.programa.lider? oferta.programa.lider.nombres~' '~oferta.programa.lider.apellidos~' '~oferta.programa.lider.id : 'sin'}}</td>
+                <td><a href="{{ path('programa_show', { 'id': programa.id }) }}">{{ programa.id }}</a></td>
+                <td>{{ programa.nivel }}</td>
+                <td>{{ programa.nombre }}</td>
+                <td>{{ programa.resolucion }}</td>
+                <td>{{ programa.lider? programa.lider.nombres~' '~programa.lider.apellidos~' '~programa.lider.id : 'sin' }}</td>
                 <td>
-                {% if is_granted('ROLE_SECA')  %}
-                <a data-toggle="modal" href="{{ path('programa_edit', { 'id': oferta.programa.id }) }}" data-target="#myModal" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
-                {%endif%}
-                 </td>
+                    {% if is_granted('ROLE_SECA') %}
+                        <a data-toggle="modal" href="{{ path('programa_edit', { 'id': programa.id }) }}"
+                           data-target="#myModal" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+                    {% endif %}
+                </td>
             </tr>
-{%endfor%}
-             </table>
- <div class="modal fade" data-refresh="true" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-lg">
-<div class="modal-content">
-</div></div></div>
+        {% endfor %}
+    </table>
+    <div class="modal fade" data-refresh="true" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
 {% endblock %}
