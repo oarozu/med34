@@ -7,7 +7,7 @@
             </tr>
             <tr>
                 <td align="center">
-                    <h3>Plan de Gestión y Auto Evaluación</h3>   
+                    <h3>Plan de Gestión y Auto Evaluación</h3>
                 </td>
             </tr>
         </table>
@@ -18,7 +18,7 @@
                 <td>{{ entity.docente.user.nombres }} {{ entity.docente.user.apellidos }}</td>
                 <th>Periodo de Evaluación</th>
                 <td>{{entity.docente.periodo}}</td>
-            </tr>   
+            </tr>
 
             <tr>
                 <th>Cédula</th>
@@ -37,11 +37,11 @@
                 <td>{{ entity.docente.perfil }}</td>
                 <th>Programa</th>
                 <td>{{ entity.docente.programa.nombre }}</td>
-            </tr> 
+            </tr>
             <tr>
                 <td colspan="2"><b>Escuela:</b> {{ entity.docente.escuela.nombre }}<br>
                     Decano: {{ entity.docente.escuela.decano.nombres }} {{ entity.docente.escuela.decano.apellidos }}
-                </td>   
+                </td>
                 <td colspan="2"><b>Centro:</b> {{ entity.docente.centro.nombre }}<br>
                     Director:{%if entity.docente.centro.director %} {{ entity.docente.centro.director.nombres }} {{ entity.docente.centro.director.apellidos }}{%endif%}
                 </td>
@@ -60,7 +60,7 @@
             <tbody>
                 {% set num = 0 %}
 
-                {% for rol in entity.roles %}   
+                {% for rol in entity.roles %}
                     <tr>
                         {% set num = num+1 %}
                         <td>{{num}}. {{ rol.rol.nombre }}
@@ -81,8 +81,8 @@
 
         <h2>2. Carga Académica</h2>
 
-        {%if entity.docente.tutoria|length > 0%} 
-            <h3>Tutorias</h3>  
+        {%if entity.docente.tutoria|length > 0%}
+            <h3>Acompañamientos</h3>
             <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
                 <tr>
                     <th>Id Curso</th>
@@ -100,21 +100,21 @@
                 {%endfor%}
             </table>
         {%endif%}
-        {%if entity.docente.director|length > 0%}   
+        {%if entity.docente.director|length > 0%}
             <h3>Direcciones de Curso</h3>
             <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
                 <tr>
                     <th>Id Curso</th>
                     <th>Curso</th>
                     <th>Periodo Académico</th>
-                </tr> 
+                </tr>
                 {%for oferta in entity.docente.director%}
                     <tr>
                         <td>
-                            {{oferta.curso.id}}     
+                            {{oferta.curso.id}}
                         </td>
                         <td>
-                            {{oferta.curso.nombre}}  
+                            {{oferta.curso.nombre}}
                         </td>
                         <td>
                             {{oferta.periodo}}
@@ -126,7 +126,7 @@
 
         {%if entity.docente.lider|length > 0%}
             <h3>Lider de Programa o Cadena de Formación</h3>
-            <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">  
+            <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
                 <tr>
                     <th>Id</th>
                     <th>Programa o Cadena de Formación</th>
@@ -134,17 +134,17 @@
                 {%for programa in entity.docente.lider%}
                     <tr>
                         <td>
-                            {{programa.programa.id}}  
+                            {{programa.programa.id}}
                         </td>
                         <td>
-                            {{programa.programa.nombre}}  
+                            {{programa.programa.nombre}}
                         </td>
                     </tr>
                 {%endfor%}
             </table>
         {%endif%}
 
-        <h2>2. Auto Evaluación</h2> 
+        <h2>2. Auto Evaluación</h2>
         <table class="table table-bordered hidden-mobile" style="width: 95%">
             <thead>
                 <tr>
@@ -158,21 +158,21 @@
                 {% set termino = 1 %}
                 {% for actividad in entity.actividades %}
                     <tr>
-                        {%if temp != actividad.actividad.rol.nombre %} 
+                        {%if temp != actividad.actividad.rol.nombre %}
                             <td>
                                 <b>Rol:
                                     {{actividad.actividad.rol.nombre}}
-                                    {% set temp = actividad.actividad.rol.nombre %}        
+                                    {% set temp = actividad.actividad.rol.nombre %}
                                 </b>
                                 <br>{{actividad.actividad.rol.descripcion}}
                             </td>
                             <td></td>
                             <td></td>
                         {%endif%}
-                    </tr>     
+                    </tr>
                     <tr>
                         {% set num = num+1 %}
-                        <td>{{num}}.     
+                        <td>{{num}}.
                             {{ actividad.actividad.descripcion }}
                             {%if actividad.actividad.textoampliacion %}
                                 <font color="#a57225">{{actividad.descripcion}}</font>
@@ -183,7 +183,7 @@
                         </td>
                         <td>
                             {%if actividad.path %}
-                                {{actividad.id}}    
+                                {{actividad.id}}
                                 <a href="../../../{{actividad.webpath}}" target="_blank"><i class="fa fa-download"></i>Ver...</a>
                             {%endif%}
                         </td>
@@ -193,23 +193,23 @@
                             {%elseif actividad.autoevaluacion is null%}
                                 {% set termino = 0 %}
 
-                            {%else%}  
-                            {%endif%}   
+                            {%else%}
+                            {%endif%}
                         </td>
                     </tr>
                 {% endfor %}
                 <tr>
                     <td  colspan="2" align="right">Autoevaluación:</td>
                     <td>{{ entity.autoevaluacion }}</td>
-                </tr> 
+                </tr>
                 <tr>
                     <td colspan="3"><b>Observaciones: </b>{{ entity.observaciones }}</td>
                     </tr>
                     <tr>
                         <td colspan="3"><b>Fecha autoevaluación: </b>{{ entity.fechaautoevaluacion? entity.fechaautoevaluacion|date('Y-m-d H:i:s') : '' }}</td>
-                </tr>   
+                </tr>
             </tbody>
-        </table> 
+        </table>
 
     </body>
 {% endblock %}

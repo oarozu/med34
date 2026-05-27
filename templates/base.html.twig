@@ -548,15 +548,15 @@
                 // With Callback
                 $("#smart-mod-eg1").click(function (e) {
                     $.SmartMessageBox({
-                        title: "Eliminar tutor de curso",
-                        content: "IMPORTANTE: Borre unicamente si el tutor no pertenecio al curso en el periodo indicado. Seguro que desea borrarlo?",
+                        title: "Borrar docente del curso",
+                        content: "IMPORTANTE: Borre únicamente si el docente no pertenecio al curso en el periodo indicado. Seguro que desea borrarlo?",
                         buttons: '[No][Si]'
                     }, function (ButtonPressed) {
                         if (ButtonPressed === "Si") {
 
                             $.smallBox({
-                                title: "Eliminar tutor de curso",
-                                content: "<i class='fa fa-clock-o'></i> <i>El tutor fue borrado...</i>",
+                                title: "Borrar docente del curso",
+                                content: "<i class='fa fa-clock-o'></i> <i>El docente fue borrado...</i>",
                                 color: "#659265",
                                 iconSmall: "fa fa-check fa-2x fadeInRight animated",
                                 timeout: 4000
@@ -565,7 +565,7 @@
                         }
                         if (ButtonPressed === "No") {
                             $.smallBox({
-                                title: "Eliminar tutor de curso",
+                                title: "Borrar docente del curso",
                                 content: "<i class='fa fa-clock-o'></i> <i>No se borro el tutor...</i>",
                                 color: "#C46A69",
                                 iconSmall: "fa fa-times fa-2x fadeInRight animated",

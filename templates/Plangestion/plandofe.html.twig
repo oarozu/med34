@@ -1,159 +1,162 @@
-    {% block body -%}
-<body>
-<link rel="stylesheet" type="text/css" href="{{ asset('css/print.css') }}">
- <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
-    <tr>
-    <td align="center"><img src="/img/logo-med-unad.png" alt="MED"></td>
-    </tr>
-    <tr>
-        <td align="center">
-        <h3>Plan de Gestión DOFE</h3>   
-        </td>
-    </tr>
-</table>
+{% block body -%}
+    <body>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/print.css') }}">
+    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        <tr>
+            <td align="center"><img src="/img/logo-med-unad.png" alt="MED"></td>
+        </tr>
+        <tr>
+            <td align="center">
+                <h3>Plan de Gestión DOFE</h3>
+            </td>
+        </tr>
+    </table>
 
-  <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
-     <tr>
-    <th>Nombre</th>
-    <td>{{ entity.docente.user.nombres }} {{ entity.docente.user.apellidos }}</td>
-    <th>Periodo de Evaluación</th>
-    <td>{{entity.docente.periodo}}</td>
-  </tr>   
-      
-  <tr>
-    <th>Cédula</th>
-    <td>{{ entity.docente.user.id }}</td>
-    <th>Vinculación / Modalidad</th>
-    <td>{{ entity.docente.vinculacion }} / {{ entity.docente.modalidad }} [{{ entity.docente.fechainicio|date("d/m/Y") }} - {{ entity.docente.fechafin|date("d/m/Y") }}]</td>
-  </tr>
-  <tr>
-    <th>Cargo</th>
-    <td>{{ entity.docente.cargo }}</td>
-    <th>Correo</th>
-    <td>{{ entity.docente.user.email }} - {{ entity.docente.user.emailp }} </td>
-  </tr>
-   <tr>
-    <th>Perfil</th>
-    <td>{{ entity.docente.perfil }}</td>
-    <th>Programa</th>
-    <td>{{ entity.docente.programa.nombre }}</td>
-  </tr> 
-  <tr>
-      <td colspan="2"><b>Escuela:</b> {{ entity.docente.escuela.nombre }}<br>
-    Decano: {{ entity.docente.escuela.decano.nombres }} {{ entity.docente.escuela.decano.apellidos }}
-    </td>   
-    <td colspan="2"><b>Centro:</b> {{ entity.docente.centro.nombre }}<br>
-    Director:{%if entity.docente.centro.director %} {{ entity.docente.centro.director.nombres }} {{ entity.docente.centro.director.apellidos }}{%endif%}
-    </td>
-  </tr>
-  </table>
+    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+        <tr>
+            <th>Nombre</th>
+            <td>{{ entity.docente.user.nombres }} {{ entity.docente.user.apellidos }}</td>
+            <th>Periodo de Evaluación</th>
+            <td>{{ entity.docente.periodo }}</td>
+        </tr>
+
+        <tr>
+            <th>Cédula</th>
+            <td>{{ entity.docente.user.id }}</td>
+            <th>Vinculación / Modalidad</th>
+            <td>{{ entity.docente.vinculacion }} / {{ entity.docente.modalidad }}
+                [{{ entity.docente.fechainicio|date("d/m/Y") }} - {{ entity.docente.fechafin|date("d/m/Y") }}]
+            </td>
+        </tr>
+        <tr>
+            <th>Cargo</th>
+            <td>{{ entity.docente.cargo }}</td>
+            <th>Correo</th>
+            <td>{{ entity.docente.user.email }} - {{ entity.docente.user.emailp }} </td>
+        </tr>
+        <tr>
+            <th>Perfil</th>
+            <td>{{ entity.docente.perfil }}</td>
+            <th>Programa</th>
+            <td>{{ entity.docente.programa.nombre }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><b>Escuela:</b> {{ entity.docente.escuela.nombre }}<br>
+                Decano: {{ entity.docente.escuela.decano.nombres }} {{ entity.docente.escuela.decano.apellidos }}
+            </td>
+            <td colspan="2"><b>Centro:</b> {{ entity.docente.centro.nombre }}<br>
+                Director:{% if entity.docente.centro.director %} {{ entity.docente.centro.director.nombres }} {{ entity.docente.centro.director.apellidos }}{% endif %}
+            </td>
+        </tr>
+    </table>
 
 
- <h2>1. Actividades</h2>
- <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+    <h2>1. Actividades</h2>
+    <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
         <thead>
-            <tr>
-                <th>No</th>
-                <th>Actividad</th>
-            </tr>
+        <tr>
+            <th>No</th>
+            <th>Actividad</th>
+        </tr>
         </thead>
         <tbody>
         {% set num = 0 %}
-       
+
         {% set rol = "xxx" %}
         {% set resp = "0" %}
-        {% for actividad in entity.actividades %}   
-           
-             {%if actividad.actividad.rol.nombre != rol%}
-               {% set rol = actividad.actividad.rol.nombre %}  
-              <tr> 
-                  <td colspan="4"><b>ROL: {{rol}}</b></td>
-              </tr>
-              {%endif%}   
-                
-             {%if actividad.actividad.responsabilidad.codigo != resp%}
-               {% set resp = actividad.actividad.responsabilidad.codigo %}  
-              <tr> 
-                  <td colspan="4"><b> Responsabilidad: {{actividad.actividad.responsabilidad.codigo}} - {{actividad.actividad.responsabilidad.nombre}}.</b></td>
-              </tr>
-              {%endif%}              
-              
-              {% set num = num+1 %}
-              <tr>
+        {% for actividad in entity.actividades %}
+
+            {% if actividad.actividad.rol.nombre != rol %}
+                {% set rol = actividad.actividad.rol.nombre %}
+                <tr>
+                    <td colspan="4"><b>ROL: {{ rol }}</b></td>
+                </tr>
+            {% endif %}
+
+            {% if actividad.actividad.responsabilidad.codigo != resp %}
+                {% set resp = actividad.actividad.responsabilidad.codigo %}
+                <tr>
+                    <td colspan="4"><b> Responsabilidad: {{ actividad.actividad.responsabilidad.codigo }}
+                            - {{ actividad.actividad.responsabilidad.nombre }}.</b></td>
+                </tr>
+            {% endif %}
+
+            {% set num = num+1 %}
+            <tr>
                 <td>
-                 {{num}}   
+                    {{ num }}
                 </td>
                 <td>
-               {{ actividad.actividad.descripcion }}.     
+                    {{ actividad.actividad.descripcion }}.
                 </td>
-               </tr>
+            </tr>
         {% endfor %}
         </tbody>
     </table>
- 
- <h2>2. Carga Académica</h2>
- 
-     {%if entity.docente.tutoria|length > 0%} 
-    <h3>Tutorias</h3>  
-   <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
-    <tr>
-      <th>Id Curso</th>
-      <th>Curso</th>
-      <th>Perido Académico</th>
-      <th>Estudiantes</th>
-    </tr>
-    {%for tutoria in entity.docente.tutoria%}
-  <tr>
-      <td>{{tutoria.oferta.curso.id}}</td>
-      <td>{{tutoria.oferta.curso.nombre}}</td>
-      <td>{{tutoria.oferta.periodo}}</td>
-      <td>{{tutoria.estudiantes}}</td>
-  </tr>
-  {%endfor%}
-   </table>
- {%endif%}
-  {%if entity.docente.director|length > 0%}   
-   <h3>Direcciones de Curso</h3>
-   <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
-    <tr>
-   <th>Id Curso</th>
-   <th>Curso</th>
-   <th>Periodo Académico</th>
-    </tr> 
-{%for oferta in entity.docente.director%}
-    <tr>
-   <td>
-  {{oferta.curso.id}}     
-   </td>
-      <td>
-     {{oferta.curso.nombre}}  
-   </td>
-      <td>
-       {{oferta.periodo}}
-   </td>
-  </tr>
-  {%endfor%}
-   </table>
-   {%endif%}
-    
-     {%if entity.docente.lider|length > 0%}
-     <h3>Lider de Programa o Cadena de Formación</h3>
-     <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">  
-  <tr>
-   <th>Id</th>
-   <th>Programa o Cadena de Formación</th>
-  </tr>
-   {%for programa in entity.docente.lider%}
-  <tr>
-   <td>
-     {{programa.programa.id}}  
-   </td>
-      <td>
-     {{programa.programa.nombre}}  
-   </td>
-  </tr>
-  {%endfor%}
-</table>
-    {%endif%}
+
+    <h2>2. Carga Académica</h2>
+
+    {% if entity.docente.tutoria|length > 0 %}
+        <h3>Acompañamientos</h3>
+        <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+            <tr>
+                <th>Id Curso</th>
+                <th>Curso</th>
+                <th>Perido Académico</th>
+                <th>Estudiantes</th>
+            </tr>
+            {% for tutoria in entity.docente.tutoria %}
+                <tr>
+                    <td>{{ tutoria.oferta.curso.id }}</td>
+                    <td>{{ tutoria.oferta.curso.nombre }}</td>
+                    <td>{{ tutoria.oferta.periodo }}</td>
+                    <td>{{ tutoria.estudiantes }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+    {% if entity.docente.director|length > 0 %}
+        <h3>Direcciones de Curso</h3>
+        <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+            <tr>
+                <th>Id Curso</th>
+                <th>Curso</th>
+                <th>Periodo Académico</th>
+            </tr>
+            {% for oferta in entity.docente.director %}
+                <tr>
+                    <td>
+                        {{ oferta.curso.id }}
+                    </td>
+                    <td>
+                        {{ oferta.curso.nombre }}
+                    </td>
+                    <td>
+                        {{ oferta.periodo }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if entity.docente.lider|length > 0 %}
+        <h3>Lider de Programa o Cadena de Formación</h3>
+        <table class="table table-bordered table-striped hidden-mobile" style="width: 95%">
+            <tr>
+                <th>Id</th>
+                <th>Programa o Cadena de Formación</th>
+            </tr>
+            {% for programa in entity.docente.lider %}
+                <tr>
+                    <td>
+                        {{ programa.programa.id }}
+                    </td>
+                    <td>
+                        {{ programa.programa.nombre }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
     </body>
 {% endblock %}

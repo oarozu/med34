@@ -111,7 +111,7 @@
                 <th>
                     Coevaluación - Red de tutores
                 </th>
-                <td>Evaluación del tutor al director de curso</td>
+                <td>Evaluación del docente acompañante al director de curso</td>
                 <td>
                     {% if instrumentos[2].estado %}
                         <a href="{{ path('redtutores') }}" class="btn btn-primary btn-xs">Ingresar <i
@@ -248,14 +248,13 @@
                 <div class="modal-body">
                     <ul>
                         <li>
-                            Si usted fue tutor y este no se encuentra en la lista de cursos de tutoría, solicite al
+                            Si usted fue docente de acompañamiento y este no se encuentra en la lista de cursos, solicite al
                             director del curso que lo incluya en el curso enviándole su numero de cedula, esto le
-                            permitirá evaluar al director y recibir evaluación del director.
+                            permitirá evaluar al director y recibir evaluación de el.
                         </li>
                         <li>
-                            Si usted aparece como tutor de un curso del cual no lo fue ninguno de los periodos
-                            académicos del segundo semestre del presente año, solicite al director de curso que lo borre
-                            de la red.
+                            Si usted aparece como docente de acompañamiento de un curso del cual no lo fue en ninguno de los periodos
+                            académicos evaluados solicite al director de curso que lo borre de la red.
                         </li>
                     </ul>
                 </div>
@@ -276,8 +275,8 @@
                 <div class="modal-body">
                     <ul>
                         <li>
-                            Usted puede modificar la red de tutores haciendo clic sobre el código del curso, para
-                            agregar un tutor requiere únicamente el número de cedula.
+                            Usted puede modificar la red del curso haciendo clic sobre el código del curso, para
+                            agregar un docente requiere únicamente el número de cedula.
                         </li>
                         <li>
                             Si usted fue director de curso un y no esta relacionado por favor solicite a líder de programa que lo asigne como director del curso.

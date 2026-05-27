@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Roleu;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -255,9 +256,12 @@ class ProgramaController extends AbstractController
         if ($editForm["lider"]->getData() != null) {
             $lider = $em->getRepository('App:Docente')->find($editForm["lider"]->getData());
             $programaPeriodo->setLider($lider);
+            $usuario = $lider->getUser();
             foreach ($programas as $programa) {
-                $programa->setLider($lider->getUser());
+                $programa->setLider($usuario);
             }
+            $roleu = $em->getRepository('App:Roleu')->find(14);
+            $usuario->addRole($roleu);
         }
         if ($editForm->isValid()) {
             $em->flush();

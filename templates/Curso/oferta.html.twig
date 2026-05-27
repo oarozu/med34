@@ -9,9 +9,9 @@
         <a data-toggle="modal" data-target="#ModalEdit" class="btn btn-success btn-xs">Editar Red</a>
     </div>
     <div class="editar" id="editar" style="visibility: hidden">
-        <h4>Agregar Tutor al Curso</h4><br>
+        <h4>Agregar Docente al Curso</h4><br>
         <form action="{{ path('oferta_tutor', { 'id': entity.id }) }}" method="POST" {{ form_start(cedula_form) }}
-        {{ form_label(cedula_form.cedula,  'Cédula del Tutor') }}
+        {{ form_label(cedula_form.cedula,  'Cédula del Docente') }}
         {{ form_widget(cedula_form.cedula) }}
         {{ form_errors(cedula_form.cedula) }}
         <input type="submit" label="Agregar"/>
@@ -25,13 +25,13 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
-                    <h4 class="modal-title">Modificar Red de Tutores</h4>
+                    <h4 class="modal-title">Modificar Red de Docentes de Curso</h4>
                 </div>            <!-- /modal-header -->
                 <div class="modal-body">
                     <ul>
                         <li>
                             IMPORTANTE: Si usted habilita la edición de la red de este curso podrá agregar o eliminar
-                            tutores, solo realícelo en caso que la información registrada no sea verídica, toda
+                            docentes, solo realícelo en caso que la información registrada no sea verídica, toda
                             modificación estará sujeta a revisión posterior. Gracias
                         </li>
 
