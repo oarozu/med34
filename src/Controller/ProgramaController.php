@@ -260,8 +260,12 @@ class ProgramaController extends AbstractController
             foreach ($programas as $programa) {
                 $programa->setLider($usuario);
             }
-            $roleu = $em->getRepository('App:Roleu')->find(14);
-            $usuario->addRole($roleu);
+            $roles = $usuario->getRoles();
+            $isLp = array_filter($roles, array(new Obj, 'isLP'));
+            if (!$isLp){
+                $roleu = $em->getRepository('App:Roleu')->find(14);
+                $usuario->addRole($roleu);
+            }
         }
         if ($editForm->isValid()) {
             $em->flush();
@@ -333,5 +337,12 @@ class ProgramaController extends AbstractController
             'entities' => $entities,
             'periodo' => $periodo
         ));
+    }
+}
+class Obj
+{
+    public function isLP($value)
+    {
+        return $value === 'ROLE_LP';
     }
 }

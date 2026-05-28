@@ -43,7 +43,8 @@
     <!--<span id="logo"></span>-->
 
     <div id="logo-group">
-        <span id="logo"> <img src="https://www.unad.edu.co/images/footer/logo-unad-acreditacion-min.png" style="width:365px;height:67px" alt="Unad"> </span>
+        <span id="logo"> <img src="https://www.unad.edu.co/images/footer/logo-unad-acreditacion-min.png"
+                              style="width:365px;height:67px" alt="Unad"> </span>
 
         <!-- END AJAX-DROPDOWN -->
     </div>
@@ -59,8 +60,13 @@
         <h4 class="paragraph-header"> Desarrollado en coherencia con las directrices emitidas por el Consejo Superior
             Universitario en el Acuerdo 003 del 28 de enero de 2011 y modificado por el Acuerdo 013 del 05 de mayo de
             2011.</h4>
-        <div align="center">
-            <span> <img src="img/proceso_med_web.png" style="height: 360px;  margin-top: 50px; margin-bottom: 50px"> </span>
+        <div id="content" style="display: flex;flex-direction: row">
+            <div>
+                <span> <img src="img/proceso_med_web.png" style="height: 285px;  margin-top: 50px; margin-bottom: 50px"> </span>
+            </div>
+            <div>
+                <span> <img src="img/cronograma2026_16-01.png" style="height: 285px;  margin-top: 50px; margin-bottom: 50px"> </span>
+            </div>
         </div>
         <h1 class="txt-color-orangeDark login-header-big">Periodos de evaluación</h1>
         <table class="table table-bordered hidden-mobile">
@@ -84,7 +90,7 @@
                 <td>{{ periodoe.fechafin|date('Y-m-d') }}</td>
                 <td>{{ periodoe.cronograma }}</td>
                 <td>
-                    {%if periodoe.type == 's'%}
+                    {% if periodoe.type == 's' %}
                         Únicamente Docentes de Carrera
                     {% endif %}
                 </td>
@@ -129,7 +135,8 @@
                 <td>Instructivo de ingreso a la intranet</td>
                 <td>GIDT</td>
                 <td>1</td>
-                <td><a href="http://med.unad.edu.co/archivo/instructivo-acceso-intranet.pdf" target="new">Ver Instructivo <i
+                <td><a href="http://med.unad.edu.co/archivo/instructivo-acceso-intranet.pdf" target="new">Ver
+                        Instructivo <i
                                 class="fa fa-download"></i></a></td>
             </tr>
             <tr>
@@ -159,9 +166,10 @@
                         <br>
                         Si no puede superar la autenticación de Intranet intente recuperar sus credenciales utilizando
                         el <a href="http://med.unad.edu.co/archivo/instructivo-acceso-intranet.pdf" target="new">Instructivo
-                            de Acceso a la Intranet UNAD <i class="fa fa-download"></i></a> o puede comunicarse con la Mesa de Ayuda al correo
+                            de Acceso a la Intranet UNAD <i class="fa fa-download"></i></a> o puede comunicarse con la
+                        Mesa de Ayuda al correo
                         soporte.tecnico@unad.edu.co
-                    <br>
+                        <br>
                     </h4>
                 </td>
             </tr>
@@ -212,7 +220,8 @@
         <table class="table table-bordered hidden-mobile">
             <tr>
                 <td colspan="2" style="text-align: center">
-                    <p>Módulo de evaluación Docente MED Versión 5.3 - Navegadores compatible con esta versión: Google Chrome</p>
+                    <p>Módulo de evaluación Docente MED Versión 5.3 - Navegadores compatible con esta versión: Google
+                        Chrome</p>
                     {{ direccion_ip }}
                 </td>
             </tr>

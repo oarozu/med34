@@ -22,12 +22,12 @@
                 {%if entity.vinculacion == 'DC'%}
                     1. Plan de Gestión
                 {%else%}
-                    1. Plan de Actividades
+                    1. Roles asignados
                 {%endif%}
-                (Autoevaluación)
+                (Para autoevaluación)
             </th>
             <td>
-                <a href="javascript:popUp('{{ path('plangestion_info', { 'id': entity.id }) }}')" class="btn btn-primary btn-xs">Ver Actividades <i class="fa fa-sign-in"></i></a>
+                <a href="javascript:popUp('{{ path('plangestion_info', { 'id': entity.id }) }}')" class="btn btn-primary btn-xs">Ver Roles <i class="fa fa-sign-in"></i></a>
             </td>
             <td>
                 <a href="javascript:popUp('{{ path('plangestion_autoeval', { 'id': entity.id }) }}')" class="btn btn-primary btn-xs">Ver Autoevaluación <i class="fa fa-sign-in"></i></a>
