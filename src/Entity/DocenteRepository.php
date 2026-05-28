@@ -121,4 +121,14 @@ class DocenteRepository extends EntityRepository
         $query = $qb->getQuery();
         return $query->execute();
     }
+
+    public function lastFiveByUser($user){
+        $qb = $this->createQueryBuilder('docente')
+            ->where('docente.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('docente.periodo', 'DESC')
+            ->setMaxResults(5);
+        $query = $qb->getQuery();
+        return $query->execute();
+    }
 }

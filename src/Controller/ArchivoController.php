@@ -67,8 +67,10 @@ class ArchivoController extends AbstractController
        $user = $this->getUser();
        $userId = $user->getId();
        $entities = $em->getRepository('App:Archivo')->findBy(array('cedula' => $userId));
-       return $this->render('Archivo/pordoc.html.twig', array(
-            'entities' => $entities
+       $periodos = $em->getRepository('App:Docente')->lastFiveByUser( $user);
+        return $this->render('Archivo/pordoc.html.twig', array(
+            'entities' => $entities,
+            'periodos' => $periodos
        ));
     }
 
