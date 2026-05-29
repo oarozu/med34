@@ -227,6 +227,7 @@ class CursoController extends AbstractController
     public function ofertaTutorAction(Request $request, $id)
     {
         $em = $this->doctrine->getManager();
+        $emSave = $this->doctrine->getManager();
         $oferta = $em->getRepository('App:Oferta')->find($id);
         $data = new Cedula();
         $form = $this->createForm(CedulaTypeMed::class, $data);
@@ -265,11 +266,22 @@ class CursoController extends AbstractController
         $tutor = new Tutor();
         $tutor->setOferta($oferta);
         $tutor->setDocente($docente);
+        $plang = $docente->getPlangestion();
+        $roles = $plang->getRoles()->toArray();
+        $rola =  $em->getRepository('App:Rolacademico')->findOneBy(array('id' => 1));
+        $filtered = array_filter($roles, fn($u) => $u->getRol()->getId() === 1);
+        if(!$filtered){
+            $rolplang = new Rolplang();
+            $rolplang->setRol($rola);
+            $rolplang->setPlang($plang);
+            $rolplang->setDescripcion("Agregado por el director");
+            $em->persist($rolplang);
+        }
         try {
             $em->persist($tutor);
             $em->flush();
         } catch (\Doctrine\DBAL\DBALException $e) {
-            $request->getSession()->getFlashBag()->add('warning', 'El docente ya se encuentra en el curso');
+            $request->getSession()->getFlashBag()->add('warning', 'El docente ya se encuentra en el curso.');
             return $this->redirect($this->generateUrl('oferta', array('id' => $id)));
         }
         $request->getSession()->getFlashBag()->add('success', 'El docente se agrego al curso');
