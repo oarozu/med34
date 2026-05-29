@@ -203,6 +203,17 @@ class CursoController extends AbstractController
             $request->getSession()->getFlashBag()->add('error', 'El número no corresponde a un docente');
             return $this->redirect($this->generateUrl('curso_show', array('id' => $id)));
         }
+        $plang = $docente->getPlangestion();
+        $roles = $plang->getRoles()->toArray();
+        $filtered = array_filter($roles, fn($u) => $u->getRol()->getId() === 2);
+        if(!$filtered){
+            $rola =  $em->getRepository('App:Rolacademico')->findOneBy(array('id' => 2));
+            $rolplang = new Rolplang();
+            $rolplang->setRol($rola);
+            $rolplang->setPlang($plang);
+            $rolplang->setDescripcion("Agregado por el director");
+            $em->persist($rolplang);
+        }
 
         $oferta->setCurso($curso);
         $oferta->setDirector($docente);
@@ -227,7 +238,6 @@ class CursoController extends AbstractController
     public function ofertaTutorAction(Request $request, $id)
     {
         $em = $this->doctrine->getManager();
-        $emSave = $this->doctrine->getManager();
         $oferta = $em->getRepository('App:Oferta')->find($id);
         $data = new Cedula();
         $form = $this->createForm(CedulaTypeMed::class, $data);
@@ -268,9 +278,9 @@ class CursoController extends AbstractController
         $tutor->setDocente($docente);
         $plang = $docente->getPlangestion();
         $roles = $plang->getRoles()->toArray();
-        $rola =  $em->getRepository('App:Rolacademico')->findOneBy(array('id' => 1));
         $filtered = array_filter($roles, fn($u) => $u->getRol()->getId() === 1);
         if(!$filtered){
+            $rola =  $em->getRepository('App:Rolacademico')->findOneBy(array('id' => 1));
             $rolplang = new Rolplang();
             $rolplang->setRol($rola);
             $rolplang->setPlang($plang);
