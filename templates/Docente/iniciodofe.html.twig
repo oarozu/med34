@@ -79,9 +79,9 @@
         {% if entity.director|length > 0 %}
             <tr>
                 <th>
-                    Coevaluación - Director de curso a tutores
+                    Coevaluación - Director de curso a docentes de acompañamiento
                 </th>
-                <td>Evaluación del director a los tutores de curso</td>
+                <td>Evaluación del director a los docentes de curso</td>
                 <td>
                     {% if instrumentos[3].estado %}
                         <a href="{{ path('docente_coevaltutor') }}" class="btn btn-primary btn-xs">Ingresar <i
@@ -230,7 +230,7 @@
                 <div class="modal-body">
                     <ul>
                         <li>
-                            Usted puede modificar la red de tutores haciendo clic sobre el código del curso, para
+                            Usted puede modificar la red de docentes haciendo clic sobre el código del curso, para
                             agregar un tutor requiere únicamente el número de cedula.
                         </li>
                         <li>

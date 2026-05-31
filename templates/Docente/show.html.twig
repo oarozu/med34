@@ -90,9 +90,10 @@
             </tr>
         {% else %}
             <tr>
-                <th>Autoevaluación (Plan de Gestión)</th>
-                <td>Plan de Gestión
-                    <a href="javascript:popUp('{{ path('plangestion_info', { 'id': entity.id }) }}')">(Ver Plan...)</a>
+                <th>Autoevaluación</th>
+                <td>Autoevaluación por roles
+                    <a href="javascript:popUp('{{ path('plangestion_info', { 'id': entity.id }) }}')"
+                       class="btn btn-primary btn-xs">Ver <i class="fa fa-sign-in"></i></a>
                 </td>
                 <td>
                         {% if periodo.auto %}
@@ -125,9 +126,9 @@
         {% if entity.director|length > 0 %}
             <tr>
                 <th>
-                    Coevaluación - Director de curso a tutores
+                    Coevaluación - Director de curso a docentes de acompañamiento
                 </th>
-                <td>Evaluación del director a los tutores de curso</td>
+                <td>Evaluación del director a los docentes de curso</td>
                 <td>
                         <a href="{{ path('docente_coevaltutor') }}" class="btn btn-primary btn-xs">Ingresar <i
                                     class="fa fa-sign-in"></i></a>
@@ -198,7 +199,7 @@
             <td>
                 {% if entity.heteroeval %}
                     <a href="javascript:popUp('{{ path('heteroeval_info', {'id': entity.id }) }}')"
-                       class="btn btn-primary btn-xs">Ver Calificaciones <i class="fa fa-sign-in"></i></a>
+                       class="btn btn-primary btn-xs">Ver informe <i class="fa fa-sign-in"></i></a>
                 {% else %}  {% endif %}
             </td>
             <td></td>
@@ -210,7 +211,7 @@
             <td>
                 {% if entity.evaluacion %}
                     <a href="javascript:popUp('{{ path('coeval_info', {'id': entity.id }) }}')"
-                       class="btn btn-primary btn-xs">Ver Calificaciones <i class="fa fa-sign-in"></i></a>
+                       class="btn btn-primary btn-xs">Ver informe  <i class="fa fa-sign-in"></i></a>
                 {% endif %}
             </td>
             <td></td>
@@ -222,7 +223,7 @@
             <td>
                 {% if entity.evaluacion %}
                     <a href="javascript:popUp('{{ path('docente_final', {'id': entity.id }) }}')"
-                       class="btn btn-primary btn-xs">Ver Calificaciones <i class="fa fa-sign-in"></i></a>
+                       class="btn btn-primary btn-xs">Ver informe  <i class="fa fa-sign-in"></i></a>
                 {% endif %}
             </td>
             <td></td>

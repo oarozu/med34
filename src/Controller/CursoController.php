@@ -193,7 +193,7 @@ class CursoController extends AbstractController
         $datos = $request->request->get('oferta');
         $usuario = $em->getRepository('App:User')->find($datos['cedula']);
         if (!$usuario) {
-            $request->getSession()->getFlashBag()->add('error', 'Cédula no encontrada');
+            $request->getSession()->getFlashBag()->add('error', 'Cédula no encontrada, El docente que intenta ingresar no hace parte del proceso actual');
             return $this->redirect($this->generateUrl('curso_show', array('id' => $id)));
         }
 

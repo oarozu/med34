@@ -16,17 +16,19 @@
         </tr>
         <tr>
             <td colspan="2">
-                <h2 style="color: #953b39">Importante antes oprimir el bóton "Iniciar Autoevaluación":</h2>
+                <h2 style="color: #953b39">Importante antes oprimir el bóton "Confirmar Asignación":</h2>
                 <ul>
-                    <li>Si usted desempeño el rol de "Acompañamiento" y no aparece en el siguiente registro solicite al director de curso que lo agregue a la red antes de continuar.
+                    <li>Si usted desempeño el rol de "Acompañamiento" y no aparece en el siguiente registro solicite al
+                        director de curso que lo agregue a la red antes de continuar.
                     </li>
-                    <li>Si usted desempeño el rol "Director de curso" y no aparece en el siguiente registro solicite al líder de programa que lo asigne como director antes de continuar.
+                    <li>Si usted desempeño el rol "Director de curso" y no aparece en el siguiente registro solicite al
+                        líder de programa que lo asigne como director antes de continuar.
                     </li>
-                    <li>La autoevaluación se realiza por el desempeño en general de cada rol durante el periodo académico.
+                    <li>Si tiene registrado un Rol que no realizo debe confirmar la asignación y luego en la
+                        autoevaluación seleccionar la opción “No Aplica” y escribir una observación.
                     </li>
-                    <li>Si tiene registradas “Otras Actividades” y estas no corresponden debe seleccionar la opción “No Aplica” y escribir una observación.
-                    </li>
-                    <li>Si considera que no tiene registrado un rol que desempeño describa el avance del mismo en la casiila "Observaciones".
+                    <li>Si NO tiene registrado un Rol que realizo debe confirmar la asignación y luego en la
+                        autoevaluación describa el avance del mismo en la casilla "Observaciones".
                     </li>
                 </ul>
 
@@ -66,6 +68,9 @@
                     <a href="{{ path('plangestion_show') }}"
                        class="btn btn-primary btn-xs">Iniciar Autoevaluación <i class="fa fa-sign-in"></i></a>
                 {% endif %}
+                <a  href="{{ path('home_user_inicio') }}" class="btn btn-labeled btn-warning"><span
+                            class="btn-label"><i class="glyphicon glyphicon-fast-backward"></i></span> Regresar
+                    </a>
             </td>
         </tr>
 
@@ -73,9 +78,10 @@
     </table>
     <div class="alert alert-info alert-block">
         <h4 class="alert-heading">IMPORTANTE:</h4>
-        El proceso de autoevaluación se realiza principalmente por los roles de formación: Acompañamiento, director de curso, consejero acádemico, componente práctico y docente líder es
+        El proceso de autoevaluación se realiza principalmente por los roles de formación: Acompañamiento, director de
+        curso, consejero acádemico, componente práctico y docente líder es
         posible que tambien encuentre otras actividades pero no son relevantes para finalizar el proceso.
-        En caso de no encontrar ningún rol se el sistema le asignara:  “Otras Actividades”.
+        En caso de no encontrar ningún rol el sistema le asignara: “Otras Actividades”.
     </div>
     <br>
     </table>
