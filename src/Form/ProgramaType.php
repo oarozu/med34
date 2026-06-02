@@ -25,7 +25,7 @@ class ProgramaType extends AbstractType
             ))
             ->add('nivel', ChoiceType::class, array(
             'placeholder' => ' ',
-            'choices'   => array('Diplomado' => 'Diplomado', 'Especialización' => 'Especialización','Licenciatura' => 'Licenciatura', 'Maestria' => 'Maestria','Profesional' => 'Profesional','Tecnología' => 'Tecnología','Unidad'=>'Unidad'),
+            'choices'   => array('Doctorado' => 'Doctorado', 'Diplomado' => 'Diplomado', 'Especialización' => 'Especialización','Licenciatura' => 'Licenciatura', 'Maestria' => 'Maestria','Profesional' => 'Profesional','Tecnología' => 'Tecnología','Unidad'=>'Unidad'),
             'required'  => true,
             ))
             ->add('escuela', EntityType::class, array(
