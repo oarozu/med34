@@ -96,10 +96,10 @@
                        class="btn btn-primary btn-xs">Ver <i class="fa fa-sign-in"></i></a>
                 </td>
                 <td>
-                        {% if periodo.auto %}
-                            <a href="{{ path('plangestion_conf', { 'id': entity.id }) }}"
-                               class="btn btn-primary btn-xs">Ingresar <i class="fa fa-sign-in"></i></a>
-                        {% endif %}
+                    {% if periodo.auto %}
+                        <a href="{{ path('plangestion_conf', { 'id': entity.id }) }}"
+                           class="btn btn-primary btn-xs">Ingresar <i class="fa fa-sign-in"></i></a>
+                    {% endif %}
                 </td>
                 <td>
                     {{ periodo.cronograma }}
@@ -130,8 +130,8 @@
                 </th>
                 <td>Evaluación del director a los docentes de curso</td>
                 <td>
-                        <a href="{{ path('docente_coevaltutor') }}" class="btn btn-primary btn-xs">Ingresar <i
-                                    class="fa fa-sign-in"></i></a>
+                    <a href="{{ path('docente_coevaltutor') }}" class="btn btn-primary btn-xs">Ingresar <i
+                                class="fa fa-sign-in"></i></a>
                 </td>
                 <td>
                 </td>
@@ -211,7 +211,7 @@
             <td>
                 {% if entity.evaluacion %}
                     <a href="javascript:popUp('{{ path('coeval_info', {'id': entity.id }) }}')"
-                       class="btn btn-primary btn-xs">Ver informe  <i class="fa fa-sign-in"></i></a>
+                       class="btn btn-primary btn-xs">Ver informe <i class="fa fa-sign-in"></i></a>
                 {% endif %}
             </td>
             <td></td>
@@ -223,7 +223,7 @@
             <td>
                 {% if entity.evaluacion %}
                     <a href="javascript:popUp('{{ path('docente_final', {'id': entity.id }) }}')"
-                       class="btn btn-primary btn-xs">Ver informe  <i class="fa fa-sign-in"></i></a>
+                       class="btn btn-primary btn-xs">Ver informe <i class="fa fa-sign-in"></i></a>
                 {% endif %}
             </td>
             <td></td>
@@ -249,12 +249,13 @@
                 <div class="modal-body">
                     <ul>
                         <li>
-                            Si usted fue docente de acompañamiento y este no se encuentra en la lista de cursos, solicite al
-                            director del curso que lo incluya en el curso enviándole su numero de cedula, esto le
-                            permitirá evaluar al director y recibir evaluación de el.
+                            Si usted fue docente de acompañamiento y este no se encuentra en la lista de cursos,
+                            solicite al director del curso que lo incluya en el curso enviándole su número de cédula,
+                            esto le permitirá evaluar al director y recibir evaluación de él.
                         </li>
                         <li>
-                            Si usted aparece como docente de acompañamiento de un curso del cual no lo fue en ninguno de los periodos
+                            Si usted aparece como docente de acompañamiento de un curso del cual no lo fue en ninguno de
+                            los periodos
                             académicos evaluados solicite al director de curso que lo borre de la red.
                         </li>
                     </ul>
@@ -280,7 +281,8 @@
                             agregar un docente requiere únicamente el número de cedula.
                         </li>
                         <li>
-                            Si usted fue director de curso un y no esta relacionado por favor solicite a líder de programa que lo asigne como director del curso.
+                            Si usted fue director de curso un y no esta relacionado por favor solicite a líder de
+                            programa que lo asigne como director del curso.
                         </li>
                     </ul>
                 </div>

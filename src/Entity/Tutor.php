@@ -46,7 +46,7 @@ protected $coevaldirector;
 
 
 /**
- * @ORM\OneToOne(targetEntity="App\Entity\coevalTutor", mappedBy="tutor")
+ * @ORM\OneToOne(targetEntity="App\Entity\coevalTutor", mappedBy="tutor", cascade={"persist", "remove"})
  */
 protected $coevaltutor;
 
