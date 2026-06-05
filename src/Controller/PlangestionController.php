@@ -397,6 +397,7 @@ class PlangestionController extends AbstractController
         }
         $entity->setAutoevaluacion($suma / $aux);
         $eval->setAuto1($suma / $aux);
+        $eval->setAuto($suma / $aux);
         $entity->setFechaAutoevaluacion(new \DateTime());
         $entity->setEstado(10);
         $editForm = $this->createEditForm($entity);
