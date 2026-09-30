@@ -46,9 +46,8 @@ class SsoController extends AbstractController
     /**
      * @Route("/sso", name="sso",  methods={"POST"})
      */
-    public function index(Request $request): Response
+    public function index(Request $request): ?Response
     {
-
         $SSO_ORIGENES_PERMITIDOS = array(
             'https://intranetplus.unad.edu.co'
         );
@@ -85,7 +84,12 @@ class SsoController extends AbstractController
         $identificacion = trim((string)$claims['identificacion']);
 
 
-        return $this->render('sso/index.html.twig');
+        //return $this->render('Security/sso.html.twig', array(
+        //   'resultado' => $resultado
+        //));
+
+        ingresoAction($identificacion, $request);
+        return null;
     }
 }
 
@@ -345,4 +349,12 @@ function ssoMedRechazar($motivo)
         . '<p>PHP ' . ssoMedHtml(PHP_VERSION) . ' — sodium '
         . (function_exists('sodium_crypto_secretbox_open') ? 'disponible' : 'NO disponible') . '</p>');
 }
-
+function ingresoAction($cedula_usuario, $request) {
+    $pass = $request->server->get('MED_PKW');
+    $formulario = "<form method='post' name='datos' action='/login_check'>";
+    $formulario .= "<input id='username' type='hidden' name='_username' value=$cedula_usuario />";
+    $formulario .= "<input id='password' type='hidden' name='_password' value=$pass />";
+    $formulario .= "</form>";
+    $formulario .= "<script>document.forms[0].submit(); </script>";
+    echo $formulario;
+}
